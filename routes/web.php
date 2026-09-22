@@ -15,10 +15,10 @@ use App\Http\Controllers\TujuanPembelajaranController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
-// Redirect root to dashboard (if authenticated) or generator (if guest)
+// LANDING / WELCOME PAGE (INFORMATIF, FITUR, FUNGSI, 3M, PEDATTI, CREATOR & HAK CIPTA)
 Route::get('/', function () {
-    return auth()->check() ? redirect()->route('dashboard') : redirect()->route('generator.index');
-});
+    return view('welcome');
+})->name('home');
 
 // AUTHENTICATION
 Route::middleware('guest')->group(function () {

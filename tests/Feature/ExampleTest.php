@@ -14,6 +14,8 @@ class ExampleTest extends TestCase
     {
         $response = $this->get('/');
 
-        $response->assertRedirect(route('generator.index'));
+        $response->assertStatus(200);
+        $response->assertSee('Sistem Perangkat Ajar');
+        $response->assertSee('Vicky Koroh');
     }
 }
