@@ -7,26 +7,26 @@
     <!-- HERO WELCOME BANNER -->
     <div class="col-12">
         <div class="card border-0 shadow-sm hero-banner-card" style="background: #1e3c72; background: linear-gradient(135deg, #0f172a 0%, #1e3c72 50%, #2563eb 100%) !important; color: #ffffff !important; border-radius: 16px; overflow: hidden; position: relative;">
-            <div class="card-body p-4 p-md-5 position-relative" style="z-index: 2;">
+            <div class="card-body p-3 p-md-4 p-lg-5 position-relative" style="z-index: 2;">
                 <div class="row align-items-center">
                     <div class="col-lg-8">
-                        <span class="badge fw-bold px-3 py-2 mb-3" style="background-color: #f59e0b !important; color: #0f172a !important; font-size: 0.8rem; border-radius: 30px; display: inline-flex; align-items: center; gap: 6px; box-shadow: 0 2px 6px rgba(245, 158, 11, 0.4);">
+                        <span class="badge fw-bold px-3 py-1.5 mb-2 mb-md-3" style="background-color: #f59e0b !important; color: #0f172a !important; font-size: 0.75rem; border-radius: 30px; display: inline-flex; align-items: center; gap: 6px; box-shadow: 0 2px 6px rgba(245, 158, 11, 0.4);">
                             <i class="bi bi-stars"></i> Permendikdasmen No. 13 Tahun 2025
                         </span>
-                        <h2 class="fw-bold mb-2" style="color: #ffffff !important; font-weight: 800; letter-spacing: -0.5px; text-shadow: 0 2px 4px rgba(0,0,0,0.35);">
+                        <h2 class="fw-bold mb-2 fs-4 fs-md-3 fs-lg-2" style="color: #ffffff !important; font-weight: 800; letter-spacing: -0.5px; text-shadow: 0 2px 4px rgba(0,0,0,0.35);">
                             Selamat Datang, {{ auth()->user()->name }}!
                         </h2>
-                        <p class="mb-4" style="color: #f1f5f9 !important; font-size: 0.95rem; line-height: 1.6; max-width: 650px; text-shadow: 0 1px 2px rgba(0,0,0,0.3);">
+                        <p class="mb-3 mb-md-4" style="color: #f1f5f9 !important; font-size: 0.88rem; line-height: 1.5; max-width: 650px; text-shadow: 0 1px 2px rgba(0,0,0,0.3);">
                             Sistem penyusunan Perangkat Ajar Kurikulum Merdeka Jenjang SMK berbasis 
                             <strong style="color: #ffffff !important;">Pendekatan Pembelajaran Mendalam (Deep Learning)</strong>: 
-                            <em style="color: #fed7aa !important;">Mindful</em> (Berkesadaran), <em style="color: #fed7aa !important;">Meaningful</em> (Bermakna), dan <em style="color: #fed7aa !important;">Joyful</em> (Menggembirakan) 
+                            <em style="color: #fed7aa !important;">Mindful</em>, <em style="color: #fed7aa !important;">Meaningful</em>, dan <em style="color: #fed7aa !important;">Joyful</em> 
                             dengan alur terintegrasi <strong style="color: #ffffff !important;">PEDATTI</strong> dan <strong style="color: #ffffff !important;">8 Dimensi Profil Lulusan</strong>.
                         </p>
-                        <div class="d-flex flex-wrap gap-2">
-                            <a href="{{ route('generator.index') }}" class="btn fw-bold px-4 py-2 rounded-pill shadow" style="background-color: #fbbf24 !important; color: #0f172a !important; border: none; font-size: 0.9rem;">
-                                <i class="bi bi-lightning-charge-fill me-1"></i> Generate Perangkat Sekali Klik
+                        <div class="d-flex flex-column flex-sm-row gap-2">
+                            <a href="{{ route('generator.index') }}" class="btn fw-bold px-3 px-md-4 py-2 rounded-pill shadow" style="background-color: #fbbf24 !important; color: #0f172a !important; border: none; font-size: 0.85rem;">
+                                <i class="bi bi-lightning-charge-fill me-1"></i> Generate Sekali Klik
                             </a>
-                            <a href="{{ route('atp.create') }}" class="btn btn-outline-light px-4 py-2 rounded-pill" style="border: 2px solid rgba(255, 255, 255, 0.85); color: #ffffff !important; font-weight: 600; font-size: 0.9rem;">
+                            <a href="{{ route('atp.create') }}" class="btn btn-outline-light px-3 px-md-4 py-2 rounded-pill" style="border: 2px solid rgba(255, 255, 255, 0.85); color: #ffffff !important; font-weight: 600; font-size: 0.85rem;">
                                 <i class="bi bi-plus-circle me-1"></i> Buat ATP Manual
                             </a>
                         </div>
@@ -53,70 +53,70 @@
         </div>
     </div>
 
-    <!-- STATS CARDS -->
-    <div class="col-sm-6 col-xl-3">
+    <!-- STATS CARDS (2x2 GRID ON PHONES) -->
+    <div class="col-6 col-lg-3">
         <div class="card h-100 border-0 shadow-sm border-start border-primary border-4">
-            <div class="card-body p-4 d-flex align-items-center justify-content-between">
-                <div>
-                    <div class="text-muted small fw-medium text-uppercase">Tujuan Pembelajaran (TP)</div>
-                    <div class="fs-3 fw-bold text-dark my-1">{{ $stats['total_tp'] }}</div>
-                    <a href="{{ route('tp.index') }}" class="text-primary text-decoration-none small fw-semibold">
-                        Lihat Daftar TP <i class="bi bi-arrow-right"></i>
+            <div class="card-body p-3 p-md-4 d-flex align-items-center justify-content-between">
+                <div class="min-w-0 me-2">
+                    <div class="text-muted fw-semibold text-uppercase text-truncate" style="font-size: 0.72rem;">TP</div>
+                    <div class="fs-4 fs-md-3 fw-bold text-dark my-1">{{ $stats['total_tp'] }}</div>
+                    <a href="{{ route('tp.index') }}" class="text-primary text-decoration-none fw-semibold" style="font-size: 0.76rem;">
+                        Lihat <i class="bi bi-arrow-right"></i>
                     </a>
                 </div>
-                <div class="rounded-circle bg-primary bg-opacity-10 text-primary p-3 d-flex align-items-center justify-content-center" style="width: 52px; height: 52px;">
-                    <i class="bi bi-bullseye fs-4"></i>
+                <div class="rounded-circle bg-primary bg-opacity-10 text-primary p-2 p-md-3 d-flex align-items-center justify-content-center flex-shrink-0" style="width: 42px; height: 42px;">
+                    <i class="bi bi-bullseye fs-5"></i>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="col-sm-6 col-xl-3">
+    <div class="col-6 col-lg-3">
         <div class="card h-100 border-0 shadow-sm border-start border-success border-4">
-            <div class="card-body p-4 d-flex align-items-center justify-content-between">
-                <div>
-                    <div class="text-muted small fw-medium text-uppercase">Alur Tujuan (ATP)</div>
-                    <div class="fs-3 fw-bold text-dark my-1">{{ $stats['total_atp'] }}</div>
-                    <a href="{{ route('atp.index') }}" class="text-success text-decoration-none small fw-semibold">
-                        Lihat Daftar ATP <i class="bi bi-arrow-right"></i>
+            <div class="card-body p-3 p-md-4 d-flex align-items-center justify-content-between">
+                <div class="min-w-0 me-2">
+                    <div class="text-muted fw-semibold text-uppercase text-truncate" style="font-size: 0.72rem;">ATP</div>
+                    <div class="fs-4 fs-md-3 fw-bold text-dark my-1">{{ $stats['total_atp'] }}</div>
+                    <a href="{{ route('atp.index') }}" class="text-success text-decoration-none fw-semibold" style="font-size: 0.76rem;">
+                        Lihat <i class="bi bi-arrow-right"></i>
                     </a>
                 </div>
-                <div class="rounded-circle bg-success bg-opacity-10 text-success p-3 d-flex align-items-center justify-content-center" style="width: 52px; height: 52px;">
-                    <i class="bi bi-diagram-3 fs-4"></i>
+                <div class="rounded-circle bg-success bg-opacity-10 text-success p-2 p-md-3 d-flex align-items-center justify-content-center flex-shrink-0" style="width: 42px; height: 42px;">
+                    <i class="bi bi-diagram-3 fs-5"></i>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="col-sm-6 col-xl-3">
+    <div class="col-6 col-lg-3">
         <div class="card h-100 border-0 shadow-sm border-start border-warning border-4">
-            <div class="card-body p-4 d-flex align-items-center justify-content-between">
-                <div>
-                    <div class="text-muted small fw-medium text-uppercase">Modul Ajar (PEDATTI)</div>
-                    <div class="fs-3 fw-bold text-dark my-1">{{ $stats['total_modul'] }}</div>
-                    <a href="{{ route('modul-ajar.index') }}" class="text-warning text-decoration-none small fw-semibold">
-                        Lihat Modul Ajar <i class="bi bi-arrow-right"></i>
+            <div class="card-body p-3 p-md-4 d-flex align-items-center justify-content-between">
+                <div class="min-w-0 me-2">
+                    <div class="text-muted fw-semibold text-uppercase text-truncate" style="font-size: 0.72rem;">Modul Ajar</div>
+                    <div class="fs-4 fs-md-3 fw-bold text-dark my-1">{{ $stats['total_modul'] }}</div>
+                    <a href="{{ route('modul-ajar.index') }}" class="text-warning text-decoration-none fw-semibold" style="font-size: 0.76rem;">
+                        Lihat <i class="bi bi-arrow-right"></i>
                     </a>
                 </div>
-                <div class="rounded-circle bg-warning bg-opacity-10 text-warning p-3 d-flex align-items-center justify-content-center" style="width: 52px; height: 52px;">
-                    <i class="bi bi-journal-richtext fs-4"></i>
+                <div class="rounded-circle bg-warning bg-opacity-10 text-warning p-2 p-md-3 d-flex align-items-center justify-content-center flex-shrink-0" style="width: 42px; height: 42px;">
+                    <i class="bi bi-journal-richtext fs-5"></i>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="col-sm-6 col-xl-3">
+    <div class="col-6 col-lg-3">
         <div class="card h-100 border-0 shadow-sm border-start border-info border-4">
-            <div class="card-body p-4 d-flex align-items-center justify-content-between">
-                <div>
-                    <div class="text-muted small fw-medium text-uppercase">Lembar Kerja (LKPD)</div>
-                    <div class="fs-3 fw-bold text-dark my-1">{{ $stats['total_lkpd'] }}</div>
-                    <a href="{{ route('lkpd.index') }}" class="text-info text-decoration-none small fw-semibold">
-                        Lihat LKPD <i class="bi bi-arrow-right"></i>
+            <div class="card-body p-3 p-md-4 d-flex align-items-center justify-content-between">
+                <div class="min-w-0 me-2">
+                    <div class="text-muted fw-semibold text-uppercase text-truncate" style="font-size: 0.72rem;">LKPD</div>
+                    <div class="fs-4 fs-md-3 fw-bold text-dark my-1">{{ $stats['total_lkpd'] }}</div>
+                    <a href="{{ route('lkpd.index') }}" class="text-info text-decoration-none fw-semibold" style="font-size: 0.76rem;">
+                        Lihat <i class="bi bi-arrow-right"></i>
                     </a>
                 </div>
-                <div class="rounded-circle bg-info bg-opacity-10 text-info p-3 d-flex align-items-center justify-content-center" style="width: 52px; height: 52px;">
-                    <i class="bi bi-file-earmark-text fs-4"></i>
+                <div class="rounded-circle bg-info bg-opacity-10 text-info p-2 p-md-3 d-flex align-items-center justify-content-center flex-shrink-0" style="width: 42px; height: 42px;">
+                    <i class="bi bi-file-earmark-text fs-5"></i>
                 </div>
             </div>
         </div>
