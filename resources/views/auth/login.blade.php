@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Masuk ke Sistem - Perangkat Ajar Kurikulum Merdeka (Deep Learning)</title>
     
+    @include('layouts.partials.og-meta')
+    
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -334,6 +336,16 @@
             color: #94a3b8;
             font-weight: 600;
         }
+        .luxury-footer-links a {
+            color: #94a3b8;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            font-size: 0.74rem;
+        }
+        .luxury-footer-links a:hover {
+            color: #38bdf8;
+            text-decoration: underline;
+        }
 
         /* Mobile specific enhancements */
         @media (max-width: 480px) {
@@ -492,9 +504,22 @@
             </div>
         </div>
 
-        <!-- FOOTER COPYRIGHT -->
+        <!-- FOOTER COPYRIGHT & LEGAL -->
         <div class="luxury-footer">
-            Hak Cipta : <span class="copyright-name">Desain by. Vicky Koroh</span> &bull; &copy; {{ date('Y') }}
+            <div class="mb-2">
+                Hak Cipta : <span class="copyright-name">Desain by. Vicky Koroh</span> &bull; &copy; 2026
+            </div>
+            <div class="luxury-footer-links d-flex flex-wrap justify-content-center gap-2">
+                <a href="{{ route('legal.privacy') }}">Kebijakan Privasi</a>
+                <span>&bull;</span>
+                <a href="{{ route('legal.terms') }}">Syarat & Ketentuan</a>
+                <span>&bull;</span>
+                <a href="{{ route('legal.about') }}">Tentang Kami</a>
+                <span>&bull;</span>
+                <a href="{{ route('legal.contact') }}">Kontak</a>
+                <span>&bull;</span>
+                <a href="{{ route('legal.disclaimer') }}">Disclaimer</a>
+            </div>
         </div>
     </div>
 

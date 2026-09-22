@@ -15,6 +15,10 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    
+    <!-- Open Graph & SEO Meta Tags -->
+    @include('layouts.partials.og-meta')
+    
     <!-- SweetAlert2 CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <!-- DataTables Bootstrap 5 CSS -->
@@ -385,9 +389,9 @@
 
         <!-- FOOTER -->
         <footer class="bg-white border-top py-3 px-4 text-muted small mt-auto">
-            <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+            <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-2">
                 <div>
-                    <strong>Perangkat Ajar SMK</strong> &copy; {{ date('Y') }} — Kurikulum Merdeka (Pendekatan Pembelajaran Mendalam / Deep Learning).
+                    <strong>Perangkat Ajar SMK</strong> &copy; 2026 — Kurikulum Merdeka (Pendekatan Pembelajaran Mendalam / Deep Learning).
                     <span class="ms-2 text-primary fw-semibold d-inline-flex align-items-center">
                         <i class="bi bi-c-circle me-1"></i> Hak Cipta : Desain by. Vicky Koroh
                     </span>
@@ -396,6 +400,17 @@
                     <span class="badge bg-light text-secondary border">Permendikdasmen No. 13/2025</span>
                     <span class="badge bg-light text-secondary border">BSKAP 046/H/KR/2025</span>
                 </div>
+            </div>
+            <div class="d-flex flex-wrap gap-2.5 pt-2 border-top text-secondary" style="font-size: 0.78rem;">
+                <a href="{{ route('legal.privacy') }}" class="text-decoration-none text-muted">Kebijakan Privasi</a>
+                <span>&bull;</span>
+                <a href="{{ route('legal.terms') }}" class="text-decoration-none text-muted">Syarat & Ketentuan</a>
+                <span>&bull;</span>
+                <a href="{{ route('legal.about') }}" class="text-decoration-none text-muted">Tentang Kami</a>
+                <span>&bull;</span>
+                <a href="{{ route('legal.contact') }}" class="text-decoration-none text-muted">Kontak</a>
+                <span>&bull;</span>
+                <a href="{{ route('legal.disclaimer') }}" class="text-decoration-none text-muted">Disclaimer</a>
             </div>
         </footer>
     </div>

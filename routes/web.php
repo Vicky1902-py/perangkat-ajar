@@ -7,10 +7,12 @@ use App\Http\Controllers\CmsController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ExportController;
 use App\Http\Controllers\GeneratorController;
+use App\Http\Controllers\LegalController;
 use App\Http\Controllers\LkpdController;
 use App\Http\Controllers\ModulAjarController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProtaPromesController;
+use App\Http\Controllers\TrafficController;
 use App\Http\Controllers\TujuanPembelajaranController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -19,6 +21,13 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 })->name('home');
+
+// HALAMAN STANDAR KEPATUHAN GOOGLE ADSENSE (PUBLIK TANPA LOGIN)
+Route::get('/privacy-policy', [LegalController::class, 'privacy'])->name('legal.privacy');
+Route::get('/terms-of-service', [LegalController::class, 'terms'])->name('legal.terms');
+Route::get('/about-us', [LegalController::class, 'about'])->name('legal.about');
+Route::get('/contact', [LegalController::class, 'contact'])->name('legal.contact');
+Route::get('/disclaimer', [LegalController::class, 'disclaimer'])->name('legal.disclaimer');
 
 // AUTHENTICATION
 Route::middleware('guest')->group(function () {
@@ -138,10 +147,15 @@ Route::middleware(['auth'])->group(function () {
             Route::put('/sekolah/{sekolah}', [CmsController::class, 'sekolahUpdate'])->name('sekolah.update');
         });
 
-        // KONTROL PENGGUNA (SUPERADMIN ONLY)
+        // KONTROL PENGGUNA & PANTAU TRAFFIC (SUPERADMIN ONLY)
         Route::middleware(['role:superadmin'])->group(function () {
             Route::resource('users', UserController::class);
             Route::post('/users/{user}/device-access', [UserController::class, 'updateDeviceAccess'])->name('users.device-access');
+
+            // Pantau Realtime Traffic & Perangkat Pengunjung
+            Route::get('/cms/traffic', [TrafficController::class, 'index'])->name('cms.traffic.index');
+            Route::get('/cms/traffic/live', [TrafficController::class, 'liveData'])->name('cms.traffic.live');
+            Route::post('/cms/traffic/clear-old', [TrafficController::class, 'clearOldLogs'])->name('cms.traffic.clear-old');
         });
     });
 });

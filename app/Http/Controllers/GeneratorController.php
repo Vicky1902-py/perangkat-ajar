@@ -7,6 +7,7 @@ use App\Models\Fase;
 use App\Models\GuestUsage;
 use App\Models\MataPelajaran;
 use App\Models\TahunAjaran;
+use App\Models\TrafficLog;
 use App\Services\GeneratorService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -140,6 +141,43 @@ class GeneratorController extends Controller
                     : " (Kuota gratis 2x Anda telah habis. Daftar akun gratis agar perangkat tersimpan aman).";
             } else {
                 $quotaMsg = '';
+            }
+
+            // Catat ke TrafficLog admin agar terpantau dokumen apa yang dibuat
+            try {
+                $deviceInfo = TrafficLog::parseUserAgent($request->userAgent());
+                $mapelNama = $result['modul_ajar']->mataPelajaran->nama ?? ($result['atp']->mataPelajaran->nama ?? 'Mata Pelajaran SMK');
+                $faseNama = $result['modul_ajar']->fase->nama ?? ($result['atp']->fase->nama ?? 'Fase');
+                $userName = $currentUser ? $currentUser->name : ('Tamu Publik' . (isset($newCount) ? " (Paket Ke-{$newCount})" : ''));
+
+                TrafficLog::create([
+                    'session_id' => $sessionId,
+                    'ip_address' => $ip,
+                    'user_id' => $currentUser?->id,
+                    'user_name' => $userName,
+                    'role' => $currentUser ? $currentUser->role : 'guest',
+                    'device_type' => $deviceInfo['device_type'],
+                    'device_os' => $deviceInfo['device_os'],
+                    'browser' => $deviceInfo['browser'],
+                    'user_agent' => substr((string) $request->userAgent(), 0, 500),
+                    'method' => 'POST',
+                    'url' => substr($request->fullUrl(), 0, 500),
+                    'route_name' => 'generator.generate',
+                    'action_type' => 'generate',
+                    'activity_description' => "Membuat 1 Paket Lengkap Perangkat Ajar: {$mapelNama} ({$faseNama})",
+                    'perangkat_ajar_meta' => [
+                        'mapel' => $mapelNama,
+                        'fase' => $faseNama,
+                        'atp_id' => $result['atp']->id ?? null,
+                        'modul_id' => $result['modul_ajar']->id ?? null,
+                        'lkpd_id' => $result['lkpd']->id ?? null,
+                        'prota_id' => $result['prota']->id ?? null,
+                        'promes_id' => $result['promes']->id ?? null,
+                    ],
+                    'last_activity_at' => now(),
+                ]);
+            } catch (\Throwable $te) {
+                report($te);
             }
 
             return redirect()->route('generator.result', [

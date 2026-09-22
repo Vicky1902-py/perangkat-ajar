@@ -158,10 +158,18 @@
                 </ul>
             @endif
 
-            <!-- MANAJEMEN PENGGUNA (SUPERADMIN ONLY) -->
+            <!-- MANAJEMEN PENGGUNA & PANTAU TRAFFIC (SUPERADMIN ONLY) -->
             @if(auth()->user()->isSuperAdmin())
                 <div class="nav-header">Kontrol Sistem</div>
                 <ul class="nav flex-column mb-3">
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('cms.traffic.*') ? 'active' : '' }} d-flex align-items-center justify-content-between" href="{{ route('cms.traffic.index') }}">
+                            <div>
+                                <i class="bi bi-activity text-danger"></i> Pantau Traffic Realtime
+                            </div>
+                            <span class="badge bg-danger rounded-pill px-2 py-0.5" style="font-size: 0.65rem; letter-spacing: 0.5px;">LIVE</span>
+                        </a>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('users.*') ? 'active' : '' }}" href="{{ route('users.index') }}">
                             <i class="bi bi-people-fill"></i> Manajemen Pengguna

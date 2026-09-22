@@ -14,6 +14,9 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     
+    <!-- Open Graph & SEO Meta Tags -->
+    @include('layouts.partials.og-meta')
+    
     <style>
         :root {
             --primary-glow: #2563eb;
@@ -807,16 +810,27 @@
         </div>
     </section>
 
-    <!-- FOOTER -->
+    <!-- FOOTER WITH ADSENSE COMPLIANCE LINKS -->
     <footer class="py-4 border-top border-white border-opacity-10 position-relative z-1 text-center text-white-50 small">
         <div class="container">
-            <div class="d-flex flex-column flex-md-row align-items-center justify-content-between gap-2">
+            <div class="d-flex flex-column flex-md-row align-items-center justify-content-between gap-3 mb-3">
                 <div>
                     <strong>Sistem Perangkat Ajar SMK 2026</strong> &bull; Kurikulum Merdeka (Deep Learning).
                 </div>
                 <div>
                     Hak Cipta : <span class="text-white fw-semibold">Desain by. Vicky Koroh</span> &bull; &copy; 2026
                 </div>
+            </div>
+            <div class="d-flex flex-wrap justify-content-center gap-3 pt-2 border-top border-white border-opacity-5" style="font-size: 0.76rem;">
+                <a href="{{ route('legal.privacy') }}" class="text-white-50 text-decoration-none hover-white">Kebijakan Privasi</a>
+                <span class="text-white-50">&bull;</span>
+                <a href="{{ route('legal.terms') }}" class="text-white-50 text-decoration-none hover-white">Syarat & Ketentuan Layanan</a>
+                <span class="text-white-50">&bull;</span>
+                <a href="{{ route('legal.about') }}" class="text-white-50 text-decoration-none hover-white">Tentang Kami</a>
+                <span class="text-white-50">&bull;</span>
+                <a href="{{ route('legal.contact') }}" class="text-white-50 text-decoration-none hover-white">Hubungi Kami</a>
+                <span class="text-white-50">&bull;</span>
+                <a href="{{ route('legal.disclaimer') }}" class="text-white-50 text-decoration-none hover-white">Pernyataan Penyangkalan (Disclaimer)</a>
             </div>
         </div>
     </footer>
