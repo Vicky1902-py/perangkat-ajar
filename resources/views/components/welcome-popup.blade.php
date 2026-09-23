@@ -86,29 +86,29 @@
                 <div id="welcomeSectionPanduan" class="welcome-section active">
                     <div class="d-flex align-items-center justify-content-between mb-3 flex-wrap gap-2">
                         <div>
-                            <h5 class="fw-bold text-white mb-1 d-flex align-items-center gap-2">
+                            <h5 class="fw-bold mb-1 d-flex align-items-center gap-2" style="color: #0b3b60;">
                                 <i class="bi bi-journal-richtext text-primary"></i> Panduan Lengkap Penggunaan Aplikasi
                             </h5>
-                            <p class="text-white-50 small mb-0">Pelajari cara memanfaatkan seluruh fitur otomatisasi perangkat ajar langkah demi langkah.</p>
+                            <p class="text-secondary small mb-0">Pelajari cara memanfaatkan seluruh fitur otomatisasi perangkat ajar langkah demi langkah.</p>
                         </div>
-                        <span class="badge bg-primary bg-opacity-20 text-info border border-info border-opacity-25 px-2.5 py-1">
+                        <span class="badge bg-primary-subtle text-primary border border-primary-subtle px-2.5 py-1 fw-semibold">
                             <i class="bi bi-info-circle me-1"></i> 6 Menu Utama
                         </span>
                     </div>
 
                     <!-- SPECIAL CALLOUT: STANDAR SISTEM PAKAR RESMI KEMENDIKDASMEN -->
-                    <div class="p-3 rounded-4 mb-3 border border-warning border-opacity-40 d-flex align-items-start gap-3" 
-                         style="background: linear-gradient(135deg, rgba(245, 158, 11, 0.15) 0%, rgba(11, 59, 96, 0.4) 100%);">
-                        <div class="p-2 rounded-3 bg-warning text-dark fs-5 flex-shrink-0">
+                    <div class="p-3 rounded-4 mb-3 d-flex align-items-start gap-3 shadow-xs" 
+                         style="background: #fffbeb; border: 1.5px solid #fde68a;">
+                        <div class="p-2 rounded-3 bg-warning text-dark fs-5 flex-shrink-0 shadow-sm">
                             <i class="bi bi-patch-check-fill"></i>
                         </div>
                         <div>
-                            <div class="fw-bold text-white small d-flex align-items-center gap-2 flex-wrap mb-1">
+                            <div class="fw-bold small d-flex align-items-center gap-2 flex-wrap mb-1" style="color: #92400e;">
                                 <span>100% Murni Sistem Pakar Edukasi &bull; Berbasis Database Resmi</span>
                                 <span class="badge bg-warning text-dark fw-bold" style="font-size: 0.68rem;">BSKAP No. 046/2025</span>
                             </div>
-                            <p class="small mb-0" style="font-size: 0.82rem; line-height: 1.55; color: #f1f5f9 !important;">
-                                Berbeda dari AI generatif umum yang membutuhkan API Key berbayar dan rentan halusinasi, sistem ini menggunakan <strong>Knowledge-Based Expert System</strong> deterministik. Seluruh referensi Capaian Pembelajaran tersimpan di database internal berdasarkan <strong>Keputusan Kepala BSKAP No. 046/H/KR/2025</strong> dan <strong>Permendikdasmen No. 13/2025</strong>. Dijamin <strong>Nol Halusinasi</strong>, bebas biaya token, dan menjaga kedaulatan data sekolah.
+                            <p class="small mb-0" style="font-size: 0.82rem; line-height: 1.6; color: #78350f !important;">
+                                Berbeda dari AI generatif umum yang membutuhkan API Key berbayar dan rentan halusinasi, sistem ini menggunakan <strong style="color: #451a03;">Knowledge-Based Expert System</strong> deterministik. Seluruh referensi Capaian Pembelajaran tersimpan di database internal berdasarkan <strong style="color: #451a03;">Keputusan Kepala BSKAP No. 046/H/KR/2025</strong> dan <strong style="color: #451a03;">Permendikdasmen No. 13/2025</strong>. Dijamin <strong style="color: #451a03;">Nol Halusinasi</strong>, bebas biaya token, dan menjaga kedaulatan data sekolah.
                             </p>
                         </div>
                     </div>
@@ -135,8 +135,8 @@
                                         <li><strong>Langkah 3:</strong> Tentukan <em>Materi Pokok</em> dan centang dokumen apa saja yang ingin dibuat (Modul Ajar, ATP, Prota, Promes, LKPD, Asesmen).</li>
                                         <li><strong>Langkah 4:</strong> Klik tombol <strong>Generate Perangkat Ajar</strong>. Sistem secara otomatis menyusun narasi pembelajaran mendalam dan siap Anda unduh.</li>
                                     </ul>
-                                    <div class="alert alert-info border-0 bg-info bg-opacity-10 text-white py-2 px-3 small rounded-3 mb-0">
-                                        <i class="bi bi-lightning-charge-fill text-warning me-1"></i> <strong>Trial Tamu (Guest):</strong> Pengunjung tanpa login dapat mencoba generator gratis maksimal 2 kali. Untuk akses tanpa batas, silakan <a href="{{ route('register') }}" class="text-info fw-bold">Daftar Akun Guru</a>.
+                                    <div class="alert alert-info border border-info-subtle bg-info-subtle py-2 px-3 small rounded-3 mb-0" style="color: #0c4a6e !important;">
+                                        <i class="bi bi-lightning-charge-fill text-warning me-1"></i> <strong style="color: #0c4a6e;">Trial Tamu (Guest):</strong> Pengunjung tanpa login dapat mencoba generator gratis maksimal 2 kali. Untuk akses tanpa batas, silakan <a href="{{ route('register') }}" class="text-primary fw-bold text-decoration-underline">Daftar Akun Guru</a>.
                                     </div>
                                 </div>
                             </div>
@@ -157,25 +157,25 @@
                                     <p class="mb-2">Modul ajar yang disusun menerapkan kerangka kerja pembelajaran bermakna (Deep Learning) sesuai standar terbaru:</p>
                                     <div class="row g-2 mb-2">
                                         <div class="col-md-4">
-                                            <div class="p-2.5 rounded-3 bg-white bg-opacity-5 border border-white border-opacity-10 h-100">
+                                            <div class="p-2.5 rounded-3 bg-light border h-100" style="border-color: #e2e8f0 !important;">
                                                 <div class="text-primary fw-bold small"><i class="bi bi-circle-fill me-1" style="font-size: 0.5rem;"></i> Mindful (Sadar)</div>
-                                                <p class="text-white-50 x-small mb-0 mt-1">Siswa menyadari tujuan belajarnya, fokus, dan merefleksikan proses berpikir secara mendalam.</p>
+                                                <p class="text-secondary small mb-0 mt-1" style="font-size: 0.78rem;">Siswa menyadari tujuan belajarnya, fokus, dan merefleksikan proses berpikir secara mendalam.</p>
                                             </div>
                                         </div>
                                         <div class="col-md-4">
-                                            <div class="p-2.5 rounded-3 bg-white bg-opacity-5 border border-white border-opacity-10 h-100">
-                                                <div class="text-warning fw-bold small"><i class="bi bi-circle-fill me-1" style="font-size: 0.5rem;"></i> Meaningful (Bermakna)</div>
-                                                <p class="text-white-50 x-small mb-0 mt-1">Materi dikaitkan langsung dengan kebutuhan Dunia Usaha/Dunia Industri (DUDI) dan kasus nyata kejuruan.</p>
+                                            <div class="p-2.5 rounded-3 bg-light border h-100" style="border-color: #e2e8f0 !important;">
+                                                <div class="fw-bold small" style="color: #b45309 !important;"><i class="bi bi-circle-fill me-1" style="font-size: 0.5rem;"></i> Meaningful (Bermakna)</div>
+                                                <p class="text-secondary small mb-0 mt-1" style="font-size: 0.78rem;">Materi dikaitkan langsung dengan kebutuhan Dunia Usaha/Dunia Industri (DUDI) dan kasus nyata kejuruan.</p>
                                             </div>
                                         </div>
                                         <div class="col-md-4">
-                                            <div class="p-2.5 rounded-3 bg-white bg-opacity-5 border border-white border-opacity-10 h-100">
+                                            <div class="p-2.5 rounded-3 bg-light border h-100" style="border-color: #e2e8f0 !important;">
                                                 <div class="text-success fw-bold small"><i class="bi bi-circle-fill me-1" style="font-size: 0.5rem;"></i> Joyful (Gembira)</div>
-                                                <p class="text-white-50 x-small mb-0 mt-1">Aktivitas belajar berbasis proyek kolaboratif, menyenangkan, dan membakar antusiasme siswa.</p>
+                                                <p class="text-secondary small mb-0 mt-1" style="font-size: 0.78rem;">Aktivitas belajar berbasis proyek kolaboratif, menyenangkan, dan membakar antusiasme siswa.</p>
                                             </div>
                                         </div>
                                     </div>
-                                    <p class="mb-0 small text-white-50">Sintaks pembelajaran juga mengadopsi alur <strong>PEDATTI</strong> (Pahami, Eksplorasi, Diskusi, Aplikasi, Tindak Lanjut, Terintegrasi Inovasi).</p>
+                                    <p class="mb-0 small text-secondary">Sintaks pembelajaran juga mengadopsi alur <strong class="text-dark">PEDATTI</strong> (Pahami, Eksplorasi, Diskusi, Aplikasi, Tindak Lanjut, Terintegrasi Inovasi).</p>
                                 </div>
                             </div>
                         </div>
@@ -264,10 +264,10 @@
                 <!-- ============================================== -->
                 <div id="welcomeSectionSaran" class="welcome-section">
                     <div class="mb-3">
-                        <h5 class="fw-bold text-white mb-1 d-flex align-items-center gap-2">
+                        <h5 class="fw-bold mb-1 d-flex align-items-center gap-2" style="color: #0b3b60;">
                             <i class="bi bi-chat-quote text-warning"></i> Kotak Usul, Saran & Masukan Pengguna
                         </h5>
-                        <p class="text-white-50 small mb-0">
+                        <p class="text-secondary small mb-0">
                             Punya ide fitur baru, menemukan hal yang masih kurang, atau ingin menyampaikan kendala? Masukan Anda langsung masuk ke layar Superadmin!
                         </p>
                     </div>
@@ -288,7 +288,7 @@
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <label class="form-label-popup">Email Pengirim <span class="text-white-50 fw-normal">(Opsional)</span></label>
+                                <label class="form-label-popup">Email Pengirim <span class="text-muted fw-normal">(Opsional)</span></label>
                                 <div class="input-glass-popup">
                                     <i class="bi bi-envelope text-secondary"></i>
                                     <input type="email" name="email" id="feedbackEmail" 
@@ -344,7 +344,7 @@
                         </div>
 
                         <div class="d-flex align-items-center justify-content-between flex-wrap gap-2">
-                            <span class="text-white-50 x-small">
+                            <span class="text-secondary small">
                                 <i class="bi bi-shield-check text-success me-1"></i> Data Anda aman dan hanya terlihat oleh Superadmin.
                             </span>
                             <button type="submit" id="btnSubmitFeedback" class="btn btn-luxury-submit rounded-pill px-4 py-2">
@@ -372,16 +372,16 @@
                                 </div>
                             </div>
                             <div class="col-md-8">
-                                <div class="badge bg-primary bg-opacity-20 text-info border border-info border-opacity-30 px-2.5 py-1 rounded-pill small fw-bold mb-2">
+                                <div class="badge bg-primary-subtle text-primary border border-primary-subtle px-2.5 py-1 rounded-pill small fw-bold mb-2">
                                     <i class="bi bi-check-circle-fill me-1"></i> DEDIKASI PENDIDIKAN VOKASI 2026
                                 </div>
-                                <h3 class="fw-bold text-white mb-1">
+                                <h3 class="fw-bold mb-1" style="color: #0b3b60;">
                                     {{ app_setting('landing_creator_name', 'Vicky Koroh') }}
                                 </h3>
-                                <div class="text-info fw-semibold small mb-3">
+                                <div class="fw-semibold small mb-3" style="color: #0284c7;">
                                     {{ app_setting('creator_headline', 'Software Engineer & Educational Technology Architect') }}
                                 </div>
-                                <p class="text-white-50 small mb-3" style="line-height: 1.6;">
+                                <p class="small mb-3" style="line-height: 1.6; color: #475569 !important;">
                                     {{ Str::limit(app_setting('creator_bio', 'Vicky Koroh adalah pengembang teknologi pendidikan dan arsitek perangkat lunak yang berdedikasi menciptakan inovasi kecerdasan digital untuk memberdayakan para pendidik kejuruan (SMK) di seluruh nusantara.'), 260) }}
                                 </p>
                                 <div class="d-flex flex-wrap gap-2 mb-4">
@@ -404,14 +404,14 @@
 
             <!-- MODAL FOOTER -->
             <div class="modal-footer welcome-modal-footer d-flex align-items-center justify-content-between border-0 pt-0 px-4 pb-3">
-                <div class="form-check text-white-50 small">
+                <div class="form-check text-secondary small">
                     <input class="form-check-input" type="checkbox" id="chkDoNotShowToday" onchange="toggleDoNotShow(this)">
-                    <label class="form-check-label cursor-pointer" for="chkDoNotShowToday">
+                    <label class="form-check-label cursor-pointer fw-medium" for="chkDoNotShowToday" style="font-size: 0.82rem; color: #475569 !important;">
                         Jangan tampilkan pop-up ini lagi hari ini
                     </label>
                 </div>
                 <div class="d-flex align-items-center gap-2">
-                    <button type="button" class="btn btn-outline-light border-opacity-25 rounded-pill px-3 py-1.5 small" data-bs-dismiss="modal" onclick="closeWelcomePopup()">
+                    <button type="button" class="btn btn-outline-secondary rounded-pill px-3.5 py-1.5 small fw-semibold" data-bs-dismiss="modal" onclick="closeWelcomePopup()">
                         Tutup
                     </button>
                     <a href="{{ route('generator.index') }}" class="btn btn-primary rounded-pill px-3 py-1.5 small fw-semibold shadow-sm">
@@ -969,7 +969,7 @@
             const data = await response.json();
 
             if (response.ok && data.success) {
-                alertBox.className = 'alert alert-success border-0 bg-success bg-opacity-20 text-white py-2.5 px-3 rounded-3 mb-3 d-flex align-items-center gap-2';
+                alertBox.className = 'alert alert-success border border-success-subtle bg-success-subtle text-dark py-2.5 px-3 rounded-3 mb-3 d-flex align-items-center gap-2';
                 alertBox.innerHTML = '<i class="bi bi-check-circle-fill text-success fs-5"></i> <div>' + data.message + '</div>';
                 form.reset();
                 setFeedbackRating(5);
@@ -978,11 +978,11 @@
                 if (data.errors) {
                     errMsg = Object.values(data.errors).flat().join('<br>');
                 }
-                alertBox.className = 'alert alert-danger border-0 bg-danger bg-opacity-20 text-white py-2.5 px-3 rounded-3 mb-3 d-flex align-items-center gap-2';
+                alertBox.className = 'alert alert-danger border border-danger-subtle bg-danger-subtle text-dark py-2.5 px-3 rounded-3 mb-3 d-flex align-items-center gap-2';
                 alertBox.innerHTML = '<i class="bi bi-x-circle-fill text-danger fs-5"></i> <div>' + errMsg + '</div>';
             }
         } catch (err) {
-            alertBox.className = 'alert alert-danger border-0 bg-danger bg-opacity-20 text-white py-2.5 px-3 rounded-3 mb-3 d-flex align-items-center gap-2';
+            alertBox.className = 'alert alert-danger border border-danger-subtle bg-danger-subtle text-dark py-2.5 px-3 rounded-3 mb-3 d-flex align-items-center gap-2';
             alertBox.innerHTML = '<i class="bi bi-wifi-off text-danger fs-5"></i> <div>Koneksi gagal. Silakan coba kembali sesaat lagi.</div>';
         } finally {
             submitBtn.disabled = false;
