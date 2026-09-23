@@ -62,6 +62,33 @@ class HostingSpaceManagerTest extends TestCase
         $this->assertDatabaseMissing('tujuan_pembelajarans', ['id' => $tp->id]);
     }
 
+    public function test_superadmin_can_quick_purge_guest_documents(): void
+    {
+        $superadmin = User::where('role', 'superadmin')->first();
+        $cp = \App\Models\CapaianPembelajaran::first();
+        $this->assertNotNull($cp);
+
+        // Buat dummy TP tamu
+        $guestTp = TujuanPembelajaran::create([
+            'capaian_pembelajaran_id' => $cp->id,
+            'guest_session_id' => 'guest-' . rand(1000, 9999),
+            'kode_tp' => 'TPG' . rand(100, 999),
+            'elemen' => 'Elemen Guest',
+            'deskripsi_tp' => 'Testing quick purge guest',
+            'urutan' => 888,
+        ]);
+
+        $this->assertDatabaseHas('tujuan_pembelajarans', ['id' => $guestTp->id]);
+
+        $response = $this->actingAs($superadmin)->post(route('cms.perangkat.quick-purge'), [
+            'purge_target' => 'guest',
+        ]);
+
+        $response->assertRedirect();
+        $response->assertSessionHas('success');
+        $this->assertDatabaseMissing('tujuan_pembelajarans', ['id' => $guestTp->id]);
+    }
+
     public function test_superadmin_dashboard_shows_aapanel_telemetry(): void
     {
         $superadmin = User::where('role', 'superadmin')->first();

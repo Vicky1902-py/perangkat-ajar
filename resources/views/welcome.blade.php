@@ -132,6 +132,38 @@
             max-width: 100%;
         }
 
+        /* Universal Soft Badges */
+        .badge-soft-primary, .badge.bg-primary.bg-opacity-10 {
+            background-color: #e0f2fe !important;
+            color: #0369a1 !important;
+            border: 1px solid #bae6fd !important;
+            font-weight: 600 !important;
+        }
+        .badge-soft-success, .badge.bg-success.bg-opacity-10 {
+            background-color: #dcfce7 !important;
+            color: #15803d !important;
+            border: 1px solid #bbf7d0 !important;
+            font-weight: 600 !important;
+        }
+        .badge-soft-warning, .badge.bg-warning.bg-opacity-10 {
+            background-color: #fef3c7 !important;
+            color: #92400e !important;
+            border: 1px solid #fde68a !important;
+            font-weight: 600 !important;
+        }
+        .badge-soft-danger, .badge.bg-danger.bg-opacity-10 {
+            background-color: #fee2e2 !important;
+            color: #b91c1c !important;
+            border: 1px solid #fecaca !important;
+            font-weight: 600 !important;
+        }
+        .badge-soft-info, .badge.bg-info.bg-opacity-10 {
+            background-color: #e0e7ff !important;
+            color: #4338ca !important;
+            border: 1px solid #c7d2fe !important;
+            font-weight: 600 !important;
+        }
+
         /* Hero Typography */
         .hero-title {
             font-size: 2.85rem;

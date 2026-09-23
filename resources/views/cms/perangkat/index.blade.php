@@ -88,7 +88,7 @@
                     </div>
                     <div class="d-flex align-items-baseline gap-2 mb-2">
                         <h3 class="fw-bold text-dark mb-0">{{ $dbSizeMB }} MB</h3>
-                        <span class="badge bg-success bg-opacity-20 text-success rounded-pill px-2" style="font-size: 0.68rem;">OPTIMAL</span>
+                        <span class="badge badge-soft-success rounded-pill px-2" style="font-size: 0.68rem;">OPTIMAL</span>
                     </div>
                     <div class="small text-muted" style="font-size: 0.75rem;">
                         Tersimpan di tabel MySQL hosting
@@ -237,7 +237,7 @@
             <div class="card-header bg-white py-3 d-flex align-items-center justify-content-between flex-wrap gap-2 border-bottom">
                 <div class="d-flex align-items-center gap-2">
                     <h5 class="fw-bold text-dark mb-0">Daftar Berkas Perangkat Ajar</h5>
-                    <span class="badge bg-primary bg-opacity-10 text-primary border border-primary border-opacity-25 rounded-pill px-2.5">
+                    <span class="badge badge-soft-primary rounded-pill px-2.5">
                         {{ $paginatedItems->total() }} Ditemukan
                     </span>
                 </div>
@@ -261,7 +261,7 @@
                                     <th style="width: 40px;" class="text-center">
                                         <input type="checkbox" class="form-check-input" id="checkAll" onclick="toggleSelectAll(this)" title="Pilih Semua di Halaman Ini">
                                     </th>
-                                    <th style="width: 130px;">Tipe Dokumen</th>
+                                    <th style="width: 155px;">Tipe Dokumen</th>
                                     <th>Judul & Topik Pembelajaran</th>
                                     <th style="width: 180px;">Mata Pelajaran & Fase</th>
                                     <th style="width: 170px;">Pembuat (Author)</th>
@@ -280,8 +280,31 @@
 
                                         <!-- TIPE DOKUMEN BADGE -->
                                         <td>
-                                            <span class="badge bg-{{ $item['badge'] }} bg-opacity-15 text-{{ $item['badge'] }} border border-{{ $item['badge'] }} border-opacity-25 px-2 py-1 rounded-pill" style="font-size: 0.72rem;">
-                                                {{ $item['type_label'] }}
+                                            @php
+                                                $badgeClass = match($item['type_key']) {
+                                                    'modul_ajar' => 'badge-soft-warning',
+                                                    'atp'        => 'badge-soft-success',
+                                                    'tp'         => 'badge-soft-primary',
+                                                    'lkpd'       => 'badge-soft-info',
+                                                    'prota'      => 'badge-soft-secondary',
+                                                    'promes'     => 'badge-soft-purple',
+                                                    'asesmen'    => 'badge-soft-danger',
+                                                    default      => 'badge-soft-primary',
+                                                };
+                                                $badgeIcon = match($item['type_key']) {
+                                                    'modul_ajar' => 'bi-journal-bookmark-fill',
+                                                    'atp'        => 'bi-diagram-3-fill',
+                                                    'tp'         => 'bi-bullseye',
+                                                    'lkpd'       => 'bi-file-earmark-spreadsheet-fill',
+                                                    'prota'      => 'bi-calendar-range-fill',
+                                                    'promes'     => 'bi-calendar-week-fill',
+                                                    'asesmen'    => 'bi-clipboard-check-fill',
+                                                    default      => 'bi-file-earmark-text',
+                                                };
+                                            @endphp
+                                            <span class="badge {{ $badgeClass }} px-2.5 py-1.5 rounded-pill d-inline-flex align-items-center gap-1.5" style="font-size: 0.74rem;">
+                                                <i class="bi {{ $badgeIcon }}"></i>
+                                                <span>{{ $item['type_label'] }}</span>
                                             </span>
                                         </td>
 
@@ -300,8 +323,9 @@
                                         <!-- PEMBUAT -->
                                         <td>
                                             @if($item['is_guest'])
-                                                <span class="badge bg-warning bg-opacity-20 text-dark border border-warning border-opacity-30 rounded-pill px-2 py-0.5" style="font-size: 0.72rem;">
-                                                    <i class="bi bi-person-x me-1"></i> Tamu (Guest)
+                                                <span class="badge badge-soft-warning rounded-pill px-2.5 py-1 d-inline-flex align-items-center gap-1" style="font-size: 0.72rem;">
+                                                    <i class="bi bi-person-x"></i>
+                                                    <span>Tamu (Guest)</span>
                                                 </span>
                                             @else
                                                 <div class="d-flex align-items-center gap-1.5 small text-dark fw-semibold">

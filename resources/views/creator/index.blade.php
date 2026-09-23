@@ -387,6 +387,33 @@
             margin-bottom: 12px;
         }
 
+        /* Universal Soft Badges & Feature Wraps */
+        .feature-icon-wrap.bg-warning, .badge-soft-warning {
+            background-color: #fef3c7 !important;
+            color: #92400e !important;
+            border-color: #fde68a !important;
+        }
+        .feature-icon-wrap.bg-info, .badge-soft-info {
+            background-color: #e0e7ff !important;
+            color: #4338ca !important;
+            border-color: #c7d2fe !important;
+        }
+        .feature-icon-wrap.bg-success, .badge-soft-success {
+            background-color: #dcfce7 !important;
+            color: #15803d !important;
+            border-color: #bbf7d0 !important;
+        }
+        .feature-icon-wrap.bg-primary, .badge-soft-primary {
+            background-color: #e0f2fe !important;
+            color: #0369a1 !important;
+            border-color: #bae6fd !important;
+        }
+        .feature-icon-wrap.bg-danger, .badge-soft-danger {
+            background-color: #fee2e2 !important;
+            color: #b91c1c !important;
+            border-color: #fecaca !important;
+        }
+
         /* Call To Action Box */
         .cta-profile-box {
             background: linear-gradient(135deg, #0b3b60 0%, #0284c7 100%);

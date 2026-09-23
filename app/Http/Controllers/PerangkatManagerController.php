@@ -358,7 +358,7 @@ class PerangkatManagerController extends Controller
                     case 'alurtujuanpembelajaran':
                         $atp = AlurTujuanPembelajaran::find($id);
                         if ($atp) {
-                            AtpDetail::where('alur_tujuan_pembelajaran_id', $atp->id)->delete();
+                            AtpDetail::where('atp_id', $atp->id)->delete();
                             $atp->delete();
                             $deletedCount++;
                         }
@@ -368,6 +368,9 @@ class PerangkatManagerController extends Controller
                     case 'tujuanpembelajaran':
                         $tp = TujuanPembelajaran::find($id);
                         if ($tp) {
+                            AtpDetail::where('tujuan_pembelajaran_id', $tp->id)->delete();
+                            ModulAjar::where('tujuan_pembelajaran_id', $tp->id)->update(['tujuan_pembelajaran_id' => null]);
+                            Asesmen::where('tujuan_pembelajaran_id', $tp->id)->update(['tujuan_pembelajaran_id' => null]);
                             $tp->delete();
                             $deletedCount++;
                         }
@@ -425,46 +428,121 @@ class PerangkatManagerController extends Controller
 
         DB::transaction(function () use ($purgeTarget, &$deletedCount) {
             if ($purgeTarget === 'guest') {
-                // Hapus seluruh dokumen tamu
-                $guestModuls = ModulAjar::whereNotNull('guest_session_id')->pluck('id');
-                ModulAjarKegiatan::whereIn('modul_ajar_id', $guestModuls)->delete();
-                $deletedCount += ModulAjar::whereIn('id', $guestModuls)->delete();
+                // 1. Modul Ajar Tamu
+                $guestModuls = ModulAjar::where(function ($q) {
+                    $q->whereNotNull('guest_session_id')->orWhereNull('user_id');
+                })->pluck('id');
+                if ($guestModuls->isNotEmpty()) {
+                    ModulAjarKegiatan::whereIn('modul_ajar_id', $guestModuls)->delete();
+                    DB::table('modul_ajar_profil_lulusan')->whereIn('modul_ajar_id', $guestModuls)->delete();
+                    $deletedCount += ModulAjar::whereIn('id', $guestModuls)->delete();
+                }
 
-                $guestAtps = AlurTujuanPembelajaran::whereNotNull('guest_session_id')->pluck('id');
-                AtpDetail::whereIn('alur_tujuan_pembelajaran_id', $guestAtps)->delete();
-                $deletedCount += AlurTujuanPembelajaran::whereIn('id', $guestAtps)->delete();
+                // 2. ATP Tamu
+                $guestAtps = AlurTujuanPembelajaran::where(function ($q) {
+                    $q->whereNotNull('guest_session_id')->orWhereNull('user_id');
+                })->pluck('id');
+                if ($guestAtps->isNotEmpty()) {
+                    AtpDetail::whereIn('atp_id', $guestAtps)->delete();
+                    $deletedCount += AlurTujuanPembelajaran::whereIn('id', $guestAtps)->delete();
+                }
 
-                $guestLkpd = Lkpd::whereNotNull('guest_session_id')->pluck('id');
-                LkpdKegiatan::whereIn('lkpd_id', $guestLkpd)->delete();
-                $deletedCount += Lkpd::whereIn('id', $guestLkpd)->delete();
+                // 3. LKPD Tamu
+                $guestLkpd = Lkpd::where(function ($q) {
+                    $q->whereNotNull('guest_session_id')->orWhereNull('user_id');
+                })->pluck('id');
+                if ($guestLkpd->isNotEmpty()) {
+                    LkpdKegiatan::whereIn('lkpd_id', $guestLkpd)->delete();
+                    $deletedCount += Lkpd::whereIn('id', $guestLkpd)->delete();
+                }
 
-            } elseif ($purgeTarget === 'older_30') {
-                // Hapus dokumen > 30 hari
-                $oldModuls = ModulAjar::where('created_at', '<', now()->subDays(30))->pluck('id');
-                ModulAjarKegiatan::whereIn('modul_ajar_id', $oldModuls)->delete();
-                $deletedCount += ModulAjar::whereIn('id', $oldModuls)->delete();
+                // 4. Asesmen Tamu
+                $guestAsesmens = Asesmen::where(function ($q) {
+                    $q->whereNotNull('guest_session_id')->orWhereNull('user_id');
+                })->pluck('id');
+                if ($guestAsesmens->isNotEmpty()) {
+                    $deletedCount += Asesmen::whereIn('id', $guestAsesmens)->delete();
+                }
 
-                $oldAtps = AlurTujuanPembelajaran::where('created_at', '<', now()->subDays(30))->pluck('id');
-                AtpDetail::whereIn('alur_tujuan_pembelajaran_id', $oldAtps)->delete();
-                $deletedCount += AlurTujuanPembelajaran::whereIn('id', $oldAtps)->delete();
+                // 5. Prota Tamu
+                $guestProtas = ProgramTahunan::where(function ($q) {
+                    $q->whereNotNull('guest_session_id')->orWhereNull('user_id');
+                })->pluck('id');
+                if ($guestProtas->isNotEmpty()) {
+                    $deletedCount += ProgramTahunan::whereIn('id', $guestProtas)->delete();
+                }
 
-                $oldLkpd = Lkpd::where('created_at', '<', now()->subDays(30))->pluck('id');
-                LkpdKegiatan::whereIn('lkpd_id', $oldLkpd)->delete();
-                $deletedCount += Lkpd::whereIn('id', $oldLkpd)->delete();
+                // 6. Promes Tamu
+                $guestPromes = ProgramSemester::where(function ($q) {
+                    $q->whereNotNull('guest_session_id')->orWhereNull('user_id');
+                })->pluck('id');
+                if ($guestPromes->isNotEmpty()) {
+                    $deletedCount += ProgramSemester::whereIn('id', $guestPromes)->delete();
+                }
 
-            } elseif ($purgeTarget === 'older_90') {
-                // Hapus dokumen > 90 hari
-                $oldModuls = ModulAjar::where('created_at', '<', now()->subDays(90))->pluck('id');
-                ModulAjarKegiatan::whereIn('modul_ajar_id', $oldModuls)->delete();
-                $deletedCount += ModulAjar::whereIn('id', $oldModuls)->delete();
+                // 7. TP Tamu (Paling akhir agar relasi terselesaikan)
+                $guestTps = TujuanPembelajaran::where(function ($q) {
+                    $q->whereNotNull('guest_session_id')->orWhereNull('user_id');
+                })->pluck('id');
+                if ($guestTps->isNotEmpty()) {
+                    AtpDetail::whereIn('tujuan_pembelajaran_id', $guestTps)->delete();
+                    ModulAjar::whereIn('tujuan_pembelajaran_id', $guestTps)->update(['tujuan_pembelajaran_id' => null]);
+                    Asesmen::whereIn('tujuan_pembelajaran_id', $guestTps)->update(['tujuan_pembelajaran_id' => null]);
+                    $deletedCount += TujuanPembelajaran::whereIn('id', $guestTps)->delete();
+                }
 
-                $oldAtps = AlurTujuanPembelajaran::where('created_at', '<', now()->subDays(90))->pluck('id');
-                AtpDetail::whereIn('alur_tujuan_pembelajaran_id', $oldAtps)->delete();
-                $deletedCount += AlurTujuanPembelajaran::whereIn('id', $oldAtps)->delete();
+            } elseif ($purgeTarget === 'older_30' || $purgeTarget === 'older_90') {
+                $days = $purgeTarget === 'older_30' ? 30 : 90;
+                $cutoff = now()->subDays($days);
 
-                $oldLkpd = Lkpd::where('created_at', '<', now()->subDays(90))->pluck('id');
-                LkpdKegiatan::whereIn('lkpd_id', $oldLkpd)->delete();
-                $deletedCount += Lkpd::whereIn('id', $oldLkpd)->delete();
+                // 1. Modul Ajar Lama
+                $oldModuls = ModulAjar::where('created_at', '<', $cutoff)->pluck('id');
+                if ($oldModuls->isNotEmpty()) {
+                    ModulAjarKegiatan::whereIn('modul_ajar_id', $oldModuls)->delete();
+                    DB::table('modul_ajar_profil_lulusan')->whereIn('modul_ajar_id', $oldModuls)->delete();
+                    $deletedCount += ModulAjar::whereIn('id', $oldModuls)->delete();
+                }
+
+                // 2. ATP Lama
+                $oldAtps = AlurTujuanPembelajaran::where('created_at', '<', $cutoff)->pluck('id');
+                if ($oldAtps->isNotEmpty()) {
+                    AtpDetail::whereIn('atp_id', $oldAtps)->delete();
+                    $deletedCount += AlurTujuanPembelajaran::whereIn('id', $oldAtps)->delete();
+                }
+
+                // 3. LKPD Lama
+                $oldLkpd = Lkpd::where('created_at', '<', $cutoff)->pluck('id');
+                if ($oldLkpd->isNotEmpty()) {
+                    LkpdKegiatan::whereIn('lkpd_id', $oldLkpd)->delete();
+                    $deletedCount += Lkpd::whereIn('id', $oldLkpd)->delete();
+                }
+
+                // 4. Asesmen Lama
+                $oldAsesmens = Asesmen::where('created_at', '<', $cutoff)->pluck('id');
+                if ($oldAsesmens->isNotEmpty()) {
+                    $deletedCount += Asesmen::whereIn('id', $oldAsesmens)->delete();
+                }
+
+                // 5. Prota Lama
+                $oldProtas = ProgramTahunan::where('created_at', '<', $cutoff)->pluck('id');
+                if ($oldProtas->isNotEmpty()) {
+                    $deletedCount += ProgramTahunan::whereIn('id', $oldProtas)->delete();
+                }
+
+                // 6. Promes Lama
+                $oldPromes = ProgramSemester::where('created_at', '<', $cutoff)->pluck('id');
+                if ($oldPromes->isNotEmpty()) {
+                    $deletedCount += ProgramSemester::whereIn('id', $oldPromes)->delete();
+                }
+
+                // 7. TP Lama
+                $oldTps = TujuanPembelajaran::where('created_at', '<', $cutoff)->pluck('id');
+                if ($oldTps->isNotEmpty()) {
+                    AtpDetail::whereIn('tujuan_pembelajaran_id', $oldTps)->delete();
+                    ModulAjar::whereIn('tujuan_pembelajaran_id', $oldTps)->update(['tujuan_pembelajaran_id' => null]);
+                    Asesmen::whereIn('tujuan_pembelajaran_id', $oldTps)->update(['tujuan_pembelajaran_id' => null]);
+                    $deletedCount += TujuanPembelajaran::whereIn('id', $oldTps)->delete();
+                }
             }
         });
 

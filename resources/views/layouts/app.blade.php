@@ -178,6 +178,92 @@
         .badge-role-admin_sekolah { background-color: #2563eb; color: white; }
         .badge-role-guru { background-color: #059669; color: white; }
 
+        /* ==========================================================================
+           UNIVERSAL SOFT BADGES - 100% CONTRAST & READABLE TEXT ACROSS ALL DEVICES
+           ========================================================================== */
+        .badge-soft-primary,
+        .badge.bg-primary.bg-opacity-10,
+        .badge.bg-primary.bg-opacity-15,
+        .badge.bg-primary.bg-opacity-20,
+        .badge.bg-primary.bg-opacity-25 {
+            background-color: #e0f2fe !important;
+            color: #0369a1 !important;
+            border: 1px solid #bae6fd !important;
+            font-weight: 600 !important;
+        }
+
+        .badge-soft-success,
+        .badge.bg-success.bg-opacity-10,
+        .badge.bg-success.bg-opacity-15,
+        .badge.bg-success.bg-opacity-20,
+        .badge.bg-success.bg-opacity-25 {
+            background-color: #dcfce7 !important;
+            color: #15803d !important;
+            border: 1px solid #bbf7d0 !important;
+            font-weight: 600 !important;
+        }
+
+        .badge-soft-warning,
+        .badge.bg-warning.bg-opacity-10,
+        .badge.bg-warning.bg-opacity-15,
+        .badge.bg-warning.bg-opacity-20,
+        .badge.bg-warning.bg-opacity-25 {
+            background-color: #fef3c7 !important;
+            color: #92400e !important;
+            border: 1px solid #fde68a !important;
+            font-weight: 600 !important;
+        }
+
+        .badge-soft-danger,
+        .badge.bg-danger.bg-opacity-10,
+        .badge.bg-danger.bg-opacity-15,
+        .badge.bg-danger.bg-opacity-20,
+        .badge.bg-danger.bg-opacity-25 {
+            background-color: #fee2e2 !important;
+            color: #b91c1c !important;
+            border: 1px solid #fecaca !important;
+            font-weight: 600 !important;
+        }
+
+        .badge-soft-info,
+        .badge.bg-info.bg-opacity-10,
+        .badge.bg-info.bg-opacity-15,
+        .badge.bg-info.bg-opacity-20,
+        .badge.bg-info.bg-opacity-25 {
+            background-color: #e0e7ff !important;
+            color: #4338ca !important;
+            border: 1px solid #c7d2fe !important;
+            font-weight: 600 !important;
+        }
+
+        .badge-soft-secondary,
+        .badge.bg-secondary.bg-opacity-10,
+        .badge.bg-secondary.bg-opacity-15,
+        .badge.bg-secondary.bg-opacity-20,
+        .badge.bg-secondary.bg-opacity-25 {
+            background-color: #f1f5f9 !important;
+            color: #334155 !important;
+            border: 1px solid #cbd5e1 !important;
+            font-weight: 600 !important;
+        }
+
+        .badge-soft-purple,
+        .badge.bg-purple.bg-opacity-10,
+        .badge.bg-purple.bg-opacity-15,
+        .badge.bg-purple.bg-opacity-20 {
+            background-color: #f3e8ff !important;
+            color: #7e22ce !important;
+            border: 1px solid #e9d5ff !important;
+            font-weight: 600 !important;
+        }
+
+        .badge-soft-dark {
+            background-color: #e2e8f0 !important;
+            color: #0f172a !important;
+            border: 1px solid #94a3b8 !important;
+            font-weight: 600 !important;
+        }
+
         .btn-gradient-primary {
             background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
             color: white;
