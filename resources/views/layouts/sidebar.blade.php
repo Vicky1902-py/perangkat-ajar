@@ -180,6 +180,19 @@
                         </a>
                     </li>
                     <li class="nav-item">
+                        @php
+                            $newFeedbackCount = \App\Models\UserFeedback::where('status', 'baru')->count();
+                        @endphp
+                        <a class="nav-link {{ request()->routeIs('cms.feedbacks.*') ? 'active' : '' }} d-flex align-items-center justify-content-between" href="{{ route('cms.feedbacks.index') }}">
+                            <div>
+                                <i class="bi bi-chat-quote-fill text-warning"></i> Kotak Usul & Saran
+                            </div>
+                            @if($newFeedbackCount > 0)
+                                <span class="badge bg-danger rounded-pill px-2 py-0.5" style="font-size: 0.65rem;">{{ $newFeedbackCount }} Baru</span>
+                            @endif
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('cms.settings.*') ? 'active' : '' }}" href="{{ route('cms.settings.index') }}">
                             <i class="bi bi-sliders2 text-primary"></i> Pengaturan Aplikasi
                         </a>

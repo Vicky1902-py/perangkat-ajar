@@ -132,7 +132,18 @@ class SettingController extends Controller
             }
         }
 
-        // 5. Tangani Seluruh Field Teks, Textarea, dan Warna
+        // 5. Tangani Upload Avatar Profil Pembuat
+        if ($request->hasFile('creator_avatar_file')) {
+            $request->validate(['creator_avatar_file' => 'image|mimes:jpeg,png,jpg,webp|max:4096']);
+            $avatarFile = $request->file('creator_avatar_file');
+            $avatarName = 'avatar_' . time() . '.' . $avatarFile->getClientOriginalExtension();
+            $avatarFile->move($uploadPath, $avatarName);
+            Setting::set('creator_avatar', asset('uploads/settings/' . $avatarName), 'creator_profile', 'image');
+        } elseif ($request->filled('creator_avatar_url')) {
+            Setting::set('creator_avatar', $request->input('creator_avatar_url'), 'creator_profile', 'image');
+        }
+
+        // 6. Tangani Seluruh Field Teks, Textarea, dan Warna
         $textFields = [
             'app_name' => 'branding',
             'app_tagline' => 'branding',
@@ -157,6 +168,16 @@ class SettingController extends Controller
             'landing_creator_role' => 'landing_creator',
             'landing_creator_desc' => 'landing_creator',
             'landing_copyright_year' => 'landing_creator',
+            'creator_headline' => 'creator_profile',
+            'creator_bio' => 'creator_profile',
+            'creator_education' => 'creator_profile',
+            'creator_skills' => 'creator_profile',
+            'creator_whatsapp' => 'creator_profile',
+            'creator_email' => 'creator_profile',
+            'creator_github' => 'creator_profile',
+            'creator_linkedin' => 'creator_profile',
+            'creator_instagram' => 'creator_profile',
+            'creator_website' => 'creator_profile',
         ];
 
         foreach ($textFields as $field => $grp) {

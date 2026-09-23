@@ -4,8 +4,10 @@ use App\Http\Controllers\AsesmenController;
 use App\Http\Controllers\AtpController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\CmsController;
+use App\Http\Controllers\CreatorProfileController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ExportController;
+use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\GeneratorController;
 use App\Http\Controllers\LegalController;
 use App\Http\Controllers\LkpdController;
@@ -29,6 +31,12 @@ Route::get('/terms-of-service', [LegalController::class, 'terms'])->name('legal.
 Route::get('/about-us', [LegalController::class, 'about'])->name('legal.about');
 Route::get('/contact', [LegalController::class, 'contact'])->name('legal.contact');
 Route::get('/disclaimer', [LegalController::class, 'disclaimer'])->name('legal.disclaimer');
+
+// LANDING PROFIL PEMBUAT APLIKASI (PUBLIK)
+Route::get('/profil-pembuat', [CreatorProfileController::class, 'index'])->name('creator.profile');
+
+// FORMULIR USUL & SARAN (PUBLIK & GURU)
+Route::post('/feedback', [FeedbackController::class, 'store'])->name('feedback.store');
 
 // AUTHENTICATION
 Route::middleware('guest')->group(function () {
@@ -157,6 +165,11 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/cms/traffic', [TrafficController::class, 'index'])->name('cms.traffic.index');
             Route::get('/cms/traffic/live', [TrafficController::class, 'liveData'])->name('cms.traffic.live');
             Route::post('/cms/traffic/clear-old', [TrafficController::class, 'clearOldLogs'])->name('cms.traffic.clear-old');
+
+            // Kotak Usul & Saran Pengguna
+            Route::get('/cms/feedbacks', [FeedbackController::class, 'index'])->name('cms.feedbacks.index');
+            Route::post('/cms/feedbacks/{id}/status', [FeedbackController::class, 'updateStatus'])->name('cms.feedbacks.update-status');
+            Route::delete('/cms/feedbacks/{id}', [FeedbackController::class, 'destroy'])->name('cms.feedbacks.destroy');
 
             // Pengaturan Aplikasi (Logo, Favicon, Full CMS Landing, Tema, Backup DB, Regulasi)
             Route::get('/cms/settings', [SettingController::class, 'index'])->name('cms.settings.index');

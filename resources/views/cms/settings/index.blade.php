@@ -65,6 +65,12 @@
                         <i class="bi bi-journal-check me-1.5"></i> Regulasi Kurikulum
                     </button>
                 </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link text-start text-md-center rounded-3 py-2.5 px-3 {{ $activeTab === 'creator' ? 'active shadow-sm' : '' }}" 
+                            id="tab-creator" data-bs-toggle="tab" data-bs-target="#pane-creator" type="button" role="tab">
+                        <i class="bi bi-person-bounding-box me-1.5"></i> Profil Pembuat
+                    </button>
+                </li>
             </ul>
         </div>
     </div>
@@ -644,6 +650,156 @@
                     </div>
                 </div>
             </div>
+        <!-- ========================================== -->
+        <!-- TAB 6: PROFIL PEMBUAT APLIKASI (CMS)       -->
+        <!-- ========================================== -->
+        <div class="tab-pane fade {{ $activeTab === 'creator' ? 'show active' : '' }}" id="pane-creator" role="tabpanel">
+            <form action="{{ route('cms.settings.update') }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                <input type="hidden" name="active_tab" value="creator">
+
+                <div class="row g-4">
+                    <!-- FOTO AVATAR & AKSI CEPAT -->
+                    <div class="col-lg-4">
+                        <div class="card border-0 shadow-sm rounded-4 text-center p-4">
+                            <div class="avatar-preview-wrapper mx-auto mb-3" style="width: 140px; height: 140px; border-radius: 50%; padding: 4px; background: linear-gradient(135deg, #38bdf8, #6366f1); box-shadow: 0 0 25px rgba(56, 189, 248, 0.3);">
+                                <img src="{{ app_setting('creator_avatar', 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80') }}" 
+                                     alt="{{ app_setting('landing_creator_name', 'Vicky Koroh') }}" 
+                                     id="creatorAvatarPreview"
+                                     style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover; border: 3px solid #ffffff;">
+                            </div>
+
+                            <h5 class="fw-bold text-dark mb-1">{{ app_setting('landing_creator_name', 'Vicky Koroh') }}</h5>
+                            <p class="text-muted small mb-3">{{ app_setting('creator_headline', 'Software Engineer & Educational Technology Architect') }}</p>
+
+                            <div class="mb-3 text-start">
+                                <label class="form-label small fw-bold text-dark">Unggah Foto Profil Baru</label>
+                                <input type="file" name="creator_avatar_file" class="form-control form-control-sm" accept="image/*"
+                                       onchange="document.getElementById('creatorAvatarPreview').src = window.URL.createObjectURL(this.files[0])">
+                                <div class="form-text small" style="font-size: 0.75rem;">Format JPG/PNG/WebP, maks. 4MB.</div>
+                            </div>
+
+                            <div class="mb-3 text-start">
+                                <label class="form-label small fw-bold text-dark">Atau URL Foto Eksternal</label>
+                                <input type="url" name="creator_avatar_url" value="{{ app_setting('creator_avatar') }}" class="form-control form-control-sm" placeholder="https://...">
+                            </div>
+
+                            <hr class="my-3 opacity-10">
+
+                            <a href="{{ route('creator.profile') }}" target="_blank" class="btn btn-outline-primary btn-sm rounded-pill w-100 fw-semibold">
+                                <i class="bi bi-box-arrow-up-right me-1"></i> Buka Halaman Publik Profil
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- FORM RINCIAN PROFIL & SOSIAL MEDIA -->
+                    <div class="col-lg-8">
+                        <div class="card border-0 shadow-sm rounded-4 p-4">
+                            <h5 class="fw-bold text-dark mb-1 d-flex align-items-center gap-2">
+                                <i class="bi bi-person-lines-fill text-primary"></i> Data Pribadi & Portofolio Arsitek Sistem
+                            </h5>
+                            <p class="text-muted small mb-4">Informasi ini ditampilkan di halaman publik <code>/profil-pembuat</code>, pop-up panduan, dan footer landing page.</p>
+
+                            <div class="row g-3 mb-3">
+                                <div class="col-md-6">
+                                    <label class="form-label small fw-bold text-dark">Nama Lengkap & Gelar</label>
+                                    <input type="text" name="landing_creator_name" value="{{ app_setting('landing_creator_name', 'Vicky Koroh') }}" required class="form-control">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label small fw-bold text-dark">Headline Profesi / Jabatan</label>
+                                    <input type="text" name="creator_headline" value="{{ app_setting('creator_headline', 'Software Engineer & Educational Technology Architect') }}" required class="form-control">
+                                </div>
+                            </div>
+
+                            <div class="row g-3 mb-3">
+                                <div class="col-md-6">
+                                    <label class="form-label small fw-bold text-dark">Peran di Sistem</label>
+                                    <input type="text" name="landing_creator_role" value="{{ app_setting('landing_creator_role', 'Super Administrator & Lead Architect') }}" class="form-control">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label small fw-bold text-dark">Tahun Hak Cipta</label>
+                                    <input type="text" name="landing_copyright_year" value="{{ app_setting('landing_copyright_year', '2026') }}" class="form-control">
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label small fw-bold text-dark">Biografi Lengkap & Visi Misi Dedikasi</label>
+                                <textarea name="creator_bio" rows="4" class="form-control" placeholder="Tuliskan biografi dan latar belakang pengembangan sistem...">{{ app_setting('creator_bio', 'Vicky Koroh adalah pengembang teknologi pendidikan dan arsitek perangkat lunak yang berdedikasi menciptakan inovasi kecerdasan digital untuk memberdayakan para pendidik kejuruan (SMK) di seluruh nusantara.') }}</textarea>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label small fw-bold text-dark">Latar Belakang Pendidikan & Spesialisasi</label>
+                                <input type="text" name="creator_education" value="{{ app_setting('creator_education', 'Pakar Rekayasa Perangkat Lunak & Teknologi Pembelajaran Vokasi Modern') }}" class="form-control">
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label small fw-bold text-dark">Keahlian & Pilar Teknologi (Pisahkan dengan koma)</label>
+                                <input type="text" name="creator_skills" value="{{ app_setting('creator_skills', 'AI System Engineering, Deep Learning Pedagogy, Cloud Infrastructure, Laravel Architecture, Kurikulum Merdeka SMK, Clean Code & Security') }}" class="form-control">
+                            </div>
+
+                            <div class="mb-4">
+                                <label class="form-label small fw-bold text-dark">Narasi Dedikasi Singkat (Footer/Hero)</label>
+                                <textarea name="landing_creator_desc" rows="2" class="form-control">{{ app_setting('landing_creator_desc', 'Karya inovasi teknologi pendidikan kejuruan yang didesain dan dikembangkan secara khusus untuk mendukung guru SMK di seluruh Indonesia.') }}</textarea>
+                            </div>
+
+                            <h6 class="fw-bold text-dark small mb-3 border-top pt-3">
+                                <i class="bi bi-share me-1 text-primary"></i> Kontak Resmi & Tautan Jejaring Sosial:
+                            </h6>
+
+                            <div class="row g-3 mb-4">
+                                <div class="col-md-6">
+                                    <label class="form-label small text-muted">Nomor WhatsApp Resmi</label>
+                                    <div class="input-group input-group-sm">
+                                        <span class="input-group-text bg-light"><i class="bi bi-whatsapp text-success"></i></span>
+                                        <input type="text" name="creator_whatsapp" value="{{ app_setting('creator_whatsapp', '081234567890') }}" class="form-control" placeholder="0812...">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label small text-muted">Alamat Email Resmi</label>
+                                    <div class="input-group input-group-sm">
+                                        <span class="input-group-text bg-light"><i class="bi bi-envelope text-primary"></i></span>
+                                        <input type="email" name="creator_email" value="{{ app_setting('creator_email', 'vicky@vxai.online') }}" class="form-control" placeholder="email@domain.com">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label small text-muted">Tautan GitHub</label>
+                                    <div class="input-group input-group-sm">
+                                        <span class="input-group-text bg-light"><i class="bi bi-github"></i></span>
+                                        <input type="url" name="creator_github" value="{{ app_setting('creator_github', 'https://github.com/Vicky1902-py') }}" class="form-control" placeholder="https://github.com/...">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label small text-muted">Tautan LinkedIn</label>
+                                    <div class="input-group input-group-sm">
+                                        <span class="input-group-text bg-light"><i class="bi bi-linkedin text-info"></i></span>
+                                        <input type="url" name="creator_linkedin" value="{{ app_setting('creator_linkedin', 'https://linkedin.com/in/vicky-koroh') }}" class="form-control" placeholder="https://linkedin.com/in/...">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label small text-muted">Tautan Instagram</label>
+                                    <div class="input-group input-group-sm">
+                                        <span class="input-group-text bg-light"><i class="bi bi-instagram text-danger"></i></span>
+                                        <input type="text" name="creator_instagram" value="{{ app_setting('creator_instagram', 'https://instagram.com/vicky_koroh') }}" class="form-control" placeholder="https://instagram.com/...">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label small text-muted">Situs Web / Portofolio</label>
+                                    <div class="input-group input-group-sm">
+                                        <span class="input-group-text bg-light"><i class="bi bi-globe text-success"></i></span>
+                                        <input type="url" name="creator_website" value="{{ app_setting('creator_website', 'https://guru.vxai.online') }}" class="form-control" placeholder="https://...">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="text-end">
+                                <button type="submit" class="btn btn-primary rounded-pill px-4 py-2 fw-semibold shadow-sm">
+                                    <i class="bi bi-check-circle-fill me-1.5"></i> Simpan Profil Pembuat
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
         </div>
 
     </div>

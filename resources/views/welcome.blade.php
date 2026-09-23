@@ -423,6 +423,14 @@
 
             <!-- Action Buttons -->
             <div class="d-flex align-items-center gap-1.5 gap-sm-2">
+                <button type="button" class="btn btn-sm btn-outline-info rounded-pill px-2.5 px-sm-3 py-1.5 d-none d-lg-inline-flex align-items-center gap-1.5" onclick="openWelcomePopup('panduan')" style="font-size: 0.8rem;">
+                    <i class="bi bi-stars text-warning"></i>
+                    <span>Panduan & Saran</span>
+                </button>
+                <a href="{{ route('creator.profile') }}" class="btn btn-sm btn-outline-light border-opacity-25 rounded-pill px-2.5 px-sm-3 py-1.5 d-none d-xl-inline-flex align-items-center gap-1.5" style="font-size: 0.8rem;">
+                    <i class="bi bi-person-badge text-info"></i>
+                    <span>Profil Pembuat</span>
+                </a>
                 @auth
                     <a href="{{ route('dashboard') }}" class="btn btn-sm btn-glow-primary px-3 py-1.5" style="font-size: 0.82rem;">
                         <i class="bi bi-speedometer2"></i>
@@ -813,6 +821,9 @@
                     <a href="{{ route('generator.index') }}" class="btn btn-sm btn-glow-gold px-4 py-2">
                         <i class="bi bi-lightning-charge-fill"></i> Coba Gratis Sekarang
                     </a>
+                    <a href="{{ route('creator.profile') }}" class="btn btn-sm btn-info text-dark fw-bold px-4 py-2 rounded-pill shadow-sm">
+                        <i class="bi bi-person-lines-fill me-1"></i> Profil Pembuat
+                    </a>
                     <a href="{{ route('login') }}" class="btn btn-sm btn-outline-light px-4 py-2 rounded-pill">
                         <i class="bi bi-box-arrow-in-right"></i> Masuk Akun
                     </a>
@@ -841,10 +852,15 @@
                 <span class="text-white-50">&bull;</span>
                 <a href="{{ route('legal.contact') }}" class="text-white-50 text-decoration-none hover-white">Hubungi Kami</a>
                 <span class="text-white-50">&bull;</span>
+                <a href="{{ route('creator.profile') }}" class="text-white-50 text-decoration-none hover-white">Profil Pembuat</a>
+                <span class="text-white-50">&bull;</span>
                 <a href="{{ route('legal.disclaimer') }}" class="text-white-50 text-decoration-none hover-white">Pernyataan Penyangkalan (Disclaimer)</a>
             </div>
         </div>
     </footer>
+
+    <!-- POP-UP INFORMATIF & PUSAT PANDUAN -->
+    @include('components.welcome-popup')
 
 </body>
 </html>
