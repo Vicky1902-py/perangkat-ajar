@@ -12,15 +12,25 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
+    <!-- Favicon -->
+    @if(app_favicon_url())
+        <link rel="icon" href="{{ app_favicon_url() }}">
+    @else
+        <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%232563eb'><path d='M1 2.828c.885-.37 2.154-.769 3.388-.893 1.33-.134 2.458.063 3.112.752v9.746c-.935-.53-2.12-.603-3.213-.493-1.18.12-2.37.461-3.287.811V2.828zm7.5-.141c.654-.689 1.782-.886 3.112-.752 1.234.124 2.503.523 3.388.893v9.923c-.918-.35-2.107-.692-3.287-.81-1.094-.111-2.278-.039-3.213.492V2.687zM8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783z'/></svg>">
+    @endif
+
     <!-- Bootstrap 5 & Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     
+    @php
+        $themeColors = app_theme_colors();
+    @endphp
     <style>
         :root {
-            --primary-glow: #2563eb;
-            --accent-cyan: #38bdf8;
-            --accent-indigo: #6366f1;
+            --primary-glow: {{ $themeColors['primary'] }};
+            --accent-cyan: {{ $themeColors['cyan'] }};
+            --accent-indigo: {{ $themeColors['indigo'] }};
             --card-glass: rgba(15, 23, 42, 0.82);
             --card-border: rgba(255, 255, 255, 0.12);
         }
@@ -357,12 +367,18 @@
             
             <!-- HEADER -->
             <div class="luxury-header">
-                <div class="brand-badge">
-                    <i class="bi bi-person-plus-fill"></i>
-                </div>
+                @if(app_logo_url())
+                    <div class="text-center mb-2">
+                        <img src="{{ app_logo_url() }}" alt="{{ app_setting('app_name') }}" style="max-height: 50px; max-width: 160px; object-fit: contain;">
+                    </div>
+                @else
+                    <div class="brand-badge">
+                        <i class="bi bi-person-plus-fill"></i>
+                    </div>
+                @endif
                 <h3 class="system-title">Pendaftaran Akun Guru Baru</h3>
                 <p class="system-subtitle">
-                    Sistem Perangkat Ajar Kurikulum Merdeka (Deep Learning)
+                    {{ app_setting('app_name', 'Sistem Perangkat Ajar') }} &bull; {{ app_setting('app_tagline', 'Kurikulum Merdeka (Deep Learning)') }}
                 </p>
                 <div>
                     <span class="curriculum-pill">
@@ -511,7 +527,7 @@
         <!-- FOOTER COPYRIGHT & LEGAL -->
         <div class="luxury-footer">
             <div class="mb-2">
-                Hak Cipta : <span class="copyright-name">Desain by. Vicky Koroh</span> &bull; &copy; 2026
+                Hak Cipta : <span class="copyright-name">Desain by. {{ app_setting('landing_creator_name', 'Vicky Koroh') }}</span> &bull; &copy; {{ app_setting('landing_copyright_year', '2026') }}
             </div>
             <div class="luxury-footer-links d-flex flex-wrap justify-content-center gap-2">
                 <a href="{{ route('legal.privacy') }}">Kebijakan Privasi</a>

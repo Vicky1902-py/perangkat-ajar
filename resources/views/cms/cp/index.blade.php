@@ -47,7 +47,19 @@
                             <td><div class="small text-secondary" style="line-height: 1.4;">{{ Str::limit($cp->deskripsi_cp, 160) }}</div></td>
                             <td>
                                 @php
-                                    $elemen = json_decode($cp->elemen_cp, true) ?? [];
+                                    $rawElemen = is_array($cp->elemen_cp) ? $cp->elemen_cp : (json_decode($cp->elemen_cp, true) ?? []);
+                                    $elemen = [];
+                                    if (is_array($rawElemen)) {
+                                        foreach ($rawElemen as $k => $v) {
+                                            if (is_array($v)) {
+                                                $nama = $v['elemen'] ?? $v['nama'] ?? $v['title'] ?? ("Elemen " . ($k + 1));
+                                                $desc = $v['deskripsi'] ?? $v['desc'] ?? '';
+                                                $elemen[$nama] = is_string($desc) ? $desc : json_encode($desc);
+                                            } else {
+                                                $elemen[$k] = (string)$v;
+                                            }
+                                        }
+                                    }
                                 @endphp
                                 <div class="d-flex flex-wrap gap-1">
                                     @foreach($elemen as $nama => $desc)

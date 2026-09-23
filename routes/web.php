@@ -12,6 +12,7 @@ use App\Http\Controllers\LkpdController;
 use App\Http\Controllers\ModulAjarController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProtaPromesController;
+use App\Http\Controllers\SettingController;
 use App\Http\Controllers\TrafficController;
 use App\Http\Controllers\TujuanPembelajaranController;
 use App\Http\Controllers\UserController;
@@ -156,6 +157,15 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/cms/traffic', [TrafficController::class, 'index'])->name('cms.traffic.index');
             Route::get('/cms/traffic/live', [TrafficController::class, 'liveData'])->name('cms.traffic.live');
             Route::post('/cms/traffic/clear-old', [TrafficController::class, 'clearOldLogs'])->name('cms.traffic.clear-old');
+
+            // Pengaturan Aplikasi (Logo, Favicon, Full CMS Landing, Tema, Backup DB, Regulasi)
+            Route::get('/cms/settings', [SettingController::class, 'index'])->name('cms.settings.index');
+            Route::post('/cms/settings', [SettingController::class, 'update'])->name('cms.settings.update');
+            Route::post('/cms/settings/reset-theme', [SettingController::class, 'resetTheme'])->name('cms.settings.reset-theme');
+            Route::post('/cms/settings/backup', [SettingController::class, 'backupCreate'])->name('cms.settings.backup.create');
+            Route::get('/cms/settings/backup/download/{filename}', [SettingController::class, 'backupDownload'])->name('cms.settings.backup.download');
+            Route::delete('/cms/settings/backup/{filename}', [SettingController::class, 'backupDelete'])->name('cms.settings.backup.delete');
+            Route::post('/cms/settings/sync-regulation', [SettingController::class, 'syncRegulation'])->name('cms.settings.sync-regulation');
         });
     });
 });

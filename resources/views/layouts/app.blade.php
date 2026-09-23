@@ -16,22 +16,36 @@
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     
+    <!-- Favicon -->
+    @if(app_favicon_url())
+        <link rel="icon" href="{{ app_favicon_url() }}">
+    @else
+        <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%232563eb'><path d='M1 2.828c.885-.37 2.154-.769 3.388-.893 1.33-.134 2.458.063 3.112.752v9.746c-.935-.53-2.12-.603-3.213-.493-1.18.12-2.37.461-3.287.811V2.828zm7.5-.141c.654-.689 1.782-.886 3.112-.752 1.234.124 2.503.523 3.388.893v9.923c-.918-.35-2.107-.692-3.287-.81-1.094-.111-2.278-.039-3.213.492V2.687zM8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783z'/></svg>">
+    @endif
+
     <!-- Open Graph & SEO Meta Tags -->
     @include('layouts.partials.og-meta')
     
     <!-- SweetAlert2 CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <!-- DataTables Bootstrap 5 CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css">
 
+    @php
+        $themeColors = app_theme_colors();
+    @endphp
     <style>
         :root {
             --bs-font-sans-serif: 'Plus Jakarta Sans', sans-serif;
-            --primary-gradient: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            --primary-gradient: linear-gradient(135deg, {{ $themeColors['primary'] }} 0%, {{ $themeColors['indigo'] }} 100%);
             --sidebar-bg: #0f172a;
             --sidebar-hover: #1e293b;
-            --sidebar-active: #2563eb;
-            --accent-color: #38bdf8;
+            --sidebar-active: {{ $themeColors['primary'] }};
+            --accent-color: {{ $themeColors['cyan'] }};
+            --theme-primary: {{ $themeColors['primary'] }};
+            --theme-cyan: {{ $themeColors['cyan'] }};
+            --theme-indigo: {{ $themeColors['indigo'] }};
         }
 
         body {

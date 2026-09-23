@@ -2,12 +2,16 @@
     <!-- Brand Box -->
     <div class="brand-box d-flex align-items-center justify-content-between">
         <a href="{{ auth()->check() ? route('dashboard') : route('generator.index') }}" class="text-decoration-none d-flex align-items-center gap-2">
-            <div class="rounded-3 bg-primary bg-gradient text-white d-flex align-items-center justify-content-center shadow-sm" style="width: 38px; height: 38px;">
-                <i class="bi bi-journal-bookmark-fill fs-5"></i>
-            </div>
-            <div>
-                <div class="fw-bold text-white lh-1 fs-6">PerangkatAjar</div>
-                <div class="text-xs text-info fw-semibold" style="font-size: 0.68rem;">BSKAP 046/H/KR/2025</div>
+            @if(app_logo_url())
+                <img src="{{ app_logo_url() }}" alt="{{ app_setting('app_name') }}" style="max-height: 36px; max-width: 38px; object-fit: contain;">
+            @else
+                <div class="rounded-3 bg-primary bg-gradient text-white d-flex align-items-center justify-content-center shadow-sm" style="width: 38px; height: 38px;">
+                    <i class="bi bi-journal-bookmark-fill fs-5"></i>
+                </div>
+            @endif
+            <div class="overflow-hidden">
+                <div class="fw-bold text-white lh-1 fs-6 text-truncate" style="max-width: 175px;">{{ app_setting('app_name', 'PerangkatAjar') }}</div>
+                <div class="text-xs text-info fw-semibold" style="font-size: 0.68rem;">Kurikulum Merdeka 2026</div>
             </div>
         </a>
         <button type="button" class="btn btn-sm text-secondary p-1 d-lg-none" id="sidebarCloseBtn" aria-label="Tutup Menu">
@@ -173,6 +177,11 @@
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('users.*') ? 'active' : '' }}" href="{{ route('users.index') }}">
                             <i class="bi bi-people-fill"></i> Manajemen Pengguna
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('cms.settings.*') ? 'active' : '' }}" href="{{ route('cms.settings.index') }}">
+                            <i class="bi bi-sliders2 text-primary"></i> Pengaturan Aplikasi
                         </a>
                     </li>
                 </ul>

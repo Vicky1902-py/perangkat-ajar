@@ -14,14 +14,24 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     
+    <!-- Favicon -->
+    @if(app_favicon_url())
+        <link rel="icon" href="{{ app_favicon_url() }}">
+    @else
+        <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%232563eb'><path d='M1 2.828c.885-.37 2.154-.769 3.388-.893 1.33-.134 2.458.063 3.112.752v9.746c-.935-.53-2.12-.603-3.213-.493-1.18.12-2.37.461-3.287.811V2.828zm7.5-.141c.654-.689 1.782-.886 3.112-.752 1.234.124 2.503.523 3.388.893v9.923c-.918-.35-2.107-.692-3.287-.81-1.094-.111-2.278-.039-3.213.492V2.687zM8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783z'/></svg>">
+    @endif
+    
     <!-- Open Graph & SEO Meta Tags -->
     @include('layouts.partials.og-meta')
     
+    @php
+        $themeColors = app_theme_colors();
+    @endphp
     <style>
         :root {
-            --primary-glow: #2563eb;
-            --accent-cyan: #38bdf8;
-            --accent-indigo: #6366f1;
+            --primary-glow: {{ $themeColors['primary'] }};
+            --accent-cyan: {{ $themeColors['cyan'] }};
+            --accent-indigo: {{ $themeColors['indigo'] }};
             --accent-amber: #fbbf24;
             --card-glass: rgba(15, 23, 42, 0.78);
             --card-border: rgba(255, 255, 255, 0.12);
@@ -395,15 +405,19 @@
         <div class="container d-flex align-items-center justify-content-between">
             <!-- Brand Logo -->
             <a href="{{ route('home') }}" class="d-flex align-items-center gap-2 gap-sm-3 text-decoration-none">
-                <div class="brand-logo-badge">
-                    <i class="bi bi-journal-bookmark-fill text-white fs-5"></i>
-                </div>
+                @if(app_logo_url())
+                    <img src="{{ app_logo_url() }}" alt="{{ app_setting('app_name') }}" style="max-height: 42px; max-width: 140px; object-fit: contain;">
+                @else
+                    <div class="brand-logo-badge">
+                        <i class="bi bi-journal-bookmark-fill text-white fs-5"></i>
+                    </div>
+                @endif
                 <div>
                     <div class="fw-bold text-white fs-6 mb-0 d-flex align-items-center gap-1.5 brand-title">
-                        <span>Sistem Perangkat Ajar</span>
+                        <span>{{ app_setting('app_name', 'Sistem Perangkat Ajar') }}</span>
                         <span class="badge bg-primary bg-opacity-25 border border-primary border-opacity-50 text-info px-1.5 py-0.5" style="font-size: 0.65rem;">SMK 2026</span>
                     </div>
-                    <div class="text-white-50 small d-none d-sm-block" style="font-size: 0.72rem;">Kurikulum Merdeka &bull; Deep Learning 2026</div>
+                    <div class="text-white-50 small d-none d-sm-block" style="font-size: 0.72rem;">{{ app_setting('app_tagline', 'Kurikulum Merdeka • Deep Learning 2026') }}</div>
                 </div>
             </a>
 
@@ -438,28 +452,25 @@
             <div class="mb-3 mb-md-4">
                 <span class="badge-regulasi">
                     <i class="bi bi-patch-check-fill text-warning fs-6"></i>
-                    <span>Standar Resmi Kurikulum Merdeka 2026 &bull; BSKAP 046/H/KR/2025 &bull; Permendikdasmen 13/2025</span>
+                    <span>{{ app_setting('landing_hero_badge', 'Standar Resmi Kurikulum Merdeka 2026 • BSKAP 046/H/KR/2025 • Permendikdasmen 13/2025') }}</span>
                 </span>
             </div>
 
             <!-- MAIN HERO TITLE -->
             <h1 class="hero-title mb-3">
-                Revolusi Penyusunan Perangkat Ajar SMK 2026 <br class="d-none d-lg-block">
-                <span class="gradient-text">Pendekatan Pembelajaran Mendalam</span>
+                {!! nl2br(e(app_setting('landing_hero_title', 'Revolusi Penyusunan Perangkat Ajar SMK 2026 Berbasis Deep Learning'))) !!}
             </h1>
 
             <!-- HERO SUBTITLE -->
             <p class="hero-subtitle mx-auto mb-4">
-                Platform cerdas generasi baru <strong>Tahun 2026</strong> untuk otomatisasi penyusunan <strong>Tujuan Pembelajaran (TP)</strong>, 
-                <strong>Alur Tujuan Pembelajaran (ATP)</strong>, <strong>Modul Ajar PEDATTI</strong>, <strong>LKPD</strong>, 
-                <strong>Prota</strong>, <strong>Promes</strong>, hingga <strong>Asesmen</strong> lengkap dengan Kop Surat Kedinasan Sekolah.
+                {{ app_setting('landing_hero_subtitle', 'Platform cerdas generasi baru Tahun 2026 untuk otomatisasi penyusunan TP, ATP, Modul Ajar PEDATTI, LKPD, Prota, Promes, hingga Asesmen lengkap dengan Kop Surat Kedinasan Sekolah.') }}
             </p>
 
             <!-- CALL TO ACTIONS -->
             <div class="d-flex flex-column flex-sm-row justify-content-center gap-2.5 gap-sm-3 mb-4 mb-md-5">
                 <a href="{{ route('generator.index') }}" class="btn-glow-gold">
                     <i class="bi bi-lightning-charge-fill fs-5"></i>
-                    <span>Coba Generator Gratis (Maks. 2x)</span>
+                    <span>{{ app_setting('landing_hero_cta_primary', 'Coba Generator Gratis (Maks. 2x)') }}</span>
                 </a>
                 <a href="{{ route('login') }}" class="btn-glow-primary">
                     <i class="bi bi-box-arrow-in-right fs-5"></i>
@@ -510,7 +521,7 @@
                         </div>
                         <div class="position-relative" style="max-height: 480px; overflow: hidden;">
                             <!-- High Resolution Professional Photo of Modern Vocational & Tech Learning -->
-                            <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=1200&q=80" 
+                            <img src="{{ app_setting('landing_hero_image', 'https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=1200&q=80') }}" 
                                  alt="Pembelajaran Vokasi Modern SMK 2026" 
                                  class="img-fluid w-100" 
                                  style="object-fit: cover; height: 380px; filter: brightness(0.92);">
@@ -552,16 +563,16 @@
                 <!-- PILAR 1: MINDFUL (WITH PHOTO) -->
                 <div class="col-md-4">
                     <div class="photo-card h-100">
-                        <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=600&q=80" 
-                             alt="Mindful Learning">
+                        <img src="{{ app_setting('landing_pilar_mindful_img', 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=600&q=80') }}" 
+                             alt="{{ app_setting('landing_pilar_mindful_title', 'Mindful') }}">
                         <div class="photo-overlay">
                             <div class="d-flex align-items-center gap-2 mb-1">
                                 <span class="badge bg-info text-dark fw-bold px-2 py-1" style="font-size: 0.7rem;">Pilar 1</span>
-                                <h4 class="fw-bold text-white mb-0">Mindful</h4>
+                                <h4 class="fw-bold text-white mb-0">{{ app_setting('landing_pilar_mindful_title', 'Mindful') }}</h4>
                             </div>
-                            <div class="text-info fw-semibold small mb-2">Pembelajaran Berkesadaran</div>
+                            <div class="text-info fw-semibold small mb-2">{{ app_setting('landing_pilar_mindful_subtitle', 'Pembelajaran Berkesadaran') }}</div>
                             <p class="text-white-50 small mb-0" style="font-size: 0.8rem; line-height: 1.5;">
-                                Menuntun peserta didik menyadari tujuan belajar, mengaitkan materi kejuruan dengan potensi diri, dan hadir secara penuh dalam setiap aktivitas vokasi.
+                                {{ app_setting('landing_pilar_mindful_desc', 'Menuntun peserta didik menyadari tujuan belajar, mengaitkan materi kejuruan dengan potensi diri, dan hadir secara penuh dalam setiap aktivitas vokasi.') }}
                             </p>
                         </div>
                     </div>
@@ -570,16 +581,16 @@
                 <!-- PILAR 2: MEANINGFUL (WITH PHOTO) -->
                 <div class="col-md-4">
                     <div class="photo-card h-100">
-                        <img src="https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?auto=format&fit=crop&w=600&q=80" 
-                             alt="Meaningful Learning">
+                        <img src="{{ app_setting('landing_pilar_meaningful_img', 'https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?auto=format&fit=crop&w=600&q=80') }}" 
+                             alt="{{ app_setting('landing_pilar_meaningful_title', 'Meaningful') }}">
                         <div class="photo-overlay">
                             <div class="d-flex align-items-center gap-2 mb-1">
                                 <span class="badge bg-warning text-dark fw-bold px-2 py-1" style="font-size: 0.7rem;">Pilar 2</span>
-                                <h4 class="fw-bold text-white mb-0">Meaningful</h4>
+                                <h4 class="fw-bold text-white mb-0">{{ app_setting('landing_pilar_meaningful_title', 'Meaningful') }}</h4>
                             </div>
-                            <div class="text-warning fw-semibold small mb-2">Pembelajaran Bermakna</div>
+                            <div class="text-warning fw-semibold small mb-2">{{ app_setting('landing_pilar_meaningful_subtitle', 'Pembelajaran Bermakna') }}</div>
                             <p class="text-white-50 small mb-0" style="font-size: 0.8rem; line-height: 1.5;">
-                                Menghubungkan setiap capaian pembelajaran dengan kebutuhan nyata Dunia Usaha & Industri (DUDI), proyek nyata, dan kesiapan kerja masa depan.
+                                {{ app_setting('landing_pilar_meaningful_desc', 'Menghubungkan setiap capaian pembelajaran dengan kebutuhan nyata Dunia Usaha & Industri (DUDI), proyek nyata, dan kesiapan kerja masa depan.') }}
                             </p>
                         </div>
                     </div>
@@ -588,16 +599,16 @@
                 <!-- PILAR 3: JOYFUL (WITH PHOTO) -->
                 <div class="col-md-4">
                     <div class="photo-card h-100">
-                        <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=600&q=80" 
-                             alt="Joyful Learning">
+                        <img src="{{ app_setting('landing_pilar_joyful_img', 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=600&q=80') }}" 
+                             alt="{{ app_setting('landing_pilar_joyful_title', 'Joyful') }}">
                         <div class="photo-overlay">
                             <div class="d-flex align-items-center gap-2 mb-1">
                                 <span class="badge bg-success text-white fw-bold px-2 py-1" style="font-size: 0.7rem;">Pilar 3</span>
-                                <h4 class="fw-bold text-white mb-0">Joyful</h4>
+                                <h4 class="fw-bold text-white mb-0">{{ app_setting('landing_pilar_joyful_title', 'Joyful') }}</h4>
                             </div>
-                            <div class="text-success fw-semibold small mb-2">Pembelajaran Menggembirakan</div>
+                            <div class="text-success fw-semibold small mb-2">{{ app_setting('landing_pilar_joyful_subtitle', 'Pembelajaran Menggembirakan') }}</div>
                             <p class="text-white-50 small mb-0" style="font-size: 0.8rem; line-height: 1.5;">
-                                Membangun atmosfer belajar kolaboratif yang menggembirakan, menumbuhkan rasa ingin tahu yang tinggi, dan antusiasme dalam bereksperimen karya kejuruan.
+                                {{ app_setting('landing_pilar_joyful_desc', 'Membangun atmosfer belajar kolaboratif yang menggembirakan, menumbuhkan rasa ingin tahu yang tinggi, dan antusiasme dalam bereksperimen karya kejuruan.') }}
                             </p>
                         </div>
                     </div>
@@ -787,15 +798,15 @@
                 <div class="badge bg-warning bg-opacity-20 text-warning border border-warning border-opacity-30 px-3 py-1.5 rounded-pill small fw-bold mb-3">
                     <i class="bi bi-patch-check-fill me-1"></i> IDENTITAS KARYA & HAK CIPTA RESMI
                 </div>
-                <h3 class="fw-bold text-white mb-2">Sistem Perangkat Ajar Kurikulum Merdeka 2026</h3>
+                <h3 class="fw-bold text-white mb-2">{{ app_setting('app_name', 'Sistem Perangkat Ajar Kurikulum Merdeka 2026') }}</h3>
                 <p class="text-white-50 mb-3" style="max-width: 600px; margin: 0 auto; font-size: 0.95rem;">
-                    Karya inovasi teknologi pendidikan kejuruan yang didesain dan dikembangkan secara khusus untuk mendukung guru SMK di seluruh Indonesia.
+                    {{ app_setting('landing_creator_desc', 'Karya inovasi teknologi pendidikan kejuruan yang didesain dan dikembangkan secara khusus untuk mendukung guru SMK di seluruh Indonesia.') }}
                 </p>
                 <div class="fs-5 fw-bold text-info mb-1">
-                    <i class="bi bi-award me-1"></i> Desain & Pengembangan oleh: <span class="text-white">Vicky Koroh</span>
+                    <i class="bi bi-award me-1"></i> Desain & Pengembangan oleh: <span class="text-white">{{ app_setting('landing_creator_name', 'Vicky Koroh') }}</span>
                 </div>
                 <div class="text-white-50 small mb-4">
-                    Super Administrator & Lead Architect &bull; Hak Cipta Terlindungi &copy; 2026
+                    {{ app_setting('landing_creator_role', 'Super Administrator & Lead Architect') }} &bull; Hak Cipta Terlindungi &copy; {{ app_setting('landing_copyright_year', '2026') }}
                 </div>
 
                 <div class="d-flex flex-wrap justify-content-center gap-2.5">
@@ -815,10 +826,10 @@
         <div class="container">
             <div class="d-flex flex-column flex-md-row align-items-center justify-content-between gap-3 mb-3">
                 <div>
-                    <strong>Sistem Perangkat Ajar SMK 2026</strong> &bull; Kurikulum Merdeka (Deep Learning).
+                    <strong>{{ app_setting('app_name', 'Sistem Perangkat Ajar SMK 2026') }}</strong> &bull; Kurikulum Merdeka (Deep Learning).
                 </div>
                 <div>
-                    Hak Cipta : <span class="text-white fw-semibold">Desain by. Vicky Koroh</span> &bull; &copy; 2026
+                    Hak Cipta : <span class="text-white fw-semibold">Desain by. {{ app_setting('landing_creator_name', 'Vicky Koroh') }}</span> &bull; &copy; {{ app_setting('landing_copyright_year', '2026') }}
                 </div>
             </div>
             <div class="d-flex flex-wrap justify-content-center gap-3 pt-2 border-top border-white border-opacity-5" style="font-size: 0.76rem;">
