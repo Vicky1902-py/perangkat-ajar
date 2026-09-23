@@ -116,6 +116,11 @@
                         <i class="bi bi-check2-square"></i> Asesmen
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->routeIs('paket-soal.*') ? 'active' : '' }}" href="{{ route('paket-soal.index') }}">
+                        <i class="bi bi-patch-question"></i> Smart Soal
+                    </a>
+                </li>
             </ul>
 
             <!-- CMS DATA MASTER (SUPERADMIN & ADMIN SEKOLAH) -->

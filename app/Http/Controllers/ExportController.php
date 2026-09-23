@@ -6,6 +6,7 @@ use App\Models\AlurTujuanPembelajaran;
 use App\Models\Asesmen;
 use App\Models\Lkpd;
 use App\Models\ModulAjar;
+use App\Models\PaketSoal;
 use App\Models\ProgramSemester;
 use App\Models\ProgramTahunan;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -970,5 +971,95 @@ class ExportController extends Controller
         $cellRight->addTextBreak(3);
         $cellRight->addText($guruNama, ['bold' => true, 'underline' => 'single', 'size' => 10]);
         $cellRight->addText('NIP. ' . $guruNip, ['size' => 9]);
+    }
+
+    // ================= EXPORT SOAL & KISI-KISI =================
+    public function exportSoalSiswaPdf(Request $request, PaketSoal $paketSoal)
+    {
+        $paketSoal->load(['mataPelajaran.programKeahlian', 'fase', 'tahunAjaran', 'user.satuanPendidikan']);
+        $this->ensureUserAndSchool($paketSoal);
+        $paper = $this->resolvePaperSize($request, $paketSoal->user?->satuanPendidikan);
+
+        $pdf = Pdf::loadView('exports.pdf.soal-siswa', compact('paketSoal'));
+        $pdf->setPaper($paper['size'], 'portrait');
+
+        $filename = 'Naskah_Soal_Siswa_' . str_replace(' ', '_', $paketSoal->mataPelajaran->nama ?? 'Mapel') . '_' . $paper['label'] . '.pdf';
+        return $pdf->download($filename);
+    }
+
+    public function exportSoalGuruPdf(Request $request, PaketSoal $paketSoal)
+    {
+        $paketSoal->load(['mataPelajaran.programKeahlian', 'fase', 'tahunAjaran', 'user.satuanPendidikan', 'tujuanPembelajaran', 'modulAjar']);
+        $this->ensureUserAndSchool($paketSoal);
+        $paper = $this->resolvePaperSize($request, $paketSoal->user?->satuanPendidikan);
+
+        $pdf = Pdf::loadView('exports.pdf.soal-guru', compact('paketSoal'));
+        $pdf->setPaper($paper['size'], 'portrait');
+
+        $filename = 'Dokumen_Lengkap_Kisi_dan_Soal_Guru_' . str_replace(' ', '_', $paketSoal->mataPelajaran->nama ?? 'Mapel') . '_' . $paper['label'] . '.pdf';
+        return $pdf->download($filename);
+    }
+
+    public function exportSoalDocx(PaketSoal $paketSoal)
+    {
+        $paketSoal->load(['mataPelajaran', 'fase', 'tahunAjaran', 'user.satuanPendidikan']);
+        $this->ensureUserAndSchool($paketSoal);
+
+        $phpWord = new PhpWord();
+        $section = $phpWord->addSection();
+
+        $this->addDocxKopSurat($section, $paketSoal->user->satuanPendidikan, 'portrait');
+
+        $section->addTitle($paketSoal->judul, 1);
+        $section->addText('Bentuk: ' . $paketSoal->bentuk_soal_label . ' | Alokasi Waktu: ' . $paketSoal->alokasi_waktu_menit . ' Menit', ['italic' => true]);
+        $section->addTextBreak(1);
+
+        $section->addText('Mata Pelajaran : ' . ($paketSoal->mataPelajaran->nama ?? '-'));
+        $section->addText('Fase / Kelas   : Fase ' . ($paketSoal->fase->kode ?? '-') . ' (' . ($paketSoal->fase->kelas_range ?? '-') . ')');
+        $section->addText('Nama Siswa     : __________________________________________________');
+        $section->addText('Kelas / No. Absen: ________________________ / ___________________');
+        $section->addTextBreak(1);
+
+        if ($paketSoal->petunjuk_umum) {
+            $section->addText('PETUNJUK UMUM:', ['bold' => true]);
+            $section->addText($paketSoal->petunjuk_umum);
+            $section->addTextBreak(1);
+        }
+
+        if (!empty($paketSoal->butir_soal_pg)) {
+            $section->addTitle('BAGIAN I: PILIHAN GANDA', 2);
+            foreach ($paketSoal->butir_soal_pg as $pg) {
+                $section->addText($pg['nomor'] . '. ' . $pg['pertanyaan'], ['bold' => true]);
+                if (!empty($pg['stimulus'])) {
+                    $section->addText('Konteks: ' . $pg['stimulus'], ['italic' => true]);
+                }
+                foreach ($pg['pilihan'] as $opt => $text) {
+                    $section->addText('    ' . $opt . '. ' . $text);
+                }
+                $section->addTextBreak(1);
+            }
+        }
+
+        if (!empty($paketSoal->butir_soal_isian)) {
+            $section->addTitle('BAGIAN II: ISIAN / URAIAN', 2);
+            foreach ($paketSoal->butir_soal_isian as $es) {
+                $section->addText($es['nomor'] . '. ' . $es['pertanyaan'], ['bold' => true]);
+                if (!empty($es['stimulus'])) {
+                    $section->addText('Konteks: ' . $es['stimulus'], ['italic' => true]);
+                }
+                $section->addText('Jawaban:');
+                $section->addTextBreak(3);
+            }
+        }
+
+        $this->addDocxSignatureTable($section, $paketSoal->user->satuanPendidikan, $paketSoal->user, 'portrait');
+
+        $filename = 'Naskah_Soal_' . str_replace(' ', '_', $paketSoal->mataPelajaran->nama ?? 'Mapel') . '.docx';
+        $objWriter = IOFactory::createWriter($phpWord, 'Word2007');
+        return response()->streamDownload(function () use ($objWriter) {
+            $objWriter->save('php://output');
+        }, $filename, [
+            'Content-Type' => 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+        ]);
     }
 }

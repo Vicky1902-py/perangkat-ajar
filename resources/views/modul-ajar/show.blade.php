@@ -11,6 +11,9 @@
         <h4 class="fw-bold text-dark mb-0">{{ $modulAjar->judul }}</h4>
     </div>
     <div class="d-flex flex-wrap gap-2">
+        <a href="{{ route('paket-soal.create', ['modul_id' => $modulAjar->id]) }}" class="btn btn-outline-primary btn-sm rounded-pill px-3 d-inline-flex align-items-center gap-1">
+            <i class="bi bi-patch-question me-1"></i> Buat Smart Soal
+        </a>
         <div class="dropdown">
             <button class="btn btn-danger btn-sm rounded-pill px-3 dropdown-toggle d-inline-flex align-items-center gap-1" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                 <i class="bi bi-file-earmark-pdf me-1"></i> Unduh PDF

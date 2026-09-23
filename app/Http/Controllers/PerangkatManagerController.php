@@ -10,6 +10,7 @@ use App\Models\LkpdKegiatan;
 use App\Models\MataPelajaran;
 use App\Models\ModulAjar;
 use App\Models\ModulAjarKegiatan;
+use App\Models\PaketSoal;
 use App\Models\ProgramSemester;
 use App\Models\ProgramTahunan;
 use App\Models\TujuanPembelajaran;
@@ -34,13 +35,15 @@ class PerangkatManagerController extends Controller
             'prota'      => ProgramTahunan::count(),
             'promes'     => ProgramSemester::count(),
             'asesmen'    => Asesmen::count(),
+            'soal'       => PaketSoal::count(),
         ];
         $totalPerangkat = array_sum($counts);
 
         // Hitung dokumen yang dibuat oleh sesi Tamu (Guest Trials)
         $guestCounts = ModulAjar::whereNotNull('guest_session_id')->count()
             + AlurTujuanPembelajaran::whereNotNull('guest_session_id')->count()
-            + Lkpd::whereNotNull('guest_session_id')->count();
+            + Lkpd::whereNotNull('guest_session_id')->count()
+            + PaketSoal::whereNull('user_id')->count();
 
         // Metrik Disk Storage Hosting
         $diskTotalBytes = @disk_total_space('.') ?: (100 * 1024 * 1024 * 1024);
@@ -286,6 +289,32 @@ class PerangkatManagerController extends Controller
             }
         }
 
+        // Ambil Paket Soal (Smart Soal)
+        if ($filterType === 'all' || $filterType === 'soal' || $filterType === 'paket_soal') {
+            $q = PaketSoal::with(['user', 'mataPelajaran', 'fase'])->latest();
+            $applyDateFilter($q);
+            $applyUserFilter($q);
+            if ($search) {
+                $q->where('judul', 'like', "%{$search}%");
+            }
+            foreach ($q->get() as $item) {
+                $collection->push([
+                    'type_key'   => 'paket_soal',
+                    'type_label' => 'Smart Soal (' . strtoupper($item->tipe_soal) . ')',
+                    'badge'      => 'info',
+                    'id'         => $item->id,
+                    'composite_id' => 'paket_soal:' . $item->id,
+                    'judul'      => $item->judul ?: 'Paket Soal',
+                    'mapel'      => $item->mataPelajaran->nama ?? 'Umum',
+                    'fase'       => $item->fase->nama ?? '-',
+                    'author'     => $item->user ? $item->user->name : 'Tamu (Guest)',
+                    'is_guest'   => empty($item->user_id),
+                    'created_at' => $item->created_at,
+                    'view_url'   => route('paket-soal.show', $item->id),
+                ]);
+            }
+        }
+
         // Urutkan berdasarkan tanggal terbaru
         $sortedCollection = $collection->sortByDesc('created_at')->values();
 
@@ -410,6 +439,15 @@ class PerangkatManagerController extends Controller
                             $deletedCount++;
                         }
                         break;
+
+                    case 'paketsoal':
+                    case 'soal':
+                        $soal = PaketSoal::find($id);
+                        if ($soal) {
+                            $soal->delete();
+                            $deletedCount++;
+                        }
+                        break;
                 }
             }
         });
@@ -491,6 +529,12 @@ class PerangkatManagerController extends Controller
                     $deletedCount += TujuanPembelajaran::whereIn('id', $guestTps)->delete();
                 }
 
+                // 8. Paket Soal Tamu
+                $guestSoals = PaketSoal::whereNull('user_id')->pluck('id');
+                if ($guestSoals->isNotEmpty()) {
+                    $deletedCount += PaketSoal::whereIn('id', $guestSoals)->delete();
+                }
+
             } elseif ($purgeTarget === 'older_30' || $purgeTarget === 'older_90') {
                 $days = $purgeTarget === 'older_30' ? 30 : 90;
                 $cutoff = now()->subDays($days);
@@ -542,6 +586,12 @@ class PerangkatManagerController extends Controller
                     ModulAjar::whereIn('tujuan_pembelajaran_id', $oldTps)->update(['tujuan_pembelajaran_id' => null]);
                     Asesmen::whereIn('tujuan_pembelajaran_id', $oldTps)->update(['tujuan_pembelajaran_id' => null]);
                     $deletedCount += TujuanPembelajaran::whereIn('id', $oldTps)->delete();
+                }
+
+                // 8. Paket Soal Lama
+                $oldSoals = PaketSoal::where('created_at', '<', $cutoff)->pluck('id');
+                if ($oldSoals->isNotEmpty()) {
+                    $deletedCount += PaketSoal::whereIn('id', $oldSoals)->delete();
                 }
             }
         });

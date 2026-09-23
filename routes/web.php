@@ -12,6 +12,7 @@ use App\Http\Controllers\GeneratorController;
 use App\Http\Controllers\LegalController;
 use App\Http\Controllers\LkpdController;
 use App\Http\Controllers\ModulAjarController;
+use App\Http\Controllers\PaketSoalController;
 use App\Http\Controllers\PerangkatManagerController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProtaPromesController;
@@ -87,6 +88,11 @@ Route::prefix('export')->name('export.')->group(function () {
     Route::get('/promes/{promes}/pdf', [ExportController::class, 'exportPromesPdf'])->name('promes.pdf');
     Route::get('/promes/{promes}/excel', [ExportController::class, 'exportPromesExcel'])->name('promes.excel');
     Route::get('/promes/{promes}/docx', [ExportController::class, 'exportPromesDocx'])->name('promes.docx');
+
+    // EXPORT SOAL & KISI-KISI
+    Route::get('/paket-soal/{paketSoal}/siswa/pdf', [ExportController::class, 'exportSoalSiswaPdf'])->name('soal.siswa.pdf');
+    Route::get('/paket-soal/{paketSoal}/guru/pdf', [ExportController::class, 'exportSoalGuruPdf'])->name('soal.guru.pdf');
+    Route::get('/paket-soal/{paketSoal}/docx', [ExportController::class, 'exportSoalDocx'])->name('soal.docx');
 });
 
 // PROTECTED ROUTES (AUTHENTICATED)
@@ -120,6 +126,9 @@ Route::middleware(['auth'])->group(function () {
         // ASESMEN
         Route::get('/asesmen', [AsesmenController::class, 'index'])->name('asesmen.index');
         Route::get('/asesmen/{asesmen}', [AsesmenController::class, 'show'])->name('asesmen.show');
+
+        // GENERATOR SOAL (BANK SOAL & KISI-KISI SISTEM PAKAR)
+        Route::resource('paket-soal', PaketSoalController::class);
 
         // CMS MASTER DATA (SUPERADMIN & ADMIN SEKOLAH)
         Route::middleware(['role:superadmin,admin_sekolah'])->prefix('cms')->name('cms.')->group(function () {

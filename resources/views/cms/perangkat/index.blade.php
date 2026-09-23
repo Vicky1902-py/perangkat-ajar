@@ -112,7 +112,7 @@
                         <span class="text-muted small">berkas aktif</span>
                     </div>
                     <div class="small text-muted" style="font-size: 0.75rem;">
-                        Modul: {{ $counts['modul_ajar'] }} &bull; ATP: {{ $counts['atp'] }} &bull; TP: {{ $counts['tp'] }}
+                        Modul: {{ $counts['modul_ajar'] }} &bull; ATP: {{ $counts['atp'] }} &bull; Soal: {{ $counts['soal'] ?? 0 }}
                     </div>
                 </div>
             </div>
@@ -156,6 +156,7 @@
                         <option value="prota" {{ $filterType === 'prota' ? 'selected' : '' }}>Program Tahunan ({{ $counts['prota'] }})</option>
                         <option value="promes" {{ $filterType === 'promes' ? 'selected' : '' }}>Program Semester ({{ $counts['promes'] }})</option>
                         <option value="asesmen" {{ $filterType === 'asesmen' ? 'selected' : '' }}>Instrumen Asesmen ({{ $counts['asesmen'] }})</option>
+                        <option value="soal" {{ ($filterType === 'soal' || $filterType === 'paket_soal') ? 'selected' : '' }}>Smart Soal ({{ $counts['soal'] ?? 0 }})</option>
                     </select>
                 </div>
 
@@ -289,6 +290,7 @@
                                                     'prota'      => 'badge-soft-secondary',
                                                     'promes'     => 'badge-soft-purple',
                                                     'asesmen'    => 'badge-soft-danger',
+                                                    'paket_soal' => 'badge-soft-cyan',
                                                     default      => 'badge-soft-primary',
                                                 };
                                                 $badgeIcon = match($item['type_key']) {
@@ -299,6 +301,7 @@
                                                     'prota'      => 'bi-calendar-range-fill',
                                                     'promes'     => 'bi-calendar-week-fill',
                                                     'asesmen'    => 'bi-clipboard-check-fill',
+                                                    'paket_soal' => 'bi-patch-question-fill',
                                                     default      => 'bi-file-earmark-text',
                                                 };
                                             @endphp
