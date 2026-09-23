@@ -96,18 +96,18 @@
                         </span>
                     </div>
 
-                    <!-- SPECIAL CALLOUT: STANDAR SISTEM PAKAR & APRESIASI GTK 2026 -->
-                    <div class="p-3 rounded-4 mb-3 border border-warning border-opacity-30 d-flex align-items-start gap-3" 
-                         style="background: linear-gradient(135deg, rgba(245, 158, 11, 0.12) 0%, rgba(13, 71, 161, 0.25) 100%);">
+                    <!-- SPECIAL CALLOUT: STANDAR SISTEM PAKAR RESMI KEMENDIKDASMEN -->
+                    <div class="p-3 rounded-4 mb-3 border border-warning border-opacity-40 d-flex align-items-start gap-3" 
+                         style="background: linear-gradient(135deg, rgba(245, 158, 11, 0.15) 0%, rgba(11, 59, 96, 0.4) 100%);">
                         <div class="p-2 rounded-3 bg-warning text-dark fs-5 flex-shrink-0">
                             <i class="bi bi-patch-check-fill"></i>
                         </div>
                         <div>
                             <div class="fw-bold text-white small d-flex align-items-center gap-2 flex-wrap mb-1">
                                 <span>100% Murni Sistem Pakar Edukasi &bull; Berbasis Database Resmi</span>
-                                <span class="badge bg-warning text-dark" style="font-size: 0.68rem;">Apresiasi GTK 2026</span>
+                                <span class="badge bg-warning text-dark fw-bold" style="font-size: 0.68rem;">BSKAP No. 046/2025</span>
                             </div>
-                            <p class="text-white-50 small mb-0" style="font-size: 0.8rem; line-height: 1.5;">
+                            <p class="small mb-0" style="font-size: 0.82rem; line-height: 1.55; color: #f1f5f9 !important;">
                                 Berbeda dari AI generatif umum yang membutuhkan API Key berbayar dan rentan halusinasi, sistem ini menggunakan <strong>Knowledge-Based Expert System</strong> deterministik. Seluruh referensi Capaian Pembelajaran tersimpan di database internal berdasarkan <strong>Keputusan Kepala BSKAP No. 046/H/KR/2025</strong> dan <strong>Permendikdasmen No. 13/2025</strong>. Dijamin <strong>Nol Halusinasi</strong>, bebas biaya token, dan menjaga kedaulatan data sekolah.
                             </p>
                         </div>
@@ -439,18 +439,18 @@
 <!-- STYLE POP-UP & FLOATING BUTTON                               -->
 <!-- ============================================================ -->
 <style>
-    /* Modal Backdrop & Glass Container */
+    /* Modal Backdrop & Glass Container - Kemendikdasmen Navy & Gold */
     .welcome-modal-custom .modal-content {
-        background: radial-gradient(120% 120% at 50% 0%, #0c1833 0%, #050b18 100%) !important;
-        border: 1px solid rgba(56, 189, 248, 0.28) !important;
+        background: radial-gradient(120% 120% at 50% 0%, #0c2b4c 0%, #06192e 100%) !important;
+        border: 2px solid rgba(245, 158, 11, 0.45) !important;
         border-radius: 24px !important;
-        box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 40px rgba(56, 189, 248, 0.18) !important;
+        box-shadow: 0 25px 60px rgba(0, 0, 0, 0.85), 0 0 40px rgba(245, 158, 11, 0.2) !important;
         color: #ffffff;
     }
 
     /* Enhanced contrast overrides for maximum readability */
     .welcome-modal-custom .text-white-50 {
-        color: #cbd5e1 !important;
+        color: #e2e8f0 !important;
     }
     .welcome-modal-custom .text-secondary {
         color: #cbd5e1 !important;
@@ -459,10 +459,10 @@
         color: #cbd5e1 !important;
     }
     .welcome-modal-custom .menu-subtitle {
-        color: #cbd5e1 !important;
+        color: #bae6fd !important;
     }
     .welcome-modal-custom .form-label-popup {
-        color: #f1f5f9 !important;
+        color: #f8fafc !important;
         font-weight: 600;
     }
     .welcome-modal-custom .form-control-popup::placeholder,
@@ -470,12 +470,12 @@
         color: #94a3b8 !important;
     }
     .welcome-modal-custom .welcome-acc-body {
-        color: #e2e8f0 !important;
+        color: #f1f5f9 !important;
     }
     .welcome-modal-custom .welcome-acc-body p,
     .welcome-modal-custom .welcome-acc-body li,
     .welcome-modal-custom .welcome-acc-body div {
-        color: #e2e8f0;
+        color: #f1f5f9;
     }
     .welcome-acc-button {
         cursor: pointer !important;
@@ -484,31 +484,31 @@
     .welcome-header-icon {
         width: 48px;
         height: 48px;
-        background: linear-gradient(135deg, rgba(37, 99, 235, 0.35), rgba(56, 189, 248, 0.25));
-        border: 1px solid rgba(56, 189, 248, 0.4);
+        background: linear-gradient(135deg, #0b3b60 0%, #1d4ed8 100%);
+        border: 1.5px solid #f59e0b;
         border-radius: 14px;
         display: flex;
         align-items: center;
         justify-content: center;
         font-size: 1.4rem;
-        color: #38bdf8;
-        box-shadow: 0 0 20px rgba(56, 189, 248, 0.3);
+        color: #fbbf24;
+        box-shadow: 0 0 20px rgba(245, 158, 11, 0.35);
     }
 
     .welcome-badge {
-        background: rgba(37, 99, 235, 0.25);
-        border: 1px solid rgba(56, 189, 248, 0.35);
+        background: #0b3b60;
+        border: 1.5px solid #f59e0b;
         border-radius: 30px;
-        padding: 3px 10px;
+        padding: 3px 12px;
         font-size: 0.72rem;
         font-weight: 700;
-        color: #e0f2fe;
+        color: #ffffff;
     }
 
     /* 3 Action Menu Buttons */
     .welcome-menu-btn {
-        background: rgba(255, 255, 255, 0.04);
-        border: 1px solid rgba(255, 255, 255, 0.1);
+        background: rgba(11, 59, 96, 0.45);
+        border: 1.5px solid rgba(56, 189, 248, 0.25);
         border-radius: 14px;
         padding: 10px 14px;
         transition: all 0.25s ease;
@@ -516,15 +516,15 @@
     }
 
     .welcome-menu-btn:hover {
-        background: rgba(255, 255, 255, 0.08);
-        border-color: rgba(56, 189, 248, 0.35);
+        background: rgba(11, 59, 96, 0.7);
+        border-color: #f59e0b;
         transform: translateY(-2px);
     }
 
     .welcome-menu-btn.active {
-        background: linear-gradient(135deg, rgba(37, 99, 235, 0.3), rgba(99, 102, 241, 0.25));
-        border-color: #38bdf8;
-        box-shadow: 0 4px 18px rgba(56, 189, 248, 0.22);
+        background: linear-gradient(135deg, rgba(11, 59, 96, 0.95), rgba(13, 71, 161, 0.85));
+        border-color: #f59e0b;
+        box-shadow: 0 4px 18px rgba(245, 158, 11, 0.3);
     }
 
     .menu-icon-box {
@@ -548,8 +548,8 @@
     }
 
     .menu-subtitle {
-        font-size: 0.72rem;
-        color: #94a3b8;
+        font-size: 0.75rem;
+        color: #bae6fd;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;

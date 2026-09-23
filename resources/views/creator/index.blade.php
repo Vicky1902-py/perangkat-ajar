@@ -95,25 +95,26 @@
 
         /* High contrast overrides */
         .text-white-50 {
-            color: #cbd5e1 !important;
+            color: #e2e8f0 !important;
         }
         .text-secondary {
             color: #cbd5e1 !important;
         }
         .text-muted {
-            color: #94a3b8 !important;
+            color: #cbd5e1 !important;
         }
 
-        /* Navbar */
+        /* Navbar - Kemendikdasmen Signature Navy & Gold */
         .creator-navbar {
-            background: rgba(4, 9, 20, 0.88);
+            background: #0b3b60;
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--border-glass);
-            padding: 14px 0;
+            border-bottom: 3.5px solid #f59e0b;
+            padding: 12px 0;
             position: sticky;
             top: 0;
             z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
         }
 
         .creator-brand {

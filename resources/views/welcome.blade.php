@@ -29,12 +29,16 @@
     @endphp
     <style>
         :root {
-            --primary-glow: {{ $themeColors['primary'] }};
-            --accent-cyan: {{ $themeColors['cyan'] }};
-            --accent-indigo: {{ $themeColors['indigo'] }};
-            --accent-amber: #fbbf24;
-            --card-glass: rgba(15, 23, 42, 0.78);
-            --card-border: rgba(255, 255, 255, 0.12);
+            --kemendikdasmen-navy: #0b3b60;
+            --kemendikdasmen-navy-dark: #071a2e;
+            --kemendikdasmen-gold: #f59e0b;
+            --kemendikdasmen-gold-light: #fbbf24;
+            --primary-glow: #0b3b60;
+            --accent-cyan: #38bdf8;
+            --accent-indigo: #6366f1;
+            --accent-amber: #f59e0b;
+            --card-glass: rgba(11, 45, 82, 0.88);
+            --card-border: rgba(56, 189, 248, 0.28);
         }
 
         * {
@@ -43,13 +47,13 @@
 
         body {
             font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-            background-color: #050b18;
+            background-color: #06182c;
             background-image: 
-                radial-gradient(circle at 10% 12%, rgba(37, 99, 235, 0.25) 0%, transparent 45%),
-                radial-gradient(circle at 90% 25%, rgba(99, 102, 241, 0.22) 0%, transparent 45%),
-                radial-gradient(circle at 50% 60%, rgba(14, 165, 233, 0.15) 0%, transparent 55%),
-                linear-gradient(135deg, #030712 0%, #0b1329 50%, #0f172a 100%);
-            color: #f8fafc;
+                radial-gradient(circle at 10% 12%, rgba(11, 59, 96, 0.5) 0%, transparent 45%),
+                radial-gradient(circle at 90% 25%, rgba(13, 71, 161, 0.4) 0%, transparent 45%),
+                radial-gradient(circle at 50% 60%, rgba(2, 132, 199, 0.2) 0%, transparent 55%),
+                linear-gradient(135deg, #030d18 0%, #071e36 50%, #0b2d52 100%);
+            color: #ffffff;
             min-height: 100vh;
             overflow-x: hidden;
             position: relative;
@@ -62,51 +66,53 @@
             filter: blur(100px);
             pointer-events: none;
             z-index: 0;
-            opacity: 0.6;
+            opacity: 0.5;
         }
         .ambient-orb-1 {
             top: 5%;
             left: 5%;
             width: 450px;
             height: 450px;
-            background: rgba(37, 99, 235, 0.28);
+            background: rgba(11, 59, 96, 0.45);
         }
         .ambient-orb-2 {
             top: 35%;
             right: 5%;
             width: 500px;
             height: 500px;
-            background: rgba(99, 102, 241, 0.25);
+            background: rgba(13, 71, 161, 0.35);
         }
         .ambient-orb-3 {
             bottom: 10%;
             left: 20%;
             width: 550px;
             height: 550px;
-            background: rgba(14, 165, 233, 0.2);
+            background: rgba(2, 132, 199, 0.25);
         }
 
-        /* Navbar */
+        /* Navbar - Signature Kemendikdasmen Navy (#0b3b60) with Gold Accent Stripe (#f59e0b) */
         .landing-nav {
-            background: rgba(11, 19, 41, 0.88);
+            background: #0b3b60;
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            border-bottom: 3.5px solid #f59e0b;
             position: sticky;
             top: 0;
             z-index: 1050;
             padding: 12px 0;
+            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.4);
         }
 
         .brand-logo-badge {
             width: 40px;
             height: 40px;
             border-radius: 12px;
-            background: linear-gradient(135deg, #2563eb 0%, #38bdf8 100%);
+            background: linear-gradient(135deg, #0b3b60 0%, #1d4ed8 100%);
+            border: 1.5px solid #f59e0b;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 0 15px rgba(56, 189, 248, 0.4);
+            box-shadow: 0 0 15px rgba(245, 158, 11, 0.35);
             flex-shrink: 0;
         }
 
@@ -123,8 +129,16 @@
 
         .glass-card:hover {
             transform: translateY(-4px);
-            border-color: rgba(56, 189, 248, 0.4);
-            box-shadow: 0 25px 50px -10px rgba(0, 0, 0, 0.7), 0 0 30px rgba(37, 99, 235, 0.25);
+            border-color: rgba(56, 189, 248, 0.6);
+            box-shadow: 0 25px 50px -10px rgba(0, 0, 0, 0.7), 0 0 30px rgba(11, 59, 96, 0.4);
+        }
+
+        /* High Contrast Overrides to eliminate unreadable faint text */
+        .text-white-50 {
+            color: #e2e8f0 !important;
+        }
+        .text-muted, .text-secondary {
+            color: #cbd5e1 !important;
         }
 
         /* Hero Badges & Texts */
@@ -132,13 +146,14 @@
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            background: rgba(30, 41, 59, 0.85);
-            border: 1px solid rgba(56, 189, 248, 0.35);
+            background: #0b3b60;
+            border: 1.5px solid #f59e0b;
             border-radius: 40px;
-            padding: 6px 16px;
-            font-size: 0.8rem;
-            color: #e2e8f0;
-            box-shadow: 0 0 20px rgba(56, 189, 248, 0.25);
+            padding: 7px 18px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: #ffffff !important;
+            box-shadow: 0 0 22px rgba(245, 158, 11, 0.3);
             max-width: 100%;
         }
 
@@ -148,11 +163,11 @@
             line-height: 1.18;
             letter-spacing: -1px;
             color: #ffffff;
-            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+            text-shadow: 0 4px 24px rgba(0, 0, 0, 0.7);
         }
 
         .hero-title .gradient-text {
-            background: linear-gradient(135deg, #60a5fa 0%, #38bdf8 50%, #a78bfa 100%);
+            background: linear-gradient(135deg, #60a5fa 0%, #38bdf8 45%, #fbbf24 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
@@ -160,20 +175,21 @@
         .hero-subtitle {
             font-size: 1.12rem;
             line-height: 1.7;
-            color: #cbd5e1;
+            color: #f8fafc !important;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
             max-width: 760px;
         }
 
         /* Buttons */
         .btn-glow-primary {
-            background: linear-gradient(135deg, #2563eb 0%, #3b82f6 50%, #6366f1 100%);
+            background: linear-gradient(135deg, #0b3b60 0%, #1d4ed8 50%, #2563eb 100%);
             color: #ffffff !important;
-            border: none;
+            border: 1px solid rgba(56, 189, 248, 0.4);
             padding: 13px 26px;
             border-radius: 14px;
             font-weight: 700;
             font-size: 0.95rem;
-            box-shadow: 0 4px 25px rgba(37, 99, 235, 0.5);
+            box-shadow: 0 4px 25px rgba(11, 59, 96, 0.5);
             transition: all 0.25s ease;
             display: inline-flex;
             align-items: center;
@@ -183,19 +199,20 @@
         }
         .btn-glow-primary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 30px rgba(37, 99, 235, 0.7);
-            background: linear-gradient(135deg, #1d4ed8 0%, #2563eb 50%, #4f46e5 100%);
+            box-shadow: 0 8px 30px rgba(29, 78, 216, 0.7);
+            background: linear-gradient(135deg, #082842 0%, #1e40af 50%, #1d4ed8 100%);
+            border-color: #38bdf8;
         }
 
         .btn-glow-gold {
             background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
-            color: #0f172a !important;
-            border: none;
+            color: #07192d !important;
+            border: 1.5px solid #fde047;
             padding: 13px 26px;
             border-radius: 14px;
             font-weight: 800;
             font-size: 0.95rem;
-            box-shadow: 0 4px 25px rgba(245, 158, 11, 0.45);
+            box-shadow: 0 4px 25px rgba(245, 158, 11, 0.5);
             transition: all 0.25s ease;
             display: inline-flex;
             align-items: center;
@@ -205,13 +222,13 @@
         }
         .btn-glow-gold:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 30px rgba(245, 158, 11, 0.65);
+            box-shadow: 0 8px 30px rgba(245, 158, 11, 0.75);
             background: linear-gradient(135deg, #d97706 0%, #f59e0b 100%);
         }
 
         .btn-glass-outline {
-            background: rgba(30, 41, 59, 0.65);
-            border: 1.5px solid rgba(255, 255, 255, 0.18);
+            background: rgba(11, 45, 82, 0.75);
+            border: 1.5px solid rgba(255, 255, 255, 0.25);
             color: #ffffff !important;
             padding: 13px 24px;
             border-radius: 14px;
@@ -225,8 +242,9 @@
             text-decoration: none;
         }
         .btn-glass-outline:hover {
-            background: rgba(56, 189, 248, 0.15);
+            background: rgba(56, 189, 248, 0.2);
             border-color: var(--accent-cyan);
+            color: #ffffff !important;
             transform: translateY(-2px);
         }
 
@@ -247,14 +265,15 @@
             border-radius: 20px;
             overflow: hidden;
             position: relative;
-            border: 1px solid rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(56, 189, 248, 0.25);
             box-shadow: 0 20px 40px rgba(0,0,0,0.6);
             transition: all 0.3s ease;
+            background: #07192d;
         }
         .photo-card:hover {
             transform: translateY(-4px);
-            border-color: rgba(56, 189, 248, 0.4);
-            box-shadow: 0 25px 50px rgba(0,0,0,0.8), 0 0 30px rgba(37, 99, 235, 0.3);
+            border-color: rgba(56, 189, 248, 0.6);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.8), 0 0 30px rgba(11, 59, 96, 0.5);
         }
         .photo-card img {
             width: 100%;
@@ -266,18 +285,22 @@
             transform: scale(1.05);
         }
         .photo-overlay {
-            background: linear-gradient(180deg, rgba(15, 23, 42, 0.2) 0%, rgba(15, 23, 42, 0.95) 80%);
+            background: linear-gradient(180deg, rgba(7, 25, 45, 0.1) 0%, rgba(6, 21, 38, 0.98) 72%);
             position: absolute;
             bottom: 0;
             left: 0;
             right: 0;
             padding: 20px;
         }
+        .photo-overlay p {
+            color: #e2e8f0 !important;
+        }
 
         /* 3M Deep Learning Pillar Cards */
         .pillar-card {
             border-left: 4px solid;
-            background: rgba(15, 23, 42, 0.75);
+            background: rgba(11, 45, 82, 0.85);
+            border: 1px solid rgba(56, 189, 248, 0.25);
             border-radius: 16px;
             padding: 22px;
             height: 100%;
@@ -285,47 +308,53 @@
         }
         .pillar-card:hover {
             transform: translateY(-3px);
+            border-color: rgba(56, 189, 248, 0.5);
+        }
+        .pillar-card p {
+            color: #e2e8f0 !important;
         }
         .pillar-mindful { border-left-color: #38bdf8; }
         .pillar-meaningful { border-left-color: #fbbf24; }
         .pillar-joyful { border-left-color: #34d399; }
 
-        /* Document Badge Tag */
+        /* Document Badge Tag - High Contrast Kemendikdasmen Blue */
         .doc-tag {
-            background: rgba(30, 41, 59, 0.9);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            border-radius: 8px;
-            padding: 6px 12px;
-            font-size: 0.78rem;
-            color: #93c5fd;
+            background: #0b3b60;
+            border: 1.5px solid rgba(56, 189, 248, 0.45);
+            border-radius: 9999px;
+            padding: 6px 14px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #ffffff !important;
             display: inline-flex;
             align-items: center;
             gap: 6px;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
         }
 
-        /* Creator Showcase Box */
+        /* Creator Showcase Box - Kemendikdasmen Gold & Navy */
         .creator-box {
-            background: linear-gradient(135deg, rgba(30, 58, 138, 0.4) 0%, rgba(15, 23, 42, 0.9) 100%);
-            border: 1.5px solid rgba(56, 189, 248, 0.35);
+            background: linear-gradient(135deg, rgba(11, 59, 96, 0.9) 0%, rgba(7, 26, 48, 0.96) 100%);
+            border: 2px solid #f59e0b;
             border-radius: 24px;
-            box-shadow: 0 0 40px rgba(37, 99, 235, 0.3);
+            box-shadow: 0 0 40px rgba(245, 158, 11, 0.25);
         }
 
         /* Grand Showcase Mockup */
         .mockup-container {
             border-radius: 24px;
-            border: 1.5px solid rgba(255, 255, 255, 0.15);
-            background: rgba(15, 23, 42, 0.8);
-            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.7), 0 0 50px rgba(37, 99, 235, 0.25);
+            border: 1.5px solid rgba(56, 189, 248, 0.35);
+            background: #07192d;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.7), 0 0 50px rgba(11, 59, 96, 0.4);
             overflow: hidden;
         }
         .mockup-header {
-            background: rgba(30, 41, 59, 0.85);
+            background: #0b3b60;
             padding: 10px 16px;
             display: flex;
             align-items: center;
             gap: 8px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 1.5px solid rgba(255, 255, 255, 0.15);
         }
         .dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
         .dot-red { background: #ef4444; }
@@ -335,16 +364,32 @@
         /* Floating Badge HUD on Photo */
         .floating-hud {
             position: absolute;
-            background: rgba(15, 23, 42, 0.88);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(56, 189, 248, 0.4);
+            background: rgba(11, 45, 82, 0.95);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border: 1.5px solid rgba(56, 189, 248, 0.5);
             border-radius: 14px;
-            padding: 10px 14px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            font-size: 0.78rem;
+            padding: 10px 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+            font-size: 0.8rem;
             color: #ffffff;
             z-index: 3;
+        }
+
+        /* Comparison Cards High Contrast Rules */
+        .compare-box-expert {
+            background: rgba(6, 78, 59, 0.35) !important;
+            border: 1.5px solid rgba(52, 211, 153, 0.55) !important;
+        }
+        .compare-box-expert p {
+            color: #f0fdf4 !important;
+        }
+        .compare-box-ai {
+            background: rgba(127, 29, 29, 0.35) !important;
+            border: 1.5px solid rgba(248, 113, 113, 0.45) !important;
+        }
+        .compare-box-ai p {
+            color: #fef2f2 !important;
         }
 
         /* Responsive Mobile Specific */
@@ -364,8 +409,8 @@
                 line-height: 1.24;
             }
             .hero-subtitle {
-                font-size: 0.88rem !important;
-                line-height: 1.55;
+                font-size: 0.92rem !important;
+                line-height: 1.6;
             }
             .btn-glow-primary, .btn-glow-gold, .btn-glass-outline {
                 width: 100%;
@@ -373,8 +418,8 @@
                 font-size: 0.86rem;
             }
             .badge-regulasi {
-                font-size: 0.7rem;
-                padding: 5px 10px;
+                font-size: 0.72rem;
+                padding: 6px 12px;
                 line-height: 1.4;
             }
             .glass-card {
@@ -503,8 +548,8 @@
 
             <!-- QUICK PILL METRICS -->
             <div class="d-flex flex-wrap justify-content-center gap-2 mb-4 mb-lg-5">
-                <span class="doc-tag" style="border-color: rgba(56, 189, 248, 0.45); background: rgba(56, 189, 248, 0.15); color: #38bdf8;">
-                    <i class="bi bi-shield-check text-info"></i> 100% Sistem Pakar Murni (Tanpa API Key &bull; Nol Halusinasi)
+                <span class="doc-tag" style="border-color: #f59e0b; background: rgba(245, 158, 11, 0.22); color: #ffffff !important;">
+                    <i class="bi bi-shield-check text-warning"></i> 100% Sistem Pakar Murni (Tanpa API Key &bull; Nol Halusinasi)
                 </span>
                 <span class="doc-tag"><i class="bi bi-patch-check-fill text-warning"></i> Basis Database Resmi BSKAP 046/2025</span>
                 <span class="doc-tag"><i class="bi bi-check-circle-fill text-success"></i> 8 Dimensi Profil Lulusan (DPL) 2026</span>
@@ -521,16 +566,16 @@
                     <div class="floating-hud d-none d-md-flex align-items-center gap-2" style="top: -20px; left: 20px;">
                         <i class="bi bi-cpu-fill text-info fs-5"></i>
                         <div class="text-start">
-                            <div class="fw-bold">Sistem Pakar Edukasi</div>
-                            <div class="text-white-50" style="font-size: 0.7rem;">Murni Database &bull; Nol Halusinasi AI</div>
+                            <div class="fw-bold text-white">Sistem Pakar Edukasi</div>
+                            <div style="font-size: 0.72rem; color: #bae6fd !important;">Murni Database &bull; Nol Halusinasi AI</div>
                         </div>
                     </div>
 
                     <div class="floating-hud d-none d-md-flex align-items-center gap-2" style="bottom: 25px; right: 20px;">
-                        <i class="bi bi-award-fill text-warning fs-5"></i>
+                        <i class="bi bi-patch-check-fill text-warning fs-5"></i>
                         <div class="text-start">
-                            <div class="fw-bold">Kandidat Apresiasi GTK 2026</div>
-                            <div class="text-white-50" style="font-size: 0.7rem;">Karya Inovatif Kemendikdasmen</div>
+                            <div class="fw-bold text-white">Standar Regulasi BSKAP 2026</div>
+                            <div style="font-size: 0.72rem; color: #fef08a !important;">Rujukan Resmi Kurikulum Merdeka</div>
                         </div>
                     </div>
 
@@ -718,24 +763,24 @@
         </div>
     </section>
 
-    <!-- SECTION: SISTEM PAKAR VS AI GENERATIF (STANDAR APRESIASI GTK 2026) -->
+    <!-- SECTION: SISTEM PAKAR VS AI GENERATIF (STANDAR REGULASI RESMI KEMENDIKDASMEN 2026) -->
     <section class="py-4 py-md-5 position-relative z-1" id="keunggulan-sistem-pakar">
         <div class="container">
-            <div class="p-4 p-md-5 rounded-4 shadow-lg border border-primary border-opacity-30 position-relative overflow-hidden" 
-                 style="background: radial-gradient(circle at 10% 20%, rgba(13, 71, 161, 0.45) 0%, rgba(15, 23, 42, 0.92) 80%); backdrop-filter: blur(20px);">
+            <div class="p-4 p-md-5 rounded-4 shadow-lg border border-warning border-opacity-40 position-relative overflow-hidden" 
+                 style="background: radial-gradient(circle at 10% 20%, rgba(11, 59, 96, 0.95) 0%, rgba(6, 26, 48, 0.98) 80%); backdrop-filter: blur(20px);">
                 
                 <!-- AMBIENT GLOW CORNER -->
                 <div style="position: absolute; top: -80px; right: -80px; width: 260px; height: 260px; border-radius: 50%; background: radial-gradient(circle, rgba(245, 158, 11, 0.25) 0%, transparent 70%); filter: blur(50px); pointer-events: none;"></div>
 
                 <div class="text-center mb-4 mb-md-5 position-relative z-1">
                     <div class="d-inline-flex align-items-center gap-2 badge bg-warning text-dark fw-bold px-3 py-1.5 rounded-pill mb-3 shadow-sm" style="font-size: 0.82rem;">
-                        <i class="bi bi-award-fill"></i>
-                        <span>STANDAR KARYA INOVATIF APRESIASI GTK KEMENDIKDASMEN 2026</span>
+                        <i class="bi bi-patch-check-fill"></i>
+                        <span>STANDAR REGULASI RESMI KURIKULUM MERDEKA KEMENDIKDASMEN 2026</span>
                     </div>
                     <h2 class="fw-bold text-white fs-2 mb-2">
                         Mengapa Sistem Pakar Murni Jauh Lebih Unggul &amp; Aman Dibanding AI Generatif Biasa?
                     </h2>
-                    <p class="text-white-50 mx-auto small" style="max-width: 750px; line-height: 1.6;">
+                    <p class="text-white mx-auto small" style="max-width: 750px; line-height: 1.6; color: #f1f5f9 !important;">
                         Aplikasi ini dibangun dengan arsitektur <strong>Knowledge-Based Expert System (Sistem Pakar Berbasis Regulasi)</strong> dengan data rujukan tersimpan langsung di database internal. Murni tanpa ketergantungan API Key berbayar pihak ketiga, menjamin <strong>Nol Halusinasi</strong>, kedaulatan data pendidikan nasional, serta 100% bebas biaya bagi guru di seluruh pelosok Indonesia.
                     </p>
                 </div>
@@ -745,31 +790,31 @@
                     
                     <!-- PILAR 1: AKURASI REGULASI -->
                     <div class="col-lg-6">
-                        <div class="h-100 p-4 rounded-4 border border-white border-opacity-10" style="background: rgba(15, 23, 42, 0.65);">
+                        <div class="h-100 p-4 rounded-4" style="background: rgba(11, 45, 82, 0.9); border: 1.5px solid rgba(56, 189, 248, 0.35);">
                             <div class="d-flex align-items-center gap-3 mb-3">
                                 <div class="p-2.5 rounded-3 bg-primary bg-opacity-25 text-info fs-4">
                                     <i class="bi bi-patch-check-fill text-warning"></i>
                                 </div>
                                 <div>
                                     <h5 class="fw-bold text-white mb-0">1. Akurasi Regulasi &amp; Nol Halusinasi</h5>
-                                    <div class="text-white-50 small">Kepastian hukum dan validitas dokumen ajar</div>
+                                    <div class="small fw-semibold" style="color: #7dd3fc !important;">Kepastian hukum dan validitas dokumen ajar</div>
                                 </div>
                             </div>
                             
-                            <div class="p-3 rounded-3 mb-2 border border-success border-opacity-25" style="background: rgba(16, 185, 129, 0.08);">
+                            <div class="p-3 rounded-3 mb-2 compare-box-expert">
                                 <div class="d-flex align-items-center gap-2 text-success fw-bold small mb-1">
                                     <i class="bi bi-check-circle-fill"></i> Sistem Pakar Kami (Database Resmi):
                                 </div>
-                                <p class="text-white-50 small mb-0" style="font-size: 0.82rem; line-height: 1.5;">
+                                <p class="small mb-0" style="font-size: 0.85rem; line-height: 1.55; color: #f0fdf4 !important;">
                                     Menyerap Capaian Pembelajaran (CP) dan elemen kompetensi langsung dari database resmi <strong>BSKAP No. 046/H/KR/2025</strong> dan alokasi waktu <strong>Permendikdasmen No. 13/2025</strong>. Tidak ada risiko mengarang.
                                 </p>
                             </div>
 
-                            <div class="p-3 rounded-3 border border-danger border-opacity-20" style="background: rgba(239, 68, 68, 0.06);">
+                            <div class="p-3 rounded-3 compare-box-ai">
                                 <div class="d-flex align-items-center gap-2 text-danger fw-semibold small mb-1">
                                     <i class="bi bi-x-circle-fill"></i> AI Generatif Biasa (ChatGPT / LLM API):
                                 </div>
-                                <p class="text-white-50 small mb-0" style="font-size: 0.82rem; line-height: 1.5;">
+                                <p class="small mb-0" style="font-size: 0.85rem; line-height: 1.55; color: #fee2e2 !important;">
                                     Sering "berhalusinasi" mencampuradukkan kurikulum lama, memalsukan nomor SK BSKAP, dan menghitung jam pelajaran secara keliru.
                                 </p>
                             </div>
@@ -778,31 +823,31 @@
 
                     <!-- PILAR 2: TANPA BIAYA API KEY -->
                     <div class="col-lg-6">
-                        <div class="h-100 p-4 rounded-4 border border-white border-opacity-10" style="background: rgba(15, 23, 42, 0.65);">
+                        <div class="h-100 p-4 rounded-4" style="background: rgba(11, 45, 82, 0.9); border: 1.5px solid rgba(56, 189, 248, 0.35);">
                             <div class="d-flex align-items-center gap-3 mb-3">
                                 <div class="p-2.5 rounded-3 bg-success bg-opacity-25 text-success fs-4">
                                     <i class="bi bi-wallet2 text-success"></i>
                                 </div>
                                 <div>
                                     <h5 class="fw-bold text-white mb-0">2. 100% Tanpa API Key &amp; Bebas Biaya Token</h5>
-                                    <div class="text-white-50 small">Aksesibilitas inklusif untuk seluruh guru Indonesia</div>
+                                    <div class="small fw-semibold" style="color: #86efac !important;">Aksesibilitas inklusif untuk seluruh guru Indonesia</div>
                                 </div>
                             </div>
                             
-                            <div class="p-3 rounded-3 mb-2 border border-success border-opacity-25" style="background: rgba(16, 185, 129, 0.08);">
+                            <div class="p-3 rounded-3 mb-2 compare-box-expert">
                                 <div class="d-flex align-items-center gap-2 text-success fw-bold small mb-1">
                                     <i class="bi bi-check-circle-fill"></i> Sistem Pakar Kami (Server Mandiri):
                                 </div>
-                                <p class="text-white-50 small mb-0" style="font-size: 0.82rem; line-height: 1.5;">
+                                <p class="small mb-0" style="font-size: 0.85rem; line-height: 1.55; color: #f0fdf4 !important;">
                                     Berjalan deterministik tanpa memerlukan saldo kredit, token, atau API Key OpenAI/Claude. Seluruh guru SMK (termasuk di wilayah 3T) dapat menyusun modul ajar tanpa dipungut biaya token.
                                 </p>
                             </div>
 
-                            <div class="p-3 rounded-3 border border-danger border-opacity-20" style="background: rgba(239, 68, 68, 0.06);">
+                            <div class="p-3 rounded-3 compare-box-ai">
                                 <div class="d-flex align-items-center gap-2 text-danger fw-semibold small mb-1">
                                     <i class="bi bi-x-circle-fill"></i> AI Generatif Biasa (ChatGPT / LLM API):
                                 </div>
-                                <p class="text-white-50 small mb-0" style="font-size: 0.82rem; line-height: 1.5;">
+                                <p class="small mb-0" style="font-size: 0.85rem; line-height: 1.55; color: #fee2e2 !important;">
                                     Mengharuskan guru memiliki kartu kredit, berlangganan API Key berbayar dalam mata uang Dolar ($), dan aplikasi langsung macet saat kuota token habis.
                                 </p>
                             </div>
@@ -811,31 +856,31 @@
 
                     <!-- PILAR 3: KEDAULATAN DATA -->
                     <div class="col-lg-6">
-                        <div class="h-100 p-4 rounded-4 border border-white border-opacity-10" style="background: rgba(15, 23, 42, 0.65);">
+                        <div class="h-100 p-4 rounded-4" style="background: rgba(11, 45, 82, 0.9); border: 1.5px solid rgba(56, 189, 248, 0.35);">
                             <div class="d-flex align-items-center gap-3 mb-3">
                                 <div class="p-2.5 rounded-3 bg-info bg-opacity-25 text-info fs-4">
                                     <i class="bi bi-shield-lock-fill text-info"></i>
                                 </div>
                                 <div>
                                     <h5 class="fw-bold text-white mb-0">3. Kedaulatan &amp; Keamanan Data Satuan Pendidikan</h5>
-                                    <div class="text-white-50 small">Privasi data guru dan siswa terlindungi utuh</div>
+                                    <div class="small fw-semibold" style="color: #7dd3fc !important;">Privasi data guru dan siswa terlindungi utuh</div>
                                 </div>
                             </div>
                             
-                            <div class="p-3 rounded-3 mb-2 border border-success border-opacity-25" style="background: rgba(16, 185, 129, 0.08);">
+                            <div class="p-3 rounded-3 mb-2 compare-box-expert">
                                 <div class="d-flex align-items-center gap-2 text-success fw-bold small mb-1">
                                     <i class="bi bi-check-circle-fill"></i> Sistem Pakar Kami (Lokal &amp; Mandiri):
                                 </div>
-                                <p class="text-white-50 small mb-0" style="font-size: 0.82rem; line-height: 1.5;">
+                                <p class="small mb-0" style="font-size: 0.85rem; line-height: 1.55; color: #f0fdf4 !important;">
                                     Semua data sekolah, identitas guru, NIP, dan rancangan ajar tersimpan privat di database lokal. Tidak ada data yang dikirimkan ke server cloud asing di luar negeri.
                                 </p>
                             </div>
 
-                            <div class="p-3 rounded-3 border border-danger border-opacity-20" style="background: rgba(239, 68, 68, 0.06);">
+                            <div class="p-3 rounded-3 compare-box-ai">
                                 <div class="d-flex align-items-center gap-2 text-danger fw-semibold small mb-1">
                                     <i class="bi bi-x-circle-fill"></i> AI Generatif Biasa (ChatGPT / LLM API):
                                 </div>
-                                <p class="text-white-50 small mb-0" style="font-size: 0.82rem; line-height: 1.5;">
+                                <p class="small mb-0" style="font-size: 0.85rem; line-height: 1.55; color: #fee2e2 !important;">
                                     Seluruh instruksi (prompt), data guru, dan materi ditransmisikan ke server luar negeri dan berisiko dijadikan materi training AI publik tanpa izin sekolah.
                                 </p>
                             </div>
@@ -844,31 +889,31 @@
 
                     <!-- PILAR 4: FORMAT KEDINASAN -->
                     <div class="col-lg-6">
-                        <div class="h-100 p-4 rounded-4 border border-white border-opacity-10" style="background: rgba(15, 23, 42, 0.65);">
+                        <div class="h-100 p-4 rounded-4" style="background: rgba(11, 45, 82, 0.9); border: 1.5px solid rgba(56, 189, 248, 0.35);">
                             <div class="d-flex align-items-center gap-3 mb-3">
                                 <div class="p-2.5 rounded-3 bg-warning bg-opacity-25 text-warning fs-4">
                                     <i class="bi bi-file-earmark-ruled-fill text-warning"></i>
                                 </div>
                                 <div>
                                     <h5 class="fw-bold text-white mb-0">4. Format Dokumen Kedinasan Langsung Jadi</h5>
-                                    <div class="text-white-50 small">Siap cetak, ber-Kop Surat, dan lolos supervisi pengawas</div>
+                                    <div class="small fw-semibold" style="color: #fef08a !important;">Siap cetak, ber-Kop Surat, dan lolos supervisi pengawas</div>
                                 </div>
                             </div>
                             
-                            <div class="p-3 rounded-3 mb-2 border border-success border-opacity-25" style="background: rgba(16, 185, 129, 0.08);">
+                            <div class="p-3 rounded-3 mb-2 compare-box-expert">
                                 <div class="d-flex align-items-center gap-2 text-success fw-bold small mb-1">
                                     <i class="bi bi-check-circle-fill"></i> Sistem Pakar Kami (Siap Ekspor Multi-Format):
                                 </div>
-                                <p class="text-white-50 small mb-0" style="font-size: 0.82rem; line-height: 1.5;">
+                                <p class="small mb-0" style="font-size: 0.85rem; line-height: 1.55; color: #f0fdf4 !important;">
                                     Menghasilkan dokumen resmi dengan Kop Surat Sekolah, logo, tanda tangan Kepala Sekolah &amp; Guru, serta margin kedinasan standar dalam format <strong>PDF (A4 &amp; F4)</strong>, <strong>DOCX (Word)</strong>, dan <strong>Excel</strong>.
                                 </p>
                             </div>
 
-                            <div class="p-3 rounded-3 border border-danger border-opacity-20" style="background: rgba(239, 68, 68, 0.06);">
+                            <div class="p-3 rounded-3 compare-box-ai">
                                 <div class="d-flex align-items-center gap-2 text-danger fw-semibold small mb-1">
                                     <i class="bi bi-x-circle-fill"></i> AI Generatif Biasa (ChatGPT / LLM API):
                                 </div>
-                                <p class="text-white-50 small mb-0" style="font-size: 0.82rem; line-height: 1.5;">
+                                <p class="small mb-0" style="font-size: 0.85rem; line-height: 1.55; color: #fee2e2 !important;">
                                     Hanya memberikan teks mentah tanpa tabel, tanpa kop surat, dan membutuhkan berjam-jam kerja manual untuk dirapikan ke format pengawas sekolah.
                                 </p>
                             </div>
@@ -1018,27 +1063,27 @@
     </section>
 
     <!-- FOOTER WITH ADSENSE COMPLIANCE LINKS -->
-    <footer class="py-4 border-top border-white border-opacity-10 position-relative z-1 text-center text-white-50 small">
+    <footer class="py-4 position-relative z-1 text-center small" style="background: #041427; border-top: 3.5px solid #f59e0b !important; color: #cbd5e1;">
         <div class="container">
             <div class="d-flex flex-column flex-md-row align-items-center justify-content-between gap-3 mb-3">
-                <div>
-                    <strong>{{ app_setting('app_name', 'Sistem Perangkat Ajar SMK 2026') }}</strong> &bull; Kurikulum Merdeka (Deep Learning).
+                <div style="color: #e2e8f0;">
+                    <strong class="text-white">{{ app_setting('app_name', 'Sistem Perangkat Ajar SMK 2026') }}</strong> &bull; Kurikulum Merdeka (Deep Learning).
                 </div>
-                <div>
-                    Hak Cipta : <span class="text-white fw-semibold">Desain by. {{ app_setting('landing_creator_name', 'Vicky Koroh') }}</span> &bull; &copy; {{ app_setting('landing_copyright_year', '2026') }}
+                <div style="color: #e2e8f0;">
+                    Hak Cipta : <span class="text-white fw-bold">Desain by. {{ app_setting('landing_creator_name', 'Vicky Koroh') }}</span> &bull; &copy; {{ app_setting('landing_copyright_year', '2026') }}
                 </div>
             </div>
-            <div class="d-flex flex-wrap justify-content-center gap-3 pt-2 border-top border-white border-opacity-5" style="font-size: 0.82rem;">
+            <div class="d-flex flex-wrap justify-content-center gap-3 pt-2 border-top border-white border-opacity-10" style="font-size: 0.82rem;">
                 <a href="{{ route('legal.privacy') }}" class="footer-legal-link">Kebijakan Privasi</a>
-                <span class="text-white-50">&bull;</span>
+                <span class="text-secondary">&bull;</span>
                 <a href="{{ route('legal.terms') }}" class="footer-legal-link">Syarat & Ketentuan Layanan</a>
-                <span class="text-white-50">&bull;</span>
+                <span class="text-secondary">&bull;</span>
                 <a href="{{ route('legal.about') }}" class="footer-legal-link">Tentang Kami</a>
-                <span class="text-white-50">&bull;</span>
+                <span class="text-secondary">&bull;</span>
                 <a href="{{ route('legal.contact') }}" class="footer-legal-link">Hubungi Kami</a>
-                <span class="text-white-50">&bull;</span>
+                <span class="text-secondary">&bull;</span>
                 <a href="{{ route('creator.profile') }}" class="footer-legal-link">Profil Pembuat</a>
-                <span class="text-white-50">&bull;</span>
+                <span class="text-secondary">&bull;</span>
                 <a href="{{ route('legal.disclaimer') }}" class="footer-legal-link">Pernyataan Penyangkalan (Disclaimer)</a>
             </div>
         </div>
