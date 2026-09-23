@@ -16,6 +16,16 @@
     <meta property="og:image" content="{{ $creator['avatar'] }}">
     <meta property="og:type" content="profile">
 
+    <!-- ADSENSE VERIFICATION & AUTO ADS -->
+    @if(app_setting('adsense_enabled', '0') == '1')
+        @if(app_setting('adsense_publisher_id'))
+            <meta name="google-adsense-account" content="{{ app_setting('adsense_publisher_id') }}">
+        @endif
+        @if(app_setting('adsense_code'))
+            {!! app_setting('adsense_code') !!}
+        @endif
+    @endif
+
     <!-- CSS BOOTSTRAP 5 & ICONS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">

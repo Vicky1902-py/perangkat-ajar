@@ -71,6 +71,12 @@
                         <i class="bi bi-person-bounding-box me-1.5"></i> Profil Pembuat
                     </button>
                 </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link text-start text-md-center rounded-3 py-2.5 px-3 {{ $activeTab === 'adsense' ? 'active shadow-sm' : '' }}" 
+                            id="tab-adsense" data-bs-toggle="tab" data-bs-target="#pane-adsense" type="button" role="tab">
+                        <i class="bi bi-google me-1.5 text-warning"></i> Iklan & AdSense
+                    </button>
+                </li>
             </ul>
         </div>
     </div>
@@ -798,6 +804,112 @@
                                     <i class="bi bi-check-circle-fill me-1.5"></i> Simpan Profil Pembuat
                                 </button>
                             </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- TAB 7: INTEGRASI & VERIFIKASI GOOGLE ADSENSE -->
+        <!-- ========================================== -->
+        <div class="tab-pane fade {{ $activeTab === 'adsense' ? 'show active' : '' }}" id="pane-adsense" role="tabpanel">
+            <form action="{{ route('cms.settings.update') }}" method="POST">
+                @csrf
+                <input type="hidden" name="active_tab" value="adsense">
+
+                <div class="row g-4">
+                    <!-- SISI KIRI: STATUS & PENGATURAN KODE -->
+                    <div class="col-lg-7">
+                        <div class="card border-0 shadow-sm rounded-4 mb-4">
+                            <div class="card-header bg-white py-3 border-bottom d-flex align-items-center justify-content-between">
+                                <h6 class="fw-bold text-dark mb-0 d-flex align-items-center gap-2">
+                                    <i class="bi bi-shield-check text-success"></i> Status & Verifikasi AdSense
+                                </h6>
+                                <span class="badge {{ app_setting('adsense_enabled', '0') == '1' ? 'bg-success text-white' : 'bg-secondary text-white' }} px-3 py-1.5 rounded-pill">
+                                    <i class="bi {{ app_setting('adsense_enabled', '0') == '1' ? 'bi-check-circle-fill' : 'bi-pause-circle' }} me-1"></i>
+                                    {{ app_setting('adsense_enabled', '0') == '1' ? 'Iklan Aktif' : 'Iklan Nonaktif' }}
+                                </span>
+                            </div>
+                            <div class="card-body p-4">
+                                <div class="form-check form-switch p-3 bg-light rounded-3 mb-4 d-flex align-items-center justify-content-between">
+                                    <div>
+                                        <label class="form-check-label fw-bold text-dark mb-0 cursor-pointer" for="adsense_enabled">
+                                            Aktifkan Google AdSense
+                                        </label>
+                                        <div class="text-muted small">Aktifkan untuk mulai menampilkan script iklan dan kode verifikasi di header publik.</div>
+                                    </div>
+                                    <input class="form-check-input ms-3" type="checkbox" role="switch" id="adsense_enabled" name="adsense_enabled" value="1" {{ app_setting('adsense_enabled', '0') == '1' ? 'checked' : '' }} style="width: 2.5em; height: 1.3em;">
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label small fw-bold text-dark">Google AdSense Publisher ID</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-light text-muted font-monospace"><i class="bi bi-person-badge"></i></span>
+                                        <input type="text" name="adsense_publisher_id" class="form-control font-monospace" placeholder="ca-pub-1234567890123456" value="{{ app_setting('adsense_publisher_id', '') }}">
+                                    </div>
+                                    <div class="form-text small">Contoh: <code>ca-pub-1234567890123456</code>. Sistem otomatis menyematkan meta tag <code>&lt;meta name="google-adsense-account" content="..."&gt;</code> ke dalam tag <code>&lt;head&gt;</code>.</div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label small fw-bold text-dark">Kode Script AdSense (&lt;head&gt; Auto Ads)</label>
+                                    <textarea name="adsense_code" rows="4" class="form-control font-monospace small" placeholder="<script async src=&quot;https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-...&quot; crossorigin=&quot;anonymous&quot;></script>">{{ app_setting('adsense_code', '') }}</textarea>
+                                    <div class="form-text small">Salin script langsung dari panel Google AdSense Anda (Menu <em>Situs &gt; Dapatkan Kode</em>).</div>
+                                </div>
+
+                                <div class="row g-3">
+                                    <div class="col-12">
+                                        <label class="form-label small fw-bold text-dark">Slot Iklan Banner Atas (Opsional)</label>
+                                        <textarea name="ads_banner_top" rows="3" class="form-control font-monospace small" placeholder="<!-- Kode Iklan Responsive Banner Atas -->">{{ app_setting('ads_banner_top', '') }}</textarea>
+                                        <div class="form-text small">Ditempatkan di atas konten modul/generator jika ingin menampilkan banner khusus.</div>
+                                    </div>
+                                    <div class="col-12">
+                                        <label class="form-label small fw-bold text-dark">Slot Iklan Banner Bawah (Opsional)</label>
+                                        <textarea name="ads_banner_bottom" rows="3" class="form-control font-monospace small" placeholder="<!-- Kode Iklan Responsive Banner Bawah -->">{{ app_setting('ads_banner_bottom', '') }}</textarea>
+                                        <div class="form-text small">Ditempatkan di bawah hasil unduhan generator atau footer.</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SISI KANAN: ADS.TXT & PANDUAN CEPAT -->
+                    <div class="col-lg-5">
+                        <div class="card border-0 shadow-sm rounded-4 mb-4">
+                            <div class="card-header bg-white py-3 border-bottom d-flex align-items-center justify-content-between">
+                                <h6 class="fw-bold text-dark mb-0 d-flex align-items-center gap-2">
+                                    <i class="bi bi-file-earmark-code text-primary"></i> Pengaturan ads.txt Server
+                                </h6>
+                                <a href="{{ url('/ads.txt') }}" target="_blank" class="btn btn-outline-primary btn-sm rounded-pill px-3 fw-semibold">
+                                    <i class="bi bi-box-arrow-up-right me-1"></i> Buka /ads.txt
+                                </a>
+                            </div>
+                            <div class="card-body p-4">
+                                <p class="text-muted small mb-3">
+                                    Google mewajibkan file <code>ads.txt</code> terpasang di root domain (<code>domain.com/ads.txt</code>) untuk mencegah penipuan inventaris iklan.
+                                </p>
+
+                                <div class="mb-3">
+                                    <label class="form-label small fw-bold text-dark">Isi File ads.txt</label>
+                                    <textarea name="ads_txt_content" rows="6" class="form-control font-monospace small" placeholder="google.com, pub-XXXXXXXXXXXXXXXX, DIRECT, f08c47fec0942fa0">{{ app_setting('ads_txt_content', "google.com, pub-XXXXXXXXXXXXXXXX, DIRECT, f08c47fec0942fa0\n") }}</textarea>
+                                    <div class="form-text small">Format standar: <code>google.com, pub-ID, DIRECT, f08c47fec0942fa0</code>. Menyimpan form ini akan otomatis memperbarui file <code>public/ads.txt</code> dan endpoint web.</div>
+                                </div>
+
+                                <div class="p-3 bg-light rounded-3 border">
+                                    <h6 class="fw-bold text-dark small mb-2"><i class="bi bi-lightbulb text-warning me-1"></i> 3 Langkah Cepat Verifikasi:</h6>
+                                    <ol class="small text-muted ps-3 mb-0" style="line-height: 1.6;">
+                                        <li>Isi <strong>Publisher ID</strong> &amp; <strong>Kode Script</strong> di sebelah kiri.</li>
+                                        <li>Ganti <code>pub-XXXXXXXXXXXXXXXX</code> pada <strong>ads.txt</strong> dengan nomor ID AdSense Anda.</li>
+                                        <li>Buka Google AdSense, klik <strong>"Periksa File ads.txt"</strong> &amp; <strong>"Verifikasi Situs"</strong>.</li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="text-end">
+                            <button type="submit" class="btn btn-primary rounded-pill px-4 py-2.5 fw-semibold shadow-sm w-100">
+                                <i class="bi bi-check-circle-fill me-1.5"></i> Simpan Pengaturan AdSense & ads.txt
+                            </button>
                         </div>
                     </div>
                 </div>

@@ -32,6 +32,12 @@ Route::get('/about-us', [LegalController::class, 'about'])->name('legal.about');
 Route::get('/contact', [LegalController::class, 'contact'])->name('legal.contact');
 Route::get('/disclaimer', [LegalController::class, 'disclaimer'])->name('legal.disclaimer');
 
+// GOOGLE ADSENSE ADS.TXT CRAWLER ENDPOINT
+Route::get('/ads.txt', function () {
+    $content = app_setting('ads_txt_content', "google.com, pub-XXXXXXXXXXXXXXXX, DIRECT, f08c47fec0942fa0\n");
+    return response($content, 200, ['Content-Type' => 'text/plain']);
+})->name('ads.txt');
+
 // LANDING PROFIL PEMBUAT APLIKASI (PUBLIK)
 Route::get('/profil-pembuat', [CreatorProfileController::class, 'index'])->name('creator.profile');
 

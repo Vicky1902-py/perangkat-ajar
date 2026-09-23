@@ -24,3 +24,13 @@
 <meta name="twitter:title" content="Sistem Perangkat Ajar SMK 2026 - Kurikulum Merdeka (Deep Learning)">
 <meta name="twitter:description" content="Otomatisasi penyusunan TP, ATP, Modul Ajar PEDATTI, LKPD, Prota, Promes, & Asesmen Resmi Ber-Kop Surat Sekolah. Dilengkapi Generator Gratis 2x Tanpa Login.">
 <meta name="twitter:image" content="{{ asset('images/og-perangkat-ajar.jpg') }}">
+
+<!-- Google AdSense Verification & Auto Ads -->
+@if(app_setting('adsense_enabled', '0') == '1')
+    @if(app_setting('adsense_publisher_id'))
+        <meta name="google-adsense-account" content="{{ app_setting('adsense_publisher_id') }}">
+    @endif
+    @if(app_setting('adsense_code'))
+        {!! app_setting('adsense_code') !!}
+    @endif
+@endif

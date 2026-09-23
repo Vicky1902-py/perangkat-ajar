@@ -96,4 +96,50 @@ class AdSenseAndTrafficTest extends TestCase
         $response = $this->get('/cms/traffic');
         $response->assertRedirect('/login');
     }
+
+    public function test_ads_txt_endpoint_is_publicly_accessible(): void
+    {
+        $response = $this->get('/ads.txt');
+        $response->assertStatus(200);
+        $this->assertStringContainsString('text/plain', (string) $response->headers->get('Content-Type'));
+        $response->assertSee('google.com');
+    }
+
+    public function test_superadmin_can_update_adsense_settings_and_sync_ads_txt(): void
+    {
+        $admin = User::firstOrCreate(
+            ['email' => 'admin@admin.com'],
+            [
+                'name' => 'Super Administrator',
+                'password' => bcrypt('password'),
+                'role' => 'superadmin',
+                'is_active' => true,
+                'is_profile_completed' => true,
+            ]
+        );
+
+        $testPubId = 'ca-pub-8888777766665555';
+        $testAdsTxt = "google.com, pub-8888777766665555, DIRECT, f08c47fec0942fa0\n";
+
+        $response = $this->actingAs($admin)->post('/cms/settings', [
+            'active_tab' => 'adsense',
+            'adsense_enabled' => '1',
+            'adsense_publisher_id' => $testPubId,
+            'adsense_code' => '<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8888777766665555"></script>',
+            'ads_txt_content' => $testAdsTxt,
+        ]);
+
+        $response->assertRedirect('/cms/settings?tab=adsense');
+
+        // Check /ads.txt has new publisher ID
+        $adsResponse = $this->get('/ads.txt');
+        $adsResponse->assertStatus(200);
+        $adsResponse->assertSee('pub-8888777766665555');
+
+        // Check homepage has meta verification tag
+        $homeResponse = $this->get('/');
+        $homeResponse->assertStatus(200);
+        $homeResponse->assertSee($testPubId);
+    }
 }
+

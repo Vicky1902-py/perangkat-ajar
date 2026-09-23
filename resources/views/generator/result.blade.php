@@ -241,9 +241,28 @@
                             </div>
                         </div>
                         <div class="d-flex align-items-center flex-wrap gap-2">
-                            <a href="{{ route('asesmen.index') }}" class="btn btn-sm btn-outline-secondary">
-                                <i class="bi bi-eye"></i> Buka Asesmen
-                            </a>
+                            @if(!empty($asesmenId))
+                                <a href="{{ route('asesmen.show', $asesmenId) }}" class="btn btn-sm btn-outline-secondary">
+                                    <i class="bi bi-eye"></i> Lihat
+                                </a>
+                                <div class="btn-group btn-group-sm">
+                                    <button type="button" class="btn btn-outline-danger dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="bi bi-file-earmark-pdf"></i> PDF
+                                    </button>
+                                    <ul class="dropdown-menu dropdown-menu-end shadow-sm">
+                                        <li><h6 class="dropdown-header">Ukuran Kertas</h6></li>
+                                        <li><a class="dropdown-item py-1" href="{{ route('export.asesmen.pdf', $asesmenId) }}?paper=a4"><i class="bi bi-file-text me-2 text-danger"></i> PDF (A4 Standar)</a></li>
+                                        <li><a class="dropdown-item py-1" href="{{ route('export.asesmen.pdf', $asesmenId) }}?paper=f4"><i class="bi bi-file-text me-2 text-primary"></i> PDF (F4 / Folio)</a></li>
+                                    </ul>
+                                </div>
+                                <a href="{{ route('export.asesmen.docx', $asesmenId) }}" class="btn btn-sm btn-outline-primary">
+                                    <i class="bi bi-file-earmark-word"></i> Word
+                                </a>
+                            @else
+                                <a href="{{ route('asesmen.index') }}" class="btn btn-sm btn-outline-secondary">
+                                    <i class="bi bi-eye"></i> Buka Asesmen
+                                </a>
+                            @endif
                         </div>
                     </div>
                 </div>

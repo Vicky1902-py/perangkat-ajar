@@ -876,5 +876,28 @@
     <!-- POP-UP INFORMATIF & PUSAT PANDUAN -->
     @include('components.welcome-popup')
 
+    <!-- FLOATING SCROLL TO TOP BUTTON -->
+    <button type="button" id="btnLandingScrollToTop" class="btn btn-glow-gold rounded-circle d-none align-items-center justify-content-center"
+            style="position: fixed; bottom: 25px; right: 25px; width: 46px; height: 46px; z-index: 999; transition: all 0.3s ease; box-shadow: 0 10px 25px rgba(245, 158, 11, 0.4) !important;"
+            title="Kembali ke Atas">
+        <i class="bi bi-chevron-up fs-5"></i>
+    </button>
+    <script>
+        window.addEventListener('scroll', function() {
+            var btn = document.getElementById('btnLandingScrollToTop');
+            if (btn) {
+                if (window.scrollY > 300) {
+                    btn.classList.remove('d-none');
+                    btn.classList.add('d-flex');
+                } else {
+                    btn.classList.remove('d-flex');
+                    btn.classList.add('d-none');
+                }
+            }
+        });
+        document.getElementById('btnLandingScrollToTop')?.addEventListener('click', function() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    </script>
 </body>
 </html>

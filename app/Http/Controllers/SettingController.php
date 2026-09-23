@@ -178,11 +178,30 @@ class SettingController extends Controller
             'creator_linkedin' => 'creator_profile',
             'creator_instagram' => 'creator_profile',
             'creator_website' => 'creator_profile',
+            'adsense_publisher_id' => 'adsense',
+            'adsense_code' => 'adsense',
+            'ads_txt_content' => 'adsense',
+            'ads_banner_top' => 'adsense',
+            'ads_banner_bottom' => 'adsense',
         ];
+
+        // Khusus tab adsense: perbarui status switch aktif/nonaktif
+        if ($request->input('active_tab') === 'adsense') {
+            Setting::set('adsense_enabled', $request->has('adsense_enabled') ? '1' : '0', 'adsense');
+        }
 
         foreach ($textFields as $field => $grp) {
             if ($request->has($field)) {
                 Setting::set($field, $request->input($field), $grp);
+            }
+        }
+
+        // Sinkronisasi otomatis file public/ads.txt untuk crawler Google AdSense
+        if ($request->filled('ads_txt_content')) {
+            try {
+                File::put(public_path('ads.txt'), $request->input('ads_txt_content'));
+            } catch (\Throwable $e) {
+                report($e);
             }
         }
 

@@ -284,6 +284,94 @@
         </div>
     </div>
 </div>
+
+<!-- LUXURY AI GENERATION PROCESSING OVERLAY -->
+<div id="aiProcessingOverlay" class="fixed-top vh-100 vw-100 d-none flex-column align-items-center justify-content-center" 
+     style="background: radial-gradient(circle at center, rgba(15, 23, 42, 0.96) 0%, rgba(3, 7, 18, 0.98) 100%); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); z-index: 99999;">
+    
+    <!-- AMBIENT GLOW EFFECTS -->
+    <div style="position: absolute; width: 380px; height: 380px; border-radius: 50%; background: radial-gradient(circle, rgba(56, 189, 248, 0.25) 0%, rgba(99, 102, 241, 0.15) 50%, transparent 70%); filter: blur(40px); animation: pulseGlow 4s ease-in-out infinite;"></div>
+
+    <div class="text-center position-relative px-4" style="max-width: 620px;">
+        <!-- AI CORE ORB ANIMATION -->
+        <div class="ai-orb-container mx-auto mb-4 position-relative" style="width: 130px; height: 130px;">
+            <div class="ai-orb-ring-outer"></div>
+            <div class="ai-orb-ring-inner"></div>
+            <div class="ai-orb-core d-flex align-items-center justify-content-center">
+                <i class="bi bi-cpu text-white" style="font-size: 2.8rem; filter: drop-shadow(0 0 15px rgba(255,255,255,0.8));"></i>
+            </div>
+        </div>
+
+        <!-- TITLE & SUBTITLE -->
+        <h4 class="fw-bold text-white mb-2 tracking-wide" style="letter-spacing: -0.5px;">
+            Menyusun Paket Perangkat Ajar Lengkap
+        </h4>
+        <div class="badge bg-primary bg-opacity-25 text-info border border-info border-opacity-25 px-3 py-1.5 rounded-pill mb-3 font-monospace small">
+            <i class="bi bi-stars me-1 text-warning"></i> AI ENGINE DEEP LEARNING SMK 2026
+        </div>
+
+        <!-- PROGRESS BAR -->
+        <div class="progress mb-3 shadow-lg" style="height: 8px; background: rgba(255,255,255,0.1); border-radius: 999px; overflow: hidden;">
+            <div id="aiProgressBar" class="progress-bar progress-bar-striped progress-bar-animated bg-gradient" 
+                 role="progressbar" style="width: 15%; background: linear-gradient(90deg, #38bdf8, #818cf8, #c084fc); transition: width 0.6s ease;"></div>
+        </div>
+
+        <!-- ROTATING STATUS MESSAGES -->
+        <div class="p-3 rounded-4 border border-white border-opacity-10 mb-3" style="background: rgba(255, 255, 255, 0.05); min-height: 72px;">
+            <div class="d-flex align-items-center justify-content-center gap-2 text-white-50 small mb-1">
+                <span class="spinner-grow spinner-grow-sm text-info" role="status" aria-hidden="true"></span>
+                <span id="aiStepBadge" class="fw-semibold text-info font-monospace text-uppercase" style="font-size: 0.75rem;">Tahap 1 dari 6</span>
+            </div>
+            <div id="aiStatusMessage" class="text-white fw-medium small" style="transition: all 0.3s ease;">
+                Menganalisis Capaian Pembelajaran BSKAP No. 046/H/KR/2025...
+            </div>
+        </div>
+
+        <p class="text-white-50 mb-0" style="font-size: 0.8rem; line-height: 1.5;">
+            <i class="bi bi-info-circle me-1"></i>
+            Sistem secara sinkron merumuskan TP, ATP, Modul Ajar PEDATTI, LKPD, Prota, Promes, dan Asesmen. Mohon jangan menutup atau memuat ulang halaman.
+        </p>
+    </div>
+</div>
+
+<style>
+@keyframes pulseGlow {
+    0%, 100% { transform: scale(0.9); opacity: 0.5; }
+    50% { transform: scale(1.15); opacity: 0.85; }
+}
+@keyframes spinClockwise {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+@keyframes spinCounterClockwise {
+    0% { transform: rotate(360deg); }
+    100% { transform: rotate(0deg); }
+}
+.ai-orb-ring-outer {
+    position: absolute;
+    inset: -6px;
+    border-radius: 50%;
+    border: 2px dashed rgba(56, 189, 248, 0.55);
+    animation: spinClockwise 12s linear infinite;
+}
+.ai-orb-ring-inner {
+    position: absolute;
+    inset: 4px;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    border-top-color: #818cf8;
+    border-bottom-color: #c084fc;
+    animation: spinCounterClockwise 5s linear infinite;
+}
+.ai-orb-core {
+    position: absolute;
+    inset: 12px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #0284c7 0%, #4f46e5 50%, #9333ea 100%);
+    box-shadow: 0 0 30px rgba(56, 189, 248, 0.6), inset 0 0 15px rgba(255, 255, 255, 0.4);
+    animation: pulseGlow 3s ease-in-out infinite;
+}
+</style>
 @endsection
 
 @push('scripts')
@@ -381,6 +469,40 @@
     $('#tahun_ajaran_id').on('change', function() {
         if ($(this).val() === 'manual') {
             switchToTaManual();
+        }
+    });
+
+    // LUXURY AI PROCESSING OVERLAY ON FORM SUBMIT
+    const aiSteps = [
+        { progress: 20, badge: 'Tahap 1 dari 6', text: 'Menganalisis Capaian Pembelajaran BSKAP No. 046/H/KR/2025 & Elemen Terpilih...' },
+        { progress: 38, badge: 'Tahap 2 dari 6', text: 'Merumuskan Tujuan Pembelajaran (TP) & Alur Tujuan Pembelajaran (ATP) terurut logis...' },
+        { progress: 56, badge: 'Tahap 3 dari 6', text: 'Menyusun Modul Ajar Sintaks PEDATTI (Penyampaian, Eksplorasi, Diskusi, Aplikasi, Tindak Lanjut)...' },
+        { progress: 74, badge: 'Tahap 4 dari 6', text: 'Mengintegrasikan Prinsip Mindful-Meaningful-Joyful & 8 Dimensi Karakter Pancasila...' },
+        { progress: 88, badge: 'Tahap 5 dari 6', text: 'Merancang Lembar Kerja Peserta Didik (LKPD) & Rubrik Asesmen KKTP 4 Level...' },
+        { progress: 96, badge: 'Tahap 6 dari 6', text: 'Menghitung Alokasi Jam Prota, Matriks Promes, & Mengompilasi Berkas Ekspor...' },
+    ];
+
+    $('#formGenerator').on('submit', function() {
+        if ($('#mata_pelajaran_id').val() && $('#fase_id').val() && $('#capaian_pembelajaran_id').val()) {
+            $('#btnSubmitGenerate').prop('disabled', true).html('<span class="spinner-border spinner-border-sm me-2"></span>Menyusun Berkas...');
+            
+            // Tampilkan Overlay Futuristik
+            $('#aiProcessingOverlay').removeClass('d-none').addClass('d-flex');
+
+            let stepIdx = 0;
+            const stepInterval = setInterval(function() {
+                if (stepIdx < aiSteps.length) {
+                    const step = aiSteps[stepIdx];
+                    $('#aiProgressBar').css('width', step.progress + '%');
+                    $('#aiStepBadge').text(step.badge);
+                    $('#aiStatusMessage').fadeOut(150, function() {
+                        $(this).text(step.text).fadeIn(150);
+                    });
+                    stepIdx++;
+                } else {
+                    clearInterval(stepInterval);
+                }
+            }, 1800);
         }
     });
 </script>

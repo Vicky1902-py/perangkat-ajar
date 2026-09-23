@@ -173,6 +173,7 @@ class GeneratorController extends Controller
                         'lkpd_id' => $result['lkpd']->id ?? null,
                         'prota_id' => $result['prota']->id ?? null,
                         'promes_id' => $result['promes']->id ?? null,
+                        'asesmen_id' => $result['asesmen']->id ?? null,
                     ],
                     'last_activity_at' => now(),
                 ]);
@@ -186,6 +187,7 @@ class GeneratorController extends Controller
                 'lkpd_id' => $result['lkpd']->id,
                 'prota_id' => $result['prota']->id,
                 'promes_id' => $result['promes']->id,
+                'asesmen_id' => $result['asesmen']->id ?? null,
             ])->with('success', '🎉 Berhasil! Seluruh Perangkat Ajar Deep Learning (TP, ATP, Modul Ajar, LKPD, Prota, Promes, dan Asesmen) telah berhasil dibuat!' . $quotaMsg);
         } catch (\Exception $e) {
             return back()->with('error', 'Gagal melakukan generate perangkat ajar: ' . $e->getMessage())->withInput();
@@ -199,6 +201,7 @@ class GeneratorController extends Controller
         $lkpdId = $request->query('lkpd_id');
         $protaId = $request->query('prota_id');
         $promesId = $request->query('promes_id');
+        $asesmenId = $request->query('asesmen_id');
 
         $isGuest = !Auth::check();
         $guestCount = $isGuest ? $this->getGuestUsageCount($request) : 0;
@@ -210,6 +213,7 @@ class GeneratorController extends Controller
             'lkpdId',
             'protaId',
             'promesId',
+            'asesmenId',
             'isGuest',
             'guestRemaining'
         ));

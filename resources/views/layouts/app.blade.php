@@ -504,7 +504,26 @@
                 }
             });
         }
+
+        // Floating Scroll-To-Top
+        $(window).on('scroll', function() {
+            if ($(this).scrollTop() > 300) {
+                $('#btnScrollToTop').removeClass('d-none').addClass('d-flex');
+            } else {
+                $('#btnScrollToTop').removeClass('d-flex').addClass('d-none');
+            }
+        });
+        $('#btnScrollToTop').on('click', function() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
     </script>
+
+    <!-- FLOATING SCROLL TO TOP BUTTON -->
+    <button type="button" id="btnScrollToTop" class="btn btn-primary rounded-circle shadow-lg d-none align-items-center justify-content-center"
+            style="position: fixed; bottom: 25px; right: 25px; width: 44px; height: 44px; z-index: 1030; transition: all 0.3s ease; box-shadow: 0 8px 20px rgba(0,0,0,0.25) !important;"
+            title="Kembali ke Atas">
+        <i class="bi bi-chevron-up fs-5"></i>
+    </button>
     @stack('scripts')
 </body>
 </html>
