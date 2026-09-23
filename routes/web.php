@@ -12,6 +12,7 @@ use App\Http\Controllers\GeneratorController;
 use App\Http\Controllers\LegalController;
 use App\Http\Controllers\LkpdController;
 use App\Http\Controllers\ModulAjarController;
+use App\Http\Controllers\PerangkatManagerController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProtaPromesController;
 use App\Http\Controllers\SettingController;
@@ -171,6 +172,11 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/cms/traffic', [TrafficController::class, 'index'])->name('cms.traffic.index');
             Route::get('/cms/traffic/live', [TrafficController::class, 'liveData'])->name('cms.traffic.live');
             Route::post('/cms/traffic/clear-old', [TrafficController::class, 'clearOldLogs'])->name('cms.traffic.clear-old');
+
+            // Manajemen Ruang Hosting & Pembersih Perangkat Ajar (Bulk Delete)
+            Route::get('/cms/perangkat', [PerangkatManagerController::class, 'index'])->name('cms.perangkat.index');
+            Route::post('/cms/perangkat/bulk-delete', [PerangkatManagerController::class, 'bulkDelete'])->name('cms.perangkat.bulk-delete');
+            Route::post('/cms/perangkat/quick-purge', [PerangkatManagerController::class, 'quickPurge'])->name('cms.perangkat.quick-purge');
 
             // Kotak Usul & Saran Pengguna
             Route::get('/cms/feedbacks', [FeedbackController::class, 'index'])->name('cms.feedbacks.index');

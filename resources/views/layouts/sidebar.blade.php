@@ -71,7 +71,7 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link {{ request()->routeIs('profile.setup') ? 'active' : '' }} text-info" href="{{ route('profile.setup') }}">
-                        <i class="bi bi-person-badge-fill text-info"></i> Profil & Kop Sekolah
+                        <i class="bi bi-person-badge-fill text-info"></i> Profil & Kop
                     </a>
                 </li>
             @endauth
@@ -88,7 +88,7 @@
             <ul class="nav flex-column mb-2">
                 <li class="nav-item">
                     <a class="nav-link {{ request()->routeIs('tp.*') ? 'active' : '' }}" href="{{ route('tp.index') }}">
-                        <i class="bi bi-bullseye"></i> Tujuan Pembelajaran (TP)
+                        <i class="bi bi-bullseye"></i> Tujuan Ajar (TP)
                     </a>
                 </li>
                 <li class="nav-item">
@@ -98,12 +98,12 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link {{ request()->routeIs('modul-ajar.*') ? 'active' : '' }}" href="{{ route('modul-ajar.index') }}">
-                        <i class="bi bi-journal-richtext"></i> Modul Ajar (PEDATTI)
+                        <i class="bi bi-journal-richtext"></i> Modul Ajar
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link {{ request()->routeIs('lkpd.*') ? 'active' : '' }}" href="{{ route('lkpd.index') }}">
-                        <i class="bi bi-file-earmark-text"></i> Lembar Kerja (LKPD)
+                        <i class="bi bi-file-earmark-text"></i> Lembar LKPD
                     </a>
                 </li>
                 <li class="nav-item">
@@ -113,7 +113,7 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link {{ request()->routeIs('asesmen.*') ? 'active' : '' }}" href="{{ route('asesmen.index') }}">
-                        <i class="bi bi-check2-square"></i> Instrumen Asesmen
+                        <i class="bi bi-check2-square"></i> Asesmen
                     </a>
                 </li>
             </ul>
@@ -124,7 +124,7 @@
                 <ul class="nav flex-column mb-2">
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('cms.cp.*') ? 'active' : '' }}" href="{{ route('cms.cp.index') }}">
-                            <i class="bi bi-award"></i> Capaian Pembelajaran (CP)
+                            <i class="bi bi-award"></i> Capaian (CP)
                         </a>
                     </li>
                     <li class="nav-item">
@@ -134,17 +134,17 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('cms.kejuruan.*') ? 'active' : '' }}" href="{{ route('cms.kejuruan.index') }}">
-                            <i class="bi bi-gear-wide-connected"></i> Bidang & Program SMK
+                            <i class="bi bi-gear-wide-connected"></i> Bidang Kejuruan
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('cms.profil-lulusan.*') ? 'active' : '' }}" href="{{ route('cms.profil-lulusan.index') }}">
-                            <i class="bi bi-stars"></i> Profil Lulusan (8 Dimensi)
+                            <i class="bi bi-stars"></i> Profil Lulusan
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('cms.template-pedatti.*') ? 'active' : '' }}" href="{{ route('cms.template-pedatti.index') }}">
-                            <i class="bi bi-layout-text-window-reverse"></i> Template PEDATTI
+                            <i class="bi bi-layout-text-window-reverse"></i> Alur PEDATTI
                         </a>
                     </li>
                     <li class="nav-item">
@@ -155,7 +155,7 @@
                     @if(auth()->user()->isSuperAdmin())
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('cms.sekolah.*') ? 'active' : '' }}" href="{{ route('cms.sekolah.index') }}">
-                            <i class="bi bi-building"></i> Data Satuan Pendidikan
+                            <i class="bi bi-building"></i> Satuan Pendidikan
                         </a>
                     </li>
                     @endif
@@ -169,14 +169,19 @@
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('cms.traffic.*') ? 'active' : '' }} d-flex align-items-center justify-content-between" href="{{ route('cms.traffic.index') }}">
                             <div>
-                                <i class="bi bi-activity text-danger"></i> Pantau Traffic Realtime
+                                <i class="bi bi-activity text-danger"></i> Traffic Realtime
                             </div>
                             <span class="badge bg-danger rounded-pill px-2 py-0.5" style="font-size: 0.65rem; letter-spacing: 0.5px;">LIVE</span>
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('cms.perangkat.*') ? 'active' : '' }}" href="{{ route('cms.perangkat.index') }}">
+                            <i class="bi bi-hdd-stack-fill text-info"></i> Space Hosting
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('users.*') ? 'active' : '' }}" href="{{ route('users.index') }}">
-                            <i class="bi bi-people-fill"></i> Manajemen Pengguna
+                            <i class="bi bi-people-fill"></i> Pengguna
                         </a>
                     </li>
                     <li class="nav-item">
@@ -185,7 +190,7 @@
                         @endphp
                         <a class="nav-link {{ request()->routeIs('cms.feedbacks.*') ? 'active' : '' }} d-flex align-items-center justify-content-between" href="{{ route('cms.feedbacks.index') }}">
                             <div>
-                                <i class="bi bi-chat-quote-fill text-warning"></i> Kotak Usul & Saran
+                                <i class="bi bi-chat-quote-fill text-warning"></i> Usul & Saran
                             </div>
                             @if($newFeedbackCount > 0)
                                 <span class="badge bg-danger rounded-pill px-2 py-0.5" style="font-size: 0.65rem;">{{ $newFeedbackCount }} Baru</span>
@@ -194,7 +199,7 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('cms.settings.*') ? 'active' : '' }}" href="{{ route('cms.settings.index') }}">
-                            <i class="bi bi-sliders2 text-primary"></i> Pengaturan Aplikasi
+                            <i class="bi bi-sliders2 text-primary"></i> Pengaturan
                         </a>
                     </li>
                 </ul>

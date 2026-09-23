@@ -94,13 +94,16 @@
 
         #sidebar .nav-link {
             color: #94a3b8;
-            padding: 10px 20px;
+            padding: 10px 18px;
             display: flex;
             align-items: center;
             font-size: 0.88rem;
             font-weight: 500;
             border-radius: 8px;
-            margin: 2px 12px;
+            margin: 2px 10px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
             transition: all 0.2s;
         }
 

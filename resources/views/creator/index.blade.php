@@ -37,12 +37,13 @@
     @endphp
     <style>
         :root {
-            --primary-color: {{ $themeColors['primary'] }};
-            --accent-cyan: {{ $themeColors['cyan'] }};
-            --accent-indigo: {{ $themeColors['indigo'] }};
-            --bg-dark: #040914;
-            --bg-card: rgba(15, 23, 42, 0.78);
-            --border-glass: rgba(255, 255, 255, 0.12);
+            --kemendikdasmen-navy: #0b3b60;
+            --kemendikdasmen-blue: #0284c7;
+            --kemendikdasmen-sky: #e0f2fe;
+            --text-main: #1e293b;
+            --text-muted-custom: #64748b;
+            --bg-canvas: #f8fafc;
+            --card-border: #e2e8f0;
         }
 
         * {
@@ -53,8 +54,8 @@
         }
 
         body {
-            background-color: var(--bg-dark);
-            color: #e2e8f0;
+            background-color: var(--bg-canvas);
+            color: var(--text-main);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
@@ -62,65 +63,45 @@
             position: relative;
         }
 
-        /* Ambient Glowing Background Orbs */
-        .ambient-orb {
+        /* Ambient Subtle Sky Blue Wash */
+        .sky-wash {
             position: fixed;
             border-radius: 50%;
-            filter: blur(120px);
+            filter: blur(140px);
             z-index: 0;
             pointer-events: none;
-            opacity: 0.35;
+            opacity: 0.5;
         }
-        .ambient-orb-1 {
+        .sky-wash-1 {
             width: 480px;
             height: 480px;
-            background: radial-gradient(circle, #2563eb 0%, rgba(37, 99, 235, 0) 70%);
+            background: #bae6fd;
             top: -120px;
             left: -120px;
         }
-        .ambient-orb-2 {
+        .sky-wash-2 {
             width: 520px;
             height: 520px;
-            background: radial-gradient(circle, #6366f1 0%, rgba(99, 102, 241, 0) 70%);
+            background: #e0f2fe;
             top: 25%;
             right: -140px;
         }
-        .ambient-orb-3 {
-            width: 440px;
-            height: 440px;
-            background: radial-gradient(circle, #0284c7 0%, rgba(2, 132, 199, 0) 70%);
-            bottom: 50px;
-            left: 20%;
-        }
 
-        /* High contrast overrides */
-        .text-white-50 {
-            color: #e2e8f0 !important;
-        }
-        .text-secondary {
-            color: #cbd5e1 !important;
-        }
-        .text-muted {
-            color: #cbd5e1 !important;
-        }
-
-        /* Navbar - Kemendikdasmen Signature Navy & Gold */
+        /* Navbar - Clean White with Kemendikdasmen Navy */
         .creator-navbar {
-            background: #0b3b60;
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-bottom: 3.5px solid #f59e0b;
+            background: #ffffff;
+            border-bottom: 2px solid #e2e8f0;
             padding: 12px 0;
             position: sticky;
             top: 0;
             z-index: 1000;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+            box-shadow: 0 4px 20px rgba(11, 59, 96, 0.05);
         }
 
         .creator-brand {
             font-size: 1.05rem;
             font-weight: 800;
-            color: #ffffff;
+            color: var(--kemendikdasmen-navy);
             text-decoration: none;
             display: flex;
             align-items: center;
@@ -130,19 +111,17 @@
 
         /* Hero Profile Card */
         .profile-hero-card {
-            background: linear-gradient(180deg, rgba(15, 23, 42, 0.85) 0%, rgba(8, 14, 28, 0.95) 100%);
-            border: 1px solid rgba(56, 189, 248, 0.28);
-            border-radius: 28px;
-            backdrop-filter: blur(24px);
-            -webkit-backdrop-filter: blur(24px);
-            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7), 0 0 50px rgba(37, 99, 235, 0.15);
+            background: #ffffff;
+            border: 1.5px solid #bae6fd;
+            border-radius: 24px;
+            box-shadow: 0 10px 40px rgba(11, 59, 96, 0.08);
             overflow: hidden;
             position: relative;
         }
 
         .profile-cover-banner {
             height: 150px;
-            background: linear-gradient(135deg, rgba(37, 99, 235, 0.5) 0%, rgba(99, 102, 241, 0.4) 50%, rgba(56, 189, 248, 0.3) 100%);
+            background: linear-gradient(135deg, #0b3b60 0%, #0284c7 60%, #38bdf8 100%);
             position: relative;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
@@ -150,7 +129,7 @@
         .profile-cover-pattern {
             position: absolute;
             inset: 0;
-            background-image: radial-gradient(rgba(255, 255, 255, 0.15) 1px, transparent 1px);
+            background-image: radial-gradient(rgba(255, 255, 255, 0.2) 1px, transparent 1px);
             background-size: 18px 18px;
             opacity: 0.5;
         }
@@ -160,8 +139,8 @@
             height: 145px;
             border-radius: 50%;
             padding: 4px;
-            background: linear-gradient(135deg, #38bdf8 0%, #2563eb 50%, #818cf8 100%);
-            box-shadow: 0 0 35px rgba(56, 189, 248, 0.45);
+            background: linear-gradient(135deg, #0284c7 0%, #38bdf8 100%);
+            box-shadow: 0 8px 25px rgba(2, 132, 199, 0.35);
             position: relative;
             z-index: 2;
             margin: -75px auto 16px;
@@ -172,14 +151,14 @@
             height: 100%;
             border-radius: 50%;
             object-fit: cover;
-            border: 4px solid #080e1c;
+            border: 4px solid #ffffff;
         }
 
         .avatar-verified-seal {
             position: absolute;
             bottom: 6px;
             right: 6px;
-            background: #2563eb;
+            background: #0284c7;
             color: #ffffff;
             width: 32px;
             height: 32px;
@@ -187,65 +166,61 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            border: 3px solid #080e1c;
-            box-shadow: 0 0 12px rgba(37, 99, 235, 0.8);
+            border: 3px solid #ffffff;
+            box-shadow: 0 2px 8px rgba(2, 132, 199, 0.4);
             font-size: 0.95rem;
         }
 
-        /* Luxury Badges (100% Readable & Vibrant) */
+        /* Badges */
         .badge-luxury-gold {
-            background: rgba(245, 158, 11, 0.14) !important;
-            border: 1.5px solid rgba(245, 158, 11, 0.55) !important;
-            color: #fbbf24 !important;
+            background: #fffbeb !important;
+            border: 1.5px solid #fde68a !important;
+            color: #b45309 !important;
             font-size: 0.78rem;
             font-weight: 700;
-            letter-spacing: 0.5px;
             padding: 7px 16px;
             border-radius: 50px;
             display: inline-flex;
             align-items: center;
             gap: 7px;
-            box-shadow: 0 0 15px rgba(245, 158, 11, 0.18);
         }
 
         .badge-luxury-cyan {
-            background: rgba(56, 189, 248, 0.14) !important;
-            border: 1.5px solid rgba(56, 189, 248, 0.55) !important;
-            color: #38bdf8 !important;
+            background: #e0f2fe !important;
+            border: 1.5px solid #bae6fd !important;
+            color: #0369a1 !important;
             font-size: 0.78rem;
             font-weight: 700;
-            letter-spacing: 0.5px;
             padding: 7px 16px;
             border-radius: 50px;
             display: inline-flex;
             align-items: center;
             gap: 7px;
-            box-shadow: 0 0 15px rgba(56, 189, 248, 0.18);
         }
 
         .creator-title-name {
             font-size: clamp(1.8rem, 4vw, 2.5rem);
             font-weight: 900;
-            color: #ffffff;
+            color: var(--kemendikdasmen-navy);
             letter-spacing: -0.5px;
             margin-bottom: 6px;
         }
 
         .creator-headline-text {
-            color: #38bdf8;
+            color: var(--kemendikdasmen-blue);
             font-size: clamp(0.95rem, 2vw, 1.15rem);
-            font-weight: 600;
+            font-weight: 700;
             letter-spacing: 0.2px;
         }
 
         .creator-quote-card {
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(255, 255, 255, 0.12);
+            background: #f0f9ff;
+            border: 1px solid #bae6fd;
             border-radius: 18px;
-            padding: 16px 24px;
+            padding: 18px 24px;
             max-width: 740px;
             margin: 0 auto 26px;
-            color: #e2e8f0;
+            color: #334155;
             font-size: 0.95rem;
             line-height: 1.7;
             position: relative;
@@ -268,86 +243,86 @@
         .btn-whatsapp-custom {
             background: linear-gradient(135deg, #10b981 0%, #059669 100%);
             color: #ffffff;
-            box-shadow: 0 4px 18px rgba(16, 185, 129, 0.4);
-            border: 1px solid rgba(52, 211, 153, 0.3);
+            box-shadow: 0 4px 14px rgba(16, 185, 129, 0.3);
+            border: none;
         }
         .btn-whatsapp-custom:hover {
             background: linear-gradient(135deg, #059669 0%, #047857 100%);
             color: #ffffff;
             transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.6);
+            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.45);
         }
 
         .btn-email-custom {
-            background: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%);
+            background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
             color: #ffffff;
-            box-shadow: 0 4px 18px rgba(37, 99, 235, 0.4);
-            border: 1px solid rgba(96, 165, 250, 0.3);
+            box-shadow: 0 4px 14px rgba(2, 132, 199, 0.3);
+            border: none;
         }
         .btn-email-custom:hover {
-            background: linear-gradient(135deg, #1d4ed8 0%, #2563eb 100%);
+            background: linear-gradient(135deg, #0369a1 0%, #0b3b60 100%);
             color: #ffffff;
             transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(37, 99, 235, 0.6);
+            box-shadow: 0 6px 20px rgba(2, 132, 199, 0.45);
         }
 
         .btn-github-custom {
-            background: rgba(30, 41, 59, 0.9);
-            border: 1.5px solid rgba(255, 255, 255, 0.25);
-            color: #ffffff;
-            box-shadow: 0 4px 18px rgba(0, 0, 0, 0.35);
+            background: #ffffff;
+            border: 1.5px solid #0b3b60;
+            color: #0b3b60;
+            box-shadow: 0 2px 10px rgba(11, 59, 96, 0.08);
         }
         .btn-github-custom:hover {
-            background: #ffffff;
-            color: #050b18;
-            border-color: #ffffff;
+            background: #0b3b60;
+            color: #ffffff;
             transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(255, 255, 255, 0.3);
         }
 
         /* Glass Content Cards */
         .glass-card-info {
-            background: linear-gradient(135deg, rgba(15, 23, 42, 0.82) 0%, rgba(30, 41, 59, 0.5) 100%);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            border-radius: 22px;
+            background: #ffffff;
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
             padding: 28px;
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
             transition: all 0.3s ease;
             height: 100%;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+            box-shadow: 0 4px 20px rgba(11, 59, 96, 0.06);
+            color: var(--text-main);
         }
 
         .glass-card-info:hover {
             transform: translateY(-4px);
-            border-color: rgba(56, 189, 248, 0.45);
-            box-shadow: 0 14px 40px rgba(0, 0, 0, 0.5), 0 0 25px rgba(56, 189, 248, 0.15);
+            border-color: #7dd3fc;
+            box-shadow: 0 12px 30px rgba(11, 59, 96, 0.1);
+        }
+
+        .glass-card-info h3, .glass-card-info h4, .glass-card-info h5 {
+            color: var(--kemendikdasmen-navy) !important;
         }
 
         .section-icon-badge {
             width: 48px;
             height: 48px;
-            border-radius: 14px;
-            background: linear-gradient(135deg, rgba(56, 189, 248, 0.2) 0%, rgba(37, 99, 235, 0.2) 100%);
-            border: 1.5px solid rgba(56, 189, 248, 0.45);
-            color: #38bdf8;
+            border-radius: 12px;
+            background: #e0f2fe;
+            border: 1.5px solid #bae6fd;
+            color: #0284c7;
             display: inline-flex;
             align-items: center;
             justify-content: center;
             font-size: 1.35rem;
             margin-bottom: 16px;
-            box-shadow: 0 0 18px rgba(56, 189, 248, 0.25);
         }
 
         /* Skill Badges */
         .skill-badge-item {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(56, 189, 248, 0.28);
+            background: #e0f2fe;
+            border: 1px solid #bae6fd;
             border-radius: 30px;
             padding: 7px 15px;
             font-size: 0.82rem;
-            font-weight: 600;
-            color: #ffffff;
+            font-weight: 700;
+            color: #0369a1;
             display: inline-flex;
             align-items: center;
             gap: 7px;
@@ -355,18 +330,17 @@
         }
 
         .skill-badge-item:hover {
-            background: rgba(56, 189, 248, 0.18);
-            border-color: #38bdf8;
-            color: #38bdf8;
+            background: #0284c7;
+            color: #ffffff;
             transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(56, 189, 248, 0.25);
+            box-shadow: 0 4px 12px rgba(2, 132, 199, 0.25);
         }
 
         /* Social Profile Links */
         .btn-social-outline {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.16);
-            color: #e2e8f0;
+            background: #ffffff;
+            border: 1px solid #cbd5e1;
+            color: #334155;
             border-radius: 12px;
             padding: 8px 16px;
             font-size: 0.84rem;
@@ -379,27 +353,27 @@
         }
 
         .btn-social-outline:hover {
-            background: rgba(255, 255, 255, 0.12);
-            color: #ffffff;
-            border-color: #38bdf8;
+            background: #f0f9ff;
+            color: #0284c7;
+            border-color: #0284c7;
             transform: translateY(-2px);
-            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
         }
 
         /* Masterpiece Feature Cards */
         .feature-mini-card {
-            background: linear-gradient(135deg, rgba(15, 23, 42, 0.75) 0%, rgba(30, 41, 59, 0.4) 100%);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 18px;
-            padding: 22px;
+            background: #ffffff;
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 20px;
             height: 100%;
             transition: all 0.3s ease;
+            box-shadow: 0 2px 12px rgba(11, 59, 96, 0.04);
         }
 
         .feature-mini-card:hover {
             transform: translateY(-3px);
-            border-color: rgba(56, 189, 248, 0.4);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4), 0 0 20px rgba(56, 189, 248, 0.15);
+            border-color: #7dd3fc;
+            box-shadow: 0 8px 24px rgba(11, 59, 96, 0.08);
         }
 
         .feature-icon-wrap {
@@ -415,34 +389,35 @@
 
         /* Call To Action Box */
         .cta-profile-box {
-            background: radial-gradient(100% 100% at 50% 50%, rgba(37, 99, 235, 0.3) 0%, rgba(10, 16, 31, 0.95) 100%);
-            border: 1.5px solid rgba(56, 189, 248, 0.35);
-            border-radius: 26px;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 40px rgba(37, 99, 235, 0.2);
+            background: linear-gradient(135deg, #0b3b60 0%, #0284c7 100%);
+            border: 1.5px solid #0284c7;
+            border-radius: 24px;
+            box-shadow: 0 15px 40px rgba(11, 59, 96, 0.15);
             position: relative;
             overflow: hidden;
+            color: #ffffff;
         }
 
         /* Footer */
         .creator-footer {
-            background: rgba(4, 9, 20, 0.96);
-            border-top: 1px solid var(--border-glass);
+            background: #0b3b60;
+            border-top: 3px solid #0284c7;
             padding: 28px 0;
             margin-top: auto;
             font-size: 0.84rem;
-            color: #cbd5e1;
+            color: #e2e8f0;
             position: relative;
             z-index: 10;
         }
 
         .creator-footer a {
-            color: #cbd5e1;
+            color: #93c5fd;
             text-decoration: none;
             transition: color 0.2s;
         }
 
         .creator-footer a:hover {
-            color: #38bdf8;
+            color: #ffffff;
             text-decoration: underline;
         }
 
@@ -488,10 +463,9 @@
 </head>
 <body>
 
-    <!-- Ambient Glowing Orbs -->
-    <div class="ambient-orb ambient-orb-1"></div>
-    <div class="ambient-orb ambient-orb-2"></div>
-    <div class="ambient-orb ambient-orb-3"></div>
+    <!-- Ambient Subtle Sky Blue Wash -->
+    <div class="sky-wash sky-wash-1"></div>
+    <div class="sky-wash sky-wash-2"></div>
 
     <!-- NAVBAR -->
     <nav class="creator-navbar">
@@ -589,15 +563,15 @@
                     <div class="section-icon-badge">
                         <i class="bi bi-person-lines-fill"></i>
                     </div>
-                    <h4 class="fw-bold text-white mb-3">Tentang Saya & Dedikasi Sistem</h4>
-                    <p class="text-white-50 mb-4" style="line-height: 1.85; font-size: 0.94rem; color: #e2e8f0 !important;">
+                    <h4 class="fw-bold mb-3" style="color: var(--kemendikdasmen-navy);">Tentang Saya & Dedikasi Sistem</h4>
+                    <p class="mb-4" style="line-height: 1.85; font-size: 0.94rem; color: #334155 !important;">
                         {{ $creator['bio'] }}
                     </p>
-                    <div class="p-3.5 rounded-3 bg-white bg-opacity-5 border border-white border-opacity-10" style="border-left: 4px solid #38bdf8 !important;">
-                        <div class="text-info fw-bold small mb-1 d-flex align-items-center gap-1.5">
+                    <div class="p-3.5 rounded-3 bg-light border" style="border-left: 4px solid #0284c7 !important;">
+                        <div class="text-primary fw-bold small mb-1 d-flex align-items-center gap-1.5">
                             <i class="bi bi-mortarboard-fill text-warning"></i> Latar Belakang & Spesialisasi:
                         </div>
-                        <div class="small fw-medium" style="color: #cbd5e1; line-height: 1.6;">
+                        <div class="small fw-medium" style="color: #475569; line-height: 1.6;">
                             {{ $creator['education'] }}
                         </div>
                     </div>
@@ -610,27 +584,27 @@
                     <div class="section-icon-badge">
                         <i class="bi bi-code-square"></i>
                     </div>
-                    <h4 class="fw-bold text-white mb-2">Keahlian & Pilar Teknologi</h4>
-                    <p class="small mb-3" style="color: #cbd5e1;">
+                    <h4 class="fw-bold mb-2" style="color: var(--kemendikdasmen-navy);">Keahlian & Pilar Teknologi</h4>
+                    <p class="small mb-3" style="color: #64748b;">
                         Kompetensi arsitektur rekayasa sistem yang diterapkan dalam pengembangan platform ini:
                     </p>
                     <div class="d-flex flex-wrap gap-2 mb-4">
                         @foreach($creator['skills'] as $skill)
                             <div class="skill-badge-item">
-                                <i class="bi bi-check-circle-fill text-info"></i> {{ $skill }}
+                                <i class="bi bi-check-circle-fill text-primary"></i> {{ $skill }}
                             </div>
                         @endforeach
                     </div>
 
-                    <hr class="border-white border-opacity-10 my-3">
+                    <hr class="border-secondary border-opacity-25 my-3">
 
-                    <h6 class="fw-bold text-white small mb-2.5">
-                        <i class="bi bi-share me-1 text-warning"></i> Jejaring Sosial & Portofolio:
+                    <h6 class="fw-bold small mb-2.5" style="color: var(--kemendikdasmen-navy);">
+                        <i class="bi bi-share me-1 text-primary"></i> Jejaring Sosial & Portofolio:
                     </h6>
                     <div class="d-flex flex-wrap gap-2">
                         @if(!empty($creator['linkedin']))
                             <a href="{{ $creator['linkedin'] }}" target="_blank" class="btn-social-outline">
-                                <i class="bi bi-linkedin text-info"></i> LinkedIn
+                                <i class="bi bi-linkedin text-primary"></i> LinkedIn
                             </a>
                         @endif
                         @if(!empty($creator['instagram']))
@@ -654,8 +628,8 @@
                 <span class="badge-luxury-cyan mb-2">
                     <i class="bi bi-stars"></i> MASTERPIECE ARSITEKTUR
                 </span>
-                <h3 class="fw-bold text-white mt-1">Inovasi Unggulan yang Telah Diimplementasikan</h3>
-                <p class="small mx-auto" style="max-width: 620px; color: #cbd5e1;">
+                <h3 class="fw-bold mt-1" style="color: var(--kemendikdasmen-navy);">Inovasi Unggulan yang Telah Diimplementasikan</h3>
+                <p class="small mx-auto" style="max-width: 620px; color: #475569;">
                     Sistem dirancang mandiri dari nol dengan integrasi kecerdasan pedagogi dan ketahanan performa tinggi.
                 </p>
             </div>
@@ -666,19 +640,19 @@
                         <div class="feature-icon-wrap bg-warning bg-opacity-10 text-warning border border-warning border-opacity-25">
                             <i class="bi bi-cpu-fill"></i>
                         </div>
-                        <h6 class="fw-bold text-white mb-2">Sistem Pakar Murni (Nol Halusinasi)</h6>
-                        <p class="small mb-0" style="color: #cbd5e1; line-height: 1.6;">
+                        <h6 class="fw-bold mb-2" style="color: var(--kemendikdasmen-navy);">Sistem Pakar Murni (Nol Halusinasi)</h6>
+                        <p class="small mb-0" style="color: #475569; line-height: 1.6;">
                             Knowledge-Based Expert System murni berbasis database BSKAP 046/2025 tanpa menggunakan API Key eksternal berbayar, menjamin akurasi 100% dan bebas biaya token bagi seluruh guru.
                         </p>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="feature-mini-card">
-                        <div class="feature-icon-wrap bg-info bg-opacity-10 text-info border border-info border-opacity-25">
+                        <div class="feature-icon-wrap bg-info bg-opacity-10 text-primary border border-info border-opacity-25">
                             <i class="bi bi-diagram-3-fill"></i>
                         </div>
-                        <h6 class="fw-bold text-white mb-2">Deep Learning 3M</h6>
-                        <p class="small mb-0" style="color: #cbd5e1; line-height: 1.6;">
+                        <h6 class="fw-bold mb-2" style="color: var(--kemendikdasmen-navy);">Deep Learning 3M</h6>
+                        <p class="small mb-0" style="color: #475569; line-height: 1.6;">
                             Mengintegrasikan prinsip pembelajaran mendalam (Mindful, Meaningful, Joyful) berorientasi kebutuhan nyata Dunia Usaha dan Industri (DUDI).
                         </p>
                     </div>
@@ -688,8 +662,8 @@
                         <div class="feature-icon-wrap bg-success bg-opacity-10 text-success border border-success border-opacity-25">
                             <i class="bi bi-patch-check-fill"></i>
                         </div>
-                        <h6 class="fw-bold text-white mb-2">BSKAP 046/2025 Ready</h6>
-                        <p class="small mb-0" style="color: #cbd5e1; line-height: 1.6;">
+                        <h6 class="fw-bold mb-2" style="color: var(--kemendikdasmen-navy);">BSKAP 046/2025 Ready</h6>
+                        <p class="small mb-0" style="color: #475569; line-height: 1.6;">
                             Basis data Capaian Pembelajaran resmi terbaru merevisi No. 032/2024, dilengkapi mesin impor regulasi baru tanpa merusak arsip lama.
                         </p>
                     </div>
@@ -699,8 +673,8 @@
                         <div class="feature-icon-wrap bg-primary bg-opacity-10 text-primary border border-primary border-opacity-25">
                             <i class="bi bi-database-check"></i>
                         </div>
-                        <h6 class="fw-bold text-white mb-2">Pure PHP PDO Backup</h6>
-                        <p class="small mb-0" style="color: #cbd5e1; line-height: 1.6;">
+                        <h6 class="fw-bold mb-2" style="color: var(--kemendikdasmen-navy);">Pure PHP PDO Backup</h6>
+                        <p class="small mb-0" style="color: #475569; line-height: 1.6;">
                             Pencadangan database mandiri tanpa ketergantungan utility mysqldump, 100% aman dan bekerja di shared hosting cPanel Rumahweb.
                         </p>
                     </div>
@@ -710,8 +684,8 @@
                         <div class="feature-icon-wrap bg-danger bg-opacity-10 text-danger border border-danger border-opacity-25">
                             <i class="bi bi-activity"></i>
                         </div>
-                        <h6 class="fw-bold text-white mb-2">Realtime Traffic Monitor</h6>
-                        <p class="small mb-0" style="color: #cbd5e1; line-height: 1.6;">
+                        <h6 class="fw-bold mb-2" style="color: var(--kemendikdasmen-navy);">Realtime Traffic Monitor</h6>
+                        <p class="small mb-0" style="color: #475569; line-height: 1.6;">
                             Pemantauan aktivitas pengunjung, tamu, user, dan jenis perangkat (Smartphone, Tablet, Desktop) secara langsung dari dasbor admin.
                         </p>
                     </div>
@@ -721,8 +695,8 @@
                         <div class="feature-icon-wrap bg-warning bg-opacity-10 text-warning border border-warning border-opacity-25">
                             <i class="bi bi-sliders"></i>
                         </div>
-                        <h6 class="fw-bold text-white mb-2">Full CMS Control</h6>
-                        <p class="small mb-0" style="color: #cbd5e1; line-height: 1.6;">
+                        <h6 class="fw-bold mb-2" style="color: var(--kemendikdasmen-navy);">Full CMS Control</h6>
+                        <p class="small mb-0" style="color: #475569; line-height: 1.6;">
                             Kustomisasi menyeluruh Logo, Favicon, 5 Tema Warna, Landing Page, dan Profil Pembuat langsung melalui akun Superadmin.
                         </p>
                     </div>
@@ -733,14 +707,14 @@
         <!-- CALL TO ACTION -->
         <div class="cta-profile-box p-4 p-md-5 text-center">
             <h3 class="fw-bold text-white mb-2">Siap Merasakan Efisiensi Perangkat Ajar Digital?</h3>
-            <p class="small mb-4 mx-auto" style="max-width: 560px; color: #cbd5e1;">
+            <p class="small mb-4 mx-auto" style="max-width: 560px; color: #f0f9ff;">
                 Manfaatkan generator perangkat ajar Kurikulum Merdeka SMK sekarang juga dan rasakan kemudahan mengajar dengan persiapan profesional.
             </p>
             <div class="d-flex flex-wrap justify-content-center gap-2.5">
-                <a href="{{ route('generator.index') }}" class="btn btn-primary rounded-pill px-4 py-2.5 fw-bold shadow-lg">
-                    <i class="bi bi-lightning-charge-fill text-warning me-1.5"></i> Coba Generator Gratis (Maks. 2x)
+                <a href="{{ route('generator.index') }}" class="btn btn-warning rounded-pill px-4 py-2.5 fw-bold text-dark shadow">
+                    <i class="bi bi-lightning-charge-fill me-1.5"></i> Coba Generator Gratis (Maks. 2x)
                 </a>
-                <a href="{{ route('register') }}" class="btn btn-outline-light border-opacity-25 rounded-pill px-4 py-2.5 fw-bold">
+                <a href="{{ route('register') }}" class="btn btn-outline-light rounded-pill px-4 py-2.5 fw-bold">
                     <i class="bi bi-person-plus-fill me-1.5"></i> Daftar Akun Guru (Akses Penuh)
                 </a>
             </div>
