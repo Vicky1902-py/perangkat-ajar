@@ -55,6 +55,17 @@
             overflow-x: hidden;
         }
 
+        /* High contrast overrides for dark theme */
+        .text-white-50 {
+            color: #cbd5e1 !important;
+        }
+        .text-secondary {
+            color: #cbd5e1 !important;
+        }
+        .text-muted {
+            color: #cbd5e1 !important;
+        }
+
         /* Navbar */
         .creator-navbar {
             background: rgba(5, 11, 24, 0.85);
@@ -239,12 +250,12 @@
             border-top: 1px solid var(--border-glass);
             padding: 30px 0;
             margin-top: auto;
-            font-size: 0.82rem;
-            color: #64748b;
+            font-size: 0.84rem;
+            color: #cbd5e1;
         }
 
         .creator-footer a {
-            color: #94a3b8;
+            color: #e2e8f0;
             text-decoration: none;
             transition: color 0.2s;
         }

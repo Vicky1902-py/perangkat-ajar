@@ -26,7 +26,7 @@
                         </p>
                     </div>
                 </div>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close" onclick="closeWelcomePopup()"></button>
             </div>
 
             <!-- MODAL NAV PILLS (3 MENU UTAMA) -->
@@ -394,7 +394,7 @@
                     </label>
                 </div>
                 <div class="d-flex align-items-center gap-2">
-                    <button type="button" class="btn btn-outline-light border-opacity-25 rounded-pill px-3 py-1.5 small" data-bs-dismiss="modal">
+                    <button type="button" class="btn btn-outline-light border-opacity-25 rounded-pill px-3 py-1.5 small" data-bs-dismiss="modal" onclick="closeWelcomePopup()">
                         Tutup
                     </button>
                     <a href="{{ route('generator.index') }}" class="btn btn-primary rounded-pill px-3 py-1.5 small fw-semibold shadow-sm">
@@ -429,6 +429,39 @@
         border-radius: 24px !important;
         box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 40px rgba(56, 189, 248, 0.18) !important;
         color: #ffffff;
+    }
+
+    /* Enhanced contrast overrides for maximum readability */
+    .welcome-modal-custom .text-white-50 {
+        color: #cbd5e1 !important;
+    }
+    .welcome-modal-custom .text-secondary {
+        color: #cbd5e1 !important;
+    }
+    .welcome-modal-custom .text-muted {
+        color: #cbd5e1 !important;
+    }
+    .welcome-modal-custom .menu-subtitle {
+        color: #cbd5e1 !important;
+    }
+    .welcome-modal-custom .form-label-popup {
+        color: #f1f5f9 !important;
+        font-weight: 600;
+    }
+    .welcome-modal-custom .form-control-popup::placeholder,
+    .welcome-modal-custom .form-control-popup-textarea::placeholder {
+        color: #94a3b8 !important;
+    }
+    .welcome-modal-custom .welcome-acc-body {
+        color: #e2e8f0 !important;
+    }
+    .welcome-modal-custom .welcome-acc-body p,
+    .welcome-modal-custom .welcome-acc-body li,
+    .welcome-modal-custom .welcome-acc-body div {
+        color: #e2e8f0;
+    }
+    .welcome-acc-button {
+        cursor: pointer !important;
     }
 
     .welcome-header-icon {
@@ -705,7 +738,7 @@
         position: fixed;
         bottom: 24px;
         right: 24px;
-        z-index: 1050;
+        z-index: 1060;
         background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
         border: 1.5px solid rgba(56, 189, 248, 0.5);
         color: #ffffff;
@@ -797,10 +830,55 @@
     function openWelcomePopup(tab = 'panduan') {
         switchWelcomeTab(tab);
         const modalEl = document.getElementById('welcomeGuideModal');
-        if (modalEl) {
-            const modalInstance = bootstrap.Modal.getOrCreateInstance(modalEl);
-            modalInstance.show();
+        if (!modalEl) return;
+
+        try {
+            if (typeof bootstrap !== 'undefined' && bootstrap.Modal) {
+                const modalInstance = bootstrap.Modal.getOrCreateInstance(modalEl);
+                modalInstance.show();
+                return;
+            }
+        } catch (err) {
+            console.warn('Bootstrap modal show fallback:', err);
         }
+
+        // Pure JS fallback jika bootstrap belum siap
+        modalEl.classList.add('show');
+        modalEl.style.display = 'block';
+        modalEl.removeAttribute('aria-hidden');
+        modalEl.setAttribute('aria-modal', 'true');
+        document.body.classList.add('modal-open');
+
+        let backdrop = document.getElementById('welcomeModalBackdropFallback');
+        if (!backdrop) {
+            backdrop = document.createElement('div');
+            backdrop.id = 'welcomeModalBackdropFallback';
+            backdrop.className = 'modal-backdrop fade show';
+            backdrop.onclick = closeWelcomePopup;
+            document.body.appendChild(backdrop);
+        }
+    }
+
+    function closeWelcomePopup() {
+        const modalEl = document.getElementById('welcomeGuideModal');
+        if (modalEl) {
+            try {
+                if (typeof bootstrap !== 'undefined' && bootstrap.Modal) {
+                    const instance = bootstrap.Modal.getInstance(modalEl);
+                    if (instance) {
+                        instance.hide();
+                    }
+                }
+            } catch (err) {}
+            modalEl.classList.remove('show');
+            modalEl.style.display = 'none';
+            modalEl.setAttribute('aria-hidden', 'true');
+            modalEl.removeAttribute('aria-modal');
+        }
+        document.body.classList.remove('modal-open');
+        const fallbackBackdrop = document.getElementById('welcomeModalBackdropFallback');
+        if (fallbackBackdrop) fallbackBackdrop.remove();
+        document.querySelectorAll('.modal-backdrop').forEach(b => b.remove());
     }
 
     function toggleDoNotShow(chk) {
@@ -810,6 +888,47 @@
         } else {
             localStorage.removeItem('hide_welcome_popup_date');
         }
+    }
+
+    // Manual Accordion Fallback
+    function manualToggleAccordion(btn, targetEl) {
+        const isShown = targetEl.classList.contains('show');
+        const parentSelector = targetEl.getAttribute('data-bs-parent');
+        if (parentSelector) {
+            const parent = document.querySelector(parentSelector);
+            if (parent) {
+                parent.querySelectorAll('.accordion-collapse').forEach(item => item.classList.remove('show'));
+                parent.querySelectorAll('.welcome-acc-button').forEach(b => {
+                    b.classList.add('collapsed');
+                    b.setAttribute('aria-expanded', 'false');
+                });
+            }
+        }
+        if (isShown) {
+            targetEl.classList.remove('show');
+            btn.classList.add('collapsed');
+            btn.setAttribute('aria-expanded', 'false');
+        } else {
+            targetEl.classList.add('show');
+            btn.classList.remove('collapsed');
+            btn.setAttribute('aria-expanded', 'true');
+        }
+    }
+
+    function initWelcomeAccordion() {
+        document.querySelectorAll('.welcome-acc-button').forEach(btn => {
+            btn.addEventListener('click', function (e) {
+                const targetSelector = this.getAttribute('data-bs-target');
+                if (!targetSelector) return;
+                const targetEl = document.querySelector(targetSelector);
+                if (!targetEl) return;
+
+                if (typeof bootstrap === 'undefined' || !bootstrap.Collapse) {
+                    e.preventDefault();
+                    manualToggleAccordion(this, targetEl);
+                }
+            });
+        });
     }
 
     async function submitWelcomeFeedback(e) {
@@ -859,15 +978,37 @@
         }
     }
 
-    // Auto-open modal on first visit of the day
+    // Auto-open modal on visit & init bindings
     document.addEventListener('DOMContentLoaded', function () {
+        initWelcomeAccordion();
+
+        // Bind escape key
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') closeWelcomePopup();
+        });
+
+        // Bind FAB click explicitly
+        const fab = document.getElementById('openWelcomeGuideFab');
+        if (fab) {
+            fab.addEventListener('click', function() {
+                openWelcomePopup('panduan');
+            });
+        }
+
         const todayStr = new Date().toISOString().slice(0, 10);
         const hideDate = localStorage.getItem('hide_welcome_popup_date');
+        const chk = document.getElementById('chkDoNotShowToday');
+        if (chk) {
+            chk.checked = (hideDate === todayStr);
+        }
 
-        if (hideDate !== todayStr) {
+        const urlParams = new URLSearchParams(window.location.search);
+        const forceOpen = urlParams.has('popup') || urlParams.has('panduan') || urlParams.has('guide');
+
+        if (forceOpen || hideDate !== todayStr) {
             setTimeout(function () {
                 openWelcomePopup('panduan');
-            }, 650);
+            }, 600);
         }
     });
 </script>

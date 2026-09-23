@@ -391,6 +391,17 @@
                 padding: 20px 14px !important;
             }
         }
+
+        /* High contrast footer links & readability */
+        .footer-legal-link {
+            color: #cbd5e1 !important;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+        .footer-legal-link:hover {
+            color: #38bdf8 !important;
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
@@ -843,21 +854,24 @@
                     Hak Cipta : <span class="text-white fw-semibold">Desain by. {{ app_setting('landing_creator_name', 'Vicky Koroh') }}</span> &bull; &copy; {{ app_setting('landing_copyright_year', '2026') }}
                 </div>
             </div>
-            <div class="d-flex flex-wrap justify-content-center gap-3 pt-2 border-top border-white border-opacity-5" style="font-size: 0.76rem;">
-                <a href="{{ route('legal.privacy') }}" class="text-white-50 text-decoration-none hover-white">Kebijakan Privasi</a>
+            <div class="d-flex flex-wrap justify-content-center gap-3 pt-2 border-top border-white border-opacity-5" style="font-size: 0.82rem;">
+                <a href="{{ route('legal.privacy') }}" class="footer-legal-link">Kebijakan Privasi</a>
                 <span class="text-white-50">&bull;</span>
-                <a href="{{ route('legal.terms') }}" class="text-white-50 text-decoration-none hover-white">Syarat & Ketentuan Layanan</a>
+                <a href="{{ route('legal.terms') }}" class="footer-legal-link">Syarat & Ketentuan Layanan</a>
                 <span class="text-white-50">&bull;</span>
-                <a href="{{ route('legal.about') }}" class="text-white-50 text-decoration-none hover-white">Tentang Kami</a>
+                <a href="{{ route('legal.about') }}" class="footer-legal-link">Tentang Kami</a>
                 <span class="text-white-50">&bull;</span>
-                <a href="{{ route('legal.contact') }}" class="text-white-50 text-decoration-none hover-white">Hubungi Kami</a>
+                <a href="{{ route('legal.contact') }}" class="footer-legal-link">Hubungi Kami</a>
                 <span class="text-white-50">&bull;</span>
-                <a href="{{ route('creator.profile') }}" class="text-white-50 text-decoration-none hover-white">Profil Pembuat</a>
+                <a href="{{ route('creator.profile') }}" class="footer-legal-link">Profil Pembuat</a>
                 <span class="text-white-50">&bull;</span>
-                <a href="{{ route('legal.disclaimer') }}" class="text-white-50 text-decoration-none hover-white">Pernyataan Penyangkalan (Disclaimer)</a>
+                <a href="{{ route('legal.disclaimer') }}" class="footer-legal-link">Pernyataan Penyangkalan (Disclaimer)</a>
             </div>
         </div>
     </footer>
+
+    <!-- BOOTSTRAP 5 JAVASCRIPT BUNDLE -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
     <!-- POP-UP INFORMATIF & PUSAT PANDUAN -->
     @include('components.welcome-popup')
