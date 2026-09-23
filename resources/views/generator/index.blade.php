@@ -307,7 +307,7 @@
             Menyusun Paket Perangkat Ajar Lengkap
         </h4>
         <div class="badge bg-primary bg-opacity-25 text-info border border-info border-opacity-25 px-3 py-1.5 rounded-pill mb-3 font-monospace small">
-            <i class="bi bi-stars me-1 text-warning"></i> AI ENGINE DEEP LEARNING SMK 2026
+            <i class="bi bi-cpu-fill me-1 text-warning"></i> MESIN SISTEM PAKAR DEEP LEARNING SMK 2026 (NOL HALUSINASI)
         </div>
 
         <!-- PROGRESS BAR -->
@@ -323,13 +323,13 @@
                 <span id="aiStepBadge" class="fw-semibold text-info font-monospace text-uppercase" style="font-size: 0.75rem;">Tahap 1 dari 6</span>
             </div>
             <div id="aiStatusMessage" class="text-white fw-medium small" style="transition: all 0.3s ease;">
-                Menganalisis Capaian Pembelajaran BSKAP No. 046/H/KR/2025...
+                Mengakses Basis Data Capaian Pembelajaran BSKAP No. 046/H/KR/2025...
             </div>
         </div>
 
         <p class="text-white-50 mb-0" style="font-size: 0.8rem; line-height: 1.5;">
-            <i class="bi bi-info-circle me-1"></i>
-            Sistem secara sinkron merumuskan TP, ATP, Modul Ajar PEDATTI, LKPD, Prota, Promes, dan Asesmen. Mohon jangan menutup atau memuat ulang halaman.
+            <i class="bi bi-shield-check text-success me-1"></i>
+            Mesin inferensi sistem pakar menyusun seluruh dokumen secara deterministik langsung dari database resmi tanpa API Key eksternal. Mohon jangan menutup halaman ini.
         </p>
     </div>
 </div>
@@ -472,14 +472,14 @@
         }
     });
 
-    // LUXURY AI PROCESSING OVERLAY ON FORM SUBMIT
+    // LUXURY EXPERT SYSTEM PROCESSING OVERLAY ON FORM SUBMIT
     const aiSteps = [
-        { progress: 20, badge: 'Tahap 1 dari 6', text: 'Menganalisis Capaian Pembelajaran BSKAP No. 046/H/KR/2025 & Elemen Terpilih...' },
-        { progress: 38, badge: 'Tahap 2 dari 6', text: 'Merumuskan Tujuan Pembelajaran (TP) & Alur Tujuan Pembelajaran (ATP) terurut logis...' },
+        { progress: 20, badge: 'Tahap 1 dari 6', text: 'Mengakses Basis Data Capaian Pembelajaran BSKAP No. 046/H/KR/2025 & Elemen Terpilih...' },
+        { progress: 38, badge: 'Tahap 2 dari 6', text: 'Mesin Inferensi Merumuskan Tujuan Pembelajaran (TP) & Alur ATP Secara Deterministik...' },
         { progress: 56, badge: 'Tahap 3 dari 6', text: 'Menyusun Modul Ajar Sintaks PEDATTI (Penyampaian, Eksplorasi, Diskusi, Aplikasi, Tindak Lanjut)...' },
         { progress: 74, badge: 'Tahap 4 dari 6', text: 'Mengintegrasikan Prinsip Mindful-Meaningful-Joyful & 8 Dimensi Karakter Pancasila...' },
         { progress: 88, badge: 'Tahap 5 dari 6', text: 'Merancang Lembar Kerja Peserta Didik (LKPD) & Rubrik Asesmen KKTP 4 Level...' },
-        { progress: 96, badge: 'Tahap 6 dari 6', text: 'Menghitung Alokasi Jam Prota, Matriks Promes, & Mengompilasi Berkas Ekspor...' },
+        { progress: 96, badge: 'Tahap 6 dari 6', text: 'Menghitung Alokasi Jam Prota/Promes Permendikdasmen 13/2025 & Mengompilasi Berkas Ekspor...' },
     ];
 
     $('#formGenerator').on('submit', function() {

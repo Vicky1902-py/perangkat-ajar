@@ -145,6 +145,16 @@
                         <li><strong>Permendikdasmen Nomor 13 Tahun 2025</strong> tentang Pedoman Pembelajaran dan Asesmen Kurikulum Merdeka.</li>
                     </ul>
 
+                    <h4><i class="bi bi-shield-check"></i> Arsitektur Sistem Pakar Murni (Bebas API Key &amp; Nol Halusinasi)</h4>
+                    <p>
+                        Berbeda dengan aplikasi berbasis model bahasa besar (LLM/AI generatif umum) yang memerlukan langganan API Key berbayar dan rawan memunculkan "halusinasi regulasi", <strong>Sistem Perangkat Ajar SMK 2026</strong> dibangun secara mandiri menggunakan arsitektur <strong>Knowledge-Based Expert System (Sistem Pakar Edukasi)</strong>.
+                    </p>
+                    <ul>
+                        <li><strong>Nol Halusinasi (Zero Hallucination):</strong> Semua referensi Capaian Pembelajaran, elemen vokasi, dan rumusan tujuan pembelajaran divalidasi langsung dari database resmi internal tanpa kemungkinan mengarang nomor surat keputusan fiktif.</li>
+                        <li><strong>Bebas Biaya API Key &amp; Token:</strong> Dirancang inklusif untuk seluruh guru Indonesia, termasuk di daerah 3T, tanpa menuntut kartu kredit, saldo token Dolar, atau langganan API pihak ketiga.</li>
+                        <li><strong>Kedaulatan &amp; Privasi Data Sekolah:</strong> Data kurikulum, nama guru, dan rancangan pembelajaran tidak pernah dikirimkan atau ditransmisikan ke server penyedia AI luar negeri.</li>
+                    </ul>
+
                     <!-- CREATOR BADGE -->
                     <div class="creator-badge-box">
                         <div class="d-flex flex-column flex-sm-row align-items-center gap-3 text-center text-sm-start">

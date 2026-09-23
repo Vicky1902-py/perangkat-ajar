@@ -503,11 +503,14 @@
 
             <!-- QUICK PILL METRICS -->
             <div class="d-flex flex-wrap justify-content-center gap-2 mb-4 mb-lg-5">
+                <span class="doc-tag" style="border-color: rgba(56, 189, 248, 0.45); background: rgba(56, 189, 248, 0.15); color: #38bdf8;">
+                    <i class="bi bi-shield-check text-info"></i> 100% Sistem Pakar Murni (Tanpa API Key &bull; Nol Halusinasi)
+                </span>
+                <span class="doc-tag"><i class="bi bi-patch-check-fill text-warning"></i> Basis Database Resmi BSKAP 046/2025</span>
                 <span class="doc-tag"><i class="bi bi-check-circle-fill text-success"></i> 8 Dimensi Profil Lulusan (DPL) 2026</span>
                 <span class="doc-tag"><i class="bi bi-check-circle-fill text-success"></i> Sintaks PEDATTI Terintegrasi</span>
                 <span class="doc-tag"><i class="bi bi-check-circle-fill text-success"></i> Pilar 3M (Mindful, Meaningful, Joyful)</span>
-                <span class="doc-tag"><i class="bi bi-check-circle-fill text-success"></i> Ekspor PDF Ber-Kop Surat Resmi</span>
-                <span class="doc-tag"><i class="bi bi-check-circle-fill text-success"></i> Prioritas Mapel Koding & AI 2026</span>
+                <span class="doc-tag"><i class="bi bi-check-circle-fill text-success"></i> Ekspor PDF & Word Ber-Kop Resmi</span>
             </div>
 
             <!-- HERO VISUAL SHOWCASE MOCKUP (WITH REAL HD TECH PHOTO) -->
@@ -518,16 +521,16 @@
                     <div class="floating-hud d-none d-md-flex align-items-center gap-2" style="top: -20px; left: 20px;">
                         <i class="bi bi-cpu-fill text-info fs-5"></i>
                         <div class="text-start">
-                            <div class="fw-bold">AI Engine 2026</div>
-                            <div class="text-white-50" style="font-size: 0.7rem;">Otomatisasi 1-Klik Siap Cetak</div>
+                            <div class="fw-bold">Sistem Pakar Edukasi</div>
+                            <div class="text-white-50" style="font-size: 0.7rem;">Murni Database &bull; Nol Halusinasi AI</div>
                         </div>
                     </div>
 
                     <div class="floating-hud d-none d-md-flex align-items-center gap-2" style="bottom: 25px; right: 20px;">
                         <i class="bi bi-award-fill text-warning fs-5"></i>
                         <div class="text-start">
-                            <div class="fw-bold">Terverifikasi BSKAP 2026</div>
-                            <div class="text-white-50" style="font-size: 0.7rem;">Kop Surat & Tanda Tangan KS</div>
+                            <div class="fw-bold">Kandidat Apresiasi GTK 2026</div>
+                            <div class="text-white-50" style="font-size: 0.7rem;">Karya Inovatif Kemendikdasmen</div>
                         </div>
                     </div>
 
@@ -715,6 +718,177 @@
         </div>
     </section>
 
+    <!-- SECTION: SISTEM PAKAR VS AI GENERATIF (STANDAR APRESIASI GTK 2026) -->
+    <section class="py-4 py-md-5 position-relative z-1" id="keunggulan-sistem-pakar">
+        <div class="container">
+            <div class="p-4 p-md-5 rounded-4 shadow-lg border border-primary border-opacity-30 position-relative overflow-hidden" 
+                 style="background: radial-gradient(circle at 10% 20%, rgba(13, 71, 161, 0.45) 0%, rgba(15, 23, 42, 0.92) 80%); backdrop-filter: blur(20px);">
+                
+                <!-- AMBIENT GLOW CORNER -->
+                <div style="position: absolute; top: -80px; right: -80px; width: 260px; height: 260px; border-radius: 50%; background: radial-gradient(circle, rgba(245, 158, 11, 0.25) 0%, transparent 70%); filter: blur(50px); pointer-events: none;"></div>
+
+                <div class="text-center mb-4 mb-md-5 position-relative z-1">
+                    <div class="d-inline-flex align-items-center gap-2 badge bg-warning text-dark fw-bold px-3 py-1.5 rounded-pill mb-3 shadow-sm" style="font-size: 0.82rem;">
+                        <i class="bi bi-award-fill"></i>
+                        <span>STANDAR KARYA INOVATIF APRESIASI GTK KEMENDIKDASMEN 2026</span>
+                    </div>
+                    <h2 class="fw-bold text-white fs-2 mb-2">
+                        Mengapa Sistem Pakar Murni Jauh Lebih Unggul &amp; Aman Dibanding AI Generatif Biasa?
+                    </h2>
+                    <p class="text-white-50 mx-auto small" style="max-width: 750px; line-height: 1.6;">
+                        Aplikasi ini dibangun dengan arsitektur <strong>Knowledge-Based Expert System (Sistem Pakar Berbasis Regulasi)</strong> dengan data rujukan tersimpan langsung di database internal. Murni tanpa ketergantungan API Key berbayar pihak ketiga, menjamin <strong>Nol Halusinasi</strong>, kedaulatan data pendidikan nasional, serta 100% bebas biaya bagi guru di seluruh pelosok Indonesia.
+                    </p>
+                </div>
+
+                <!-- KOMPARASI 4 PILAR UTAMA -->
+                <div class="row g-4 position-relative z-1">
+                    
+                    <!-- PILAR 1: AKURASI REGULASI -->
+                    <div class="col-lg-6">
+                        <div class="h-100 p-4 rounded-4 border border-white border-opacity-10" style="background: rgba(15, 23, 42, 0.65);">
+                            <div class="d-flex align-items-center gap-3 mb-3">
+                                <div class="p-2.5 rounded-3 bg-primary bg-opacity-25 text-info fs-4">
+                                    <i class="bi bi-patch-check-fill text-warning"></i>
+                                </div>
+                                <div>
+                                    <h5 class="fw-bold text-white mb-0">1. Akurasi Regulasi &amp; Nol Halusinasi</h5>
+                                    <div class="text-white-50 small">Kepastian hukum dan validitas dokumen ajar</div>
+                                </div>
+                            </div>
+                            
+                            <div class="p-3 rounded-3 mb-2 border border-success border-opacity-25" style="background: rgba(16, 185, 129, 0.08);">
+                                <div class="d-flex align-items-center gap-2 text-success fw-bold small mb-1">
+                                    <i class="bi bi-check-circle-fill"></i> Sistem Pakar Kami (Database Resmi):
+                                </div>
+                                <p class="text-white-50 small mb-0" style="font-size: 0.82rem; line-height: 1.5;">
+                                    Menyerap Capaian Pembelajaran (CP) dan elemen kompetensi langsung dari database resmi <strong>BSKAP No. 046/H/KR/2025</strong> dan alokasi waktu <strong>Permendikdasmen No. 13/2025</strong>. Tidak ada risiko mengarang.
+                                </p>
+                            </div>
+
+                            <div class="p-3 rounded-3 border border-danger border-opacity-20" style="background: rgba(239, 68, 68, 0.06);">
+                                <div class="d-flex align-items-center gap-2 text-danger fw-semibold small mb-1">
+                                    <i class="bi bi-x-circle-fill"></i> AI Generatif Biasa (ChatGPT / LLM API):
+                                </div>
+                                <p class="text-white-50 small mb-0" style="font-size: 0.82rem; line-height: 1.5;">
+                                    Sering "berhalusinasi" mencampuradukkan kurikulum lama, memalsukan nomor SK BSKAP, dan menghitung jam pelajaran secara keliru.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- PILAR 2: TANPA BIAYA API KEY -->
+                    <div class="col-lg-6">
+                        <div class="h-100 p-4 rounded-4 border border-white border-opacity-10" style="background: rgba(15, 23, 42, 0.65);">
+                            <div class="d-flex align-items-center gap-3 mb-3">
+                                <div class="p-2.5 rounded-3 bg-success bg-opacity-25 text-success fs-4">
+                                    <i class="bi bi-wallet2 text-success"></i>
+                                </div>
+                                <div>
+                                    <h5 class="fw-bold text-white mb-0">2. 100% Tanpa API Key &amp; Bebas Biaya Token</h5>
+                                    <div class="text-white-50 small">Aksesibilitas inklusif untuk seluruh guru Indonesia</div>
+                                </div>
+                            </div>
+                            
+                            <div class="p-3 rounded-3 mb-2 border border-success border-opacity-25" style="background: rgba(16, 185, 129, 0.08);">
+                                <div class="d-flex align-items-center gap-2 text-success fw-bold small mb-1">
+                                    <i class="bi bi-check-circle-fill"></i> Sistem Pakar Kami (Server Mandiri):
+                                </div>
+                                <p class="text-white-50 small mb-0" style="font-size: 0.82rem; line-height: 1.5;">
+                                    Berjalan deterministik tanpa memerlukan saldo kredit, token, atau API Key OpenAI/Claude. Seluruh guru SMK (termasuk di wilayah 3T) dapat menyusun modul ajar tanpa dipungut biaya token.
+                                </p>
+                            </div>
+
+                            <div class="p-3 rounded-3 border border-danger border-opacity-20" style="background: rgba(239, 68, 68, 0.06);">
+                                <div class="d-flex align-items-center gap-2 text-danger fw-semibold small mb-1">
+                                    <i class="bi bi-x-circle-fill"></i> AI Generatif Biasa (ChatGPT / LLM API):
+                                </div>
+                                <p class="text-white-50 small mb-0" style="font-size: 0.82rem; line-height: 1.5;">
+                                    Mengharuskan guru memiliki kartu kredit, berlangganan API Key berbayar dalam mata uang Dolar ($), dan aplikasi langsung macet saat kuota token habis.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- PILAR 3: KEDAULATAN DATA -->
+                    <div class="col-lg-6">
+                        <div class="h-100 p-4 rounded-4 border border-white border-opacity-10" style="background: rgba(15, 23, 42, 0.65);">
+                            <div class="d-flex align-items-center gap-3 mb-3">
+                                <div class="p-2.5 rounded-3 bg-info bg-opacity-25 text-info fs-4">
+                                    <i class="bi bi-shield-lock-fill text-info"></i>
+                                </div>
+                                <div>
+                                    <h5 class="fw-bold text-white mb-0">3. Kedaulatan &amp; Keamanan Data Satuan Pendidikan</h5>
+                                    <div class="text-white-50 small">Privasi data guru dan siswa terlindungi utuh</div>
+                                </div>
+                            </div>
+                            
+                            <div class="p-3 rounded-3 mb-2 border border-success border-opacity-25" style="background: rgba(16, 185, 129, 0.08);">
+                                <div class="d-flex align-items-center gap-2 text-success fw-bold small mb-1">
+                                    <i class="bi bi-check-circle-fill"></i> Sistem Pakar Kami (Lokal &amp; Mandiri):
+                                </div>
+                                <p class="text-white-50 small mb-0" style="font-size: 0.82rem; line-height: 1.5;">
+                                    Semua data sekolah, identitas guru, NIP, dan rancangan ajar tersimpan privat di database lokal. Tidak ada data yang dikirimkan ke server cloud asing di luar negeri.
+                                </p>
+                            </div>
+
+                            <div class="p-3 rounded-3 border border-danger border-opacity-20" style="background: rgba(239, 68, 68, 0.06);">
+                                <div class="d-flex align-items-center gap-2 text-danger fw-semibold small mb-1">
+                                    <i class="bi bi-x-circle-fill"></i> AI Generatif Biasa (ChatGPT / LLM API):
+                                </div>
+                                <p class="text-white-50 small mb-0" style="font-size: 0.82rem; line-height: 1.5;">
+                                    Seluruh instruksi (prompt), data guru, dan materi ditransmisikan ke server luar negeri dan berisiko dijadikan materi training AI publik tanpa izin sekolah.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- PILAR 4: FORMAT KEDINASAN -->
+                    <div class="col-lg-6">
+                        <div class="h-100 p-4 rounded-4 border border-white border-opacity-10" style="background: rgba(15, 23, 42, 0.65);">
+                            <div class="d-flex align-items-center gap-3 mb-3">
+                                <div class="p-2.5 rounded-3 bg-warning bg-opacity-25 text-warning fs-4">
+                                    <i class="bi bi-file-earmark-ruled-fill text-warning"></i>
+                                </div>
+                                <div>
+                                    <h5 class="fw-bold text-white mb-0">4. Format Dokumen Kedinasan Langsung Jadi</h5>
+                                    <div class="text-white-50 small">Siap cetak, ber-Kop Surat, dan lolos supervisi pengawas</div>
+                                </div>
+                            </div>
+                            
+                            <div class="p-3 rounded-3 mb-2 border border-success border-opacity-25" style="background: rgba(16, 185, 129, 0.08);">
+                                <div class="d-flex align-items-center gap-2 text-success fw-bold small mb-1">
+                                    <i class="bi bi-check-circle-fill"></i> Sistem Pakar Kami (Siap Ekspor Multi-Format):
+                                </div>
+                                <p class="text-white-50 small mb-0" style="font-size: 0.82rem; line-height: 1.5;">
+                                    Menghasilkan dokumen resmi dengan Kop Surat Sekolah, logo, tanda tangan Kepala Sekolah &amp; Guru, serta margin kedinasan standar dalam format <strong>PDF (A4 &amp; F4)</strong>, <strong>DOCX (Word)</strong>, dan <strong>Excel</strong>.
+                                </p>
+                            </div>
+
+                            <div class="p-3 rounded-3 border border-danger border-opacity-20" style="background: rgba(239, 68, 68, 0.06);">
+                                <div class="d-flex align-items-center gap-2 text-danger fw-semibold small mb-1">
+                                    <i class="bi bi-x-circle-fill"></i> AI Generatif Biasa (ChatGPT / LLM API):
+                                </div>
+                                <p class="text-white-50 small mb-0" style="font-size: 0.82rem; line-height: 1.5;">
+                                    Hanya memberikan teks mentah tanpa tabel, tanpa kop surat, dan membutuhkan berjam-jam kerja manual untuk dirapikan ke format pengawas sekolah.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- CALLOUT FOOTER -->
+                <div class="mt-4 pt-4 border-top border-white border-opacity-10 text-center">
+                    <div class="d-inline-flex align-items-center gap-2 px-3 py-1.5 rounded-pill bg-primary bg-opacity-20 text-info border border-info border-opacity-30 small">
+                        <i class="bi bi-shield-fill-check text-success"></i>
+                        <span>Inovasi Pembelajaran Digital Kemendikdasmen &bull; Arsitektur oleh {{ app_setting('landing_creator_name', 'Vicky Koroh') }} (2026)</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
     <!-- SECTION: KEUNGGULAN & FITUR UTAMA -->
     <section class="py-4 py-md-5 position-relative z-1">
         <div class="container">
@@ -735,9 +909,9 @@
                         <div class="feature-icon-box bg-primary bg-opacity-20 text-primary border border-primary border-opacity-30">
                             <i class="bi bi-lightning-charge-fill text-warning"></i>
                         </div>
-                        <h5 class="fw-bold text-white mb-2">Generator 1-Klik Otomatis</h5>
+                        <h5 class="fw-bold text-white mb-2">Sistem Pakar Generator 1-Klik</h5>
                         <p class="text-white-50 small mb-0">
-                            Cukup pilih mata pelajaran dan fase, sistem cerdas akan otomatis merumuskan TP, ATP, Modul Ajar, LKPD, Prota, Promes, dan Asesmen secara serentak.
+                            Cukup pilih mata pelajaran dan fase, mesin inferensi sistem pakar berbasis database resmi BSKAP otomatis merumuskan TP, ATP, Modul Ajar, LKPD, Prota, Promes, dan Asesmen secara sinkron tanpa ketergantungan API pihak ketiga.
                         </p>
                     </div>
                 </div>

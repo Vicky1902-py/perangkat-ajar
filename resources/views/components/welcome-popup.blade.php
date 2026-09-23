@@ -96,6 +96,23 @@
                         </span>
                     </div>
 
+                    <!-- SPECIAL CALLOUT: STANDAR SISTEM PAKAR & APRESIASI GTK 2026 -->
+                    <div class="p-3 rounded-4 mb-3 border border-warning border-opacity-30 d-flex align-items-start gap-3" 
+                         style="background: linear-gradient(135deg, rgba(245, 158, 11, 0.12) 0%, rgba(13, 71, 161, 0.25) 100%);">
+                        <div class="p-2 rounded-3 bg-warning text-dark fs-5 flex-shrink-0">
+                            <i class="bi bi-patch-check-fill"></i>
+                        </div>
+                        <div>
+                            <div class="fw-bold text-white small d-flex align-items-center gap-2 flex-wrap mb-1">
+                                <span>100% Murni Sistem Pakar Edukasi &bull; Berbasis Database Resmi</span>
+                                <span class="badge bg-warning text-dark" style="font-size: 0.68rem;">Apresiasi GTK 2026</span>
+                            </div>
+                            <p class="text-white-50 small mb-0" style="font-size: 0.8rem; line-height: 1.5;">
+                                Berbeda dari AI generatif umum yang membutuhkan API Key berbayar dan rentan halusinasi, sistem ini menggunakan <strong>Knowledge-Based Expert System</strong> deterministik. Seluruh referensi Capaian Pembelajaran tersimpan di database internal berdasarkan <strong>Keputusan Kepala BSKAP No. 046/H/KR/2025</strong> dan <strong>Permendikdasmen No. 13/2025</strong>. Dijamin <strong>Nol Halusinasi</strong>, bebas biaya token, dan menjaga kedaulatan data sekolah.
+                            </p>
+                        </div>
+                    </div>
+
                     <!-- ACCORDION PANDUAN -->
                     <div class="accordion accordion-flush welcome-accordion" id="accordionPanduan">
                         
@@ -105,7 +122,7 @@
                                 <button class="accordion-button welcome-acc-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                                     <div class="d-flex align-items-center gap-2">
                                         <span class="acc-num-badge">1</span>
-                                        <strong>Alur Cepat: Generator Perangkat Ajar 1-Klik</strong>
+                                        <strong>Alur Cepat: Generator Sistem Pakar 1-Klik</strong>
                                     </div>
                                 </button>
                             </h2>

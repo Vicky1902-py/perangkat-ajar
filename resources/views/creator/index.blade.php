@@ -663,11 +663,11 @@
                 <div class="col-md-4">
                     <div class="feature-mini-card">
                         <div class="feature-icon-wrap bg-warning bg-opacity-10 text-warning border border-warning border-opacity-25">
-                            <i class="bi bi-lightning-charge-fill"></i>
+                            <i class="bi bi-cpu-fill"></i>
                         </div>
-                        <h6 class="fw-bold text-white mb-2">1-Klik All Generator</h6>
+                        <h6 class="fw-bold text-white mb-2">Sistem Pakar Murni (Nol Halusinasi)</h6>
                         <p class="small mb-0" style="color: #cbd5e1; line-height: 1.6;">
-                            Menghasilkan Modul Ajar, ATP, Prota, Promes, LKPD, dan Asesmen sekaligus dalam 1 kali eksekusi dengan dukungan trial tamu (maks. 2x).
+                            Knowledge-Based Expert System murni berbasis database BSKAP 046/2025 tanpa menggunakan API Key eksternal berbayar, menjamin akurasi 100% dan bebas biaya token bagi seluruh guru.
                         </p>
                     </div>
                 </div>
