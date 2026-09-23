@@ -504,7 +504,7 @@
 
             <!-- HERO SUBTITLE -->
             <p class="hero-subtitle mx-auto mb-4">
-                {{ app_setting('landing_hero_subtitle', 'Platform cerdas generasi baru Tahun 2026 untuk otomatisasi penyusunan TP, ATP, Modul Ajar PEDATTI, LKPD, Prota, Promes, hingga Asesmen lengkap dengan Kop Surat Kedinasan Sekolah.') }}
+                {{ app_setting('landing_hero_subtitle', 'Platform cerdas generasi baru Tahun 2026 untuk otomatisasi penyusunan TP, ATP, Modul Ajar PEDATTI, LKPD, Prota, Promes, Asesmen, hingga Smart Soal (Kisi-Kisi & Bank Soal PG/Isian) lengkap dengan Kop Surat Kedinasan Sekolah.') }}
             </p>
 
             <!-- CALL TO ACTIONS -->
@@ -527,6 +527,9 @@
             <div class="d-flex flex-wrap justify-content-center gap-2 mb-4 mb-lg-5">
                 <span class="doc-tag" style="border-color: #f59e0b; background: #fffbeb; color: #b45309 !important;">
                     <i class="bi bi-shield-check text-warning"></i> 100% Sistem Pakar Murni (Tanpa API Key &bull; Nol Halusinasi)
+                </span>
+                <span class="doc-tag" style="border-color: #38bdf8; background: #f0f9ff; color: #0369a1 !important;">
+                    <i class="bi bi-patch-question-fill text-primary"></i> Smart Soal & Kisi-Kisi Resmi (PG & Isian)
                 </span>
                 <span class="doc-tag"><i class="bi bi-patch-check-fill text-primary"></i> Basis Database Resmi BSKAP 046/2025</span>
                 <span class="doc-tag"><i class="bi bi-check-circle-fill text-success"></i> 8 Dimensi Profil Lulusan (DPL) 2026</span>
@@ -907,6 +910,141 @@
         </div>
     </section>
 
+    <!-- SECTION: SPOTLIGHT INOVASI SMART SOAL BY VICKY -->
+    <section class="py-5 position-relative z-1" id="smart-soal" style="background: linear-gradient(180deg, #ffffff 0%, #f0f9ff 100%);">
+        <div class="container">
+            <div class="glass-card p-4 p-md-5 position-relative overflow-hidden" style="border: 2px solid #7dd3fc !important; box-shadow: 0 16px 40px rgba(2, 132, 199, 0.08);">
+                <div class="position-absolute top-0 end-0 m-3 d-none d-md-block">
+                    <span class="badge bg-primary text-white px-3 py-1.5 rounded-pill fw-bold shadow-sm" style="font-size: 0.78rem;">
+                        <i class="bi bi-stars me-1 text-warning"></i> FITUR UNGGULAN 2026
+                    </span>
+                </div>
+
+                <div class="row align-items-center g-4">
+                    <div class="col-lg-7">
+                        <div class="d-inline-flex align-items-center gap-2 badge bg-primary bg-opacity-10 text-primary border border-primary border-opacity-25 fw-bold px-3 py-1.5 rounded-pill mb-3" style="font-size: 0.8rem;">
+                            <i class="bi bi-patch-question-fill text-primary"></i>
+                            <span>GENERATOR KISI-KISI & BANK SOAL RESMI</span>
+                        </div>
+                        <h2 class="fw-bold mb-3 fs-2" style="color: var(--kemendikdasmen-navy);">
+                            Smart Soal by. Vicky Koroh: Dari Blueprint Kisi-Kisi Resmi Sampai Naskah Ujian Siap Pakai
+                        </h2>
+                        <p class="text-secondary small mb-4" style="line-height: 1.7; color: #334155 !important;">
+                            Kini guru SMK tidak perlu lagi bersusah payah menyusun kisi-kisi dan butir soal evaluasi secara terpisah. 
+                            <strong>Smart Soal</strong> secara otomatis merumuskan alur evaluasi terpadu mulai dari 
+                            <strong>Tabel Kisi-Kisi Resmi Kemendikdasmen (BSKAP 046/H/KR/2025) 8 Kolom</strong> hingga butir soal 
+                            <strong>Pilihan Ganda (PG)</strong> dan <strong>Isian / Uraian (Essay)</strong> yang 100% tersinkronisasi langsung dengan Modul Ajar di database.
+                        </p>
+
+                        <div class="row g-3 mb-4">
+                            <div class="col-sm-6">
+                                <div class="p-3 rounded-3 bg-white border h-100 shadow-sm" style="border-left: 4px solid #0284c7 !important;">
+                                    <div class="fw-bold text-dark small d-flex align-items-center gap-2 mb-1">
+                                        <i class="bi bi-table text-primary fs-5"></i>
+                                        <span>Kisi-Kisi Resmi 8 Kolom</span>
+                                    </div>
+                                    <div class="text-muted small" style="font-size: 0.78rem; line-height: 1.5;">
+                                        Standar BSKAP lengkap dengan Elemen, TP, Materi Pokok, Indikator Butir, Level Kognitif (L1-L3 HOTS), dan Skor.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="p-3 rounded-3 bg-white border h-100 shadow-sm" style="border-left: 4px solid #10b981 !important;">
+                                    <div class="fw-bold text-dark small d-flex align-items-center gap-2 mb-1">
+                                        <i class="bi bi-link-45deg text-success fs-5"></i>
+                                        <span>Sinkron Modul Ajar</span>
+                                    </div>
+                                    <div class="text-muted small" style="font-size: 0.78rem; line-height: 1.5;">
+                                        Materi, konteks masalah vokasi, dan indikator butir ditarik langsung dari Modul Ajar yang sudah ada di database.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="p-3 rounded-3 bg-white border h-100 shadow-sm" style="border-left: 4px solid #f59e0b !important;">
+                                    <div class="fw-bold text-dark small d-flex align-items-center gap-2 mb-1">
+                                        <i class="bi bi-ui-checks text-warning fs-5"></i>
+                                        <span>PG & Isian + Rubrik Analitik</span>
+                                    </div>
+                                    <div class="text-muted small" style="font-size: 0.78rem; line-height: 1.5;">
+                                        Soal PG dengan 4 pengecoh homogen dan soal isian disertai kata kunci serta rubrik pedoman penskoran bertingkat.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="p-3 rounded-3 bg-white border h-100 shadow-sm" style="border-left: 4px solid #8b5cf6 !important;">
+                                    <div class="fw-bold text-dark small d-flex align-items-center gap-2 mb-1">
+                                        <i class="bi bi-file-earmark-pdf-fill fs-5" style="color: #8b5cf6;"></i>
+                                        <span>Dual Output Siswa vs Guru</span>
+                                    </div>
+                                    <div class="text-muted small" style="font-size: 0.78rem; line-height: 1.5;">
+                                        Ekspor PDF Naskah Siswa (bersih tanpa kunci) dan PDF Pegangan Guru (lengkap kisi-kisi, kunci & rubrik pengesahan).
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="d-flex flex-wrap align-items-center gap-2">
+                            <a href="{{ route('login') }}" class="btn-glow-primary">
+                                <i class="bi bi-patch-question me-1"></i> Buat Smart Soal Sekarang
+                            </a>
+                            <span class="text-muted small ms-2 d-inline-flex align-items-center gap-1">
+                                <i class="bi bi-shield-check text-success"></i> 100% Sistem Pakar &bull; Tanpa Biaya Token
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-5">
+                        <div class="p-3.5 p-md-4 rounded-4 bg-white border shadow-sm position-relative">
+                            <div class="d-flex align-items-center justify-content-between pb-3 mb-3 border-bottom">
+                                <div class="d-flex align-items-center gap-2">
+                                    <div class="rounded-circle p-2 bg-primary bg-opacity-10 text-primary">
+                                        <i class="bi bi-patch-question-fill fs-5"></i>
+                                    </div>
+                                    <div>
+                                        <div class="fw-bold text-dark" style="font-size: 0.92rem;">Smart Soal by. Vicky</div>
+                                        <div class="text-muted small" style="font-size: 0.72rem;">Kurikulum Merdeka 2026</div>
+                                    </div>
+                                </div>
+                                <span class="badge badge-soft-success rounded-pill px-2.5 py-1" style="font-size: 0.68rem;">SISTEM PAKAR</span>
+                            </div>
+
+                            <!-- Alur 3 Langkah Interaktif -->
+                            <div class="d-flex flex-column gap-3">
+                                <div class="d-flex gap-3 align-items-start">
+                                    <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center fw-bold flex-shrink-0" style="width: 28px; height: 28px; font-size: 0.75rem;">1</div>
+                                    <div>
+                                        <div class="fw-bold text-dark small">Pilih Modul Ajar Sumber</div>
+                                        <div class="text-secondary small" style="font-size: 0.78rem;">Sistem membaca Capaian Pembelajaran (CP) dan TP dari modul di database secara otomatis.</div>
+                                    </div>
+                                </div>
+                                <div class="d-flex gap-3 align-items-start">
+                                    <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center fw-bold flex-shrink-0" style="width: 28px; height: 28px; font-size: 0.75rem;">2</div>
+                                    <div>
+                                        <div class="fw-bold text-dark small">Formulasi Kisi-Kisi & Soal HOTS</div>
+                                        <div class="text-secondary small" style="font-size: 0.78rem;">Mesin pakar menyusun blueprint kisi-kisi 8 kolom, stimulus vokasi nyata, opsi A-E homogen, dan rubrik skor.</div>
+                                    </div>
+                                </div>
+                                <div class="d-flex gap-3 align-items-start">
+                                    <div class="rounded-circle bg-success text-white d-flex align-items-center justify-content-center fw-bold flex-shrink-0" style="width: 28px; height: 28px; font-size: 0.75rem;">3</div>
+                                    <div>
+                                        <div class="fw-bold text-dark small">Dual Ekspor PDF & Word Ber-Kop</div>
+                                        <div class="text-secondary small" style="font-size: 0.78rem;">Naskah siswa siap dibagikan di ruang ujian dan naskah guru siap diarsipkan untuk supervisi kepala sekolah.</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mt-4 p-2.5 rounded-3 text-center" style="background: #f0fdf4; border: 1px dashed #86efac;">
+                                <span class="text-success fw-semibold small" style="font-size: 0.78rem;">
+                                    <i class="bi bi-check-all me-1"></i> Mendukung PG, Isian, & Campuran dengan 1-Klik
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- SECTION: KEUNGGULAN & FITUR UTAMA -->
     <section class="py-5 position-relative z-1" style="background-color: #f8fafc;">
         <div class="container">
@@ -934,7 +1072,23 @@
                     </div>
                 </div>
 
-                <!-- FITUR 2 -->
+                <!-- FITUR 2: SMART SOAL (BARU) -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="glass-card p-3 p-md-4 h-100 position-relative overflow-hidden" style="border: 2px solid #7dd3fc !important;">
+                        <span class="badge bg-primary text-white position-absolute top-0 end-0 m-3 px-2 py-1 small rounded-pill fw-bold" style="font-size: 0.65rem;">
+                            BARU 2026
+                        </span>
+                        <div class="feature-icon-box bg-info bg-opacity-10 text-primary">
+                            <i class="bi bi-patch-question-fill text-primary"></i>
+                        </div>
+                        <h5 class="fw-bold mb-2" style="color: var(--kemendikdasmen-navy);">Smart Soal & Kisi-Kisi Resmi</h5>
+                        <p class="text-secondary small mb-0" style="color: #475569 !important; line-height: 1.6;">
+                            Generator kisi-kisi resmi 8 kolom (BSKAP 046/2025) hingga naskah soal PG (dengan pengecoh homogen) dan Isian (dengan rubrik skor analitik). 100% tersinkronisasi otomatis dari Modul Ajar di database.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- FITUR 3 -->
                 <div class="col-md-6 col-lg-4">
                     <div class="glass-card p-3 p-md-4 h-100">
                         <div class="feature-icon-box bg-info bg-opacity-10 text-primary">
@@ -986,7 +1140,7 @@
                     </div>
                 </div>
 
-                <!-- FITUR 6 -->
+                <!-- FITUR 7: MULTI-PERAN -->
                 <div class="col-md-6 col-lg-4">
                     <div class="glass-card p-3 p-md-4 h-100">
                         <div class="feature-icon-box bg-primary bg-opacity-10 text-primary">
@@ -995,6 +1149,32 @@
                         <h5 class="fw-bold mb-2" style="color: var(--kemendikdasmen-navy);">Multi-Peran & Kolaborasi Sekolah</h5>
                         <p class="text-secondary small mb-0" style="color: #475569 !important; line-height: 1.6;">
                             Dukungan peran Super Administrator, Admin Sekolah, dan Guru Pengampu untuk monitoring administrasi guru, pembagian dokumen, dan standarisasi mutu ajar.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- FITUR 8: MANAJEMEN RUANG HOSTING & DATABASE -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="glass-card p-3 p-md-4 h-100">
+                        <div class="feature-icon-box bg-danger bg-opacity-10 text-danger">
+                            <i class="bi bi-hdd-network-fill"></i>
+                        </div>
+                        <h5 class="fw-bold mb-2" style="color: var(--kemendikdasmen-navy);">Hosting & Data Space Manager</h5>
+                        <p class="text-secondary small mb-0" style="color: #475569 !important; line-height: 1.6;">
+                            Pemantau kapasitas disk SSD hosting & database MySQL secara real-time, dilengkapi bulk delete & quick purge untuk mencegah kelebihan kuota server.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- FITUR 9: 100% BEBAS BIAYA TOKEN & AKSES INKLUSIF -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="glass-card p-3 p-md-4 h-100">
+                        <div class="feature-icon-box bg-success bg-opacity-10 text-success">
+                            <i class="bi bi-shield-lock-fill"></i>
+                        </div>
+                        <h5 class="fw-bold mb-2" style="color: var(--kemendikdasmen-navy);">Nol Halusinasi & Tanpa Biaya Token</h5>
+                        <p class="text-secondary small mb-0" style="color: #475569 !important; line-height: 1.6;">
+                            Bebas ketergantungan API pihak ketiga, menjaga kedaulatan data pendidikan nasional, serta memastikan guru di wilayah 3T dapat membuat perangkat tanpa kendala biaya token.
                         </p>
                     </div>
                 </div>
