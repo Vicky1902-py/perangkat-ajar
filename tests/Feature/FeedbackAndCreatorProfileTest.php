@@ -183,9 +183,12 @@ class FeedbackAndCreatorProfileTest extends TestCase
         // 2. Verifikasi Shell Android Card Grid ala Gojek / Grab
         $response->assertSee('mobile-app-shell', false);
         $response->assertSee('SISTEM PAKAR MURNI');
+        $response->assertSee('BSKAP 046/2025');
+        $response->assertSee('Bebas Halusinasi AI');
         $response->assertSee('Bank Soal');
         $response->assertSee('Modul Ajar');
         $response->assertSee('Alur (ATP)');
+        $response->assertSee('Prota &amp; Promes', false);
 
         // 3. Verifikasi Hak Cipta Vicky Koroh tampak jelas dan terdaftar
         $response->assertSee('HAK CIPTA &bull; DESAIN BY. VICKY KOROH', false);

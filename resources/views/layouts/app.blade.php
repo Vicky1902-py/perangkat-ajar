@@ -309,6 +309,25 @@
             font-weight: 600 !important;
         }
 
+        /* Safeguard rules for white badges and warning text - prevents invisible text */
+        .badge.bg-white,
+        .badge.bg-white-subtle {
+            background-color: #ffffff !important;
+            color: #0b3b60 !important;
+        }
+        .badge.bg-white.bg-opacity-10,
+        .badge.bg-white.bg-opacity-15,
+        .badge.bg-white.bg-opacity-20,
+        .badge.bg-white.bg-opacity-25 {
+            background-color: rgba(255, 255, 255, 0.2) !important;
+            color: #ffffff !important;
+            border: 1px solid rgba(255, 255, 255, 0.35) !important;
+        }
+        .badge.text-warning,
+        .badge.bg-warning.text-warning {
+            color: #92400e !important;
+        }
+
         .btn-gradient-primary {
             background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
             color: white;
@@ -453,6 +472,14 @@
                 flex-direction: column !important;
                 gap: 8px !important;
                 justify-content: center !important;
+            }
+
+            /* Main Content Container on Phone */
+            main.container-fluid {
+                padding-left: 12px !important;
+                padding-right: 12px !important;
+                padding-top: 12px !important;
+                padding-bottom: 24px !important;
             }
 
             #btnScrollToTop {

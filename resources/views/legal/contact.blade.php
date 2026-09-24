@@ -137,12 +137,12 @@
 
                         <div class="col-md-4">
                             <div class="contact-channel-card text-center">
-                                <div class="rounded-circle bg-warning bg-opacity-20 text-warning mx-auto mb-3 d-flex align-items-center justify-content-center" style="width: 52px; height: 52px;">
+                                <div class="rounded-circle mx-auto mb-3 d-flex align-items-center justify-content-center" style="width: 52px; height: 52px; background-color: rgba(251, 191, 36, 0.2); color: #fbbf24; border: 1.5px solid rgba(251, 191, 36, 0.4);">
                                     <i class="bi bi-person-badge-fill fs-4"></i>
                                 </div>
                                 <h5 class="text-white fw-bold mb-1">Lead Developer</h5>
                                 <p class="text-white-50 small mb-2">Pengembangan & Kemitraan</p>
-                                <span class="text-warning fw-semibold small">Vicky Koroh</span>
+                                <span class="fw-bold small" style="color: #fde047;">Vicky Koroh</span>
                             </div>
                         </div>
                     </div>

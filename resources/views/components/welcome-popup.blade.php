@@ -323,7 +323,7 @@
                                         <i class="bi bi-star-fill text-warning fs-5 star-item cursor-pointer" data-val="4" onclick="setFeedbackRating(4)"></i>
                                         <i class="bi bi-star-fill text-warning fs-5 star-item cursor-pointer" data-val="5" onclick="setFeedbackRating(5)"></i>
                                     </div>
-                                    <span class="badge bg-warning bg-opacity-20 text-warning ms-2" id="ratingTextLabel">5 / 5 (Sangat Puas)</span>
+                                    <span class="badge ms-2" id="ratingTextLabel" style="background-color: #fef3c7; color: #92400e !important; border: 1px solid #fde68a !important; font-weight: 700;">5 / 5 (Sangat Puas)</span>
                                 </div>
                             </div>
                         </div>
@@ -366,7 +366,7 @@
                                          alt="{{ app_setting('landing_creator_name', 'Vicky Koroh') }}" class="img-fluid creator-avatar-img">
                                 </div>
                                 <div class="mt-3">
-                                    <span class="badge bg-warning bg-opacity-20 text-warning border border-warning border-opacity-30 px-3 py-1 rounded-pill small fw-bold">
+                                    <span class="badge px-3 py-1 rounded-pill small fw-bold" style="background-color: #fef3c7; color: #92400e !important; border: 1px solid #fde68a !important;">
                                         <i class="bi bi-award-fill me-1"></i> ARSITEK & KREATOR SISTEM
                                     </span>
                                 </div>

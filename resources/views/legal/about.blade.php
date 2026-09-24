@@ -162,7 +162,7 @@
                                 <i class="bi bi-person-fill-gear text-info fs-2"></i>
                             </div>
                             <div>
-                                <div class="badge bg-warning bg-opacity-20 text-warning border border-warning border-opacity-30 px-2 py-0.5 rounded-pill mb-1" style="font-size: 0.72rem;">
+                                <div class="badge px-2.5 py-1 rounded-pill mb-1 fw-bold" style="background-color: #fbbf24; color: #0f172a !important; font-size: 0.72rem;">
                                     Arsitek & Pengembang Utama
                                 </div>
                                 <h4 class="text-white fw-bold mb-1 mt-0">Vicky Koroh</h4>
