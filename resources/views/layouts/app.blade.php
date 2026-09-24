@@ -454,6 +454,11 @@
                 gap: 8px !important;
                 justify-content: center !important;
             }
+
+            #btnScrollToTop {
+                bottom: 76px !important;
+                right: 18px !important;
+            }
         }
 
         @media (min-width: 992px) {
@@ -539,10 +544,12 @@
         <footer class="bg-white border-top py-3 px-4 text-muted small mt-auto">
             <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-2">
                 <div>
-                    <strong>Perangkat Ajar SMK</strong> &copy; 2026 — Kurikulum Merdeka (Pendekatan Pembelajaran Mendalam / Deep Learning).
-                    <span class="ms-2 text-primary fw-semibold d-inline-flex align-items-center">
-                        <i class="bi bi-c-circle me-1"></i> Hak Cipta : Desain by. Vicky Koroh
-                    </span>
+                    <strong>{{ app_setting('app_name', 'Perangkat Ajar SMK') }}</strong> &copy; {{ app_setting('landing_copyright_year', '2026') }} — Kurikulum Merdeka (Pendekatan Pembelajaran Mendalam / Deep Learning).
+                    <div class="d-inline-block mt-1 mt-md-0 ms-md-2">
+                        <span class="badge bg-primary bg-opacity-10 text-primary border border-primary border-opacity-25 px-2.5 py-1 rounded-pill fw-bold">
+                            <i class="bi bi-c-circle-fill me-1"></i> Hak Cipta : Desain by. {{ app_setting('landing_creator_name', 'Vicky Koroh') }}
+                        </span>
+                    </div>
                 </div>
                 <div class="d-flex align-items-center gap-2">
                     <span class="badge bg-light text-secondary border">Permendikdasmen No. 13/2025</span>
@@ -658,6 +665,10 @@
             title="Kembali ke Atas">
         <i class="bi bi-chevron-up fs-5"></i>
     </button>
+
+    <!-- NATIVE ANDROID BOTTOM NAVIGATION BAR -->
+    @include('layouts.partials.bottom-nav')
+
     @stack('scripts')
 </body>
 </html>

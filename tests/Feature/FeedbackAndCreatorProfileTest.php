@@ -169,4 +169,27 @@ class FeedbackAndCreatorProfileTest extends TestCase
         $profileResponse->assertSee('Vicky Koroh, S.Kom.');
         $profileResponse->assertSee('Lead AI & Education Architect 2026');
     }
+
+    public function test_android_mobile_view_and_prominent_copyright_notice_rendered(): void
+    {
+        $response = $this->actingAs($this->teacher)->get('/dashboard');
+        $response->assertStatus(200);
+
+        // 1. Verifikasi Bottom Navigation Bar khas Android / Smartphone
+        $response->assertSee('mobile-bottom-nav', false);
+        $response->assertSee('Smart Soal');
+        $response->assertSee('Generator');
+
+        // 2. Verifikasi Shell Android Card Grid ala Gojek / Grab
+        $response->assertSee('mobile-app-shell', false);
+        $response->assertSee('SISTEM PAKAR MURNI');
+        $response->assertSee('Bank Soal');
+        $response->assertSee('Modul Ajar');
+        $response->assertSee('Alur (ATP)');
+
+        // 3. Verifikasi Hak Cipta Vicky Koroh tampak jelas dan terdaftar
+        $response->assertSee('HAK CIPTA &bull; DESAIN BY. VICKY KOROH', false);
+        $response->assertSee('BSKAP No. 046/H/KR/2025', false);
+        $response->assertSee('Hak Cipta : Desain by.', false);
+    }
 }
