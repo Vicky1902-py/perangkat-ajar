@@ -26,6 +26,19 @@
         @endif
     @endif
 
+    <!-- GOOGLE SEARCH CONSOLE VERIFICATION -->
+    @if($gscMeta = app_setting('gsc_verification_code'))
+        @php
+            if (preg_match('/content=["\']([^"\']+)["\']/', $gscMeta, $gscMatches)) {
+                $gscMeta = $gscMatches[1];
+            }
+            $gscMeta = trim(strip_tags($gscMeta));
+        @endphp
+        @if(!empty($gscMeta))
+            <meta name="google-site-verification" content="{{ $gscMeta }}">
+        @endif
+    @endif
+
     <!-- CSS BOOTSTRAP 5 & ICONS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">

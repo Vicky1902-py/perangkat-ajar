@@ -16,6 +16,7 @@ use App\Http\Controllers\PaketSoalController;
 use App\Http\Controllers\PerangkatManagerController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProtaPromesController;
+use App\Http\Controllers\SeoController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\TrafficController;
 use App\Http\Controllers\TujuanPembelajaranController;
@@ -39,6 +40,11 @@ Route::get('/ads.txt', function () {
     $content = app_setting('ads_txt_content', "google.com, pub-XXXXXXXXXXXXXXXX, DIRECT, f08c47fec0942fa0\n");
     return response($content, 200, ['Content-Type' => 'text/plain']);
 })->name('ads.txt');
+
+// GOOGLE SEARCH CONSOLE & SEO PUBLIC ENDPOINTS
+Route::get('/sitemap.xml', [SeoController::class, 'sitemap'])->name('seo.sitemap');
+Route::get('/robots.txt', [SeoController::class, 'robots'])->name('seo.robots');
+Route::get('/google{code}.html', [SeoController::class, 'googleHtmlVerification'])->where('code', '[a-zA-Z0-9_-]+')->name('seo.google_verification');
 
 // LANDING PROFIL PEMBUAT APLIKASI (PUBLIK)
 Route::get('/profil-pembuat', [CreatorProfileController::class, 'index'])->name('creator.profile');

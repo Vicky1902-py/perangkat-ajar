@@ -77,6 +77,12 @@
                         <i class="bi bi-google me-1.5 text-warning"></i> Iklan & AdSense
                     </button>
                 </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link text-start text-md-center rounded-3 py-2.5 px-3 {{ $activeTab === 'seo' ? 'active shadow-sm' : '' }}" 
+                            id="tab-seo" data-bs-toggle="tab" data-bs-target="#pane-seo" type="button" role="tab">
+                        <i class="bi bi-search me-1.5 text-success"></i> Search Console &amp; SEO
+                    </button>
+                </li>
             </ul>
         </div>
     </div>
@@ -916,6 +922,173 @@
             </form>
         </div>
 
+        <!-- ========================================== -->
+        <!-- TAB 8: GOOGLE SEARCH CONSOLE & SEO SITEMAP -->
+        <!-- ========================================== -->
+        <div class="tab-pane fade {{ $activeTab === 'seo' ? 'show active' : '' }}" id="pane-seo" role="tabpanel">
+            <form action="{{ route('cms.settings.update') }}" method="POST">
+                @csrf
+                <input type="hidden" name="active_tab" value="seo">
+
+                <div class="row g-4">
+                    <!-- SISI KIRI: VERIFIKASI GOOGLE SEARCH CONSOLE -->
+                    <div class="col-lg-7">
+                        <div class="card border-0 shadow-sm rounded-4 mb-4">
+                            <div class="card-header bg-white py-3 border-bottom d-flex align-items-center justify-content-between">
+                                <h6 class="fw-bold text-dark mb-0 d-flex align-items-center gap-2">
+                                    <i class="bi bi-google text-primary"></i> Verifikasi Kepemilikan Google Search Console
+                                </h6>
+                                @if(app_setting('gsc_verification_code'))
+                                    <span class="badge bg-success text-white px-3 py-1.5 rounded-pill">
+                                        <i class="bi bi-patch-check-fill me-1"></i> Terpasang
+                                    </span>
+                                @else
+                                    <span class="badge bg-secondary text-white px-3 py-1.5 rounded-pill">
+                                        <i class="bi bi-exclamation-circle me-1"></i> Belum Dikonfigurasi
+                                    </span>
+                                @endif
+                            </div>
+                            <div class="card-body p-4">
+                                <div class="alert alert-primary border border-primary-subtle bg-primary-subtle text-dark p-3 rounded-3 mb-4">
+                                    <div class="fw-bold mb-1 d-flex align-items-center gap-1.5">
+                                        <i class="bi bi-info-circle-fill text-primary"></i> Menghubungkan ke Google Search Console
+                                    </div>
+                                    <div class="small text-secondary" style="line-height: 1.5;">
+                                        Google Search Console membantu mengindeks seluruh perangkat ajar, memantau kata kunci pencarian guru, mendeteksi halaman error, dan mengoptimalkan performa SEO di mesin pencari Google.
+                                    </div>
+                                </div>
+
+                                <!-- METODE 1: META TAG HTML -->
+                                <div class="mb-4">
+                                    <label class="form-label small fw-bold text-dark d-flex align-items-center justify-content-between">
+                                        <span>Metode 1: Kode / Meta Tag Verifikasi HTML (Paling Disukai)</span>
+                                        <span class="badge bg-light text-primary border">Rekomendasi</span>
+                                    </label>
+                                    <div class="input-group mb-1">
+                                        <span class="input-group-text bg-light text-muted font-monospace"><i class="bi bi-code-slash"></i></span>
+                                        <input type="text" name="gsc_verification_code" id="gscVerificationCode" class="form-control font-monospace" 
+                                               placeholder="Contoh: abcdef1234567890 atau seluruh tag <meta name=&quot;google-site-verification&quot; content=&quot;...&quot; />" 
+                                               value="{{ app_setting('gsc_verification_code', '') }}">
+                                    </div>
+                                    <div class="form-text small">
+                                        Anda bisa menempelkan <strong>kode uniknya saja</strong> atau <strong>seluruh tag HTML</strong> dari Google Search Console. Sistem cerdas otomatis membersihkan dan menyematkannya ke dalam <code>&lt;head&gt;</code> di seluruh halaman publik tanpa merusak AdSense.
+                                    </div>
+                                </div>
+
+                                <!-- METODE 2: FILE HTML GOOGLE -->
+                                <div class="mb-4">
+                                    <label class="form-label small fw-bold text-dark d-flex align-items-center justify-content-between">
+                                        <span>Metode 2: File HTML Verifikasi Google (Opsional)</span>
+                                        @if(app_setting('gsc_html_file_code'))
+                                            @php
+                                                $testFile = app_setting('gsc_html_file_code');
+                                                if (!str_ends_with($testFile, '.html')) $testFile .= '.html';
+                                                if (!str_starts_with($testFile, 'google')) $testFile = 'google' . $testFile;
+                                            @endphp
+                                            <a href="{{ url('/' . $testFile) }}" target="_blank" class="small text-primary text-decoration-none fw-semibold">
+                                                <i class="bi bi-box-arrow-up-right me-0.5"></i> Uji Buka /{{ $testFile }}
+                                            </a>
+                                        @endif
+                                    </label>
+                                    <div class="input-group mb-1">
+                                        <span class="input-group-text bg-light text-muted font-monospace"><i class="bi bi-file-earmark-code"></i></span>
+                                        <input type="text" name="gsc_html_file_code" class="form-control font-monospace" 
+                                               placeholder="Contoh: google4a7b9c1d2e.html atau 4a7b9c1d2e" 
+                                               value="{{ app_setting('gsc_html_file_code', '') }}">
+                                    </div>
+                                    <div class="form-text small">
+                                        Jika memilih metode unggah file HTML di Search Console, masukkan nama file di sini. Sistem akan otomatis menyajikan file verifikasi tersebut saat Google merayapinya.
+                                    </div>
+                                </div>
+
+                                <!-- METODE 3: DNS / TXT RECORD GOOGLE SEARCH -->
+                                <div class="mb-3">
+                                    <label class="form-label small fw-bold text-dark">Catatan Verifikasi TXT Google Search (Opsional)</label>
+                                    <textarea name="gsc_txt_record" rows="2" class="form-control font-monospace small" 
+                                              placeholder="google-site-verification=XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX">{{ app_setting('gsc_txt_record', '') }}</textarea>
+                                    <div class="form-text small">
+                                        Simpan catatan kode TXT DNS Google Anda di sini sebagai arsip dan dokumentasi server.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SISI KANAN: SITEMAP XML & ROBOTS.TXT -->
+                    <div class="col-lg-5">
+                        <!-- KARTU SITEMAP XML -->
+                        <div class="card border-0 shadow-sm rounded-4 mb-4">
+                            <div class="card-header bg-white py-3 border-bottom d-flex align-items-center justify-content-between">
+                                <h6 class="fw-bold text-dark mb-0 d-flex align-items-center gap-2">
+                                    <i class="bi bi-diagram-3-fill text-success"></i> Peta Situs Publik (Sitemap XML)
+                                </h6>
+                                <a href="{{ url('/sitemap.xml') }}" target="_blank" class="btn btn-outline-success btn-sm rounded-pill px-3 fw-semibold">
+                                    <i class="bi bi-box-arrow-up-right me-1"></i> Buka /sitemap.xml
+                                </a>
+                            </div>
+                            <div class="card-body p-4">
+                                <p class="text-muted small mb-2.5">
+                                    Google Search Console memerlukan URL peta situs (sitemap) untuk menemukan dan mengindeks seluruh halaman publik secara instan.
+                                </p>
+
+                                <div class="p-2.5 bg-light rounded-3 border mb-3">
+                                    <div class="small text-muted mb-1" style="font-size: 0.72rem;">URL Resmi Sitemap Website Anda:</div>
+                                    <div class="d-flex align-items-center justify-content-between gap-2">
+                                        <code class="small text-dark text-break fw-bold" id="sitemapUrlText">{{ url('/sitemap.xml') }}</code>
+                                        <button type="button" class="btn btn-light btn-sm rounded-pill border px-2.5 py-1 text-nowrap" onclick="copySitemapUrl()" id="btnCopySitemap">
+                                            <i class="bi bi-clipboard me-1"></i> Salin URL
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="p-3 bg-light rounded-3 border">
+                                    <div class="fw-bold text-dark small mb-1.5"><i class="bi bi-check2-circle text-success me-1"></i> Halaman yang Termasuk di Sitemap:</div>
+                                    <ul class="small text-muted ps-3 mb-0" style="line-height: 1.6; font-size: 0.78rem;">
+                                        <li>Beranda Utama / Landing Page (<code>/</code>)</li>
+                                        <li>Generator Perangkat Ajar 1-Klik (<code>/generator</code>)</li>
+                                        <li>Profil Pembuat / Dedikasi Vicky Koroh (<code>/profil-pembuat</code>)</li>
+                                        <li>Portal Akses Masuk &amp; Daftar Guru (<code>/login</code>, <code>/register</code>)</li>
+                                        <li>5 Halaman Standar Kepatuhan Hukum (Kebijakan Privasi, Syarat, Tentang, Kontak, Disclaimer)</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- KARTU ROBOTS.TXT -->
+                        <div class="card border-0 shadow-sm rounded-4 mb-4">
+                            <div class="card-header bg-white py-3 border-bottom d-flex align-items-center justify-content-between">
+                                <h6 class="fw-bold text-dark mb-0 d-flex align-items-center gap-2">
+                                    <i class="bi bi-robot text-primary"></i> File robots.txt Server
+                                </h6>
+                                <a href="{{ url('/robots.txt') }}" target="_blank" class="btn btn-outline-primary btn-sm rounded-pill px-3 fw-semibold">
+                                    <i class="bi bi-box-arrow-up-right me-1"></i> Buka /robots.txt
+                                </a>
+                            </div>
+                            <div class="card-body p-4">
+                                @php
+                                    $defaultRobotsPreview = "User-agent: *\nAllow: /\nDisallow: /dashboard\nDisallow: /cms/\nDisallow: /profile/\nDisallow: /users/\nDisallow: /backup/\nDisallow: /export/\n\nSitemap: " . url('/sitemap.xml') . "\n";
+                                @endphp
+                                <div class="mb-3">
+                                    <label class="form-label small fw-bold text-dark">Isi File robots.txt</label>
+                                    <textarea name="robots_txt_content" rows="6" class="form-control font-monospace small">{{ app_setting('robots_txt_content', $defaultRobotsPreview) }}</textarea>
+                                    <div class="form-text small">
+                                        Mengatur halaman mana yang boleh dirayapi Googlebot dan mengarahkan crawler ke <code>{{ url('/sitemap.xml') }}</code>. Menyimpan form akan otomatis memperbarui file <code>public/robots.txt</code>.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- TOMBOL SUBMIT -->
+                        <div class="text-end">
+                            <button type="submit" class="btn btn-primary rounded-pill px-4 py-2.5 fw-semibold shadow-sm w-100">
+                                <i class="bi bi-check-circle-fill me-1.5"></i> Simpan Pengaturan Search Console &amp; SEO
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+
     </div>
 </div>
 
@@ -928,6 +1101,24 @@
         document.getElementById('cyanColorText').value = cyan;
         document.getElementById('indigoColorPicker').value = indigo;
         document.getElementById('indigoColorText').value = indigo;
+    }
+
+    function copySitemapUrl() {
+        const urlText = document.getElementById('sitemapUrlText').innerText;
+        navigator.clipboard.writeText(urlText).then(() => {
+            const btn = document.getElementById('btnCopySitemap');
+            const oldHtml = btn.innerHTML;
+            btn.innerHTML = '<i class="bi bi-check-lg text-success me-1"></i> Tersalin!';
+            btn.classList.add('btn-success', 'text-white');
+            btn.classList.remove('btn-light');
+            setTimeout(() => {
+                btn.innerHTML = oldHtml;
+                btn.classList.remove('btn-success', 'text-white');
+                btn.classList.add('btn-light');
+            }, 2000);
+        }).catch(err => {
+            alert('URL Sitemap: ' + urlText);
+        });
     }
 </script>
 @endpush

@@ -183,6 +183,10 @@ class SettingController extends Controller
             'ads_txt_content' => 'adsense',
             'ads_banner_top' => 'adsense',
             'ads_banner_bottom' => 'adsense',
+            'gsc_verification_code' => 'seo',
+            'gsc_html_file_code' => 'seo',
+            'gsc_txt_record' => 'seo',
+            'robots_txt_content' => 'seo',
         ];
 
         // Khusus tab adsense: perbarui status switch aktif/nonaktif
@@ -200,6 +204,31 @@ class SettingController extends Controller
         if ($request->filled('ads_txt_content')) {
             try {
                 File::put(public_path('ads.txt'), $request->input('ads_txt_content'));
+            } catch (\Throwable $e) {
+                report($e);
+            }
+        }
+
+        // Sinkronisasi otomatis file public/robots.txt untuk crawler Googlebot & Search Engine
+        if ($request->filled('robots_txt_content')) {
+            try {
+                File::put(public_path('robots.txt'), $request->input('robots_txt_content'));
+            } catch (\Throwable $e) {
+                report($e);
+            }
+        }
+
+        // Sinkronisasi otomatis file HTML verifikasi Google Search Console jika diisi
+        if ($request->filled('gsc_html_file_code')) {
+            try {
+                $rawFile = trim($request->input('gsc_html_file_code'));
+                if (!str_ends_with($rawFile, '.html')) {
+                    $rawFile .= '.html';
+                }
+                if (!str_starts_with($rawFile, 'google')) {
+                    $rawFile = 'google' . $rawFile;
+                }
+                File::put(public_path($rawFile), 'google-site-verification: ' . $rawFile . "\n");
             } catch (\Throwable $e) {
                 report($e);
             }

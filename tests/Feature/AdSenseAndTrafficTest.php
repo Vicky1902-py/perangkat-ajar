@@ -166,5 +166,71 @@ class AdSenseAndTrafficTest extends TestCase
         // TrafficLog count must not increase for superadmin
         $this->assertEquals($initialCount, TrafficLog::count());
     }
+
+    public function test_sitemap_xml_is_publicly_accessible(): void
+    {
+        $response = $this->get('/sitemap.xml');
+        $response->assertStatus(200);
+        $this->assertStringContainsString('text/xml', (string) $response->headers->get('Content-Type'));
+        $response->assertSee('<urlset', false);
+        $response->assertSee(url('/'), false);
+        $response->assertSee(route('generator.index'), false);
+        $response->assertSee(route('creator.profile'), false);
+        $response->assertSee(route('legal.privacy'), false);
+        $response->assertSee(route('legal.terms'), false);
+    }
+
+    public function test_robots_txt_is_accessible_and_references_sitemap(): void
+    {
+        $response = $this->get('/robots.txt');
+        $response->assertStatus(200);
+        $this->assertStringContainsString('text/plain', (string) $response->headers->get('Content-Type'));
+        $response->assertSee('User-agent:');
+        $response->assertSee('Sitemap:');
+    }
+
+    public function test_google_html_verification_endpoint(): void
+    {
+        $verificationCode = 'abc123xyz789';
+        $response = $this->get('/google' . $verificationCode . '.html');
+        $response->assertStatus(200);
+        $response->assertSee('google-site-verification: google' . $verificationCode . '.html');
+    }
+
+    public function test_superadmin_can_update_gsc_and_seo_settings(): void
+    {
+        $admin = User::firstOrCreate(
+            ['email' => 'admin@admin.com'],
+            [
+                'name' => 'Super Administrator',
+                'password' => bcrypt('password'),
+                'role' => 'superadmin',
+                'is_active' => true,
+                'is_profile_completed' => true,
+            ]
+        );
+
+        $testGscCode = 'gsc_verification_token_999';
+        $testRobotsTxt = "User-agent: *\nAllow: /\nSitemap: " . url('/sitemap.xml') . "\n";
+
+        $response = $this->actingAs($admin)->post('/cms/settings', [
+            'active_tab' => 'seo',
+            'gsc_verification_code' => $testGscCode,
+            'gsc_html_file_code' => 'google999xyz',
+            'robots_txt_content' => $testRobotsTxt,
+        ]);
+
+        $response->assertRedirect('/cms/settings?tab=seo');
+
+        // Check homepage has Google Search Console meta verification tag
+        $homeResponse = $this->get('/');
+        $homeResponse->assertStatus(200);
+        $homeResponse->assertSee('<meta name="google-site-verification" content="' . $testGscCode . '">', false);
+
+        // Cleanup test generated file if created
+        if (file_exists(public_path('google999xyz.html'))) {
+            @unlink(public_path('google999xyz.html'));
+        }
+    }
 }
 

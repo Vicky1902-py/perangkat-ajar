@@ -34,3 +34,16 @@
         {!! app_setting('adsense_code') !!}
     @endif
 @endif
+
+<!-- Google Search Console Ownership Verification -->
+@if($gscMeta = app_setting('gsc_verification_code'))
+    @php
+        if (preg_match('/content=["\']([^"\']+)["\']/', $gscMeta, $gscMatches)) {
+            $gscMeta = $gscMatches[1];
+        }
+        $gscMeta = trim(strip_tags($gscMeta));
+    @endphp
+    @if(!empty($gscMeta))
+<meta name="google-site-verification" content="{{ $gscMeta }}">
+    @endif
+@endif
