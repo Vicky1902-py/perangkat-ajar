@@ -15,18 +15,37 @@ class TrafficController extends Controller
     public function index(Request $request)
     {
         $activeMinutes = 15;
+        $adminRoles = ['superadmin', 'admin', 'admin_sekolah'];
 
-        // 1. Metrik Aktivitas Realtime
-        $activeNow = TrafficLog::activeRecent($activeMinutes)->distinct('session_id')->count('session_id');
-        $activeGuests = TrafficLog::activeRecent($activeMinutes)->where('role', 'guest')->distinct('session_id')->count('session_id');
-        $activeUsers = TrafficLog::activeRecent($activeMinutes)->where('role', '!=', 'guest')->distinct('user_id')->count('user_id');
+        // 1. Metrik Aktivitas Realtime (Hanya Guru & Tamu, Admin diabaikan)
+        $activeNow = TrafficLog::activeRecent($activeMinutes)
+            ->whereNotIn('role', $adminRoles)
+            ->distinct('session_id')
+            ->count('session_id');
+
+        $activeGuests = TrafficLog::activeRecent($activeMinutes)
+            ->where('role', 'guest')
+            ->distinct('session_id')
+            ->count('session_id');
+
+        $activeUsers = TrafficLog::activeRecent($activeMinutes)
+            ->where('role', 'guru')
+            ->distinct('user_id')
+            ->count('user_id');
 
         // 2. Metrik Hari Ini
-        $todayTotalVisits = TrafficLog::today()->count();
-        $todayGenerates = TrafficLog::today()->generations()->count();
+        $todayTotalVisits = TrafficLog::today()
+            ->whereNotIn('role', $adminRoles)
+            ->count();
+
+        $todayGenerates = TrafficLog::today()
+            ->whereNotIn('role', $adminRoles)
+            ->generations()
+            ->count();
 
         // 3. Distribusi Perangkat (Smartphone vs Tablet vs Desktop) Hari Ini
         $deviceBreakdown = TrafficLog::today()
+            ->whereNotIn('role', $adminRoles)
             ->select('device_type', DB::raw('count(*) as total'))
             ->groupBy('device_type')
             ->pluck('total', 'device_type')
@@ -34,6 +53,7 @@ class TrafficController extends Controller
 
         // 4. Distribusi Sistem Operasi & Browser
         $osBreakdown = TrafficLog::today()
+            ->whereNotIn('role', $adminRoles)
             ->select('device_os', DB::raw('count(*) as total'))
             ->whereNotNull('device_os')
             ->groupBy('device_os')
@@ -43,6 +63,7 @@ class TrafficController extends Controller
             ->toArray();
 
         $browserBreakdown = TrafficLog::today()
+            ->whereNotIn('role', $adminRoles)
             ->select('browser', DB::raw('count(*) as total'))
             ->whereNotNull('browser')
             ->groupBy('browser')
@@ -52,7 +73,9 @@ class TrafficController extends Controller
             ->toArray();
 
         // 5. Daftar Log Aktivitas Terkini (dengan filter role & device)
-        $query = TrafficLog::with('user')->orderByDesc('id');
+        $query = TrafficLog::with('user')
+            ->whereNotIn('role', $adminRoles)
+            ->orderByDesc('id');
 
         if ($request->filled('role')) {
             $query->where('role', $request->role);
@@ -85,15 +108,35 @@ class TrafficController extends Controller
     public function liveData(Request $request): JsonResponse
     {
         $activeMinutes = 15;
+        $adminRoles = ['superadmin', 'admin', 'admin_sekolah'];
 
-        $activeNow = TrafficLog::activeRecent($activeMinutes)->distinct('session_id')->count('session_id');
-        $activeGuests = TrafficLog::activeRecent($activeMinutes)->where('role', 'guest')->distinct('session_id')->count('session_id');
-        $activeUsers = TrafficLog::activeRecent($activeMinutes)->where('role', '!=', 'guest')->distinct('user_id')->count('user_id');
-        $todayTotalVisits = TrafficLog::today()->count();
-        $todayGenerates = TrafficLog::today()->generations()->count();
+        $activeNow = TrafficLog::activeRecent($activeMinutes)
+            ->whereNotIn('role', $adminRoles)
+            ->distinct('session_id')
+            ->count('session_id');
 
-        // Ambil 20 aktivitas paling anyar
+        $activeGuests = TrafficLog::activeRecent($activeMinutes)
+            ->where('role', 'guest')
+            ->distinct('session_id')
+            ->count('session_id');
+
+        $activeUsers = TrafficLog::activeRecent($activeMinutes)
+            ->where('role', 'guru')
+            ->distinct('user_id')
+            ->count('user_id');
+
+        $todayTotalVisits = TrafficLog::today()
+            ->whereNotIn('role', $adminRoles)
+            ->count();
+
+        $todayGenerates = TrafficLog::today()
+            ->whereNotIn('role', $adminRoles)
+            ->generations()
+            ->count();
+
+        // Ambil 20 aktivitas paling anyar (hanya pengunjung nyata)
         $latestLogs = TrafficLog::with('user')
+            ->whereNotIn('role', $adminRoles)
             ->orderByDesc('id')
             ->take(20)
             ->get()

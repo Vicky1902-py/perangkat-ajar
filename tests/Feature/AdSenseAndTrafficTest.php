@@ -141,5 +141,30 @@ class AdSenseAndTrafficTest extends TestCase
         $homeResponse->assertStatus(200);
         $homeResponse->assertSee($testPubId);
     }
+
+    public function test_superadmin_visits_are_not_logged_in_traffic(): void
+    {
+        $admin = User::firstOrCreate(
+            ['email' => 'admin@admin.com'],
+            [
+                'name' => 'Super Administrator',
+                'password' => bcrypt('password'),
+                'role' => 'superadmin',
+                'is_active' => true,
+                'is_profile_completed' => true,
+            ]
+        );
+
+        $initialCount = TrafficLog::count();
+
+        // Superadmin browsing various pages
+        $this->actingAs($admin)->get('/dashboard');
+        $this->actingAs($admin)->get('/cms/traffic');
+        $this->actingAs($admin)->get('/cms/settings');
+        $this->actingAs($admin)->get('/privacy-policy');
+
+        // TrafficLog count must not increase for superadmin
+        $this->assertEquals($initialCount, TrafficLog::count());
+    }
 }
 

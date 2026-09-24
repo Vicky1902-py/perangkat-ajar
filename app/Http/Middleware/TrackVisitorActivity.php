@@ -39,6 +39,14 @@ class TrackVisitorActivity
      */
     protected function shouldSkip(Request $request): bool
     {
+        // 1. Abaikan seluruh aktivitas jika pengguna sedang login sebagai Superadmin atau Admin
+        if (Auth::check()) {
+            $user = Auth::user();
+            if ($user && in_array($user->role, ['superadmin', 'admin', 'admin_sekolah'])) {
+                return true;
+            }
+        }
+
         $path = $request->path();
 
         // Abaikan health check, live polling traffic admin, debugbar, dan livewire
@@ -67,6 +75,12 @@ class TrackVisitorActivity
     protected function logActivity(Request $request): void
     {
         $user = Auth::user();
+
+        // Pengamanan ganda: jangan pernah catat log untuk akun admin / superadmin
+        if ($user && in_array($user->role, ['superadmin', 'admin', 'admin_sekolah'])) {
+            return;
+        }
+
         $sessionId = $request->session()->getId();
         $ip = $request->ip();
         $ua = $request->userAgent();

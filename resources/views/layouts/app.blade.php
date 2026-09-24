@@ -55,6 +55,51 @@
             min-height: 100vh;
         }
 
+        /* Universal Compact Bootstrap 5 Pagination */
+        .pagination {
+            margin-bottom: 0;
+            gap: 3px;
+            flex-wrap: wrap;
+        }
+        .pagination .page-item .page-link {
+            color: #0b3b60;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px !important;
+            padding: 5px 12px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            background-color: #ffffff;
+            box-shadow: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 32px;
+            height: 32px;
+            transition: all 0.15s ease-in-out;
+        }
+        .pagination .page-item.active .page-link {
+            background-color: #0284c7 !important;
+            border-color: #0284c7 !important;
+            color: #ffffff !important;
+            box-shadow: 0 2px 6px rgba(2, 132, 199, 0.35);
+        }
+        .pagination .page-item.disabled .page-link {
+            color: #94a3b8;
+            background-color: #f8fafc;
+            border-color: #e2e8f0;
+        }
+        .pagination .page-item:not(.active):not(.disabled) .page-link:hover {
+            background-color: #e0f2fe;
+            border-color: #7dd3fc;
+            color: #0369a1;
+        }
+        .pagination svg {
+            width: 14px !important;
+            height: 14px !important;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
         /* Sidebar Styling */
         #sidebar {
             width: 270px;

@@ -219,11 +219,9 @@
                         <div class="col-md-4">
                             <label class="form-label small text-muted mb-1">Status Pengguna</label>
                             <select name="role" class="form-select form-select-sm rounded-3">
-                                <option value="">-- Semua Status (Guru & Tamu) --</option>
-                                <option value="guest" {{ request('role') === 'guest' ? 'selected' : '' }}>Tamu Publik (Guest)</option>
+                                <option value="">-- Semua Pengguna (Guru & Tamu) --</option>
                                 <option value="guru" {{ request('role') === 'guru' ? 'selected' : '' }}>Guru Terdaftar</option>
-                                <option value="admin_sekolah" {{ request('role') === 'admin_sekolah' ? 'selected' : '' }}>Admin Sekolah</option>
-                                <option value="superadmin" {{ request('role') === 'superadmin' ? 'selected' : '' }}>Superadmin</option>
+                                <option value="guest" {{ request('role') === 'guest' ? 'selected' : '' }}>Tamu Publik (Guest)</option>
                             </select>
                         </div>
                         <div class="col-md-4">
@@ -392,11 +390,11 @@
             </div>
 
             <!-- PAGINATION -->
-            <div class="p-3 border-top d-flex justify-content-between align-items-center flex-wrap gap-2">
-                <div class="text-muted small">
-                    Menampilkan {{ $logs->firstItem() ?? 0 }} - {{ $logs->lastItem() ?? 0 }} dari total {{ $logs->total() }} log
+            <div class="p-3 border-top d-flex justify-content-between align-items-center flex-wrap gap-2 bg-light bg-opacity-50">
+                <div class="text-muted small fw-medium">
+                    Menampilkan <span class="fw-bold text-dark">{{ $logs->firstItem() ?? 0 }}</span> - <span class="fw-bold text-dark">{{ $logs->lastItem() ?? 0 }}</span> dari total <span class="fw-bold text-primary">{{ $logs->total() }}</span> log aktivitas
                 </div>
-                <div>
+                <div class="traffic-pagination">
                     {{ $logs->links() }}
                 </div>
             </div>
@@ -615,6 +613,51 @@
     }
     .border-purple {
         border-color: #7c3aed !important;
+    }
+
+    /* Kemendikdasmen Compact Pagination */
+    .traffic-pagination .pagination {
+        margin-bottom: 0;
+        gap: 3px;
+        flex-wrap: wrap;
+    }
+    .traffic-pagination .page-item .page-link {
+        color: #0b3b60;
+        border: 1px solid #cbd5e1;
+        border-radius: 8px !important;
+        padding: 5px 12px;
+        font-size: 0.82rem;
+        font-weight: 600;
+        background-color: #ffffff;
+        box-shadow: none;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 32px;
+        height: 32px;
+        transition: all 0.15s ease-in-out;
+    }
+    .traffic-pagination .page-item.active .page-link {
+        background-color: #0284c7 !important;
+        border-color: #0284c7 !important;
+        color: #ffffff !important;
+        box-shadow: 0 2px 6px rgba(2, 132, 199, 0.35);
+    }
+    .traffic-pagination .page-item.disabled .page-link {
+        color: #94a3b8;
+        background-color: #f8fafc;
+        border-color: #e2e8f0;
+    }
+    .traffic-pagination .page-item:not(.active):not(.disabled) .page-link:hover {
+        background-color: #e0f2fe;
+        border-color: #7dd3fc;
+        color: #0369a1;
+    }
+    .traffic-pagination .pagination svg {
+        width: 14px !important;
+        height: 14px !important;
+        display: inline-block;
+        vertical-align: middle;
     }
 </style>
 @endpush
