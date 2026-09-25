@@ -180,7 +180,7 @@ class TrackVisitorActivity
         }
 
         if (str_starts_with($path, 'lkpd')) {
-            return ['view', 'Mengakses Lembar Kerja Peserta Didik (LKPD)'];
+            return ['view', 'Mengakses Lembar Kerja Murid (LKPD)'];
         }
 
         if (str_starts_with($path, 'prota') || str_starts_with($path, 'promes')) {

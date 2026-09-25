@@ -618,7 +618,7 @@
                             </div>
                             <div class="text-primary fw-semibold small mb-2">{{ app_setting('landing_pilar_mindful_subtitle', 'Pembelajaran Berkesadaran') }}</div>
                             <p class="text-secondary small mb-0" style="font-size: 0.82rem; line-height: 1.55; color: #475569 !important;">
-                                {{ app_setting('landing_pilar_mindful_desc', 'Menuntun peserta didik menyadari tujuan belajar, mengaitkan materi kejuruan dengan potensi diri, dan hadir secara penuh dalam setiap aktivitas vokasi.') }}
+                                {{ app_setting('landing_pilar_mindful_desc', 'Menuntun murid menyadari tujuan belajar, mengaitkan materi kejuruan dengan potensi diri, dan hadir secara penuh dalam setiap aktivitas vokasi.') }}
                             </p>
                         </div>
                     </div>

@@ -237,7 +237,7 @@
                                     @endif
 
                                     <div class="p-3 rounded-2 border border-dashed text-muted small" style="background: #fafafa; min-height: 80px;">
-                                        <em>Ruang lembar jawaban peserta didik...</em>
+                                        <em>Ruang lembar jawaban murid...</em>
                                     </div>
                                 </div>
                             @endforeach

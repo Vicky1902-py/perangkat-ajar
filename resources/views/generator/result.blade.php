@@ -125,7 +125,7 @@
                                 <i class="bi bi-file-earmark-text fs-4"></i>
                             </div>
                             <div>
-                                <div class="fw-bold text-dark">Lembar Kerja Peserta Didik (LKPD)</div>
+                                <div class="fw-bold text-dark">Lembar Kerja Murid (LKPD)</div>
                                 <div class="text-muted small">Stimulus otentik industri dengan 3 tahapan pengalaman belajar (Memahami, Mengaplikasi, Merefleksi).</div>
                             </div>
                         </div>

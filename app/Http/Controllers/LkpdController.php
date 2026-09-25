@@ -69,7 +69,7 @@ class LkpdController extends Controller
             }
         });
 
-        return redirect()->route('lkpd.index')->with('success', 'Lembar Kerja Peserta Didik (LKPD) berhasil disimpan.');
+        return redirect()->route('lkpd.index')->with('success', 'Lembar Kerja Murid (LKPD) berhasil disimpan.');
     }
 
     public function show(Lkpd $lkpd)

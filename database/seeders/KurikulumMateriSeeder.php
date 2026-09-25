@@ -54,7 +54,7 @@ class KurikulumMateriSeeder extends Seeder
                     . "• a^(^a log b) = b.\n\n"
                     . "4. APLIKASI KONTEKSTUAL & REKAYASA KEJURUAN:\n"
                     . "Konsep eksponen dan logaritma diaplikasikan dalam penghitungan skala keasaman pH cairan kimia, peluruhan radioaktif material teknis, skala desibel (dB) intensitas bunyi pada tata suara, perhitungan gempa skala Richter, serta pemodelan pertumbuhan investasi bunga majemuk industri perbankan.",
-                'pemahaman_bermakna' => "Peserta didik memahami bahwa pola eksponensial dan skala logaritma memungkinkan manusia menyederhanakan perhitungan angka-angka astronomis dan mikroskopis ke dalam skala terukur yang menjadi dasar teknologi sensor, akustik, dan finansial modern.",
+                'pemahaman_bermakna' => "Murid memahami bahwa pola eksponensial dan skala logaritma memungkinkan manusia menyederhanakan perhitungan angka-angka astronomis dan mikroskopis ke dalam skala terukur yang menjadi dasar teknologi sensor, akustik, dan finansial modern.",
                 'pertanyaan_pemantik' => "1. Bagaimana cara para ilmuwan mengukur kekuatan gempa bumi atau kebisingan suara knalpot mesin secara akurat padahal energinya meningkat ribuan kali lipat?\n2. Mengapa bunga pinjaman bank atau peluruhan limbah industri dapat dihitung menggunakan konsep pangkat bilangan?",
                 'kata_kunci' => ['basis', 'eksponen', 'akar sekawan', 'irasional', 'logaritma', 'bunga majemuk', 'peluruhan'],
                 'bank_soal_pg' => [
@@ -70,7 +70,7 @@ class KurikulumMateriSeeder extends Seeder
                         ],
                         'correct' => 'A',
                         'pembahasan' => "TI = 10 log(10^-4 / 10^-12) = 10 log(10^8) = 10 x 8 = 80 dB.",
-                        'indikator' => "Disajikan rumus intensitas bunyi berbasis logaritma, peserta didik dapat menghitung taraf intensitas kebisingan secara akurat."
+                        'indikator' => "Disajikan rumus intensitas bunyi berbasis logaritma, murid dapat menghitung taraf intensitas kebisingan secara akurat."
                     ],
                     [
                         'stimulus' => "Dalam analisis dimensi komponen mekanik presisi, teknisi menemukan pecahan berpangkat akar: P = 12 / (3 + sqrt(3)).",
@@ -84,7 +84,7 @@ class KurikulumMateriSeeder extends Seeder
                         ],
                         'correct' => 'A',
                         'pembahasan' => "Kalikan dengan bentuk sekawan (3 - sqrt(3))/(3 - sqrt(3)): P = 12(3 - sqrt(3)) / (3^2 - 3) = 12(3 - sqrt(3)) / 6 = 2(3 - sqrt(3)) = 6 - 2sqrt(3).",
-                        'indikator' => "Disajikan bentuk pecahan irasional, peserta didik mampu merasionalkan penyebut dengan mengalikan bentuk sekawan secara tepat."
+                        'indikator' => "Disajikan bentuk pecahan irasional, murid mampu merasionalkan penyebut dengan mengalikan bentuk sekawan secara tepat."
                     ],
                     [
                         'stimulus' => "Suatu bakteri pembusuk limbah organik dalam reaktor biologis membelah diri menjadi 2 setiap 20 menit. Pada awal pengamatan terdapat 150 bakteri.",
@@ -98,14 +98,14 @@ class KurikulumMateriSeeder extends Seeder
                         ],
                         'correct' => 'A',
                         'pembahasan' => "Waktu t = 2 jam = 120 menit. Jumlah periode pembelahan n = 120 / 20 = 6 kali. Jumlah populasi = 150 x 2^6 = 150 x 64 = 9.600 bakteri.",
-                        'indikator' => "Disajikan persoalan pertumbuhan eksponensial kontekstual, peserta didik mampu memodelkan dan menghitung jumlah populasi akhir secara presisi."
+                        'indikator' => "Disajikan persoalan pertumbuhan eksponensial kontekstual, murid mampu memodelkan dan menghitung jumlah populasi akhir secara presisi."
                     ]
                 ],
                 'bank_soal_essay' => [
                     [
                         'pertanyaan' => "Sebuah mesin industri dibeli dengan harga Rp 50.000.000,00. Nilai mesin tersebut mengalami penyusutan eksponensial sebesar 10% setiap tahun dari nilai tahun sebelumnya. Hitunglah taksiran nilai jual mesin tersebut setelah 3 tahun pemakaian dan uraikan langkah perhitungan eksponensialnya secara sistematis!",
                         'kunci' => "Model: Nilai akhir = P(1 - r)^t = 50.000.000 x (1 - 0.10)^3 = 50.000.000 x (0.9)^3 = 50.000.000 x 0.729 = Rp 36.450.000,00.",
-                        'indikator' => "Peserta didik dapat merumuskan model peluruhan eksponensial dan menghitung nilai depresiasi aset kejuruan secara tepat."
+                        'indikator' => "Murid dapat merumuskan model peluruhan eksponensial dan menghitung nilai depresiasi aset kejuruan secara tepat."
                     ]
                 ]
             ],
@@ -131,7 +131,7 @@ class KurikulumMateriSeeder extends Seeder
                     . "• Koordinat titik puncak / balik: (-b/(2a), -D/(4a)).\n\n"
                     . "3. APLIKASI BISNIS DAN REKAYASA TEKNIK:\n"
                     . "Fungsi kuadrat diterapkan dalam menghitung lintasan proyektil / air mancur, kekuatan lengkung jembatan gantung, serta perhitungan optimasi pendapatan usaha (Break-Even Point dan Profit Maksimum) dalam bidang kewirausahaan dan industri.",
-                'pemahaman_bermakna' => "Peserta didik memahami bahwa sistem persamaan linear dan fungsi kuadrat adalah bahasa matematika universal untuk memodelkan titik keseimbangan ekonomi, optimalisasi laba, dan rancang bangun struktur rekayasa fisik.",
+                'pemahaman_bermakna' => "Murid memahami bahwa sistem persamaan linear dan fungsi kuadrat adalah bahasa matematika universal untuk memodelkan titik keseimbangan ekonomi, optimalisasi laba, dan rancang bangun struktur rekayasa fisik.",
                 'pertanyaan_pemantik' => "1. Bagaimana pengusaha dapat menentukan harga jual produk agar memperoleh laba paling maksimal tanpa kehilangan pembeli?\n2. Mengapa lintasan peluru atau lengkungan jembatan selalu berbentuk kurva lengkung parabola?",
                 'kata_kunci' => ['eliminasi', 'substitusi', 'parabola', 'diskriminan', 'sumbu simetri', 'titik optimum', 'keuntungan maksimum'],
                 'bank_soal_pg' => [
@@ -147,14 +147,14 @@ class KurikulumMateriSeeder extends Seeder
                         ],
                         'correct' => 'A',
                         'pembahasan' => "Keuntungan maksimum dicapai pada absis titik puncak: x = -b / (2a) = -80 / (2 x (-2)) = -80 / -4 = 20 unit.",
-                        'indikator' => "Disajikan fungsi kuadrat pemodelan laba, peserta didik mampu menentukan jumlah produksi optimum dengan konsep titik puncak."
+                        'indikator' => "Disajikan fungsi kuadrat pemodelan laba, murid mampu menentukan jumlah produksi optimum dengan konsep titik puncak."
                     ]
                 ],
                 'bank_soal_essay' => [
                     [
                         'pertanyaan' => "Di sebuah toko peralatan teknik, harga 2 set obeng presisi dan 3 unit tang kombinasi adalah Rp 175.000,00, sedangkan harga 3 set obeng presisi dan 2 unit tang kombinasi dari tipe yang sama adalah Rp 190.000,00. Buatlah model persamaan linear (SPLDV) dari situasi tersebut dan tentukan harga 1 unit tang kombinasi!",
                         'kunci' => "Model: 2x + 3y = 175.000 dan 3x + 2y = 190.000. Eliminasi x: 6x + 9y = 525.000 dikurangi 6x + 4y = 380.000 -> 5y = 145.000 -> y = Rp 29.000,00 (harga 1 unit tang). Nilai x = Rp 44.000,00.",
-                        'indikator' => "Peserta didik dapat merumuskan SPLDV dari permasalahan transaksi riil dan menyelesaikannya dengan metode aljabar baku."
+                        'indikator' => "Murid dapat merumuskan SPLDV dari permasalahan transaksi riil dan menyelesaikannya dengan metode aljabar baku."
                     ]
                 ]
             ],
@@ -182,7 +182,7 @@ class KurikulumMateriSeeder extends Seeder
                     . "• 60°: sin = 1/2 sqrt(3), cos = 1/2, tan = sqrt(3).\n\n"
                     . "3. SUDUT ELEVASI DAN DEPRESI:\n"
                     . "Sudut elevasi adalah sudut antara garis pandang ke atas terhadap garis horizontal. Sudut depresi adalah sudut antara garis pandang ke bawah terhadap horizontal. Digunakan teknisi dalam instrumen Theodolite / Total Station untuk mengukur tinggi menara BTS, gedung, atau kemiringan atap konstruksi.",
-                'pemahaman_bermakna' => "Peserta didik menyadari bahwa rasio sudut segitiga siku-siku memungkinkan pengukuran jarak dan ketinggian objek raksasa yang mustahil diukur secara manual dengan meteran fisik.",
+                'pemahaman_bermakna' => "Murid menyadari bahwa rasio sudut segitiga siku-siku memungkinkan pengukuran jarak dan ketinggian objek raksasa yang mustahil diukur secara manual dengan meteran fisik.",
                 'pertanyaan_pemantik' => "1. Bagaimana arsitek dan surveyor mengukur ketinggian gedung pencakar langit tanpa harus memanjat puncaknya?\n2. Mengapa sudut kemiringan atap rumah atau jalan tanjakan pegunungan dirancang dengan rasio sudut tertentu?",
                 'kata_kunci' => ['sinus', 'cosinus', 'tangen', 'sudut elevasi', 'sudut depresi', 'theodolite', 'aturan sinus'],
                 'bank_soal_pg' => [
@@ -198,14 +198,14 @@ class KurikulumMateriSeeder extends Seeder
                         ],
                         'correct' => 'A',
                         'pembahasan' => "tan(60°) = tinggi_menara_atas / jarak -> sqrt(3) = y / 40 -> y = 40sqrt(3) meter. Tinggi total = y + tinggi_mata = 40sqrt(3) + 1,5 meter.",
-                        'indikator' => "Disajikan persoalan pengukuran tinggi objek dengan klinometer, peserta didik mampu menghitung tinggi objek menggunakan rasio tangen."
+                        'indikator' => "Disajikan persoalan pengukuran tinggi objek dengan klinometer, murid mampu menghitung tinggi objek menggunakan rasio tangen."
                     ]
                 ],
                 'bank_soal_essay' => [
                     [
                         'pertanyaan' => "Jelaskan perbedaan mendasar antara sudut elevasi dan sudut depresi, serta tuliskan rumus trigonometri yang digunakan untuk mencari panjang tangga minimum jika sebuah dinding setinggi 6 meter harus disandari tangga dengan sudut kemiringan terhadap lantai sebesar 30°!",
                         'kunci' => "Sudut elevasi adalah sudut terbentuk antara garis pandang mata pengamat ke atas dengan garis mendatar (horizontal), sedangkan sudut depresi adalah sudut garis pandang ke bawah terhadap mendatar. Untuk tangga: sin(30°) = tinggi_dinding / panjang_tangga -> 1/2 = 6 / L -> L = 12 meter.",
-                        'indikator' => "Peserta didik dapat menguraikan konsep sudut pandang trigonometri dan menghitung panjang sisi miring segitiga siku-siku."
+                        'indikator' => "Murid dapat menguraikan konsep sudut pandang trigonometri dan menghitung panjang sisi miring segitiga siku-siku."
                     ]
                 ]
             ],
@@ -234,7 +234,7 @@ class KurikulumMateriSeeder extends Seeder
                     . "Unit dasar model AI terinspirasi biologis adalah Perceptron. Input x dikalikan bobot w (weight), dijumlahkan, ditambahkan bias b, kemudian dilewatkan pada fungsi aktivasi (misal: ReLU, Sigmoid, Softmax) untuk menghasilkan output prediksi. Pelatihan model menggunakan algoritma Gradient Descent dan Backpropagation untuk meminimalkan nilai fungsi kerugian (Loss Function).\n\n"
                     . "3. ETIKA DAN KEAMANAN DATA AI (UU PDP NO. 27 TAHUN 2022):\n"
                     . "Pengembang AI wajib mematuhi etika: menghindari bias data (misal: bias gender atau ras pada algoritma rekrutmen), melindungi privasi data sensitif pengguna, memastikan transparansi model (Explainable AI), dan mencegah halusinasi data.",
-                'pemahaman_bermakna' => "Peserta didik menyadari bahwa AI bukanlah keajaiban magis, melainkan perpaduan statistika multivariat, aljabar linier, dan komputasi masif yang bekerja mengekstrak pola dari data empiris.",
+                'pemahaman_bermakna' => "Murid menyadari bahwa AI bukanlah keajaiban magis, melainkan perpaduan statistika multivariat, aljabar linier, dan komputasi masif yang bekerja mengekstrak pola dari data empiris.",
                 'pertanyaan_pemantik' => "1. Bagaimana sebuah aplikasi ponsel pintar dapat mengenali wajah pemiliknya dalam waktu kurang dari satu detik?\n2. Mengapa model AI terkadang memberikan jawaban yang sangat meyakinkan padahal datanya salah (halusinasi)?",
                 'kata_kunci' => ['narrow AI', 'generative AI', 'perceptron', 'weights', 'loss function', 'backpropagation', 'etika AI'],
                 'bank_soal_pg' => [
@@ -250,14 +250,14 @@ class KurikulumMateriSeeder extends Seeder
                         ],
                         'correct' => 'A',
                         'pembahasan' => "Overfitting terjadi ketika model memiliki akurasi sangat tinggi pada data training namun gagal menggeneralisasi ke data baru akibat mempelajari 'noise' dan variasi spesifik data latih (seperti pencahayaan studio tertentu).",
-                        'indikator' => "Disajikan studi kasus degradasi performa model AI, peserta didik dapat mendiagnosis fenomena overfitting secara akurat."
+                        'indikator' => "Disajikan studi kasus degradasi performa model AI, murid dapat mendiagnosis fenomena overfitting secara akurat."
                     ]
                 ],
                 'bank_soal_essay' => [
                     [
                         'pertanyaan' => "Jelaskan peran penting 'Data Cleaning' (Pembersihan Data) sebelum dataset dimasukkan ke dalam algoritma pelatihan Machine Learning, serta sebutkan 3 dampak negatif yang terjadi jika model dilatih menggunakan data yang bias dan tidak terkurasi!",
                         'kunci' => "Peran data cleaning: menghapus data duplikat, menangani missing value, normalisasi skala data, dan eliminasi outlier agar model belajar pola valid. 3 dampak negatif: 1) Akurasi prediksi rendah (Garbage In Garbage Out); 2) Terjadinya diskriminasi/bias algoritma terhadap kelompok tertentu; 3) Kerugian fatal saat diterapkan pada sistem kritis (misal salah diagnosis medis atau sistem rem otonom).",
-                        'indikator' => "Peserta didik mampu menganalisis urgensi pra-pemrosesan data dan risiko etika bias pada sistem kecerdasan artifisial."
+                        'indikator' => "Murid mampu menganalisis urgensi pra-pemrosesan data dan risiko etika bias pada sistem kecerdasan artifisial."
                     ]
                 ]
             ],
@@ -287,7 +287,7 @@ class KurikulumMateriSeeder extends Seeder
                     . "• Konjungsi Sebab-Akibat (Kausalitas): jika, sebab, karena, akibatnya, oleh karena itu.\n"
                     . "• Kata Kerja Mental (Verba Mental): meyakini, menduga, berasumsi, memperkirakan.\n"
                     . "• Kalimat Fakta vs Opini: Fakta memuat data numerik dan bukti empiris terverifikasi (dapat dibuktikan), sedangkan opini berisi penilaian subjektif/prediksi penulis.",
-                'pemahaman_bermakna' => "Peserta didik menyadari bahwa kemampuan membaca kritis memampukan mereka menyaring membanjirnya informasi di era digital, membedakan hoax/disinformasi dari fakta ilmiah yang kredibel.",
+                'pemahaman_bermakna' => "Murid menyadari bahwa kemampuan membaca kritis memampukan mereka menyaring membanjirnya informasi di era digital, membedakan hoax/disinformasi dari fakta ilmiah yang kredibel.",
                 'pertanyaan_pemantik' => "1. Bagaimana kita bisa memastikan bahwa berita yang viral di media sosial benar-benar fakta ilmiah dan bukan opini yang memanipulasi emosi pembaca?\n2. Mengapa sebuah argumen harus selalu didukung oleh data statistik dan fakta nyata?",
                 'kata_kunci' => ['tesis', 'argumen', 'penegasan ulang', 'fakta', 'opini', 'konjungsi kausalitas', 'verba mental'],
                 'bank_soal_pg' => [
@@ -303,14 +303,14 @@ class KurikulumMateriSeeder extends Seeder
                         ],
                         'correct' => 'A',
                         'pembahasan' => "Kalimat (3) memuat kata 'seyogianya' dan 'tanpa kompromi' yang menunjukkan anjuran/penilaian subjektif (opini). Sedangkan kalimat (1) dan (2) memuat data numerik empiris (fakta).",
-                        'indikator' => "Disajikan kutipan teks eksposisi, peserta didik mampu mengidentifikasi kalimat opini subjektif dengan tepat."
+                        'indikator' => "Disajikan kutipan teks eksposisi, murid mampu mengidentifikasi kalimat opini subjektif dengan tepat."
                     ]
                 ],
                 'bank_soal_essay' => [
                     [
                         'pertanyaan' => "Uraikan 3 kriteria utama yang membedakan antara fakta empiris dengan opini subjektif dalam sebuah wacana artikel ilmiah populer, serta berikan masing-masing 1 contoh kalimatnya bertemakan teknologi vokasi!",
                         'kunci' => "Kriteria pembeda: 1) Verifiabilitas (fakta dapat dibuktikan kebenarannya oleh pihak ketiga, opini bersifat relatif); 2) Data pendukung (fakta menyertakan angka/waktu/tempat terukur, opini menggunakan kata sifat prediktif seperti 'seharusnya', 'sangat baik'); 3) Objektivitas (fakta bebas dari emosi pribadi). Contoh fakta: Mesin bubut CNC tipe X memiliki kecepatan putar spindel 4.000 RPM. Contoh opini: Mesin CNC tipe X adalah alat praktik paling nyaman digunakan oleh siswa SMK.",
-                        'indikator' => "Peserta didik dapat merumuskan kriteria pembeda fakta dan opini serta memproduksi contoh konkretnya."
+                        'indikator' => "Murid dapat merumuskan kriteria pembeda fakta dan opini serta memproduksi contoh konkretnya."
                     ]
                 ]
             ],
@@ -337,7 +337,7 @@ class KurikulumMateriSeeder extends Seeder
                     . "• Dimensi Fleksibilitas: Mampu berinteraksi dengan teknologi modern dan tantangan globalisasi.\n\n"
                     . "2. HIERARKI SILA-SILA PANCASILA:\n"
                     . "Sila-sila Pancasila tersusun secara piramidal-organik; sila pertama menjiwai dan mendasari keempat sila lainnya, dan sila kelima merupakan muara dari terwujudnya keadilan sosial bagi seluruh rakyat.",
-                'pemahaman_bermakna' => "Peserta didik memahami bahwa Pancasila adalah pedoman moral dan kompas etika profesi yang menjaga integritas insan kerja dalam menghadapi persaingan industri global.",
+                'pemahaman_bermakna' => "Murid memahami bahwa Pancasila adalah pedoman moral dan kompas etika profesi yang menjaga integritas insan kerja dalam menghadapi persaingan industri global.",
                 'pertanyaan_pemantik' => "1. Mengapa nilai-nilai Pancasila tetap relevan dan tidak usang meskipun teknologi kecerdasan artifisial dan globalisasi berkembang sangat pesat?\n2. Bagaimana cara mengamalkan nilai keadilan sosial di lingkungan tempat kerja dan sekolah?",
                 'kata_kunci' => ['ideologi terbuka', 'hierarki piramidal', 'dimensi realitas', 'gotong royong', 'keadilan sosial', 'integritas'],
                 'bank_soal_pg' => [
@@ -353,14 +353,14 @@ class KurikulumMateriSeeder extends Seeder
                         ],
                         'correct' => 'A',
                         'pembahasan' => "Memberikan perlakuan adil atas dasar harkat kemanusiaan (Sila ke-2) dan membuka akses kesetaraan kesempatan kerja tanpa diskriminasi status ekonomi merupakan wujud keadilan sosial (Sila ke-5).",
-                        'indikator' => "Disajikan studi kasus seleksi industri kerja, peserta didik mampu mengaitkan keputusan etis dengan implementasi sila-sila Pancasila."
+                        'indikator' => "Disajikan studi kasus seleksi industri kerja, murid mampu mengaitkan keputusan etis dengan implementasi sila-sila Pancasila."
                     ]
                 ],
                 'bank_soal_essay' => [
                     [
                         'pertanyaan' => "Jelaskan mengapa Pancasila disebut sebagai sistem filsafat yang bersifat 'Piramidal dan Organis', serta uraikan 2 contoh konkret penerapan sila Kemanusiaan yang Adil dan Beradab di lingkungan bengkel/laboratorium praktik sekolah!",
                         'kunci' => "Piramidal dan organis bermakna kelima sila tidak berdiri terpisah, melainkan kesatuan bulat yang hierarkis di mana Ketuhanan menjiwai seluruh sila dan berpuncak pada Keadilan Sosial. 2 contoh penerapan di bengkel: 1) Menghormati keselamatan kerja rekan praktik tanpa memandang senioritas (budaya K3); 2) Tidak melakukan perundungan (bullying) terhadap teman yang mengalami kesulitan teknis dalam pengoperasian mesin.",
-                        'indikator' => "Peserta didik dapat menguraikan konsep hierarki organis Pancasila dan penerapannya di lingkungan kerja kejuruan."
+                        'indikator' => "Murid dapat menguraikan konsep hierarki organis Pancasila dan penerapannya di lingkungan kerja kejuruan."
                     ]
                 ]
             ],
@@ -389,7 +389,7 @@ class KurikulumMateriSeeder extends Seeder
                     . "• Motor Traksi (Motor Listrik AC): Penggerak utama roda kendaraan dengan torsi instan.\n\n"
                     . "3. PROTOKOL K3 TEGANGAN TINGGI (HIGH VOLTAGE SAFETY):\n"
                     . "Pekerjaan pada kendaraan hybrid/EV wajib mematikan Service Plug / Manual Disconnect, menunggu disipasi kapasitor inverter (minimal 5-10 menit), memakai sarung tangan isolasi tegangan tinggi (Class 0: 1.000V), dan memastikan tegangan nol dengan multimeter bersertifikat CAT III/IV.",
-                'pemahaman_bermakna' => "Peserta didik menyadari bahwa transformasi kendaraan berbasis bahan bakar fosil menuju kendaraan listrik membutuhkan adaptasi kompetensi keselamatan kerja bertegangan tinggi dan literasi diagnostik komputer.",
+                'pemahaman_bermakna' => "Murid menyadari bahwa transformasi kendaraan berbasis bahan bakar fosil menuju kendaraan listrik membutuhkan adaptasi kompetensi keselamatan kerja bertegangan tinggi dan literasi diagnostik komputer.",
                 'pertanyaan_pemantik' => "1. Mengapa teknisi kendaraan listrik wajib mengenakan perlengkapan khusus sebelum menyentuh kabel berwarna oranye di ruang mesin?\n2. Bagaimana komputer kendaraan (ECU/OBD-II) dapat mendeteksi kerusakan sensor mesin secara mandiri?",
                 'kata_kunci' => ['Service Advisor', 'Electric Vehicle', 'Battery Pack', 'Inverter', 'Motor Traksi', 'High Voltage', 'OBD-II Scan Tool'],
                 'bank_soal_pg' => [
@@ -405,14 +405,14 @@ class KurikulumMateriSeeder extends Seeder
                         ],
                         'correct' => 'A',
                         'pembahasan' => "Protokol wajib pada kendaraan listrik: matikan sistem pengapian, lepaskan Service Disconnect Plug untuk mengisolasi baterai tegangan tinggi, tunggu waktu pelepasan muatan kapasitor, dan selalu kenakan APD sarung tangan isolasi berstandar minimal 1.000V.",
-                        'indikator' => "Disajikan prosedur servis kendaraan listrik tegangan tinggi, peserta didik dapat menentukan urutan K3 isolasi sumber daya secara aman."
+                        'indikator' => "Disajikan prosedur servis kendaraan listrik tegangan tinggi, murid dapat menentukan urutan K3 isolasi sumber daya secara aman."
                     ]
                 ],
                 'bank_soal_essay' => [
                     [
                         'pertanyaan' => "Jelaskan fungsi dari Inverter pada sistem transmisi daya kendaraan listrik (EV) serta uraikan bagaimana prinsip 'Regenerative Braking' bekerja dalam memulihkan energi baterai saat kendaraan melakukan perlambatan!",
                         'kunci' => "Inverter berfungsi mengubah arus DC dari baterai tegangan tinggi menjadi arus AC multiphase untuk memutar motor traksi penggerak roda (dan sebaliknya). Saat regenerative braking, motor traksi beralih fungsi menjadi generator akibat putaran roda saat deselerasi/pengereman; energi kinetik diubah menjadi energi listrik AC, disearahkan kembali oleh inverter menjadi DC, lalu disimpan ke baterai penggerak.",
-                        'indikator' => "Peserta didik mampu menguraikan prinsip kerja inverter dan teknologi pengereman regeneratif pada kendaraan ramah lingkungan."
+                        'indikator' => "Murid mampu menguraikan prinsip kerja inverter dan teknologi pengereman regeneratif pada kendaraan ramah lingkungan."
                     ]
                 ]
             ]

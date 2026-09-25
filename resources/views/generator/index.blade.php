@@ -478,7 +478,7 @@
         { progress: 38, badge: 'Tahap 2 dari 6', text: 'Mesin Inferensi Merumuskan Tujuan Pembelajaran (TP) & Alur ATP Secara Deterministik...' },
         { progress: 56, badge: 'Tahap 3 dari 6', text: 'Menyusun Modul Ajar Sintaks PEDATTI (Penyampaian, Eksplorasi, Diskusi, Aplikasi, Tindak Lanjut)...' },
         { progress: 74, badge: 'Tahap 4 dari 6', text: 'Mengintegrasikan Prinsip Mindful-Meaningful-Joyful & 8 Dimensi Karakter Pancasila...' },
-        { progress: 88, badge: 'Tahap 5 dari 6', text: 'Merancang Lembar Kerja Peserta Didik (LKPD) & Rubrik Asesmen KKTP 4 Level...' },
+        { progress: 88, badge: 'Tahap 5 dari 6', text: 'Merancang Lembar Kerja Murid (LKPD) & Rubrik Asesmen KKTP 4 Level...' },
         { progress: 96, badge: 'Tahap 6 dari 6', text: 'Menghitung Alokasi Jam Prota/Promes Permendikdasmen 13/2025 & Mengompilasi Berkas Ekspor...' },
     ];
 

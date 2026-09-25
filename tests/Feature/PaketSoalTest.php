@@ -94,7 +94,7 @@ class PaketSoalTest extends TestCase
                     'nomor_urut' => 1,
                     'bentuk_soal' => 'PG',
                     'materi' => 'Testing Dasar',
-                    'indikator_soal' => 'Disajikan kasus, peserta didik mampu menganalisis solusi.',
+                    'indikator_soal' => 'Disajikan kasus, murid mampu menganalisis solusi.',
                     'level_kognitif' => 'L3 (C4 - Menganalisis)',
                     'deep_learning' => 'Mindful (Sadar)',
                 ]

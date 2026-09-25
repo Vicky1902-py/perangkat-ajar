@@ -154,7 +154,7 @@ return new class extends Migration
             ],
             [
                 'key' => 'landing_pilar_mindful_desc',
-                'value' => 'Menuntun peserta didik menyadari tujuan belajar, mengaitkan materi kejuruan dengan potensi diri, dan hadir secara penuh dalam setiap aktivitas vokasi.',
+                'value' => 'Menuntun murid menyadari tujuan belajar, mengaitkan materi kejuruan dengan potensi diri, dan hadir secara penuh dalam setiap aktivitas vokasi.',
                 'group' => 'landing_pilar',
                 'type' => 'textarea',
                 'label' => 'Deskripsi Pilar 1',

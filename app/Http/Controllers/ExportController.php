@@ -324,7 +324,7 @@ class ExportController extends Controller
         $this->addDocxKopSurat($section, $lkpd->user->satuanPendidikan, 'portrait');
 
         $section->addTitle($lkpd->judul, 1);
-        $section->addText('LEMBAR KERJA PESERTA DIDIK (LKPD) PEMBELAJARAN MENDALAM', ['bold' => true]);
+        $section->addText('LEMBAR KERJA MURID (LKPD) PEMBELAJARAN MENDALAM', ['bold' => true]);
         $section->addTextBreak(1);
 
         $section->addText('Satuan Pendidikan : ' . ($lkpd->user->satuanPendidikan->nama ?? 'SMK'));

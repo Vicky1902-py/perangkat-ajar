@@ -21,7 +21,7 @@ Beban administratif penyusunan perangkat ajar Kurikulum Merdeka sering kali meny
 
 Untuk menjawab persoalan tersebut, inovator merancang dan membangun **Sistem Perangkat Ajar SMK 2026** berbasis **Sistem Pakar Edukasi Murni (*Knowledge-Based Expert System*)**. Sistem ini mengintegrasikan seluruh basis data Capaian Pembelajaran (CP) resmi **Keputusan Kepala BSKAP No. 046/H/KR/2025** dan alokasi waktu **Permendikdasmen No. 13/2025** langsung ke dalam basis data internal (*local database engine*). 
 
-Dengan mekanisme inferensi terstruktur, platform ini mampu merumuskan Tujuan Pembelajaran (TP), Alur Tujuan Pembelajaran (ATP), Modul Ajar berpendekatan *Deep Learning* (Pilar Mindful, Meaningful, Joyful) dengan sintaks **PEDATTI**, Lembar Kerja Peserta Didik (LKPD), Program Tahunan (Prota), Program Semester (Promes), hingga Instrumen Asesmen KKTP 4 Level secara serentak (1-Klik) dalam waktu kurang dari 3 detik. Seluruh proses berlangsung **murni tanpa API Key eksternal**, menjamin **Nol Halusinasi**, menjaga kedaulatan data pendidikan nasional, serta 100% bebas biaya operasional bagi guru di seluruh Indonesia.
+Dengan mekanisme inferensi terstruktur, platform ini mampu merumuskan Tujuan Pembelajaran (TP), Alur Tujuan Pembelajaran (ATP), Modul Ajar berpendekatan *Deep Learning* (Pilar Mindful, Meaningful, Joyful) dengan sintaks **PEDATTI**, Lembar Kerja Murid (LKPD), Program Tahunan (Prota), Program Semester (Promes), hingga Instrumen Asesmen KKTP 4 Level secara serentak (1-Klik) dalam waktu kurang dari 3 detik. Seluruh proses berlangsung **murni tanpa API Key eksternal**, menjamin **Nol Halusinasi**, menjaga kedaulatan data pendidikan nasional, serta 100% bebas biaya operasional bagi guru di seluruh Indonesia.
 
 ---
 
@@ -36,7 +36,7 @@ Namun, realitas di lapangan menunjukkan bahwa guru SMK kerap terbebani oleh komp
 1.  **Tujuan Pembelajaran (TP)** yang diturunkan dari Capaian Pembelajaran (CP).
 2.  **Alur Tujuan Pembelajaran (ATP)** yang terurut secara hierarkis dan logis.
 3.  **Modul Ajar Lengkap** yang menerapkan prinsip pembelajaran mendalam (*Mindful, Meaningful, Joyful*) dengan sintaks pedagogi modern seperti **PEDATTI** (Pelajari, Dalami, Terapkan, Evaluasi).
-4.  **Lembar Kerja Peserta Didik (LKPD)** yang memuat stimulus kontekstual Dunia Usaha dan Dunia Industri (DUDI).
+4.  **Lembar Kerja Murid (LKPD)** yang memuat stimulus kontekstual Dunia Usaha dan Dunia Industri (DUDI).
 5.  **Program Tahunan (Prota) & Program Semester (Promes)** dengan kalkulasi matriks minggu efektif yang rumit.
 6.  **Instrumen & Rubrik Asesmen** Kriteria Ketercapaian Tujuan Pembelajaran (KKTP) 4 Level serta lembar kerja praktik (*Job Sheet*).
 
@@ -138,7 +138,7 @@ Inovasi ini membuktikan bahwa pemanfaatan teknologi cerdas di dunia pendidikan t
 | **01:00 - 02:15** | **Tantangan** | Tampilan layar memperlihatkan prompt di ChatGPT yang menghasilkan Capaian Pembelajaran fiktif dan error token API berbayar. B-roll: Peta Indonesia menyoroti daerah 3T. | *"Banyak rekan guru mencoba jalan pintas menggunakan AI generatif umum, namun yang terjadi adalah halusinasi regulasi: nomor SK fiktif dan jam salah. Ditambah lagi, guru di pelosok terhambat keharusan membeli API Key berbayar dengan kartu kredit..."* |
 | **02:15 - 04:30** | **Aksi Inovasi** | Rekaman layar (*screencast*) jernih mendemonstrasikan sistem pakar di `guru.vxai.online`. Menunjukkan pemilihan Mapel, Fase E/F, dan klik tombol 1-Klik Generator. Menampilkan animasi pemrosesan sistem pakar dan hasil 6 dokumen instan. | *"Melihat tantangan ini, saya merancang Sistem Perangkat Ajar SMK 2026 berbasis Sistem Pakar Edukasi Murni. Tanpa API Key pihak ketiga, sistem ini membaca database resmi BSKAP No. 046/2025. Cukup satu klik, dalam 3 detik, TP, ATP, Modul PEDATTI, LKPD, Prota, Promes, dan Asesmen terumus secara presisi dan deterministik..."* |
 | **04:30 - 05:45** | **Bukti Hasil Dokumen** | Tampilan dokumen PDF ber-Kop Surat resmi sekolah dengan margin F4/A4 dan tanda tangan Kepala Sekolah. Tampilan ekspor DOCX yang dapat diedit bebas. | *"Bukan sekadar teks polos, sistem langsung menyematkan Kop Surat resmi sekolah dan tanda tangan kedinasan. Format siap cetak ini 100% mematuhi Permendikdasmen No. 13 Tahun 2025 dan siap diserahkan saat supervisi akademik..."* |
-| **05:45 - 07:00** | **Dampak & Penutup** | B-roll: Suasana pembelajaran menggembirakan (Joyful) di bengkel/kelas SMK. Guru tersenyum mendampingi siswa berpraktik. Inovator berbicara ke kamera menutup video. | *"Kini, efisiensi meningkat hingga 99%. Guru memiliki waktu lebih lapang untuk mendidik, menginspirasi, dan mengawal karakter peserta didik. Inilah sumbangsih nyata kedaulatan teknologi untuk memajukan pendidikan vokasi Indonesia. Terima kasih."* |
+| **05:45 - 07:00** | **Dampak & Penutup** | B-roll: Suasana pembelajaran menggembirakan (Joyful) di bengkel/kelas SMK. Guru tersenyum mendampingi siswa berpraktik. Inovator berbicara ke kamera menutup video. | *"Kini, efisiensi meningkat hingga 99%. Guru memiliki waktu lebih lapang untuk mendidik, menginspirasi, dan mengawal karakter murid. Inilah sumbangsih nyata kedaulatan teknologi untuk memajukan pendidikan vokasi Indonesia. Terima kasih."* |
 
 ---
 

@@ -546,7 +546,7 @@
                             <i class="bi bi-check2-circle"></i> 3 Pilar Pembelajaran Mendalam
                         </div>
                         <ul class="small mb-0 ps-3" style="font-size: 0.82rem; color: #1e293b; line-height: 1.5;">
-                            <li class="mb-1"><strong class="text-dark">Mindful (Berkesadaran):</strong> Peserta didik sadar tujuan belajar, meregulasi diri, dan fokus.</li>
+                            <li class="mb-1"><strong class="text-dark">Mindful (Berkesadaran):</strong> Murid sadar tujuan belajar, meregulasi diri, dan fokus.</li>
                             <li class="mb-1"><strong class="text-dark">Meaningful (Bermakna):</strong> Konsep dikaitkan langsung dengan pemecahan masalah nyata & industri.</li>
                             <li><strong class="text-dark">Joyful (Menggembirakan):</strong> Pengalaman belajar menyenangkan, menantang, dan bermakna.</li>
                         </ul>

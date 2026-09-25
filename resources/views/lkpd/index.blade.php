@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
-@section('title', 'Daftar Lembar Kerja Peserta Didik (LKPD)')
+@section('title', 'Daftar Lembar Kerja Murid (LKPD)')
 
 @section('content')
 <div class="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-2">
     <div>
-        <h4 class="fw-bold text-dark mb-1"><i class="bi bi-file-earmark-text text-info me-2"></i> Lembar Kerja Peserta Didik (LKPD)</h4>
+        <h4 class="fw-bold text-dark mb-1"><i class="bi bi-file-earmark-text text-info me-2"></i> Lembar Kerja Murid (LKPD)</h4>
         <p class="text-muted small mb-0">LKPD Kurikulum Merdeka berbasis stimulus otentik industri dan 3 tahap belajar mendalam (Memahami, Mengaplikasi, Merefleksi).</p>
     </div>
     <div class="d-flex gap-2">

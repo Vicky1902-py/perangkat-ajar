@@ -150,7 +150,7 @@ class SettingAndBackupTest extends TestCase
             [
                 'mapel_nama' => 'Mata Pelajaran Uji Coba Regulasi',
                 'fase' => 'E',
-                'deskripsi_cp' => 'Peserta didik mampu memahami dasar-dasar regulasi kurikulum baru 2026.',
+                'deskripsi_cp' => 'Murid mampu memahami dasar-dasar regulasi kurikulum baru 2026.',
                 'elemen_cp' => [
                     ['elemen' => 'Pemahaman Konseptual', 'deskripsi' => 'Konsep dasar regulasi.']
                 ]

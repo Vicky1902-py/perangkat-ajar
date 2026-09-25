@@ -207,7 +207,7 @@
                     </div>
                 @endif
                 <div class="essay-answer-space">
-                    Ruang Jawaban Peserta Didik:
+                    Ruang Jawaban Murid:
                 </div>
             </div>
         @endforeach

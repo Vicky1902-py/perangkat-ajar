@@ -68,7 +68,7 @@ class SoalExpertService
         // Elemen & Konteks Materi
         $elemenNama = $tp?->elemen ?: ($modul?->kompetensi_awal ?: 'Kompetensi ' . $mapel->nama);
         $topikUtama = $tp?->deskripsi_tp ?: ($modul?->judul ?: 'Penerapan Materi ' . $mapel->nama);
-        $cpDeskripsi = $cp?->deskripsi_cp ?? ('Peserta didik menguasai kompetensi esensial materi ' . $elemenNama . ' pada mata pelajaran ' . $mapel->nama);
+        $cpDeskripsi = $cp?->deskripsi_cp ?? ('Murid menguasai kompetensi esensial materi ' . $elemenNama . ' pada mata pelajaran ' . $mapel->nama);
         $tpDeskripsi = $tp?->deskripsi_tp ?? 'Mampu memahami konsep dan menerapkan kompetensi secara mandiri dan bernalar kritis.';
 
         // Rumuskan Kisi-Kisi dan Butir Soal
@@ -280,7 +280,7 @@ class SoalExpertService
             'pedoman_penskoran' => $kbIsian['pedoman_penskoran'] ?? "Rubrik Skor Maksimal 10:\n• Skor 9 - 10: Menguraikan jawaban secara komprehensif, logis, dan runtut.\n• Skor 6 - 8: Menjawab dengan baik namun ada aspek minor yang terlewat.\n• Skor 3 - 5: Menjawab secara singkat tanpa rincian konsep.\n• Skor 1 - 2: Jawaban kurang relevan.\n• Skor 0: Lembar kosong.",
             'skor_maksimal' => 10,
             'level_kognitif' => $level['label'],
-            'indikator_kisi_kisi' => $kbIsian['indikator'] ?? "Peserta didik mampu menguraikan konsep materi {$elemen} secara analitis.",
+            'indikator_kisi_kisi' => $kbIsian['indikator'] ?? "Murid mampu menguraikan konsep materi {$elemen} secara analitis.",
         ];
     }
 

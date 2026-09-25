@@ -353,7 +353,7 @@
                         <div class="card border bg-light p-3 rounded-3 h-100">
                             <div class="fw-bold text-dark small mb-2"><i class="bi bi-check-circle-fill text-success me-1"></i> Predikat Kelulusan Vokasi SMK:</div>
                             <ul class="small text-secondary mb-0" style="line-height: 1.6;">
-                                <li><strong>Kompeten (K):</strong> Peserta didik memenuhi seluruh standar mutu kerja minimal pada semua komponen kritis.</li>
+                                <li><strong>Kompeten (K):</strong> Murid memenuhi seluruh standar mutu kerja minimal pada semua komponen kritis.</li>
                                 <li><strong>Belum Kompeten (BK):</strong> Terdapat salah satu komponen kritis keselamatan atau fungsi yang belum memenuhi standar (wajib mengikuti remedial demonstrasi).</li>
                             </ul>
                         </div>
@@ -376,7 +376,7 @@
                     <span class="badge bg-warning text-dark">Pedoman Resmi PPA Kemendikdasmen</span>
                 </div>
                 <p class="text-muted small mb-4">
-                    Instrumen penilaian kualitatif bertingkat untuk mengukur sejauh mana peserta didik mencapai tujuan pembelajaran tanpa bergantung pada KKM tunggal.
+                    Instrumen penilaian kualitatif bertingkat untuk mengukur sejauh mana murid mencapai tujuan pembelajaran tanpa bergantung pada KKM tunggal.
                 </p>
 
                 <!-- 1. Rubrik 4 Skala Capaian -->

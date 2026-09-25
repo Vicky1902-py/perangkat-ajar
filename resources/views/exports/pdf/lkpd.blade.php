@@ -76,7 +76,7 @@
 
     @include('exports.pdf.partials.kop-surat', ['sekolah' => $lkpd->user->satuanPendidikan])
 
-    <div class="header-title">LEMBAR KERJA PESERTA DIDIK (LKPD)</div>
+    <div class="header-title">LEMBAR KERJA MURID (LKPD)</div>
     <div class="header-subtitle">Kurikulum Merdeka SMK &bull; Pendekatan Pembelajaran Mendalam (Deep Learning)</div>
 
     <div class="meta-box">

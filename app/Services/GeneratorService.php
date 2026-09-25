@@ -109,6 +109,7 @@ class GeneratorService
             $dimensiList = ProfilLulusan::pluck('dimensi')->toArray();
             $dimensiCount = count($dimensiList);
             $totalJpCalc = 0;
+            $tpJpMap = [];
 
             foreach ($createdTps as $idx => $tp) {
                 $dimensiSample = [];
@@ -122,6 +123,7 @@ class GeneratorService
                 $jpItem = ($idx % 2 === 0) ? intval($jpDefault * 0.4) : intval($jpDefault * 0.6);
                 if ($jpItem < 4) { $jpItem = 4; }
                 $totalJpCalc += $jpItem;
+                $tpJpMap[$tp->id] = $jpItem;
 
                 $kbAtp = \App\Services\CurriculumKnowledgeBase::getModulAjarContext($mapel, $tp->elemen ?? '', null, $fase);
                 $subMateriName = \App\Services\CurriculumKnowledgeBase::resolveMateriName($mapel, $tp->elemen ?? $mapel->nama, $idx + 1);
@@ -156,16 +158,16 @@ class GeneratorService
                 'fase_id' => $fase->id,
                 'tahun_ajaran_id' => $tahunAjaran?->id,
                 'judul' => 'Modul Ajar: ' . $firstElemen . ' - ' . $mapel->nama . ' (' . ($firstTp ? $firstTp->kode_tp : 'Fase ' . $fase->kode) . ')',
-                'kompetensi_awal' => 'Peserta didik memahami konsep dasar dan prasyarat keilmuan pada materi ' . $firstElemen . ' (' . $mapel->nama . ').',
+                'kompetensi_awal' => 'Murid memahami konsep dasar dan prasyarat keilmuan pada materi ' . $firstElemen . ' (' . $mapel->nama . ').',
                 'profil_lulusan_target' => 'Penalaran Kritis, Kreativitas, Kolaborasi, Kemandirian, dan Komunikasi (Permendikdasmen No. 10/2025).',
                 'sarana_prasarana' => $kbModul['sumber_belajar'] . ', Perangkat Komputer/Laptop, Akses Internet, Proyektor, dan Modul Ajar Terkait.',
-                'target_peserta_didik' => 'Peserta didik reguler/tipikal, dengan fasilitas pengayaan bagi yang cepat paham dan bimbingan terarah bagi yang memerlukan pendampingan.',
+                'target_peserta_didik' => 'Murid reguler/tipikal, dengan fasilitas pengayaan bagi yang cepat paham dan bimbingan terarah bagi yang memerlukan pendampingan.',
                 'pemahaman_bermakna' => $kbModul['pemahaman_bermakna'],
                 'pertanyaan_pemantik' => $kbModul['pertanyaan_pemantik'],
                 'asesmen_awal' => 'Kuis diagnostik 5 butir soal pilihan ganda interaktif dan wawancara singkat pemetaan kompetensi ' . $firstElemen . '.',
                 'asesmen_formatif' => 'Penilaian unjuk kerja selama tahapan Terapkan dan Tularkan menggunakan rubrik observasi ' . $firstElemen . '.',
                 'asesmen_sumatif' => 'Tes tertulis pilihan ganda/uraian (Smart Soal) materi ' . $firstElemen . ' dan penugasan proyek terukur skala 1-100.',
-                'refleksi_guru' => "1. Apakah seluruh peserta didik mencapai tujuan pembelajaran materi {$firstElemen} dengan gembira (Joyful)?\n2. Bagian mana dari tahapan PEDATTI yang membutuhkan alokasi waktu tambahan?",
+                'refleksi_guru' => "1. Apakah seluruh murid mencapai tujuan pembelajaran materi {$firstElemen} dengan gembira (Joyful)?\n2. Bagian mana dari tahapan PEDATTI yang membutuhkan alokasi waktu tambahan?",
                 'refleksi_siswa' => "1. Apa hal paling menarik dan bermakna yang saya pelajari dari materi {$firstElemen} hari ini?\n2. Kendala apa yang saya hadapi dan bagaimana saya mengatasinya?",
                 'pengayaan' => 'Tantangan eksplorasi implementasi tingkat lanjut (HOTS) terkait ' . $firstElemen . '.',
                 'remedial' => 'Pendampingan khusus dan tutor sebaya dengan fokus pada rekonstruksi konsep ' . $firstElemen . ' yang belum tuntas.',
@@ -190,10 +192,10 @@ class GeneratorService
 
             $pedattiDescriptions = [
                 'pendahuluan' => "Tahap Pelajari (Orientasi & Apersepsi):\n• Guru membuka pembelajaran dengan salam, doa bersama, dan presensi (Mindful).\n• Apersepsi: Menampilkan stimulus kontekstual materi {$firstElemen} dan mendiskusikan pertanyaan pemantik.\n• Menyampaikan tujuan pembelajaran, dimensi profil lulusan yang dikembangkan, dan alur sintaks PEDATTI.",
-                'dalami' => "Tahap Dalami (Eksplorasi Konsep & Bedah Teori):\n• Peserta didik mengkaji modul bahan ajar materi {$firstElemen} secara berkelompok (Meaningful).\n• Mendiskusikan konsep kunci: {$subSample1} dan {$subSample2}.\n• Guru memfasilitasi tanya jawab kritis dan memberikan penguatan konsep esensial.",
-                'terapkan' => "Tahap Terapkan (Aplikasi, Simulasi & Praktik Mandiri):\n• Peserta didik mengerjakan Lembar Kerja (LKPD) / instrumen kerja terkait studi kasus {$firstElemen}.\n• Melakukan perhitungan, analisis data, atau praktikum terarah menggunakan media/alat standar.\n• Guru melakukan asesmen formatif proses menggunakan rubrik observasi keaktifan dan ketelitian.",
-                'tularkan' => "Tahap Tularkan (Kolaborasi, Presentasi & Peer Review):\n• Setiap perwakilan kelompok mempresentasikan hasil pemecahan masalah/analisis materi {$firstElemen} di depan kelas.\n• Kelompok lain memberikan tanggapan, pertanyaan kritis, dan umpan balik konstruktif (Peer Review).\n• Guru dan peserta didik menyimpulkan pokok-pokok penting materi pembelajaran.",
-                'inovasi' => "Tahap Inovasi (Evaluasi Sumatif & Refleksi Mendalam):\n• Peserta didik menyelesaikan asesmen sumatif kuis/soal evaluasi untuk mengukur penguasaan individu (Joyful).\n• Melakukan refleksi pembelajaran 3M (Mindful, Meaningful, Joyful) terhadap pencapaian kompetensi.\n• Guru memberikan tindak lanjut pengayaan/remedial dan menutup sesi dengan apresiasi.",
+                'dalami' => "Tahap Dalami (Eksplorasi Konsep & Bedah Teori):\n• Murid mengkaji modul bahan ajar materi {$firstElemen} secara berkelompok (Meaningful).\n• Mendiskusikan konsep kunci: {$subSample1} dan {$subSample2}.\n• Guru memfasilitasi tanya jawab kritis dan memberikan penguatan konsep esensial.",
+                'terapkan' => "Tahap Terapkan (Aplikasi, Simulasi & Praktik Mandiri):\n• Murid mengerjakan Lembar Kerja (LKPD) / instrumen kerja terkait studi kasus {$firstElemen}.\n• Melakukan perhitungan, analisis data, atau praktikum terarah menggunakan media/alat standar.\n• Guru melakukan asesmen formatif proses menggunakan rubrik observasi keaktifan dan ketelitian.",
+                'tularkan' => "Tahap Tularkan (Kolaborasi, Presentasi & Peer Review):\n• Setiap perwakilan kelompok mempresentasikan hasil pemecahan masalah/analisis materi {$firstElemen} di depan kelas.\n• Kelompok lain memberikan tanggapan, pertanyaan kritis, dan umpan balik konstruktif (Peer Review).\n• Guru dan murid menyimpulkan pokok-pokok penting materi pembelajaran.",
+                'inovasi' => "Tahap Inovasi (Evaluasi Sumatif & Refleksi Mendalam):\n• Murid menyelesaikan asesmen sumatif kuis/soal evaluasi untuk mengukur penguasaan individu (Joyful).\n• Melakukan refleksi pembelajaran 3M (Mindful, Meaningful, Joyful) terhadap pencapaian kompetensi.\n• Guru memberikan tindak lanjut pengayaan/remedial dan menutup sesi dengan apresiasi.",
             ];
 
             foreach ($tahapOrder as $tahap => $urutan) {
@@ -209,8 +211,8 @@ class GeneratorService
                 ]);
             }
 
-            // 4. GENERATE LEMBAR KERJA PESERTA DIDIK (LKPD) BERBASIS CP & ATP OTENTIK
-            $kbLkpd = CurriculumKnowledgeBase::getLkpdContext($mapel, $firstElemen, $deskripsiCp, $fase);
+            // 4. GENERATE LEMBAR KERJA MURID (LKPD) BERBASIS CP & ATP OTENTIK
+            $kbLkpd = CurriculumKnowledgeBase::getLkpdContext($mapel, $firstElemen, $firstDeskripsi, $fase);
 
             $lkpd = Lkpd::create([
                 'modul_ajar_id' => $modulAjar->id,
@@ -218,7 +220,7 @@ class GeneratorService
                 'guest_session_id' => $sessionId,
                 'mata_pelajaran_id' => $mapel->id,
                 'fase_id' => $fase->id,
-                'judul' => 'LKPD Deep Learning: ' . $firstElemen . ' (' . ($firstTp ? $firstTp->kode_tp : 'Fase ' . $fase->kode) . ')',
+                'judul' => 'Lembar Kerja Murid (LKPD) Deep Learning: ' . $firstElemen . ' (' . ($firstTp ? $firstTp->kode_tp : 'Fase ' . $fase->kode) . ')',
                 'tujuan_pembelajaran' => $firstTp ? $firstTp->deskripsi_tp : 'Mencapai kompetensi esensial fase ' . $fase->kode,
                 'stimulus_otentik' => $kbLkpd['stimulus'],
                 'petunjuk_belajar' => $kbLkpd['petunjuk'],
@@ -249,7 +251,7 @@ class GeneratorService
                     'tujuan_pembelajaran' => $tpItem->deskripsi_tp,
                     'elemen' => $tpItem->elemen ?? ($mapel->nama ?? 'Kompetensi Kejuruan'),
                     'semester' => $sem,
-                    'alokasi_jp' => 12,
+                    'alokasi_jp' => $tpJpMap[$tpItem->id] ?? $jpDefault,
                 ];
             }
 
@@ -274,7 +276,7 @@ class GeneratorService
                     'elemen' => $tpItem->elemen ?? ($mapel->nama ?? 'Kompetensi Kejuruan'),
                     'bulan' => $assignedBulan,
                     'minggu_ke' => ($tpIdx % 4) + 1,
-                    'alokasi_jp' => 12,
+                    'alokasi_jp' => $tpJpMap[$tpItem->id] ?? $jpDefault,
                 ];
             }
 
@@ -292,40 +294,117 @@ class GeneratorService
             // 7. GENERATE INSTRUMEN ASESMEN SESUAI PANDUAN PEMBELAJARAN DAN ASESMEN KEMENDIKDASMEN 2025/2026
             $firstTp = $createdTps[0] ?? null;
             $namaElemenUtama = array_key_first($elemenCp) ?? 'Kompetensi Kejuruan';
+            $category = CurriculumKnowledgeBase::getSubjectCategory($mapel->nama);
 
-            $kktpRubrik = [
-                'tujuan_pembelajaran' => $firstTp ? $firstTp->deskripsi_tp : 'Menguasai kompetensi dasar ' . $mapel->nama,
-                'kriteria' => [
-                    [
-                        'aspek' => 'Pemahaman Konseptual & Prosedural',
-                        'perlu_bimbingan' => 'Belum mampu menjelaskan prinsip dasar dan alur kerja.',
-                        'cukup' => 'Mampu menjelaskan prinsip dasar dengan bantuan guru.',
-                        'baik' => 'Mampu menjelaskan prinsip dasar dan alur kerja secara mandiri dan benar.',
-                        'sangat_baik' => 'Mampu menjelaskan, menganalisis, dan mengevaluasi alur kerja serta mengaitkannya dengan kasus industri.',
+            if ($category === 'kejuruan') {
+                $kktpRubrik = [
+                    'tujuan_pembelajaran' => $firstTp ? $firstTp->deskripsi_tp : 'Menguasai kompetensi dasar ' . $mapel->nama,
+                    'kriteria' => [
+                        [
+                            'aspek' => 'Pemahaman Konseptual & Prosedural',
+                            'perlu_bimbingan' => 'Belum mampu menjelaskan prinsip dasar dan alur kerja.',
+                            'cukup' => 'Mampu menjelaskan prinsip dasar dengan bantuan guru.',
+                            'baik' => 'Mampu menjelaskan prinsip dasar dan alur kerja secara mandiri dan benar.',
+                            'sangat_baik' => 'Mampu menjelaskan, menganalisis, dan mengevaluasi alur kerja serta mengaitkannya dengan kasus industri.',
+                        ],
+                        [
+                            'aspek' => 'Keterampilan Praktik & Unjuk Kerja (SOP Industri)',
+                            'perlu_bimbingan' => 'Belum mampu mempraktikkan prosedur kerja tanpa bimbingan penuh.',
+                            'cukup' => 'Mampu mempraktikkan sebagian prosedur namun masih terdapat kesalahan teknis ringan.',
+                            'baik' => 'Mampu mempraktikkan seluruh langkah kerja sesuai SOP secara mandiri dan aman.',
+                            'sangat_baik' => 'Mampu mendemonstrasikan pekerjaan secara presisi, efisien waktu, mandiri, dan berinovasi.',
+                        ],
+                        [
+                            'aspek' => 'Penerapan K3LH & Budaya Kerja 5R',
+                            'perlu_bimbingan' => 'Sering mengabaikan penggunaan APD dan kebersihan tempat kerja.',
+                            'cukup' => 'Menggunakan APD setelah diingatkan dan membersihkan area kerja sebagian.',
+                            'baik' => 'Disiplin menggunakan APD lengkap, menerapkan K3LH, dan membersihkan area kerja (5R).',
+                            'sangat_baik' => 'Menjadi teladan dalam K3LH, konsisten budaya 5R, dan tanggap mencegah potensi bahaya.',
+                        ],
+                        [
+                            'aspek' => 'Penalaran Kritis & Pemecahan Masalah (Troubleshooting)',
+                            'perlu_bimbingan' => 'Pasif saat menghadapi kendala teknis dan menunggu instruksi.',
+                            'cukup' => 'Mampu mengenali adanya kendala teknis namun belum dapat menemukan solusinya.',
+                            'baik' => 'Mampu menganalisis akar masalah dan mencari solusi alternatif yang tepat.',
+                            'sangat_baik' => 'Cepat dan tepat dalam diagnosis kendala teknis, serta mampu memvalidasi hasil perbaikan.',
+                        ],
+                    ]
+                ];
+
+                $vokasiDudiData = [
+                    'standar_industri' => 'Standar Kompetensi Kerja Nasional Indonesia (SKKNI) & SOP Mitra Industri DUDI ' . ($mapel->programKeahlian->nama ?? 'SMK'),
+                    'komponen_penilaian' => [
+                        ['komponen' => 'Persiapan Alat & K3LH', 'bobot' => '15%', 'kriteria' => 'Pemeriksaan APD, instrumen kerja, dan keselamatan lingkungan kerja'],
+                        ['komponen' => 'Proses Operasi & Ketelitian', 'bobot' => '40%', 'kriteria' => 'Sistematika urutan kerja teknis, kepatuhan manual kerja, dan kecakapan alat'],
+                        ['komponen' => 'Hasil Kerja / Produk / Layanan', 'bobot' => '30%', 'kriteria' => 'Toleransi presisi dimensi, fungsionalitas sistem, dan kerapian hasil'],
+                        ['komponen' => 'Sikap Kerja & Komunikasi', 'bobot' => '10%', 'kriteria' => 'Tanggung jawab, kebersihan area kerja (5R), dan etika kerja tim'],
+                        ['komponen' => 'Waktu Pelaksanaan', 'bobot' => '5%', 'kriteria' => 'Penyelesaian sesuai estimasi durasi industri'],
                     ],
-                    [
-                        'aspek' => 'Keterampilan Praktik & Unjuk Kerja (SOP Industri)',
-                        'perlu_bimbingan' => 'Belum mampu mempraktikkan prosedur kerja tanpa bimbingan penuh.',
-                        'cukup' => 'Mampu mempraktikkan sebagian prosedur namun masih terdapat kesalahan teknis ringan.',
-                        'baik' => 'Mampu mempraktikkan seluruh langkah kerja sesuai SOP secara mandiri dan aman.',
-                        'sangat_baik' => 'Mampu mendemonstrasikan pekerjaan secara presisi, efisien waktu, mandiri, dan berinovasi.',
+                    'kategori_kelulusan' => [
+                        'kompeten' => 'Memenuhi seluruh kriteria minimal pada setiap komponen (K)',
+                        'belum_kompeten' => 'Terdapat satu atau lebih komponen kritis yang belum memenuhi standar (BK)',
+                    ]
+                ];
+
+                $deskripsiRapor = [
+                    'capaian_tertinggi' => 'Menunjukkan penguasaan yang sangat baik dalam memahami prinsip kerja dan mempraktikkan keterampilan pada elemen "' . $namaElemenUtama . '" sesuai dengan SOP industri.',
+                    'perlu_ditingkatkan' => 'Perlu pendampingan dan latihan intensif lebih lanjut dalam meningkatkan ketelitian operasional dan penguatan analisis troubleshooting pada elemen "' . $namaElemenUtama . '".',
+                ];
+            } else {
+                // Mata Pelajaran Umum (Matematika, Bahasa Indonesia, Sains, Sosial, Seni, PJOK, Informatika)
+                $kktpRubrik = [
+                    'tujuan_pembelajaran' => $firstTp ? $firstTp->deskripsi_tp : 'Menguasai kompetensi dasar ' . $mapel->nama,
+                    'kriteria' => [
+                        [
+                            'aspek' => 'Penguasaan Konsep Esensial & Literasi/Numerasi',
+                            'perlu_bimbingan' => 'Belum mampu mendefinisikan dan mengidentifikasi konsep dasar materi.',
+                            'cukup' => 'Mampu mengidentifikasi konsep dasar dengan pendampingan guru.',
+                            'baik' => 'Mampu menguraikan konsep esensial dan rumus/kaidah keilmuan secara mandiri.',
+                            'sangat_baik' => 'Mampu menganalisis secara mendalam hubungan antarkonsep dan mengaitkannya dengan fenomena nyata.',
+                        ],
+                        [
+                            'aspek' => 'Penalaran Kritis & Prosedur Analitis',
+                            'perlu_bimbingan' => 'Kesulitan mengikuti alur logika penyelesaian masalah materi.',
+                            'cukup' => 'Mampu menerapkan langkah analisis namun masih terdapat kekeliruan perhitungan/kaidah.',
+                            'baik' => 'Mampu menerapkan prosedur penalaran logis dan penyelesaian sistematis secara tepat.',
+                            'sangat_baik' => 'Sangat mahir merumuskan argumen analitis logis, membuktikan kebenaran hipotesis, dan memvalidasi hasil.',
+                        ],
+                        [
+                            'aspek' => 'Aplikasi Kontekstual & Pemecahan Masalah',
+                            'perlu_bimbingan' => 'Pasif dan belum dapat memodelkan kasus kontekstual yang diberikan.',
+                            'cukup' => 'Mampu memodelkan kasus sederhana namun memerlukan bantuan pada kasus kompleks.',
+                            'baik' => 'Mampu memodelkan dan merumuskan solusi atas permasalahan kontekstual secara mandiri.',
+                            'sangat_baik' => 'Inovatif dalam merancang solusi pemecahan masalah multidimensi dan berorientasi masa depan.',
+                        ],
+                        [
+                            'aspek' => 'Kemandirian, Kolaborasi & Refleksi Pembelajaran',
+                            'perlu_bimbingan' => 'Kurang aktif dalam diskusi kelompok dan jarang melakukan evaluasi mandiri.',
+                            'cukup' => 'Terlibat dalam aktivitas kelompok setelah dimotivasi dan menyusun refleksi singkat.',
+                            'baik' => 'Aktif berkolaborasi, menghargai pandangan rekan, dan melakukan refleksi belajar secara jujur.',
+                            'sangat_baik' => 'Menjadi motor penggerak kolaborasi kelompok, berintegritas tinggi, dan memiliki metakognisi belajar unggul.',
+                        ],
+                    ]
+                ];
+
+                $vokasiDudiData = [
+                    'standar_industri' => 'Standar Kompetensi Capaian Pembelajaran Kurikulum Nasional Kemendikdasmen (BSKAP No. 046/H/KR/2025)',
+                    'komponen_penilaian' => [
+                        ['komponen' => 'Penguasaan Konsep & Kaidah Ilmiah', 'bobot' => '30%', 'kriteria' => 'Kedalaman pemahaman teori, dalil, sifat, dan terminologi baku mata pelajaran'],
+                        ['komponen' => 'Penalaran Kritis & Pemodelan Masalah', 'bobot' => '40%', 'kriteria' => 'Kecakapan berpikir tingkat tinggi (HOTS), kalkulasi numerik/literasi, dan validitas argumen'],
+                        ['komponen' => 'Produk / Karya / Portofolio Terapan', 'bobot' => '20%', 'kriteria' => 'Kerapian, ketuntasan lembar kerja murid, serta kreativitas solusi'],
+                        ['komponen' => 'Karakter & Etika Akademis', 'bobot' => '10%', 'kriteria' => 'Kejujuran penalaran, ketelitian, kolaborasi, dan tanggung jawab belajar'],
                     ],
-                    [
-                        'aspek' => 'Penerapan K3LH & Budaya Kerja 5R',
-                        'perlu_bimbingan' => 'Sering mengabaikan penggunaan APD dan kebersihan tempat kerja.',
-                        'cukup' => 'Menggunakan APD setelah diingatkan dan membersihkan area kerja sebagian.',
-                        'baik' => 'Disiplin menggunakan APD lengkap, menerapkan K3LH, dan membersihkan area kerja (5R).',
-                        'sangat_baik' => 'Menjadi teladan dalam K3LH, konsisten budaya 5R, dan tanggap mencegah potensi bahaya.',
-                    ],
-                    [
-                        'aspek' => 'Penalaran Kritis & Pemecahan Masalah (Troubleshooting)',
-                        'perlu_bimbingan' => 'Pasif saat menghadapi kendala teknis dan menunggu instruksi.',
-                        'cukup' => 'Mampu mengenali adanya kendala teknis namun belum dapat menemukan solusinya.',
-                        'baik' => 'Mampu menganalisis akar masalah dan mencari solusi alternatif yang tepat.',
-                        'sangat_baik' => 'Cepat dan tepat dalam diagnosis kendala teknis, serta mampu memvalidasi hasil perbaikan.',
-                    ],
-                ]
-            ];
+                    'kategori_kelulusan' => [
+                        'kompeten' => 'Tuntas mencapai indikator kriteria ketercapaian tujuan pembelajaran (Tuntas)',
+                        'belum_kompeten' => 'Belum mencapai ketuntasan minimal, memerlukan intervensi remedial (Belum Tuntas)',
+                    ]
+                ];
+
+                $deskripsiRapor = [
+                    'capaian_tertinggi' => 'Menunjukkan penguasaan yang sangat baik dalam memahami konsep esensial dan menerapkan penalaran analitis pada elemen "' . $namaElemenUtama . '" sesuai kaidah capaian pembelajaran.',
+                    'perlu_ditingkatkan' => 'Perlu bimbingan dan latihan terbimbing lebih lanjut dalam penguatan pemecahan masalah konteks nyata pada elemen "' . $namaElemenUtama . '".',
+                ];
+            }
 
             $tindakLanjutData = [
                 'pendekatan' => 'Interval Nilai Resmi Panduan Pembelajaran dan Asesmen Kemendikdasmen (Revisi 2025/2026)',
@@ -351,30 +430,10 @@ class GeneratorService
                     [
                         'rentang' => '86% - 100%',
                         'status' => 'Mencapai Ketuntasan Sangat Baik',
-                        'tindak_lanjut' => 'Tuntas dengan predikat Sangat Baik. Diberikan pengayaan materi tingkat lanjut atau proyek tantangan kejuruan DUDI mandiri.',
+                        'tindak_lanjut' => 'Tuntas dengan predikat Sangat Baik. Diberikan pengayaan materi tingkat lanjut atau proyek tantangan mandiri.',
                         'badge' => 'primary',
                     ],
                 ]
-            ];
-
-            $vokasiDudiData = [
-                'standar_industri' => 'Standar Kompetensi Kerja Nasional Indonesia (SKKNI) & SOP Mitra Industri DUDI ' . ($mapel->programKeahlian->nama ?? 'SMK'),
-                'komponen_penilaian' => [
-                    ['komponen' => 'Persiapan Alat & K3LH', 'bobot' => '15%', 'kriteria' => 'Pemeriksaan APD, instrumen kerja, dan keselamatan lingkungan kerja'],
-                    ['komponen' => 'Proses Operasi & Ketelitian', 'bobot' => '40%', 'kriteria' => 'Sistematika urutan kerja teknis, kepatuhan manual kerja, dan kecakapan alat'],
-                    ['komponen' => 'Hasil Kerja / Produk / Layanan', 'bobot' => '30%', 'kriteria' => 'Toleransi presisi dimensi, fungsionalitas sistem, dan kerapian hasil'],
-                    ['komponen' => 'Sikap Kerja & Komunikasi', 'bobot' => '10%', 'kriteria' => 'Tanggung jawab, kebersihan area kerja (5R), dan etika kerja tim'],
-                    ['komponen' => 'Waktu Pelaksanaan', 'bobot' => '5%', 'kriteria' => 'Penyelesaian sesuai estimasi durasi industri'],
-                ],
-                'kategori_kelulusan' => [
-                    'kompeten' => 'Memenuhi seluruh kriteria minimal pada setiap komponen (K)',
-                    'belum_kompeten' => 'Terdapat satu atau lebih komponen kritis yang belum memenuhi standar (BK)',
-                ]
-            ];
-
-            $deskripsiRapor = [
-                'capaian_tertinggi' => 'Menunjukkan penguasaan yang sangat baik dalam memahami prinsip kerja dan mempraktikkan keterampilan pada elemen "' . $namaElemenUtama . '" sesuai dengan SOP industri.',
-                'perlu_ditingkatkan' => 'Perlu pendampingan dan latihan intensif lebih lanjut dalam meningkatkan ketelitian operasional dan penguatan analisis troubleshooting pada elemen "' . $namaElemenUtama . '".',
             ];
 
             $asesmen = Asesmen::create([
@@ -386,9 +445,9 @@ class GeneratorService
                 'tujuan_pembelajaran_id' => $firstTp?->id,
                 'judul' => 'Instrumen Asesmen Deep Learning ' . $mapel->nama . ' (' . ($firstTp ? $firstTp->kode_tp : 'Fase ' . $fase->kode) . ')',
                 'jenis' => 'formatif',
-                'deskripsi' => 'Instrumen asesmen komprehensif berbasis Keputusan Kepala BSKAP Nomor 046/H/KR/2025 dan Panduan Pembelajaran dan Asesmen (PPA) Kemendikdasmen Revisi 2025/2026: Diagnostik Awal (pemetaan diferensiasi tanpa bobot rapor), Formatif Proses (umpan balik bermakna & metakognisi), Sumatif Vokasi (job sheet unjuk kerja SOP DUDI status K/BK), KKTP 4 Level Rubrik, dan Generator Deskripsi Rapor Capaian Tertinggi/Perlu Bimbingan.',
-                'instrumen' => "1. ASESMEN DIAGNOSTIK (Awal Pembelajaran):\n   - Lembar Pemetaan Minat, Kesiapan Belajar, dan Profil Gaya Belajar Murid.\n   - 3 Soal Tes Prasyarat Kognitif Pemantik Konsep.\n\n2. ASESMEN FORMATIF (Proses Pembelajaran):\n   - Lembar Observasi Keterlibatan Aktif & Kolaborasi (Olah Pikir & Olah Rasa).\n   - Lembar Refleksi Diri (Self-Assessment) dan Antarteman (Peer-Assessment).\n   - Format Umpan Balik Kualitatif (Constructive Feedback) Guru.\n\n3. ASESMEN SUMATIF (Akhir Lingkup Materi):\n   - Soal Analisis Berbasis Kasus Industri HOTS (Meaningful Learning).\n   - Job Sheet Unjuk Kerja Praktik Vokasi Berstandar DUDI / UKK.",
-                'rubrik' => "Rubrik KKTP Resmi Kemendikdasmen:\n- Level 4 (Sangat Baik / 86-100): Menguasai mandiri, mampu troubleshooting, validasi hasil, dan berinovasi.\n- Level 3 (Baik / 71-85 - TUNTAS): Menguasai konsep dan mempraktikkan prosedur sesuai SOP secara mandiri dan aman.\n- Level 2 (Cukup / 61-70): Menguasai sebagian prosedur, masih butuh bimbingan berkala pada kasus spesifik.\n- Level 1 (Perlu Bimbingan / 0-60): Membutuhkan pendampingan intensif pada konsep dasar dan langkah awal.",
+                'deskripsi' => 'Instrumen asesmen komprehensif berbasis Keputusan Kepala BSKAP Nomor 046/H/KR/2025 dan Panduan Pembelajaran dan Asesmen (PPA) Kemendikdasmen Revisi 2025/2026: Diagnostik Awal (pemetaan diferensiasi tanpa bobot rapor), Formatif Proses (umpan balik bermakna & metakognisi), Sumatif Pembelajaran, KKTP 4 Level Rubrik, dan Generator Deskripsi Rapor Capaian Tertinggi/Perlu Bimbingan.',
+                'instrumen' => "1. ASESMEN DIAGNOSTIK (Awal Pembelajaran):\n   - Lembar Pemetaan Minat, Kesiapan Belajar, dan Profil Gaya Belajar Murid.\n   - 3 Soal Tes Prasyarat Kognitif Pemantik Konsep.\n\n2. ASESMEN FORMATIF (Proses Pembelajaran):\n   - Lembar Observasi Keterlibatan Aktif & Kolaborasi (Olah Pikir & Olah Rasa).\n   - Lembar Refleksi Diri (Self-Assessment) dan Antarteman (Peer-Assessment).\n   - Format Umpan Balik Kualitatif (Constructive Feedback) Guru.\n\n3. ASESMEN SUMATIF (Akhir Lingkup Materi):\n   - Soal Analisis Berbasis Studi Kasus HOTS (Meaningful Learning).\n   - Lembar Kerja Unjuk Kerja / Penugasan Terstandar.",
+                'rubrik' => "Rubrik KKTP Resmi Kemendikdasmen:\n- Level 4 (Sangat Baik / 86-100): Menguasai mandiri, mampu troubleshooting/analisis mendalam, validasi hasil, dan berinovasi.\n- Level 3 (Baik / 71-85 - TUNTAS): Menguasai konsep dan menerapkan prosedur secara mandiri dan tepat.\n- Level 2 (Cukup / 61-70): Menguasai sebagian materi, masih butuh bimbingan berkala pada kasus spesifik.\n- Level 1 (Perlu Bimbingan / 0-60): Membutuhkan pendampingan intensif pada konsep dasar dan langkah awal.",
                 'pedoman_penskoran' => "Prinsip Resmi Panduan Pembelajaran dan Asesmen Kemendikdasmen (Revisi 2025/2026):\n1. Asesmen Diagnostik TIDAK DIBOBOT untuk nilai akhir rapor (murni untuk diferensiasi pembelajaran).\n2. Asesmen Formatif diutamakan sebagai umpan balik deskriptif (feedback) perbaikan kualitas belajar.\n3. Nilai Akhir Rapor diolah murni dari Rerata Asesmen Sumatif Lingkup Materi (dan Sumatif Akhir Semester) serta disajikan bersama Deskripsi Capaian Kompetensi (Capaian Tertinggi & Hal yang Perlu Bimbingan).",
                 'kktp_data' => $kktpRubrik,
                 'tindak_lanjut_data' => $tindakLanjutData,

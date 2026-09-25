@@ -126,7 +126,7 @@ Route::middleware(['auth'])->group(function () {
         // MODUL AJAR (DEEP LEARNING / PEDATTI)
         Route::resource('modul-ajar', ModulAjarController::class);
 
-        // LEMBAR KERJA PESERTA DIDIK (LKPD)
+        // LEMBAR KERJA MURID (LKPD)
         Route::resource('lkpd', LkpdController::class);
 
         // PROTA & PROMES

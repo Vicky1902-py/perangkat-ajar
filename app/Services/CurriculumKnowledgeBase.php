@@ -76,7 +76,7 @@ class CurriculumKnowledgeBase
     private static function synthesizeAndSaveMaterial(?int $mapelId, string $mapelNama, string $namaElemen, ?string $deskripsiCp, ?Fase $fase): KurikulumMateri
     {
         $category = self::getSubjectCategory($mapelNama);
-        $cpText = !empty($deskripsiCp) ? $deskripsiCp : "Peserta didik menguasai kompetensi esensial, pemahaman konseptual, dan keterampilan terapan pada elemen $namaElemen sesuai Capaian Pembelajaran regulasi BSKAP No. 046/H/KR/2025.";
+        $cpText = !empty($deskripsiCp) ? $deskripsiCp : "Murid menguasai kompetensi esensial, pemahaman konseptual, dan keterampilan terapan pada elemen $namaElemen sesuai Capaian Pembelajaran regulasi BSKAP No. 046/H/KR/2025.";
 
         // Ekstraksi topik utama dan sub materi
         $topikUtama = $namaElemen;
@@ -86,7 +86,7 @@ class CurriculumKnowledgeBase
         $rangkuman = self::generateRangkumanMateri($category, $mapelNama, $namaElemen, $topikUtama, $subMateri, $cpText);
 
         // Susun Pemahaman Bermakna & Pertanyaan Pemantik
-        $pemahamanBermakna = "Memahami dan menguasai {$namaElemen} pada mata pelajaran {$mapelNama} membekali peserta didik dengan kecakapan analitis dan praktis yang relevan dengan standar kurikulum nasional serta tuntutan dunia nyata/industri abad ke-21.";
+        $pemahamanBermakna = "Memahami dan menguasai {$namaElemen} pada mata pelajaran {$mapelNama} membekali murid dengan kecakapan analitis dan praktis yang relevan dengan standar kurikulum nasional serta tuntutan dunia nyata/industri abad ke-21.";
         $pertanyaanPemantik = "1. Bagaimana prinsip dasar {$namaElemen} memengaruhi keberhasilan pemecahan masalah nyata pada {$mapelNama}?\n2. Mengapa kepatuhan terhadap kaidah dan prosedur pada materi ini menjadi kunci pencapaian kompetensi unggul?";
 
         // Susun Bank Soal PG (5 butir terstruktur)
@@ -122,7 +122,7 @@ class CurriculumKnowledgeBase
     public static function generateSubMateriList(string $category, string $mapelNama, string $namaElemen, string $cpText): array
     {
         // 1. Bersihkan teks pembuka CP standar
-        $clean = preg_replace('/^(Pada akhir fase [A-F],?\s*)?peserta didik\s+(mampu|dapat|memahami|terampil|menguasai)\s+/iu', '', trim($cpText));
+        $clean = preg_replace('/^(Pada akhir fase [A-F],?\s*)?murid\s+(mampu|dapat|memahami|terampil|menguasai)\s+/iu', '', trim($cpText));
         
         // 2. Pisahkan berdasarkan tanda koma, titik koma, kata hubung 'serta', 'dan'
         $parts = preg_split('/[,;]|\s+serta\s+|\s+dan\s+/iu', $clean);
@@ -205,16 +205,16 @@ class CurriculumKnowledgeBase
             . "Target Capaian Pembelajaran: {$cpText}\n\n";
 
         $bagian1 = "1. PONDASI TEORETIS DAN KONSEP KUNCI:\n"
-            . "Elemen {$namaElemen} merupakan bagian integral dari struktur keilmuan {$mapelNama}. Materi ini menuntut peserta didik memahami hakikat dasar, prinsip operasi, dan batasan teoretis yang berlaku. Pemahaman yang kuat pada tahap ini menjadi prasyarat sebelum melangkah ke analisis komputasional maupun praktikum terapan.\n\n";
+            . "Elemen {$namaElemen} merupakan bagian integral dari struktur keilmuan {$mapelNama}. Materi ini menuntut murid memahami hakikat dasar, prinsip operasi, dan batasan teoretis yang berlaku. Pemahaman yang kuat pada tahap ini menjadi prasyarat sebelum melangkah ke analisis komputasional maupun praktikum terapan.\n\n";
 
         $bagian2 = "2. STRUKTUR KAIDAH DAN ALUR ANALISIS:\n"
-            . "Dalam mempelajari {$subMateri[1]}, peserta didik dilatih untuk mengidentifikasi komponen, relasi antar variabel, serta kaidah ilmiah/industri yang baku. Setiap langkah analisis wajib merujuk pada standar prosedur operasional dan literatur kurikulum resmi untuk memastikan akurasi hasil.\n\n";
+            . "Dalam mempelajari {$subMateri[1]}, murid dilatih untuk mengidentifikasi komponen, relasi antar variabel, serta kaidah ilmiah/industri yang baku. Setiap langkah analisis wajib merujuk pada standar prosedur operasional dan literatur kurikulum resmi untuk memastikan akurasi hasil.\n\n";
 
         $bagian3 = "3. PENERAPAN KONTEKSTUAL & STUDI KASUS:\n"
-            . "Aplikasi materi {$topikUtama} diarahkan pada pemecahan tantangan riil di lingkungan masyarakat dan dunia industri. Melalui studi kasus terbimbing, peserta didik mengintegrasikan penalaran kritis untuk merumuskan solusi optimal berbasis data dan fakta empiris.\n\n";
+            . "Aplikasi materi {$topikUtama} diarahkan pada pemecahan tantangan riil di lingkungan masyarakat dan dunia industri. Melalui studi kasus terbimbing, murid mengintegrasikan penalaran kritis untuk merumuskan solusi optimal berbasis data dan fakta empiris.\n\n";
 
         $bagian4 = "4. STANDAR PENGUJIAN DAN KENDALI MUTU (EVALUASI):\n"
-            . "Tahap akhir pembelajaran mencakup pengujian ketercapaian parameter, verifikasi kepatuhan terhadap standar mutu, dan refleksi terhadap proses kerja. Peserta didik dibiasakan melakukan audit mandiri (Self-Reflection) guna menumbuhkan budaya perbaikan berkelanjutan (Continuous Improvement).";
+            . "Tahap akhir pembelajaran mencakup pengujian ketercapaian parameter, verifikasi kepatuhan terhadap standar mutu, dan refleksi terhadap proses kerja. Murid dibiasakan melakukan audit mandiri (Self-Reflection) guna menumbuhkan budaya perbaikan berkelanjutan (Continuous Improvement).";
 
         return $header . $bagian1 . $bagian2 . $bagian3 . $bagian4;
     }
@@ -234,7 +234,7 @@ class CurriculumKnowledgeBase
 
         // Soal 1 (L1 / C1-C2 - Konsep Dasar)
         $soal[] = [
-            'stimulus' => "Dalam pembelajaran kompetensi {$namaElemen} pada mata pelajaran {$mapelNama}, peserta didik menganalisis definisi esensial dan kaidah pokok terkait {$sub1}.",
+            'stimulus' => "Dalam pembelajaran kompetensi {$namaElemen} pada mata pelajaran {$mapelNama}, murid menganalisis definisi esensial dan kaidah pokok terkait {$sub1}.",
             'pertanyaan' => "Pernyataan yang paling tepat mendeskripsikan prinsip utama dari {$sub1} berdasarkan regulasi kurikulum adalah...",
             'options' => [
                 'A' => "Penerapan konsep fundamental dan prosedur sistematis untuk mencapai pemahaman mendalam pada {$namaElemen}.",
@@ -245,12 +245,12 @@ class CurriculumKnowledgeBase
             ],
             'correct' => 'A',
             'pembahasan' => "Pembelajaran mendalam (Deep Learning) pada {$namaElemen} menekankan penguasaan prinsip konseptual yang diiringi penerapan prosedur sistematis berbasis bukti empiris dan standar baku.",
-            'indikator' => "Disajikan konsep dasar {$namaElemen}, peserta didik mampu mengidentifikasi karakteristik dan prinsip pokok {$sub1} dengan tepat."
+            'indikator' => "Disajikan konsep dasar {$namaElemen}, murid mampu mengidentifikasi karakteristik dan prinsip pokok {$sub1} dengan tepat."
         ];
 
         // Soal 2 (L2 / C3 - Prosedural)
         $soal[] = [
-            'stimulus' => "Pada saat melaksanakan tahapan kerja terkait materi {$sub2}, seorang peserta didik menemukan deviasi antara hasil analisis dengan standar target kompetensi.",
+            'stimulus' => "Pada saat melaksanakan tahapan kerja terkait materi {$sub2}, seorang murid menemukan deviasi antara hasil analisis dengan standar target kompetensi.",
             'pertanyaan' => "Tindakan metodis pertama yang paling tepat untuk menginvestigasi sumber deviasi pada {$sub2} adalah...",
             'options' => [
                 'A' => "Melakukan penelusuran kembali (traceability) terhadap parameter awal dan instrumen yang digunakan sesuai prosedur baku.",
@@ -261,7 +261,7 @@ class CurriculumKnowledgeBase
             ],
             'correct' => 'A',
             'pembahasan' => "Prosedur ilmiah dan profesional menuntut penelusuran kembali (traceability) variabel dan instrumen ukur untuk menemukan akar penyebab masalah secara transparan dan akuntabel.",
-            'indikator' => "Disajikan skenario terjadinya deviasi hasil kerja, peserta didik dapat menentukan langkah investigasi prosedural pada {$sub2} secara tepat."
+            'indikator' => "Disajikan skenario terjadinya deviasi hasil kerja, murid dapat menentukan langkah investigasi prosedural pada {$sub2} secara tepat."
         ];
 
         // Soal 3 (L3 / C4 - Analitis & Pemecahan Masalah)
@@ -277,12 +277,12 @@ class CurriculumKnowledgeBase
             ],
             'correct' => 'A',
             'pembahasan' => "Keseimbangan antara produktivitas dan kualitas dicapai melalui standarisasi alur kerja terstruktur yang dilengkapi pos pemeriksaan (quality checkpoints) pada tahapan-tahapan penting.",
-            'indikator' => "Disajikan dilema efisiensi kerja proyek, peserta didik mampu merumuskan strategi optimasi alur kerja berbasis kendali mutu pada {$sub3}."
+            'indikator' => "Disajikan dilema efisiensi kerja proyek, murid mampu merumuskan strategi optimasi alur kerja berbasis kendali mutu pada {$sub3}."
         ];
 
         // Soal 4 (L2 / C3 - Penerapan Standar Mutu)
         $soal[] = [
-            'stimulus' => "Dalam pelaksanaan evaluasi mutu kerja pada materi {$sub4}, peserta didik diwajibkan melakukan validasi kesesuaian antara proses pelaksanaan dengan standar target.",
+            'stimulus' => "Dalam pelaksanaan evaluasi mutu kerja pada materi {$sub4}, murid diwajibkan melakukan validasi kesesuaian antara proses pelaksanaan dengan standar target.",
             'pertanyaan' => "Langkah pengujian yang paling efektif untuk memastikan bahwa luaran dari {$sub4} telah memenuhi kriteria keberhasilan adalah...",
             'options' => [
                 'A' => "Melakukan pengukuran terstandar menggunakan instrumen kalibrasi dan membandingkannya terhadap rubrik KKTP resmi.",
@@ -293,13 +293,13 @@ class CurriculumKnowledgeBase
             ],
             'correct' => 'A',
             'pembahasan' => "Validasi mutu yang valid mewajibkan penggunaan instrumen terkalibrasi dan perbandingan langsung terhadap Kriteria Ketercapaian Tujuan Pembelajaran (KKTP).",
-            'indikator' => "Disajikan konteks evaluasi hasil belajar, peserta didik dapat menentukan metode validasi mutu pada {$sub4} secara akurat."
+            'indikator' => "Disajikan konteks evaluasi hasil belajar, murid dapat menentukan metode validasi mutu pada {$sub4} secara akurat."
         ];
 
         // Soal 5 (L3 / C5-C6 - HOTS Inovasi & Mitigasi)
         $soal[] = [
             'stimulus' => "Ditemukan sebuah tantangan kompleks di mana penerapan {$namaElemen} pada {$mapelNama} mengalami kendala akibat perubahan parameter lingkungan dan keterbatasan sarana.",
-            'pertanyaan' => "Solusi inovatif dan berkelanjutan yang paling tepat dirumuskan oleh peserta didik untuk mengatasi kendala tersebut adalah...",
+            'pertanyaan' => "Solusi inovatif dan berkelanjutan yang paling tepat dirumuskan oleh murid untuk mengatasi kendala tersebut adalah...",
             'options' => [
                 'A' => "Merekayasa pendekatan adaptif dengan memanfaatkan teknologi penunjang dan mendokumentasikan modifikasi prosedur secara sistematis.",
                 'B' => "Membatalkan seluruh kegiatan pembelajaran dan menunggu pergantian materi kurikulum.",
@@ -309,7 +309,7 @@ class CurriculumKnowledgeBase
             ],
             'correct' => 'A',
             'pembahasan' => "Pendekatan inovatif (Joyful & Mindful) menuntut adaptabilitas dan penalaran kritis untuk merekayasa solusi alternatif yang tetap patuh pada standar keselamatan dan mutu.",
-            'indikator' => "Disajikan kendala lingkungan, peserta didik mampu merumuskan solusi inovatif dan adaptif pada materi {$namaElemen}."
+            'indikator' => "Disajikan kendala lingkungan, murid mampu merumuskan solusi inovatif dan adaptif pada materi {$namaElemen}."
         ];
 
         return $soal;
@@ -329,14 +329,14 @@ class CurriculumKnowledgeBase
                 'pertanyaan' => "Uraikan prinsip mendasar dari {$sub1} dan jelaskan bagaimana Anda mengaplikasikannya dalam memecahkan masalah kontekstual pada {$sub2}!",
                 'kunci' => "Kriteria Jawaban Tuntas:\n1. Menyebutkan dan menjelaskan prinsip kunci {$sub1} secara runut dan logis.\n2. Memberikan contoh konkret penerapan pada konteks nyata/studi kasus {$sub2}.\n3. Menyertakan analisis dampak positif dari kepatuhan terhadap kaidah tersebut.",
                 'pedoman_penskoran' => "Skor 9-10: Penjelasan sangat mendalam, mencakup prinsip dan contoh aplikasi kontekstual yang akurat.\nSkor 6-8: Menjelaskan prinsip dengan baik namun contoh aplikasi masih bersifat umum.\nSkor 3-5: Hanya menyebutkan prinsip tanpa uraian penjelasan yang memadai.\nSkor 1-2: Jawaban tidak berfokus pada materi {$namaElemen}.",
-                'indikator' => "Peserta didik mampu menguraikan prinsip dasar materi {$sub1} dan merumuskan strategi aplikasinya secara analitis pada {$sub2}."
+                'indikator' => "Murid mampu menguraikan prinsip dasar materi {$sub1} dan merumuskan strategi aplikasinya secara analitis pada {$sub2}."
             ],
             [
                 'stimulus' => "Dalam pelaksanaan kendali mutu dan asesmen akhir pada kompetensi {$namaElemen}, evaluasi berkala diperlukan untuk menjamin keandalan hasil kerja.",
                 'pertanyaan' => "Jelaskan langkah-langkah sistematis yang Anda lakukan untuk menguji, memverifikasi, dan mendokumentasikan ketercapaian standar kompetensi pada materi {$namaElemen}!",
                 'kunci' => "Langkah kerja: 1) Penyiapan instrumen evaluasi terkalibrasi; 2) Pengujian parameter proses dan luaran; 3) Perbandingan hasil ukur terhadap rubrik KKTP/standar industri; 4) Dokumentasi pada logbook/laporan teknis.",
                 'pedoman_penskoran' => "Skor 9-10: Uraian langkah kerja sangat komprehensif, mencakup persiapan, pengujian, audit KKTP, dan pelaporan.\nSkor 6-8: Langkah kerja cukup lengkap namun kurang terinci pada tahap audit.\nSkor 3-5: Hanya menyebutkan 1-2 langkah sederhana.\nSkor 1-2: Jawaban tidak terstruktur.",
-                'indikator' => "Peserta didik dapat merumuskan prosedur verifikasi mutu dan pelaporan hasil kerja materi {$namaElemen}."
+                'indikator' => "Murid dapat merumuskan prosedur verifikasi mutu dan pelaporan hasil kerja materi {$namaElemen}."
             ]
         ];
     }
@@ -358,7 +358,7 @@ class CurriculumKnowledgeBase
                 'options' => $selected['options'],
                 'correct' => $selected['correct'] ?? 'A',
                 'pembahasan' => $selected['pembahasan'] ?? 'Pembahasan mengacu pada kaidah materi resmi.',
-                'indikator' => $selected['indikator'] ?? "Peserta didik memahami materi {$elemen} dengan tepat.",
+                'indikator' => $selected['indikator'] ?? "Murid memahami materi {$elemen} dengan tepat.",
             ];
         }
 
@@ -367,7 +367,7 @@ class CurriculumKnowledgeBase
         $mapelNama = is_object($mapel) ? $mapel->nama : (string)$mapel;
 
         return [
-            'stimulus' => "Dalam pengkajian materi {$sub} pada ruang lingkup {$elemen} ({$mapelNama}), peserta didik mengamati penerapan konsep berdasarkan prinsip kurikulum.",
+            'stimulus' => "Dalam pengkajian materi {$sub} pada ruang lingkup {$elemen} ({$mapelNama}), murid mengamati penerapan konsep berdasarkan prinsip kurikulum.",
             'pertanyaan' => "Simpulan teoretis yang paling akurat terkait karakteristik materi {$sub} adalah...",
             'options' => [
                 'A' => "Menerapkan prinsip ilmiah dan prosedur baku secara konsisten untuk menghasilkan capaian teruji.",
@@ -378,7 +378,7 @@ class CurriculumKnowledgeBase
             ],
             'correct' => 'A',
             'pembahasan' => "Setiap pembelajaran pada {$elemen} mewajibkan ketelitian, kepatuhan prosedur ilmiah, dan pembuktian empiris yang konsisten.",
-            'indikator' => "Peserta didik mampu menganalisis karakteristik utama {$sub} secara tepat."
+            'indikator' => "Murid mampu menganalisis karakteristik utama {$sub} secara tepat."
         ];
     }
 
@@ -398,17 +398,17 @@ class CurriculumKnowledgeBase
                 'pertanyaan' => $selected['pertanyaan'],
                 'kunci' => $selected['kunci'] ?? 'Rubrik acuan jawaban benar.',
                 'pedoman_penskoran' => $selected['pedoman_penskoran'] ?? 'Rubrik skor maksimal 10.',
-                'indikator' => $selected['indikator'] ?? "Peserta didik dapat menguraikan konsep {$elemen} secara analitis.",
+                'indikator' => $selected['indikator'] ?? "Murid dapat menguraikan konsep {$elemen} secara analitis.",
             ];
         }
 
         $mapelNama = is_object($mapel) ? $mapel->nama : (string)$mapel;
         return [
-            'stimulus' => "Dalam pelaksanaan tugas mandiri pada kompetensi {$elemen} ({$mapelNama}), peserta didik dituntut melakukan penalaran kritis.",
+            'stimulus' => "Dalam pelaksanaan tugas mandiri pada kompetensi {$elemen} ({$mapelNama}), murid dituntut melakukan penalaran kritis.",
             'pertanyaan' => "Jelaskan langkah-langkah komprehensif dalam mengkaji, menganalisis, dan memecahkan persoalan yang berkaitan dengan {$elemen}!",
             'kunci' => "Langkah kerja: 1) Identifikasi masalah dan pengumpulan data awal; 2) Penerapan teori dan formula/metode baku yang relevan; 3) Analisis pengujian dan verifikasi hasil; 4) Perumusan simpulan dan rekomendasi perbaikan.",
             'pedoman_penskoran' => "Rubrik Skor Maksimal 10:\n• Skor 9-10: Langkah-langkah sangat sistematis dan terperinci sesuai kaidah ilmu {$mapelNama}.\n• Skor 6-8: Langkah-langkah cukup runtut namun ada aspek pengujian yang terlewat.\n• Skor 3-5: Menjawab secara singkat tanpa penjelasan metodologis.\n• Skor 1-2: Jawaban tidak relevan.",
-            'indikator' => "Peserta didik mampu merumuskan langkah sistematis pemecahan masalah materi {$elemen}."
+            'indikator' => "Murid mampu merumuskan langkah sistematis pemecahan masalah materi {$elemen}."
         ];
     }
 
@@ -434,22 +434,113 @@ class CurriculumKnowledgeBase
         $materi = self::getMaterial($mapel, $namaElemen, $deskripsiCp, $fase);
         $mapelNama = is_object($mapel) ? $mapel->nama : (string)$mapel;
         $category = self::getSubjectCategory($mapelNama);
+        $sub = $materi->sub_materi ?? [];
+        $sub1 = $sub[0] ?? $namaElemen;
+        $sub2 = $sub[1] ?? ($sub[0] ?? $namaElemen);
 
-        // Ekstraksi kata kerja kompetensi dan konten materi nyata
-        $tp1Desc = "Peserta didik mampu menganalisis konsep kunci, prinsip kerja, dan struktur teoretis pada materi {$namaElemen} ({$mapelNama}) secara mendalam dan kritis.";
-        $tp1Konten = "Konsep dasar, kaidah keilmuan, dan terminologi standar materi {$namaElemen}.";
-        $tp1Keterampilan = "Penalaran kritis (Critical Thinking), observasi terstruktur, abstraksi, dan pemahaman konseptual.";
-        $tp1Sikap = "Kejujuran akademis, ketelitian, dan rasa ingin tahu ilmiah.";
-        $tp1Indikator = "1. Mampu menguraikan prinsip dasar materi {$namaElemen} dengan benar.\n2. Mengidentifikasi hubungan kausalitas dan variabel kunci pada {$namaElemen}.";
+        // Ekstraksi kata kerja kompetensi dan konten materi nyata sesuai rumpun mata pelajaran
+        switch ($category) {
+            case 'matematika':
+                $tp1Desc = "Murid mampu menganalisis konsep kunci, sifat matematis, dan kaidah formula pada materi {$namaElemen} ({$mapelNama}) secara bernalar kritis.";
+                $tp1Konten = "Kaidah matematis, definisi formal, sifat operasi, dan pemodelan dasar materi {$namaElemen}.";
+                $tp1Keterampilan = "Penalaran kuantitatif, manipulasi aljabar, pembuktian logis, dan representasi grafik/fungsi.";
+                $tp1Sikap = "Ketelitian, kejujuran penalaran, dan rasa ingin tahu ilmiah.";
+                $tp1Indikator = "1. Mampu menguraikan sifat dan formula esensial materi {$namaElemen} dengan benar.\n2. Mengidentifikasi variabel serta keterkaitan matematis pada studi kasus {$sub1}.";
 
-        $tp2Desc = "Peserta didik terampil menerapkan, memodelkan, dan mengevaluasi solusi pemecahan masalah kontekstual pada {$namaElemen} sesuai standar operasional yang berlaku.";
-        $tp2Konten = "Penerapan terapan, pengujian performa/analisis kasus, dan audit mutu pada {$namaElemen}.";
-        $tp2Keterampilan = "Problem solving, unjuk kerja aplikatif, manipulasi data presisi, dan komunikasi hasil kajian.";
-        $tp2Sikap = "Tanggung jawab profesional, kemandirian, gotong royong, dan adaptabilitas.";
-        $tp2Indikator = "1. Mampu merumuskan solusi terstruktur terhadap studi kasus materi {$namaElemen}.\n2. Melakukan evaluasi dan pengujian hasil kerja secara objektif dan akurat.";
+                $tp2Desc = "Murid terampil memodelkan masalah kontekstual, menerapkan algoritma perhitungan, dan membuktikan keabsahan hasil hitung pada materi {$namaElemen} ({$mapelNama}).";
+                $tp2Konten = "Pemodelan matematis, kalkulasi numerik terstruktur, dan validasi solusi pada {$namaElemen}.";
+                $tp2Keterampilan = "Pemecahan masalah matematis kontekstual, komputasi presisi, dan interpretasi data.";
+                $tp2Sikap = "Daya juang, kemandirian berpikir, dan ketepatan kalkulasi.";
+                $tp2Indikator = "1. Mampu merumuskan model matematika dari studi kasus nyata materi {$sub2}.\n2. Menyelesaikan langkah kalkulasi secara presisi dan memverifikasi solusi numerik.";
+                break;
+
+            case 'bahasa':
+                $tp1Desc = "Murid mampu menganalisis ide pokok, struktur teks retorika, kaidah kebahasaan, dan makna tersurat/tersirat pada materi {$namaElemen} ({$mapelNama}) secara kritis dan santun.";
+                $tp1Konten = "Struktur wacana, kaidah ejaan, diksi, konjungsi, dan konteks pragmatik materi {$namaElemen}.";
+                $tp1Keterampilan = "Literasi kritis, memirsa/menyimak mendalam, apresiasi sastra, dan dekonstruksi wacana.";
+                $tp1Sikap = "Kesantunan berbahasa, penghargaan terhadap keberagaman, dan integritas.";
+                $tp1Indikator = "1. Mampu membedah struktur dan ciri kebahasaan teks materi {$namaElemen} secara tepat.\n2. Menguraikan pesan moral dan makna kontekstual yang disampaikan penulis pada {$sub1}.";
+
+                $tp2Desc = "Murid terampil memproduksi teks fungsional/kreatif, menyunting draf karya bahasa, dan mengomunikasikan gagasan persuasif pada materi {$namaElemen} ({$mapelNama}).";
+                $tp2Konten = "Produksi teks autentik, teknik penyuntingan (editing), artikulasi retorika, dan presentasi gagasan {$namaElemen}.";
+                $tp2Keterampilan = "Keterampilan menulis terstruktur, berbicara di depan publik, dan berdialog kolaboratif.";
+                $tp2Sikap = "Percaya diri, empati komunikasi, dan keterbukaan menerima kritik sejawat.";
+                $tp2Indikator = "1. Mampu menyusun teks utuh dengan kohesi, koherensi, dan kaidah baku materi {$sub2}.\n2. Menyajikan gagasan lisan/tertulis secara runtut, logis, dan meyakinkan.";
+                break;
+
+            case 'sains':
+                $tp1Desc = "Murid mampu memahami konsep fenomena alam, keterkaitan hukum dasar sains, dan variabel ilmiah pada materi {$namaElemen} ({$mapelNama}) berbasis metode ilmiah.";
+                $tp1Konten = "Hukum sains dasar, prinsip ilmiah terverifikasi, dan terminologi standar materi {$namaElemen}.";
+                $tp1Keterampilan = "Observasi empiris, formulasi hipotesis, dan pemetaan variabel penelitian.";
+                $tp1Sikap = "Objektivitas ilmiah, kejujuran data, dan kesadaran pelestarian lingkungan.";
+                $tp1Indikator = "1. Mampu menjelaskan hukum sains pendukung fenomena materi {$namaElemen} secara runut.\n2. Menentukan variabel bebas, terikat, dan kontrol pada penyelidikan materi {$sub1}.";
+
+                $tp2Desc = "Murid terampil melaksanakan prosedur eksperimen/simulasi, mengolah data kuantitatif tabel/grafik, dan menarik simpulan ilmiah valid pada materi {$namaElemen} ({$mapelNama}).";
+                $tp2Konten = "Pengukuran presisi laboratorium, pengolahan ralat data, dan sintesis kesimpulan pada {$namaElemen}.";
+                $tp2Keterampilan = "Pengoperasian alat ukur sains terkalibrasi, analisis tren grafik, dan penalaran induktif.";
+                $tp2Sikap = "Kepatuhan K3 laboratorium, ketelitian pengamatan, dan gotong royong.";
+                $tp2Indikator = "1. Mengumpulkan data pengukuran ilmiah materi {$sub2} secara objektif tanpa manipulasi data.\n2. Menganalisis pola hubungan antarvariabel dan menyusun simpulan berbasis fakta empiris.";
+                break;
+
+            case 'informatika_ai':
+                $tp1Desc = "Murid mampu menganalisis abstraksi komputasional, arsitektur sistem perangkat lunak, dan logika data pada materi {$namaElemen} ({$mapelNama}) secara terstruktur.";
+                $tp1Konten = "Konsep berpikir komputasional, struktur data, komponen arsitektur, dan prinsip kerja materi {$namaElemen}.";
+                $tp1Keterampilan = "Dekomposisi sistem, penalaran algoritmik, dan pengenalan pola logika.";
+                $tp1Sikap = "Ketelitian logika, rasa ingin tahu eksploratif, dan integritas digital.";
+                $tp1Indikator = "1. Mampu menguraikan komponen arsitektur dan alur logika materi {$namaElemen} dengan jelas.\n2. Mengidentifikasi potensi galat (bug) atau celah logika sistem pada implementasi {$sub1}.";
+
+                $tp2Desc = "Murid terampil merancang diagram alir/pseudocode, mengimplementasikan algoritma efisien, dan memvalidasi hasil uji coba sistem pada materi {$namaElemen} ({$mapelNama}).";
+                $tp2Konten = "Perancangan algoritma, pengkodean/konfigurasi sistem, debugging, dan dokumentasi teknis {$namaElemen}.";
+                $tp2Keterampilan = "Problem solving komputasi, implementasi skrip/kode terstruktur, dan pengujian kasus uji (testing).";
+                $tp2Sikap = "Kolaborasi tim pengembang, ketangguhan menghadapi eror sistem, dan etika privasi data.";
+                $tp2Indikator = "1. Mampu merancang algoritma atau skrip kerja sistem materi {$sub2} yang efisien.\n2. Melakukan pengujian fungsionalitas dan mendokumentasikan hasil pengujian secara sistematis.";
+                break;
+
+            case 'sosial':
+                $tp1Desc = "Murid mampu mengkaji kronologi fakta historis, kausalitas sebab-akibat, dan telaah sumber dokumen pada materi {$namaElemen} ({$mapelNama}) secara kritis dan objektif.";
+                $tp1Konten = "Konteks sejarah, dinamika sosial-ekonomi, data empiris, dan prinsip kebangsaan materi {$namaElemen}.";
+                $tp1Keterampilan = "Kritik sumber sejarah/sosial, perbandingan perspektif, dan analisis komparatif.";
+                $tp1Sikap = "Nasionalisme, toleransi, kearifan historis, dan kepekaan sosial.";
+                $tp1Indikator = "1. Mampu menguraikan fakta kunci dan latar belakang timbulnya peristiwa/isu materi {$namaElemen}.\n2. Membandingkan berbagai sudut pandang yang berkembang di masyarakat terkait materi {$sub1}.";
+
+                $tp2Desc = "Murid terampil mengevaluasi dinamika sosial, menyusun argumen berbasis bukti data, dan merumuskan alternatif solusi berkeadilan pada materi {$namaElemen} ({$mapelNama}).";
+                $tp2Konten = "Kajian kebijakan, rekomendasi solusi problematika sosial, dan komitmen kewarganegaraan pada {$namaElemen}.";
+                $tp2Keterampilan = "Advokasi sosial, perumusan argumen berimbang, dan partisipasi demokratis.";
+                $tp2Sikap = "Tanggung jawab sosial, integritas moral Pancasila, dan kepedulian publik.";
+                $tp2Indikator = "1. Mampu menyusun telaah kritis berbasis bukti data terhadap persoalan materi {$sub2}.\n2. Merumuskan usulan tindakan nyata yang solutif dan menjunjung keadilan sosial.";
+                break;
+
+            case 'seni_olahraga':
+                $tp1Desc = "Murid mampu menganalisis kaidah anatomis/biomekanika gerak, unsur estetika artistik, dan tahapan teknik dasar pada materi {$namaElemen} ({$mapelNama}).";
+                $tp1Konten = "Kaidah biomekanika, teori musik/tari/rupa, pencegahan cedera, dan prinsip komposisi materi {$namaElemen}.";
+                $tp1Keterampilan = "Observasi kinestetik/artistik, analisis koreksi gerak/karya, dan apresiasi rasa.";
+                $tp1Sikap = "Disiplin latihan, apresiasi keindahan, dan sportivitas.";
+                $tp1Indikator = "1. Mampu mendeskripsikan tahapan teknik gerak/estetika materi {$namaElemen} dengan benar.\n2. Mengidentifikasi kesalahan gerak/teknik dan langkah penyesuaian yang tepat pada {$sub1}.";
+
+                $tp2Desc = "Murid terampil mempraktikkan kombinasi gerak/karya secara harmonis, mengevaluasi unjuk kerja diri, dan menjunjung sportivitas pada materi {$namaElemen} ({$mapelNama}).";
+                $tp2Konten = "Eksekusi gerak terukur, penciptaan karya ekspresif, uji performa, dan etika bermain pada {$namaElemen}.";
+                $tp2Keterampilan = "Koordinasi motorik, penghayatan irama/komposisi, dan kepemimpinan di lapangan.";
+                $tp2Sikap = "Sportivitas tinggi, daya juang pantang menyerah, dan saling menghargai antarmurid.";
+                $tp2Indikator = "1. Mempraktikkan rangkaian teknik materi {$sub2} sesuai standar keamanan dan kaidah estetika.\n2. Menunjukkan sportivitas dan kerjasama harmonis selama unjuk kerja.";
+                break;
+
+            default: // kejuruan (SMK)
+                $tp1Desc = "Murid mampu menganalisis prinsip kerja komponen, alur diagnosis SOP, dan regulasi K3LH pada materi {$namaElemen} ({$mapelNama}) sesuai standar industri.";
+                $tp1Konten = "Prinsip kerja mesin/sistem/transaksi, regulasi K3LH, spesifikasi alat, dan SOP industri materi {$namaElemen}.";
+                $tp1Keterampilan = "Diagnosis teknis, pembacaan manual kerja (service book), dan inspeksi keselamatan.";
+                $tp1Sikap = "Kepatuhan SOP, tanggung jawab profesional, dan budaya kerja 5R.";
+                $tp1Indikator = "1. Mampu menguraikan prinsip operasional dan spesifikasi komponen materi {$namaElemen}.\n2. Menjelaskan urutan langkah kerja standar dan protokol pencegahan kecelakaan kerja pada {$sub1}.";
+
+                $tp2Desc = "Murid terampil melaksanakan prosedur pengerjaan/servis/produksi, mengukur toleransi teknis dengan alat ukur presisi, dan menguji mutu akhir pada materi {$namaElemen} ({$mapelNama}).";
+                $tp2Konten = "Pengerjaan benda kerja/servis/pembukuan, pengukuran toleransi, audit mutu, dan uji fungsi {$namaElemen}.";
+                $tp2Keterampilan = "Penggunaan perkakas/instrumen ukur presisi, penanganan masalah teknis, dan verifikasi kualitas.";
+                $tp2Sikap = "Ketelitian tinggi, kemandirian kerja bengkel, dan orientasi kepuasan pelanggan.";
+                $tp2Indikator = "1. Melaksanakan pekerjaan materi {$sub2} secara aman, presisi, dan sesuai SOP industri.\n2. Melakukan pengujian fungsi dan mencatat data hasil uji pada lembar kerja (Job Sheet).";
+                break;
+        }
 
         // Sintaks PEDATTI kontekstual
-        $kegiatanAtp = "Alur PEDATTI ({$namaElemen}): (1) Pelajari: Orientasi konsep dasar & stimulasi fenomena riil materi {$namaElemen}, (2) Dalami: Eksplorasi literatur dan bedah kasus kelompok, (3) Terapkan: Unjuk kerja/pemodelan solusi praktis terbimbing, (4) Tularkan: Presentasi pleno dan peer review hasil analisis, (5) Inovasi: Asesmen sumatif pemecahan masalah HOTS dan refleksi mendalam.";
+        $kegiatanAtp = "Alur PEDATTI ({$namaElemen}): (1) Pelajari: Orientasi konsep dasar & stimulasi fenomena riil materi {$namaElemen}, (2) Dalami: Eksplorasi literatur dan bedah kasus kelompok murid, (3) Terapkan: Unjuk kerja/pemodelan solusi praktis terbimbing oleh murid, (4) Tularkan: Presentasi pleno dan peer review hasil analisis antarmurid, (5) Inovasi: Asesmen sumatif pemecahan masalah HOTS dan refleksi mendalam.";
 
         $sumberBelajar = "Buku Teks {$mapelNama} Kemendikdasmen 2025, Modul Ajar {$namaElemen}, Dokumentasi Regulasi BSKAP 046/2025, dan Referensi Industri/Akademis Terkait.";
 
@@ -478,7 +569,7 @@ class CurriculumKnowledgeBase
     }
 
     /**
-     * Mengambil konteks Lembar Kerja Peserta Didik (LKPD) yang terhubung erat ke CP, ATP, dan Database Materi.
+     * Mengambil konteks Lembar Kerja Murid (LKPD) yang terhubung erat ke CP, ATP, dan Database Materi.
      */
     public static function getLkpdContext(mixed $mapel, string $namaElemen, ?string $deskripsiCp = null, ?Fase $fase = null): array
     {
@@ -497,8 +588,8 @@ class CurriculumKnowledgeBase
         // Tentukan stimulus, petunjuk, alat/bahan, dan rubrik sesuai domain mapel
         switch ($category) {
             case 'matematika':
-                $stimulus = "Dalam kehidupan sehari-hari dan pemecahan masalah sains/teknologi, konsep {$namaElemen} (khususnya materi {$sub1} dan {$sub2}) memegang peranan krusial. Peserta didik dihadapkan pada situasi kontekstual yang memerlukan pemodelan matematis, abstraksi kuantitatif, kalkulasi presisi, serta pembuktian logis agar keputusan dan solusi yang diambil akurat dan terverifikasi.";
-                $petunjuk = "1. Bentuk kelompok kerja kolaboratif beranggotakan 3-4 peserta didik.\n2. Cermati permasalahan kontekstual dan identifikasi variabel yang diketahui maupun ditanyakan.\n3. Susun model matematika, lakukan kalkulasi sistematis, dan uji keabsahan hasil perhitungan.\n4. Diskusikan tafsiran hasil dalam kehidupan nyata dan konsultasikan dengan guru pembimbing jika menemui hambatan.";
+                $stimulus = "Dalam kehidupan sehari-hari dan pemecahan masalah sains/teknologi, konsep {$namaElemen} (khususnya materi {$sub1} dan {$sub2}) memegang peranan krusial. Murid dihadapkan pada situasi kontekstual yang memerlukan pemodelan matematis, abstraksi kuantitatif, kalkulasi presisi, serta pembuktian logis agar keputusan dan solusi yang diambil akurat dan terverifikasi.";
+                $petunjuk = "1. Bentuk kelompok kerja kolaboratif beranggotakan 3-4 murid.\n2. Cermati permasalahan kontekstual dan identifikasi variabel yang diketahui maupun ditanyakan.\n3. Susun model matematika, lakukan kalkulasi sistematis, dan uji keabsahan hasil perhitungan.\n4. Diskusikan tafsiran hasil dalam kehidupan nyata dan konsultasikan dengan guru pembimbing jika menemui hambatan.";
                 $alatBahan = "Buku Teks Matematika Fase {$faseKode}, Kertas Berpetak/Milimeter Block, Mistar/Busur Geometri, Kalkulator Saintifik / Software Grafis Dinamis (GeoGebra/Spreadsheet), Alat Tulis.";
                 $rubrik = "Rubrik Penilaian Proses (Pemahaman Konsep & Penalaran Matematis: 35%)\nRubrik Penilaian Hasil Kerja (Akurasi Model & Kebenaran Kalkulasi: 45%)\nRubrik Refleksi & Komunikasi (Penyampaian Simpulan & Etika Diskusi: 20%)";
                 $stages = [
@@ -527,7 +618,7 @@ class CurriculumKnowledgeBase
                 break;
 
             case 'bahasa':
-                $stimulus = "Dalam komunikasi lisan dan tulisan, penguasaan struktur teks, kaidah kebahasaan, dan konteks pragmatik pada materi {$namaElemen} (khususnya kajian {$sub1} dan {$sub2}) menjadi sarana penting dalam menyampaikan ide secara bernalar kritis, santun, dan meyakinkan. Peserta didik disajikan teks/wacana autentik untuk dianalisis dan diproduksi sesuai kaidah bahasa baku.";
+                $stimulus = "Dalam komunikasi lisan dan tulisan, penguasaan struktur teks, kaidah kebahasaan, dan konteks pragmatik pada materi {$namaElemen} (khususnya kajian {$sub1} dan {$sub2}) menjadi sarana penting dalam menyampaikan ide secara bernalar kritis, santun, dan meyakinkan. Murid disajikan teks/wacana autentik untuk dianalisis dan diproduksi sesuai kaidah bahasa baku.";
                 $petunjuk = "1. Bentuk kelompok diskusi literasi beranggotakan 3-4 orang.\n2. Baca teks autentik dengan saksama dan tandai kosakata esensial serta struktur kalimatnya.\n3. Diskusikan makna tersurat maupun tersirat dan susun tanggapan kritis secara kolaboratif.\n4. Mintalah masukan dari rekan sejawat (peer review) dan bimbingan guru.";
                 $alatBahan = "Buku Teks Bahasa Fase {$faseKode}, Wacana/Artikel Autentik Terpilih, KBBI/Kamus Daring, Lembar Kerja Analisis Teks, Alat Tulis.";
                 $rubrik = "Rubrik Penilaian Membaca/Memirsa (Ketepatan Analisis Struktur & Ciri Kebahasaan: 35%)\nRubrik Penilaian Menulis/Berbicara (Koherensi, Diksi, dan Kreativitas Gagasan: 45%)\nRubrik Penilaian Sikap (Apresiasi Bahasa & Kerjasama Kelompok: 20%)";
@@ -557,7 +648,7 @@ class CurriculumKnowledgeBase
                 break;
 
             case 'sosial':
-                $stimulus = "Dalam kehidupan bermasyarakat, berbangsa, dan bernegara, pemahaman terhadap fenomena, nilai, dan dinamika materi {$namaElemen} (khususnya materi {$sub1} dan {$sub2}) menumbuhkan kesadaran historis, sosial, dan kewarganegaraan. Peserta didik mengkaji sumber data/studi kasus untuk membangun argumen yang berimbang dan berkeadilan.";
+                $stimulus = "Dalam kehidupan bermasyarakat, berbangsa, dan bernegara, pemahaman terhadap fenomena, nilai, dan dinamika materi {$namaElemen} (khususnya materi {$sub1} dan {$sub2}) menumbuhkan kesadaran historis, sosial, dan kewarganegaraan. Murid mengkaji sumber data/studi kasus untuk membangun argumen yang berimbang dan berkeadilan.";
                 $petunjuk = "1. Bentuk kelompok telaah kasus sosial beranggotakan 3-4 orang.\n2. Cermati sumber informasi/fakta sosial dan bandingkan berbagai sudut pandang yang ada.\n3. Diskusikan solusi atas problematika sosial dengan mengedepankan nilai persatuan dan integritas.\n4. Paparkan kesimpulan kelompok dan mintalah umpan balik.";
                 $alatBahan = "Buku Teks Ilmu Sosial Fase {$faseKode}, Kliping Berita/Data Statistik BPS/Dokumen Sejarah, Peta/Infografis Tematik, Lembar Analisis Kasus, Alat Tulis.";
                 $rubrik = "Rubrik Penilaian Penguasaan Fakta & Kausalitas Sejarah/Sosial (35%)\nRubrik Penilaian Kritis & Solusi Pemecahan Masalah (45%)\nRubrik Penilaian Karakter Kebangsaan & Sikap Toleransi (20%)";
@@ -587,7 +678,7 @@ class CurriculumKnowledgeBase
                 break;
 
             case 'sains':
-                $stimulus = "Pengamatan terhadap gejala alam dan teknologi menuntut pemahaman ilmiah berbasis hukum serta prinsip materi {$namaElemen} (khususnya {$sub1} dan {$sub2}). Melalui penyelidikan ilmiah terstruktur, peserta didik dilatih mengumpulkan data empiris, menganalisis variabel penelitian, serta menguji hipotesis secara objektif.";
+                $stimulus = "Pengamatan terhadap gejala alam dan teknologi menuntut pemahaman ilmiah berbasis hukum serta prinsip materi {$namaElemen} (khususnya {$sub1} dan {$sub2}). Melalui penyelidikan ilmiah terstruktur, murid dilatih mengumpulkan data empiris, menganalisis variabel penelitian, serta menguji hipotesis secara objektif.";
                 $petunjuk = "1. Bentuk kelompok praktikum sains beranggotakan 3-4 orang dengan pembagian peran yang jelas.\n2. Patuhi keselamatan kerja laboratorium (K3) dan persiapkan instrumen pengukuran.\n3. Lakukan pengamatan/percobaan secara teliti, catat data hasil ukur tanpa memanipulasi angka.\n4. Olah data ke dalam tabel/grafik dan rumuskan simpulan ilmiah.";
                 $alatBahan = "Buku Panduan Eksperimen Sains Fase {$faseKode}, Kit Percobaan/Alat Ukur Sains Terkalibrasi, Lembar Observasi Data Praktikum, APD Praktikum (Jas Lab/Sarung Tangan), Alat Tulis.";
                 $rubrik = "Rubrik Keterampilan Proses Sains & K3 Laboratorium (35%)\nRubrik Analisis Data & Validitas Simpulan Eksperimen (45%)\nRubrik Sikap Ilmiah (Jujur, Teliti, & Bekerjasama: 20%)";
@@ -617,7 +708,7 @@ class CurriculumKnowledgeBase
                 break;
 
             case 'informatika_ai':
-                $stimulus = "Dalam transformasi teknologi dan era komputasi modern, penguasaan kompetensi materi {$namaElemen} (khususnya {$sub1} dan {$sub2}) menjadi fondasi pengembangan solusi perangkat lunak dan keandalan sistem digital. Peserta didik ditantang memecahkan permasalahan nyata melalui berpikir komputasional, perancangan algoritma efisien, dan penerapan standar teknologi terkini.";
+                $stimulus = "Dalam transformasi teknologi dan era komputasi modern, penguasaan kompetensi materi {$namaElemen} (khususnya {$sub1} dan {$sub2}) menjadi fondasi pengembangan solusi perangkat lunak dan keandalan sistem digital. Murid ditantang memecahkan permasalahan nyata melalui berpikir komputasional, perancangan algoritma efisien, dan penerapan standar teknologi terkini.";
                 $petunjuk = "1. Bentuk tim pengembang proyek (developer team) beranggotakan 3-4 orang.\n2. Pahami spesifikasi kebutuhan kasus (use case) dan susun dekomposisi masalah komputasi.\n3. Rancang logika alur, implementasikan algoritma/kode, dan lakukan pengujian sistem (debugging/testing).\n4. Dokumentasikan arsitektur solusi dan lakukan presentasi kode (code review).";
                 $alatBahan = "PC/Laptop dengan Editor/IDE Pemrograman, Emulator/Simulator Lingkungan Sistem, Repositori/Platform Kolaborasi Kode, Lembar Desain Algoritma, Koneksi Jaringan.";
                 $rubrik = "Rubrik Berpikir Komputasional & Perancangan Arsitektur (35%)\nRubrik Implementasi & Akurasi Pengujian Sistem (45%)\nRubrik Dokumentasi Teknis & Kerjasama Tim (20%)";
@@ -647,7 +738,7 @@ class CurriculumKnowledgeBase
                 break;
 
             case 'seni_olahraga':
-                $stimulus = "Apresiasi estetika, penghayatan rasa, dan penguasaan teknik gerak tubuh pada materi {$namaElemen} (khususnya materi {$sub1} dan {$sub2}) menumbuhkan kebugaran, kedisiplinan gerak, serta kepekaan artistik yang harmonis. Peserta didik dilatih mengeksplorasi teknik dasar dan mempraktikkannya dalam unjuk keterampilan yang proporsional.";
+                $stimulus = "Apresiasi estetika, penghayatan rasa, dan penguasaan teknik gerak tubuh pada materi {$namaElemen} (khususnya materi {$sub1} dan {$sub2}) menumbuhkan kebugaran, kedisiplinan gerak, serta kepekaan artistik yang harmonis. Murid dilatih mengeksplorasi teknik dasar dan mempraktikkannya dalam unjuk keterampilan yang proporsional.";
                 $petunjuk = "1. Bentuk kelompok latihan gerak/karya beranggotakan 3-4 orang.\n2. Lakukan pemanasan terstruktur (stretching/vocal/warming-up) demi mencegah cedera.\n3. Lakukan eksplorasi gerak/karya secara bertahap dengan saling mengamati dan memberi umpan balik konstruktif.\n4. Catat capaian latihan pada lembar unjuk kerja dan lakukan pendinginan.";
                 $alatBahan = "Buku Panduan Praktik PJOK/Seni Fase {$faseKode}, Sarana Olahraga/Instrumen Musik/Media Seni Rupa Standar, Pakaian Olahraga/Praktik, Rubrik Observasi Gerak, Alat Dokumentasi.";
                 $rubrik = "Rubrik Penguasaan Teknik Dasar & Kepatuhan Prosedur (35%)\nRubrik Unjuk Kerja, Ketangkasan & Harmonisasi Penampilan (45%)\nRubrik Sportivitas, Disiplin, dan Penghayatan Nilai (20%)";

@@ -148,7 +148,7 @@
 
                     <h4><i class="bi bi-exclamation-triangle"></i> 5. Pembatasan Tanggung Jawab</h4>
                     <p>
-                        Layanan disediakan "sebagaimana adanya" (*as is*). Meskipun sistem kami dirancang dengan akurasi tinggi mengikuti kaidah kurikulum resmi, pendidik tetap disarankan untuk melakukan penelaahan (*review*) dan penyesuaian kontekstual sesuai karakteristik peserta didik dan sarana prasarana sekolah masing-masing.
+                        Layanan disediakan "sebagaimana adanya" (*as is*). Meskipun sistem kami dirancang dengan akurasi tinggi mengikuti kaidah kurikulum resmi, pendidik tetap disarankan untuk melakukan penelaahan (*review*) dan penyesuaian kontekstual sesuai karakteristik murid dan sarana prasarana sekolah masing-masing.
                     </p>
 
                     <h4><i class="bi bi-arrow-repeat"></i> 6. Perubahan Ketentuan</h4>

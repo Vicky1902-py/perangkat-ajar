@@ -118,9 +118,9 @@
             <td>{{ $modulAjar->sarana_prasarana ?? '-' }}</td>
         </tr>
         <tr>
-            <td><strong>Target Peserta Didik</strong></td>
+            <td><strong>Target Murid</strong></td>
             <td>:</td>
-            <td>{{ $modulAjar->target_peserta_didik ?? 'Peserta didik reguler' }}</td>
+            <td>{{ $modulAjar->target_peserta_didik ?? 'Murid reguler' }}</td>
         </tr>
     </table>
 

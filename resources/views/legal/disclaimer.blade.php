@@ -134,7 +134,7 @@
 
                     <h4><i class="bi bi-sliders"></i> 3. Penyesuaian Kontekstual oleh Guru</h4>
                     <p>
-                        Guru dan satuan pendidikan memiliki kemerdekaan profesional untuk mengadaptasi, menyunting, menambah, atau mengontekstualisasikan modul ajar, rubrik asesmen, dan LKPD yang dihasilkan oleh sistem generator sesuai dengan karakteristik peserta didik, potensi lokal daerah, serta kesiapan fasilitas praktik sekolah masing-masing.
+                        Guru dan satuan pendidikan memiliki kemerdekaan profesional untuk mengadaptasi, menyunting, menambah, atau mengontekstualisasikan modul ajar, rubrik asesmen, dan LKPD yang dihasilkan oleh sistem generator sesuai dengan karakteristik murid, potensi lokal daerah, serta kesiapan fasilitas praktik sekolah masing-masing.
                     </p>
 
                     <h4><i class="bi bi-link-45deg"></i> 4. Tautan Eksternal & Iklan Pihak Ketiga</h4>

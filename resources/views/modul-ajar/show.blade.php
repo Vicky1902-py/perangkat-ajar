@@ -80,8 +80,8 @@
                 <div class="text-secondary small">{{ $modulAjar->sarana_prasarana ?? '-' }}</div>
             </div>
             <div class="col-md-6">
-                <div class="text-muted small">Target Peserta Didik</div>
-                <div class="text-secondary small">{{ $modulAjar->target_peserta_didik ?? 'Peserta didik reguler' }}</div>
+                <div class="text-muted small">Target Murid</div>
+                <div class="text-secondary small">{{ $modulAjar->target_peserta_didik ?? 'Murid reguler' }}</div>
             </div>
         </div>
     </div>
@@ -179,7 +179,7 @@
             </div>
             <div class="col-md-6">
                 <div class="p-3 bg-light rounded-3 border">
-                    <div class="fw-bold small text-dark mb-1"><i class="bi bi-people me-1"></i> Refleksi Peserta Didik:</div>
+                    <div class="fw-bold small text-dark mb-1"><i class="bi bi-people me-1"></i> Refleksi Murid:</div>
                     <div class="small text-secondary">{!! nl2br(e($modulAjar->refleksi_siswa)) !!}</div>
                 </div>
             </div>
