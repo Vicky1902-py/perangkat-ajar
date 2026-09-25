@@ -442,5 +442,8 @@ class KurikulumMateriSeeder extends Seeder
                 );
             }
         }
+
+        // Jalankan populasi materi mendalam untuk seluruh 526 elemen CP pada 120 mata pelajaran
+        \Illuminate\Support\Facades\Artisan::call('curriculum:populate-materials');
     }
 }

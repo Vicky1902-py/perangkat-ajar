@@ -119,14 +119,80 @@ class CurriculumKnowledgeBase
     /**
      * Menghasilkan daftar sub materi logis berdasarkan CP dan domain mapel.
      */
-    private static function generateSubMateriList(string $category, string $mapelNama, string $namaElemen, string $cpText): array
+    public static function generateSubMateriList(string $category, string $mapelNama, string $namaElemen, string $cpText): array
     {
-        return [
-            "Pondasi Konseptual & Definisi $namaElemen",
-            "Prinsip, Kaidah, dan Analisis Struktur $namaElemen",
-            "Penerapan Prosedural & Pemecahan Masalah $mapelNama",
-            "Verifikasi Hasil, Evaluasi Kritis, dan Standar Mutu $namaElemen",
-        ];
+        // 1. Bersihkan teks pembuka CP standar
+        $clean = preg_replace('/^(Pada akhir fase [A-F],?\s*)?peserta didik\s+(mampu|dapat|memahami|terampil|menguasai)\s+/iu', '', trim($cpText));
+        
+        // 2. Pisahkan berdasarkan tanda koma, titik koma, kata hubung 'serta', 'dan'
+        $parts = preg_split('/[,;]|\s+serta\s+|\s+dan\s+/iu', $clean);
+        $extracted = [];
+        
+        foreach ($parts as $p) {
+            $p = trim($p);
+            $p = preg_replace('/^(mampu|dapat|memahami|terampil|menguasai|melakukan|menganalisis|menerapkan|menjelaskan|merancang|membuat)\s+/iu', '', $p);
+            $p = trim($p, " \t\n\r\0\x0B.");
+            if (strlen($p) >= 6 && strlen($p) <= 80) {
+                $extracted[] = Str::title($p);
+            }
+        }
+
+        $extracted = array_values(array_unique($extracted));
+
+        // Jika berhasil mendapatkan frasa spesifik dari regulasi CP
+        if (count($extracted) >= 2) {
+            $subMateri = [];
+            $subMateri[] = "Konsep Dasar & Prinsip " . ($extracted[0] ?? $namaElemen);
+            $subMateri[] = "Prosedur & Analisis " . ($extracted[1] ?? ($extracted[0] ?? $namaElemen));
+            $subMateri[] = "Penerapan Terapan " . ($extracted[2] ?? ($extracted[0] ?? $namaElemen));
+            $subMateri[] = "Pengujian Mutu & Evaluasi " . ($extracted[3] ?? ($extracted[1] ?? $namaElemen));
+            return $subMateri;
+        }
+
+        // Fallback domain-spesifik
+        if ($category === 'matematika') {
+            return [
+                "Definisi & Sifat Matematis $namaElemen",
+                "Manipulasi Aljabar & Penurunan Rumus $namaElemen",
+                "Pemodelan Masalah Kontekstual $namaElemen",
+                "Penyelesaian Numerik & Analisis Hasil $namaElemen"
+            ];
+        } elseif ($category === 'informatika_ai') {
+            return [
+                "Arsitektur & Konsep Komputasi $namaElemen",
+                "Algoritma, Sintaks, & Logika Pemrograman $namaElemen",
+                "Implementasi Sistem & Debugging Kode $namaElemen",
+                "Pengujian Performa & Keamanan Komputasi $namaElemen"
+            ];
+        } elseif ($category === 'bahasa') {
+            return [
+                "Fungsi Komunikatif & Struktur Teks $namaElemen",
+                "Kaidah Kebahasaan, Diksi, & Sintaksis $namaElemen",
+                "Teknik Analisis Makna & Inferensi Wacana $namaElemen",
+                "Produksi Wacana Kritis & Presentasi Ilmiah $namaElemen"
+            ];
+        } elseif ($category === 'sosial') {
+            return [
+                "Perspektif Historis & Dinamika Sosial $namaElemen",
+                "Analisis Kausalitas & Norma Konstitusional $namaElemen",
+                "Kajian Kritis Isu Masyarakat & Kebangsaan $namaElemen",
+                "Refleksi Moral & Perumusan Gagasan Solutif $namaElemen"
+            ];
+        } elseif ($category === 'sains') {
+            return [
+                "Hukum Alam & Fenomena Ilmiah $namaElemen",
+                "Perumusan Hipotesis & Variabel Eksperimen $namaElemen",
+                "Analisis Data Pengukuran & Bukti Empiris $namaElemen",
+                "Simpulan Saintifik & Dampak Lingkungan $namaElemen"
+            ];
+        } else {
+            return [
+                "Standar Teknis & Regulasi K3LH $namaElemen",
+                "Standard Operating Procedure (SOP) Praktik $namaElemen",
+                "Troubleshooting & Perbaikan Gangguan Sistem $namaElemen",
+                "Kendali Mutu (Quality Control) & Hasil Industri $namaElemen"
+            ];
+        }
     }
 
     /**
@@ -159,28 +225,33 @@ class CurriculumKnowledgeBase
     private static function generateBankSoalPg(string $category, string $mapelNama, string $namaElemen, array $subMateri, string $cpText): array
     {
         $topikUtama = $namaElemen;
+        $sub1 = $subMateri[0] ?? $namaElemen;
+        $sub2 = $subMateri[1] ?? ($subMateri[0] ?? $namaElemen);
+        $sub3 = $subMateri[2] ?? ($subMateri[0] ?? $namaElemen);
+        $sub4 = $subMateri[3] ?? ($subMateri[1] ?? $namaElemen);
+
         $soal = [];
 
-        // Soal 1 (L1 / Pemahaman Konsep)
+        // Soal 1 (L1 / C1-C2 - Konsep Dasar)
         $soal[] = [
-            'stimulus' => "Dalam mempelajari kompetensi {$namaElemen} pada mata pelajaran {$mapelNama}, peserta didik menganalisis definisi esensial dan kaidah pokok materi.",
-            'pertanyaan' => "Pernyataan yang paling tepat mendeskripsikan karakteristik utama dari {$namaElemen} berdasarkan regulasi kurikulum adalah...",
+            'stimulus' => "Dalam pembelajaran kompetensi {$namaElemen} pada mata pelajaran {$mapelNama}, peserta didik menganalisis definisi esensial dan kaidah pokok terkait {$sub1}.",
+            'pertanyaan' => "Pernyataan yang paling tepat mendeskripsikan prinsip utama dari {$sub1} berdasarkan regulasi kurikulum adalah...",
             'options' => [
-                'A' => "Penerapan prinsip konseptual dan prosedur sistematis untuk mencapai pemahaman mendalam pada {$namaElemen}.",
-                'B' => "Penggunaan estimasi acak tanpa memverifikasi data dan teori dasar.",
+                'A' => "Penerapan konsep fundamental dan prosedur sistematis untuk mencapai pemahaman mendalam pada {$namaElemen}.",
+                'B' => "Penggunaan estimasi acak tanpa memverifikasi data dan teori dasar keilmuan.",
                 'C' => "Pengabaian kaidah keselamatan dan standar teknis yang telah ditetapkan.",
                 'D' => "Pemberian asumsi subjektif tanpa pembuktian empiris maupun logis.",
                 'E' => "Peniruan langkah kerja tanpa memahami fungsi dan tujuan setiap tahapan."
             ],
             'correct' => 'A',
             'pembahasan' => "Pembelajaran mendalam (Deep Learning) pada {$namaElemen} menekankan penguasaan prinsip konseptual yang diiringi penerapan prosedur sistematis berbasis bukti empiris dan standar baku.",
-            'indikator' => "Disajikan konsep dasar {$namaElemen}, peserta didik mampu mengidentifikasi karakteristik dan prinsip pokok materi dengan tepat."
+            'indikator' => "Disajikan konsep dasar {$namaElemen}, peserta didik mampu mengidentifikasi karakteristik dan prinsip pokok {$sub1} dengan tepat."
         ];
 
-        // Soal 2 (L2 / Penerapan Prosedural)
+        // Soal 2 (L2 / C3 - Prosedural)
         $soal[] = [
-            'stimulus' => "Pada saat melaksanakan tahapan kerja terkait materi {$subMateri[1]}, seorang peserta didik menemukan deviasi antara hasil analisis dengan standar target kompetensi.",
-            'pertanyaan' => "Tindakan metodis pertama yang paling tepat untuk menginvestigasi sumber deviasi tersebut adalah...",
+            'stimulus' => "Pada saat melaksanakan tahapan kerja terkait materi {$sub2}, seorang peserta didik menemukan deviasi antara hasil analisis dengan standar target kompetensi.",
+            'pertanyaan' => "Tindakan metodis pertama yang paling tepat untuk menginvestigasi sumber deviasi pada {$sub2} adalah...",
             'options' => [
                 'A' => "Melakukan penelusuran kembali (traceability) terhadap parameter awal dan instrumen yang digunakan sesuai prosedur baku.",
                 'B' => "Mengubah data akhir secara manual agar tampak sesuai dengan standar yang diharapkan.",
@@ -190,13 +261,13 @@ class CurriculumKnowledgeBase
             ],
             'correct' => 'A',
             'pembahasan' => "Prosedur ilmiah dan profesional menuntut penelusuran kembali (traceability) variabel dan instrumen ukur untuk menemukan akar penyebab masalah secara transparan dan akuntabel.",
-            'indikator' => "Disajikan skenario terjadinya deviasi hasil kerja, peserta didik dapat menentukan langkah investigasi prosedural yang tepat."
+            'indikator' => "Disajikan skenario terjadinya deviasi hasil kerja, peserta didik dapat menentukan langkah investigasi prosedural pada {$sub2} secara tepat."
         ];
 
-        // Soal 3 (L3 / Analisis Kritis HOTS)
+        // Soal 3 (L3 / C4 - Analitis & Pemecahan Masalah)
         $soal[] = [
-            'stimulus' => "Sebuah tim kerja merancang proyek integrasi {$topikUtama} guna menyelesaikan tantangan efisiensi pada {$mapelNama}. Dalam pelaksanaannya, tim harus menyeimbangkan antara kecepatan pengerjaan dan akurasi mutu.",
-            'pertanyaan' => "Strategi optimasi yang paling rasional dan berdaya guna tinggi untuk diterapkan adalah...",
+            'stimulus' => "Sebuah tim kerja merancang proyek integrasi {$sub3} guna menyelesaikan tantangan efisiensi pada {$mapelNama}. Dalam pelaksanaannya, tim harus menyeimbangkan antara kecepatan pengerjaan dan akurasi mutu.",
+            'pertanyaan' => "Strategi optimasi yang paling rasional dan berdaya guna tinggi untuk diterapkan pada tahapan {$sub3} adalah...",
             'options' => [
                 'A' => "Menerapkan standarisasi alur kerja (workflow) dengan titik kendali mutu berkala (checkpoint audit) pada setiap fase kritis.",
                 'B' => "Mempercepat durasi pengerjaan dengan meniadakan tahap pengujian dan verifikasi data.",
@@ -206,7 +277,39 @@ class CurriculumKnowledgeBase
             ],
             'correct' => 'A',
             'pembahasan' => "Keseimbangan antara produktivitas dan kualitas dicapai melalui standarisasi alur kerja terstruktur yang dilengkapi pos pemeriksaan (quality checkpoints) pada tahapan-tahapan penting.",
-            'indikator' => "Disajikan dilema efisiensi kerja proyek, peserta didik mampu merumuskan strategi optimasi alur kerja berbasis kendali mutu terpadu."
+            'indikator' => "Disajikan dilema efisiensi kerja proyek, peserta didik mampu merumuskan strategi optimasi alur kerja berbasis kendali mutu pada {$sub3}."
+        ];
+
+        // Soal 4 (L2 / C3 - Penerapan Standar Mutu)
+        $soal[] = [
+            'stimulus' => "Dalam pelaksanaan evaluasi mutu kerja pada materi {$sub4}, peserta didik diwajibkan melakukan validasi kesesuaian antara proses pelaksanaan dengan standar target.",
+            'pertanyaan' => "Langkah pengujian yang paling efektif untuk memastikan bahwa luaran dari {$sub4} telah memenuhi kriteria keberhasilan adalah...",
+            'options' => [
+                'A' => "Melakukan pengukuran terstandar menggunakan instrumen kalibrasi dan membandingkannya terhadap rubrik KKTP resmi.",
+                'B' => "Mengandalkan perkiraan kasat mata tanpa melakukan pencatatan metrik terukur.",
+                'C' => "Meminta persetujuan tanpa melampirkan bukti fisik atau portofolio hasil pengujian.",
+                'D' => "Menilai hasil hanya berdasarkan kecepatan waktu penyelesaian semata.",
+                'E' => "Menyamakan hasil dengan kelompok lain tanpa memeriksa keaslian data sendiri."
+            ],
+            'correct' => 'A',
+            'pembahasan' => "Validasi mutu yang valid mewajibkan penggunaan instrumen terkalibrasi dan perbandingan langsung terhadap Kriteria Ketercapaian Tujuan Pembelajaran (KKTP).",
+            'indikator' => "Disajikan konteks evaluasi hasil belajar, peserta didik dapat menentukan metode validasi mutu pada {$sub4} secara akurat."
+        ];
+
+        // Soal 5 (L3 / C5-C6 - HOTS Inovasi & Mitigasi)
+        $soal[] = [
+            'stimulus' => "Ditemukan sebuah tantangan kompleks di mana penerapan {$namaElemen} pada {$mapelNama} mengalami kendala akibat perubahan parameter lingkungan dan keterbatasan sarana.",
+            'pertanyaan' => "Solusi inovatif dan berkelanjutan yang paling tepat dirumuskan oleh peserta didik untuk mengatasi kendala tersebut adalah...",
+            'options' => [
+                'A' => "Merekayasa pendekatan adaptif dengan memanfaatkan teknologi penunjang dan mendokumentasikan modifikasi prosedur secara sistematis.",
+                'B' => "Membatalkan seluruh kegiatan pembelajaran dan menunggu pergantian materi kurikulum.",
+                'C' => "Melanggar protokol keselamatan demi menyelesaikan target dalam waktu singkat.",
+                'D' => "Menyalahkan keterbatasan sarana tanpa melakukan upaya perbaikan mandiri.",
+                'E' => "Mengurangi beban indikator capaian secara sepihak tanpa konsultasi pembimbing."
+            ],
+            'correct' => 'A',
+            'pembahasan' => "Pendekatan inovatif (Joyful & Mindful) menuntut adaptabilitas dan penalaran kritis untuk merekayasa solusi alternatif yang tetap patuh pada standar keselamatan dan mutu.",
+            'indikator' => "Disajikan kendala lingkungan, peserta didik mampu merumuskan solusi inovatif dan adaptif pada materi {$namaElemen}."
         ];
 
         return $soal;
@@ -217,13 +320,23 @@ class CurriculumKnowledgeBase
      */
     private static function generateBankSoalEssay(string $category, string $mapelNama, string $namaElemen, array $subMateri, string $cpText): array
     {
+        $sub1 = $subMateri[0] ?? $namaElemen;
+        $sub2 = $subMateri[1] ?? ($subMateri[0] ?? $namaElemen);
+
         return [
             [
-                'stimulus' => "Penguasaan elemen '{$namaElemen}' pada mata pelajaran {$mapelNama} memerlukan pemahaman komprehensif mulai dari konsep teoretis hingga kemampuan implementasi praktis.",
-                'pertanyaan' => "Uraikan 3 prinsip mendasar dari {$namaElemen} dan jelaskan bagaimana Anda mengaplikasikannya dalam memecahkan masalah nyata pada bidang {$mapelNama}!",
-                'kunci' => "Kriteria Jawaban Tuntas:\n1. Menyebutkan dan menjelaskan 3 prinsip kunci {$namaElemen} secara runut dan logis.\n2. Memberikan contoh konkret penerapan pada konteks nyata/studi kasus {$mapelNama}.\n3. Menyertakan analisis dampak positif dari kepatuhan terhadap kaidah tersebut.",
-                'pedoman_penskoran' => "Skor 9-10: Penjelasan sangat mendalam, mencakup 3 prinsip dan contoh aplikasi kontekstual yang akurat.\nSkor 6-8: Menjelaskan 2-3 prinsip namun contoh aplikasi masih bersifat umum.\nSkor 3-5: Hanya menyebutkan prinsip tanpa uraian penjelasan yang memadai.\nSkor 1-2: Jawaban tidak berfokus pada materi {$namaElemen}.",
-                'indikator' => "Peserta didik mampu menguraikan prinsip dasar materi {$namaElemen} dan merumuskan strategi aplikasinya secara analitis."
+                'stimulus' => "Penguasaan elemen '{$namaElemen}' pada mata pelajaran {$mapelNama} memerlukan pemahaman komprehensif mulai dari konsep teoretis ({$sub1}) hingga kemampuan implementasi praktis ({$sub2}).",
+                'pertanyaan' => "Uraikan prinsip mendasar dari {$sub1} dan jelaskan bagaimana Anda mengaplikasikannya dalam memecahkan masalah kontekstual pada {$sub2}!",
+                'kunci' => "Kriteria Jawaban Tuntas:\n1. Menyebutkan dan menjelaskan prinsip kunci {$sub1} secara runut dan logis.\n2. Memberikan contoh konkret penerapan pada konteks nyata/studi kasus {$sub2}.\n3. Menyertakan analisis dampak positif dari kepatuhan terhadap kaidah tersebut.",
+                'pedoman_penskoran' => "Skor 9-10: Penjelasan sangat mendalam, mencakup prinsip dan contoh aplikasi kontekstual yang akurat.\nSkor 6-8: Menjelaskan prinsip dengan baik namun contoh aplikasi masih bersifat umum.\nSkor 3-5: Hanya menyebutkan prinsip tanpa uraian penjelasan yang memadai.\nSkor 1-2: Jawaban tidak berfokus pada materi {$namaElemen}.",
+                'indikator' => "Peserta didik mampu menguraikan prinsip dasar materi {$sub1} dan merumuskan strategi aplikasinya secara analitis pada {$sub2}."
+            ],
+            [
+                'stimulus' => "Dalam pelaksanaan kendali mutu dan asesmen akhir pada kompetensi {$namaElemen}, evaluasi berkala diperlukan untuk menjamin keandalan hasil kerja.",
+                'pertanyaan' => "Jelaskan langkah-langkah sistematis yang Anda lakukan untuk menguji, memverifikasi, dan mendokumentasikan ketercapaian standar kompetensi pada materi {$namaElemen}!",
+                'kunci' => "Langkah kerja: 1) Penyiapan instrumen evaluasi terkalibrasi; 2) Pengujian parameter proses dan luaran; 3) Perbandingan hasil ukur terhadap rubrik KKTP/standar industri; 4) Dokumentasi pada logbook/laporan teknis.",
+                'pedoman_penskoran' => "Skor 9-10: Uraian langkah kerja sangat komprehensif, mencakup persiapan, pengujian, audit KKTP, dan pelaporan.\nSkor 6-8: Langkah kerja cukup lengkap namun kurang terinci pada tahap audit.\nSkor 3-5: Hanya menyebutkan 1-2 langkah sederhana.\nSkor 1-2: Jawaban tidak terstruktur.",
+                'indikator' => "Peserta didik dapat merumuskan prosedur verifikasi mutu dan pelaporan hasil kerja materi {$namaElemen}."
             ]
         ];
     }
