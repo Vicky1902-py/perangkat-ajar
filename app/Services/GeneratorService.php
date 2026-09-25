@@ -209,7 +209,9 @@ class GeneratorService
                 ]);
             }
 
-            // 4. GENERATE LEMBAR KERJA PESERTA DIDIK (LKPD)
+            // 4. GENERATE LEMBAR KERJA PESERTA DIDIK (LKPD) BERBASIS CP & ATP OTENTIK
+            $kbLkpd = CurriculumKnowledgeBase::getLkpdContext($mapel, $firstElemen, $deskripsiCp, $fase);
+
             $lkpd = Lkpd::create([
                 'modul_ajar_id' => $modulAjar->id,
                 'user_id' => $userId,
@@ -218,39 +220,15 @@ class GeneratorService
                 'fase_id' => $fase->id,
                 'judul' => 'LKPD Deep Learning: ' . $firstElemen . ' (' . ($firstTp ? $firstTp->kode_tp : 'Fase ' . $fase->kode) . ')',
                 'tujuan_pembelajaran' => $firstTp ? $firstTp->deskripsi_tp : 'Mencapai kompetensi esensial fase ' . $fase->kode,
-                'stimulus_otentik' => "Dalam rangka penguasaan kompetensi materi {$firstElemen} pada mata pelajaran {$mapel->nama}, peserta didik dihadapkan pada studi kasus kontekstual untuk menganalisis parameter, merancang alur penyelesaian masalah, dan memverifikasi simpulan sesuai kaidah kurikulum resmi Kemendikdasmen.",
-                'petunjuk_belajar' => "1. Bentuk kelompok kerja beranggotakan 3-4 orang secara kolaboratif.\n2. Baca dengan saksama stimulus otentik dan instruksi setiap tahapan.\n3. Lakukan pengujian/analisis dan dokumentasikan langkah kerja kalian.\n4. Konsultasikan dengan guru pembimbing apabila menemui kendala teknis.",
-                'alat_bahan' => $kbModul['sumber_belajar'] . ', PC/Laptop, Perangkat Lunak Praktikum, Lembar Kerja Kerja / Buku Catatan Teknis.',
-                'rubrik_penilaian' => "Rubrik Penilaian Proses (Keaktifan & Kerjasama: 30%)\nRubrik Penilaian Produk/Hasil Praktik (Akurasi & Standar Teknis: 50%)\nRubrik Refleksi & Presentasi (Komunikasi & Etika: 20%)",
+                'stimulus_otentik' => $kbLkpd['stimulus'],
+                'petunjuk_belajar' => $kbLkpd['petunjuk'],
+                'alat_bahan' => $kbLkpd['alat_bahan'],
+                'rubrik_penilaian' => $kbLkpd['rubrik'],
                 'alokasi_waktu_menit' => 90,
             ]);
 
-            // 3 Tahap Kerja LKPD (Memahami, Mengaplikasi, Merefleksi)
-            $lkpdStages = [
-                [
-                    'tahap' => 'memahami',
-                    'instruksi' => 'Diskusikan bersama kelompok mengenai permasalahan pada stimulus otentik di atas.',
-                    'pertanyaan' => 'Identifikasi minimal 3 faktor utama penyebab masalah tersebut dan jelaskan konsep dasar yang relevan untuk menanganinya!',
-                    'ruang_jawaban' => '[Tuliskan hasil identifikasi dan analisis konsep di sini...]',
-                    'urutan' => 1,
-                ],
-                [
-                    'tahap' => 'mengaplikasi',
-                    'instruksi' => 'Rancang dan lakukan prosedur pemecahan masalah sesuai standar operasional industri.',
-                    'pertanyaan' => 'Dokumentasikan langkah kerja praktikum, kode program/diagram konfigurasi, serta bukti hasil uji coba sistem!',
-                    'ruang_jawaban' => '[Lampirkan dokumentasi konfigurasi, tangkapan layar hasil, atau ringkasan pengujian di sini...]',
-                    'urutan' => 2,
-                ],
-                [
-                    'tahap' => 'merefleksi',
-                    'instruksi' => 'Lakukan evaluasi diri secara jujur terhadap seluruh proses belajar dan kerja kelompok kalian.',
-                    'pertanyaan' => 'Apa nilai karakter Profil Lulusan yang paling kalian rasakan berkembang selama praktikum ini? Apa yang akan kalian perbaiki pada tugas berikutnya?',
-                    'ruang_jawaban' => '[Tuliskan refleksi pribadi dan kelompok secara mendalam...]',
-                    'urutan' => 3,
-                ],
-            ];
-
-            foreach ($lkpdStages as $stg) {
+            // 3 Tahap Kerja LKPD (Memahami, Mengaplikasi, Merefleksi) Berbasis Materi Nyata CP
+            foreach ($kbLkpd['stages'] as $stg) {
                 LkpdKegiatan::create([
                     'lkpd_id' => $lkpd->id,
                     'tahap' => $stg['tahap'],

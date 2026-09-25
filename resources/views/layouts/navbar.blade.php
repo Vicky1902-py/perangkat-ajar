@@ -33,6 +33,59 @@
         </a>
 
         @auth
+            @php
+                $navUnreadCount = \App\Models\UserNotification::where('user_id', auth()->id())->where('is_read', false)->count();
+                $navNotifications = \App\Models\UserNotification::where('user_id', auth()->id())->where('is_read', false)->take(5)->get();
+            @endphp
+            <!-- Notification Bell Dropdown -->
+            <div class="dropdown">
+                <button class="btn btn-light rounded-circle border position-relative p-2 d-flex align-items-center justify-content-center" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="width: 36px; height: 36px;" title="Pemberitahuan Sistem">
+                    <i class="bi bi-bell-fill {{ $navUnreadCount > 0 ? 'text-warning' : 'text-secondary' }}"></i>
+                    @if($navUnreadCount > 0)
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger border border-light" style="font-size: 0.65rem;">
+                            {{ $navUnreadCount }}
+                        </span>
+                    @endif
+                </button>
+                <div class="dropdown-menu dropdown-menu-end shadow border-0 py-0 mt-2" style="width: 320px; max-width: 90vw;">
+                    <div class="p-3 bg-light border-bottom d-flex align-items-center justify-content-between">
+                        <div class="fw-bold small text-dark"><i class="bi bi-bell-fill text-warning me-1"></i> Notifikasi Sistem</div>
+                        @if($navUnreadCount > 0)
+                            <form action="{{ route('notifications.read-all') }}" method="POST">
+                                @csrf
+                                <button type="submit" class="btn btn-link p-0 text-decoration-none small text-primary" style="font-size: 0.75rem;">
+                                    Tandai semua dibaca
+                                </button>
+                            </form>
+                        @endif
+                    </div>
+                    <div class="p-2" style="max-height: 280px; overflow-y: auto;">
+                        @forelse($navNotifications as $n)
+                            <div class="p-2 mb-1.5 rounded bg-warning bg-opacity-10 border border-warning border-opacity-25">
+                                <div class="d-flex justify-content-between align-items-center mb-1">
+                                    <span class="fw-bold small text-dark">{{ $n->title }}</span>
+                                    <small class="text-muted" style="font-size: 0.7rem;">{{ $n->created_at->diffForHumans() }}</small>
+                                </div>
+                                <p class="mb-1 text-secondary small" style="font-size: 0.8rem; line-height: 1.35;">{{ $n->message }}</p>
+                                <div class="text-end">
+                                    <form action="{{ route('notifications.read', $n->id) }}" method="POST" class="d-inline">
+                                        @csrf
+                                        <button type="submit" class="btn btn-sm btn-link p-0 text-decoration-none text-success small fw-bold" style="font-size: 0.72rem;">
+                                            <i class="bi bi-check-lg"></i> Tandai Dibaca
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        @empty
+                            <div class="text-center py-3 text-muted small">
+                                <i class="bi bi-check2-circle fs-4 d-block mb-1 text-success"></i>
+                                Tidak ada notifikasi baru
+                            </div>
+                        @endforelse
+                    </div>
+                </div>
+            </div>
+
             <!-- User Dropdown Menu -->
             <div class="dropdown">
                 <button class="btn btn-light rounded-pill border d-flex align-items-center gap-2 px-3 py-1 dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">

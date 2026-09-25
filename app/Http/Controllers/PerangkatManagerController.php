@@ -15,8 +15,10 @@ use App\Models\ProgramSemester;
 use App\Models\ProgramTahunan;
 use App\Models\TujuanPembelajaran;
 use App\Models\User;
+use App\Models\UserNotification;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class PerangkatManagerController extends Controller
@@ -593,9 +595,91 @@ class PerangkatManagerController extends Controller
                 if ($oldSoals->isNotEmpty()) {
                     $deletedCount += PaketSoal::whereIn('id', $oldSoals)->delete();
                 }
+            } elseif ($purgeTarget === 'all_devices') {
+                // Delegasikan ke purgeAll
             }
         });
 
+        if ($purgeTarget === 'all_devices') {
+            return $this->purgeAll($request);
+        }
+
         return redirect()->back()->with('success', "Pembersihan cepat selesai! {$deletedCount} dokumen kedaluwarsa berhasil dibersihkan dari server.");
     }
+
+    /**
+     * Hapus SEMUA perangkat ajar di database (Superadmin Only),
+     * dan kirimkan notifikasi ke seluruh user pemilik perangkat yang terhapus:
+     * "Perangkat dihapus karena ada ketidaksesuaian dengan cp dan atp, mohon generate ulang, by. vicky koroh"
+     */
+    public function purgeAll(Request $request)
+    {
+        if (!Auth::user()->isSuperAdmin()) {
+            abort(403, 'Hanya Superadmin yang berhak mereset seluruh perangkat ajar.');
+        }
+
+        $deletedCount = 0;
+        $affectedUsersCount = 0;
+
+        DB::transaction(function () use (&$deletedCount, &$affectedUsersCount) {
+            // 1. Identifikasi semua user_id terdampak (yang memiliki perangkat)
+            $affectedUserIds = collect()
+                ->merge(ModulAjar::whereNotNull('user_id')->pluck('user_id'))
+                ->merge(AlurTujuanPembelajaran::whereNotNull('user_id')->pluck('user_id'))
+                ->merge(TujuanPembelajaran::whereNotNull('user_id')->pluck('user_id'))
+                ->merge(Lkpd::whereNotNull('user_id')->pluck('user_id'))
+                ->merge(ProgramTahunan::whereNotNull('user_id')->pluck('user_id'))
+                ->merge(ProgramSemester::whereNotNull('user_id')->pluck('user_id'))
+                ->merge(Asesmen::whereNotNull('user_id')->pluck('user_id'))
+                ->merge(PaketSoal::whereNotNull('user_id')->pluck('user_id'))
+                ->unique()
+                ->values();
+
+            // 2. Hitung total dokumen sebelum dihapus
+            $deletedCount = ModulAjar::count()
+                + AlurTujuanPembelajaran::count()
+                + TujuanPembelajaran::count()
+                + Lkpd::count()
+                + ProgramTahunan::count()
+                + ProgramSemester::count()
+                + Asesmen::count()
+                + PaketSoal::count();
+
+            // 3. Hapus relasi detail & perangkat anak terlebih dahulu
+            ModulAjarKegiatan::query()->delete();
+            DB::table('modul_ajar_profil_lulusan')->delete();
+            ModulAjar::query()->delete();
+
+            AtpDetail::query()->delete();
+            AlurTujuanPembelajaran::query()->delete();
+
+            LkpdKegiatan::query()->delete();
+            Lkpd::query()->delete();
+
+            ProgramTahunan::query()->delete();
+            ProgramSemester::query()->delete();
+            Asesmen::query()->delete();
+            PaketSoal::query()->delete();
+            TujuanPembelajaran::query()->delete();
+
+            // 4. Kirim notifikasi ke semua user terdampak
+            $pesanNotif = 'Perangkat dihapus karena ada ketidaksesuaian dengan cp dan atp, mohon generate ulang, by. vicky koroh';
+            foreach ($affectedUserIds as $uId) {
+                UserNotification::create([
+                    'user_id' => $uId,
+                    'title' => 'Pemberitahuan Sistem: Reset Perangkat Ajar',
+                    'message' => $pesanNotif,
+                    'type' => 'warning',
+                    'sender' => 'Vicky Koroh',
+                    'is_read' => false,
+                ]);
+            }
+
+            $affectedUsersCount = $affectedUserIds->count();
+        });
+
+        return redirect()->route('cms.perangkat.index')
+            ->with('success', "Seluruh perangkat ajar ({$deletedCount} dokumen) berhasil dihapus dari database. Notifikasi perbaikan telah dikirim ke {$affectedUsersCount} pengguna terdampak.");
+    }
 }
+

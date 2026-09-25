@@ -12,6 +12,7 @@ use App\Http\Controllers\GeneratorController;
 use App\Http\Controllers\LegalController;
 use App\Http\Controllers\LkpdController;
 use App\Http\Controllers\ModulAjarController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PaketSoalController;
 use App\Http\Controllers\PerangkatManagerController;
 use App\Http\Controllers\ProfileController;
@@ -107,6 +108,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/profile/setup', [ProfileController::class, 'setup'])->name('profile.setup');
     Route::post('/profile/setup', [ProfileController::class, 'save'])->name('profile.save');
 
+    // NOTIFIKASI PENGGUNA
+    Route::post('/notifications/{notification}/read', [NotificationController::class, 'markAsRead'])->name('notifications.read');
+    Route::post('/notifications/read-all', [NotificationController::class, 'markAllAsRead'])->name('notifications.read-all');
+
     // FITUR APLIKASI (WAJIB MELENGKAPI PROFIL & KOP SEKOLAH)
     Route::middleware(['ensure.profile'])->group(function () {
         // DASHBOARD
@@ -192,6 +197,7 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/cms/perangkat', [PerangkatManagerController::class, 'index'])->name('cms.perangkat.index');
             Route::post('/cms/perangkat/bulk-delete', [PerangkatManagerController::class, 'bulkDelete'])->name('cms.perangkat.bulk-delete');
             Route::post('/cms/perangkat/quick-purge', [PerangkatManagerController::class, 'quickPurge'])->name('cms.perangkat.quick-purge');
+            Route::post('/cms/perangkat/purge-all', [PerangkatManagerController::class, 'purgeAll'])->name('cms.perangkat.purge-all');
 
             // Kotak Usul & Saran Pengguna
             Route::get('/cms/feedbacks', [FeedbackController::class, 'index'])->name('cms.feedbacks.index');

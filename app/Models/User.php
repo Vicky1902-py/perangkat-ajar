@@ -144,4 +144,15 @@ class User extends Authenticatable
     {
         return $this->hasMany(Asesmen::class);
     }
+
+    public function notifications(): HasMany
+    {
+        return $this->hasMany(UserNotification::class)->latest();
+    }
+
+    public function unreadNotifications(): HasMany
+    {
+        return $this->hasMany(UserNotification::class)->where('is_read', false)->latest();
+    }
 }
+

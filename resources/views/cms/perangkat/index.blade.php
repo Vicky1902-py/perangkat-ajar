@@ -26,6 +26,9 @@
             <button type="button" class="btn btn-outline-danger btn-sm rounded-pill px-3 shadow-sm" data-bs-toggle="modal" data-bs-target="#modalQuickPurge">
                 <i class="bi bi-lightning-charge-fill me-1"></i> Pembersihan Cepat
             </button>
+            <button type="button" class="btn btn-danger btn-sm rounded-pill px-3 shadow-sm fw-bold" data-bs-toggle="modal" data-bs-target="#modalPurgeAll">
+                <i class="bi bi-radioactive me-1"></i> Hapus SEMUA Perangkat (Reset Total)
+            </button>
             <a href="{{ route('cms.perangkat.index') }}" class="btn btn-outline-secondary btn-sm rounded-pill px-3 shadow-sm">
                 <i class="bi bi-arrow-clockwise me-1"></i> Refresh Data
             </a>
@@ -462,6 +465,73 @@
                         </button>
                     </div>
                 </form>
+
+                <!-- TARGET 4: HAPUS SEMUA PERANGKAT (RESET TOTAL) -->
+                <div class="p-3 rounded-3 border border-danger border-opacity-50 bg-danger bg-opacity-10 d-flex align-items-center justify-content-between hover-shadow">
+                    <div>
+                        <div class="fw-bold text-danger"><i class="bi bi-radioactive me-1"></i> Hapus SEMUA Perangkat di Database</div>
+                        <div class="text-danger small" style="font-size: 0.75rem;">Mereset semua Modul, ATP, TP, LKPD, Prota, Promes, Asesmen & Soal. Mengirim notifikasi otomatis ke seluruh guru.</div>
+                    </div>
+                    <button type="button" class="btn btn-sm btn-danger rounded-pill px-3 fw-bold" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#modalPurgeAll">
+                        Reset Total
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL HAPUS SEMUA PERANGKAT (PURGE ALL) -->
+<div class="modal fade" id="modalPurgeAll" tabindex="-1" aria-labelledby="modalPurgeAllLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow-lg rounded-4">
+            <div class="modal-header bg-danger text-white border-0 py-3">
+                <h5 class="modal-title fw-bold fs-6" id="modalPurgeAllLabel">
+                    <i class="bi bi-radioactive me-2"></i> Konfirmasi Hapus SEMUA Perangkat di Database
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-4">
+                <div class="text-center mb-3">
+                    <div class="rounded-circle bg-danger bg-opacity-10 text-danger d-inline-flex p-3 mb-2">
+                        <i class="bi bi-exclamation-triangle-fill fs-1"></i>
+                    </div>
+                    <h5 class="fw-bold text-dark">Tindakan Sangat Kritis & Permanen!</h5>
+                    <p class="text-muted small">
+                        Anda akan menghapus seluruh data perangkat ajar yang ada di database sistem:
+                    </p>
+                </div>
+
+                <div class="alert alert-warning py-2 px-3 small border-0 rounded-3 mb-3">
+                    <ul class="mb-0 ps-3">
+                        <li><strong>{{ number_format($totalPerangkat) }} berkas perangkat ajar</strong> (Modul Ajar, ATP, TP, LKPD, Prota, Promes, Asesmen, Bank Soal) akan dihapus permanen.</li>
+                        <li>Sistem akan <strong>secara otomatis mengirimkan notifikasi resmi</strong> kepada seluruh guru/user yang perangkatnya terhapus:</li>
+                    </ul>
+                </div>
+
+                <div class="p-3 bg-light border border-warning rounded-3 mb-3">
+                    <div class="small fw-bold text-dark mb-1"><i class="bi bi-bell-fill text-warning me-1"></i> Pesan Notifikasi Otomatis ke User:</div>
+                    <div class="small text-danger fst-italic bg-white p-2 rounded border">
+                        "Perangkat dihapus karena ada ketidaksesuaian dengan cp dan atp, mohon generate ulang, by. vicky koroh"
+                    </div>
+                </div>
+
+                <form id="formPurgeAll" action="{{ route('cms.perangkat.purge-all') }}" method="POST">
+                    @csrf
+                    <div class="mb-3">
+                        <label class="form-label small text-muted fw-semibold">Ketik kata konfirmasi berikut untuk melanjutkan: <code class="text-danger fw-bold">HAPUS-SEMUA</code></label>
+                        <input type="text" id="purgeConfirmInput" class="form-control form-control-sm text-center fw-bold text-danger" placeholder="HAPUS-SEMUA" autocomplete="off" onkeyup="checkPurgeConfirmation()">
+                    </div>
+
+                    <div class="d-flex justify-content-end gap-2 pt-2 border-top">
+                        <button type="button" class="btn btn-outline-secondary btn-sm rounded-pill px-3" data-bs-dismiss="modal">
+                            Batal
+                        </button>
+                        <button type="submit" id="btnExecutePurgeAll" class="btn btn-danger btn-sm rounded-pill px-4 fw-bold" disabled>
+                            <i class="bi bi-trash3-fill me-1"></i> Ya, Hapus SEMUA Sekarang
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -512,6 +582,16 @@
 
     function executeBulkDelete() {
         document.getElementById('formBulkDelete').submit();
+    }
+
+    function checkPurgeConfirmation() {
+        const val = document.getElementById('purgeConfirmInput').value.trim();
+        const btn = document.getElementById('btnExecutePurgeAll');
+        if (val === 'HAPUS-SEMUA') {
+            btn.removeAttribute('disabled');
+        } else {
+            btn.setAttribute('disabled', 'disabled');
+        }
     }
 </script>
 @endsection

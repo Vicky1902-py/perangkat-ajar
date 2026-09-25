@@ -527,6 +527,49 @@
 
         <!-- MAIN CONTENT CONTAINER -->
         <main class="container-fluid px-4 py-4 flex-grow-1">
+            <!-- NOTIFIKASI PENTING SISTEM (USER NOTIFICATIONS) -->
+            @auth
+                @php
+                    $appUnreadNotifs = \App\Models\UserNotification::where('user_id', Auth::id())
+                        ->where('is_read', false)
+                        ->latest()
+                        ->get();
+                @endphp
+                @if($appUnreadNotifs->isNotEmpty())
+                    @foreach($appUnreadNotifs as $notif)
+                        <div class="alert alert-warning border border-warning border-2 shadow-sm rounded-4 mb-4 p-3.5 d-flex align-items-start justify-content-between flex-wrap gap-3" role="alert" style="background-color: #fffdf5; border-left: 6px solid #d97706 !important;">
+                            <div class="d-flex align-items-start gap-3 flex-grow-1">
+                                <div class="rounded-circle p-2 bg-warning bg-opacity-20 text-warning d-flex align-items-center justify-content-center flex-shrink-0" style="width: 44px; height: 44px;">
+                                    <i class="bi bi-exclamation-triangle-fill fs-4 text-warning"></i>
+                                </div>
+                                <div>
+                                    <div class="d-flex align-items-center gap-2 mb-1 flex-wrap">
+                                        <span class="badge bg-danger text-white rounded-pill px-2.5 py-0.5 fw-bold" style="font-size: 0.68rem; letter-spacing: 0.5px;">PEMBERITAHUAN RESMI</span>
+                                        <h6 class="fw-bold text-dark mb-0 fs-6">{{ $notif->title }}</h6>
+                                        <small class="text-muted" style="font-size: 0.72rem;">&bull; {{ $notif->created_at->diffForHumans() }}</small>
+                                    </div>
+                                    <div class="text-dark fw-semibold mb-2" style="font-size: 0.92rem; line-height: 1.55;">
+                                        {{ $notif->message }}
+                                    </div>
+                                    <div class="text-muted small d-flex align-items-center gap-1.5" style="font-size: 0.76rem;">
+                                        <i class="bi bi-person-badge text-primary"></i> Pengirim: <strong>{{ $notif->sender ?? 'Vicky Koroh' }}</strong>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center ms-auto">
+                                <form action="{{ route('notifications.read', $notif->id) }}" method="POST">
+                                    @csrf
+                                    <button type="submit" class="btn btn-sm btn-outline-warning text-dark fw-bold rounded-pill px-3 py-1.5 shadow-sm d-flex align-items-center gap-1">
+                                        <i class="bi bi-check2-circle text-success fs-6"></i>
+                                        <span>Saya Mengerti / Tutup</span>
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    @endforeach
+                @endif
+            @endauth
+
             <!-- FLASH MESSAGES -->
             @if(session('success'))
                 <div class="alert alert-success alert-dismissible fade show d-flex align-items-center mb-4" role="alert">
@@ -685,6 +728,41 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
     </script>
+
+    @auth
+        @if(isset($appUnreadNotifs) && $appUnreadNotifs->isNotEmpty())
+            @php $firstUnread = $appUnreadNotifs->first(); @endphp
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    Swal.fire({
+                        title: '<span style="font-size: 1.15rem; font-weight: 700; color: #1e293b;"><i class="bi bi-bell-fill text-warning me-2"></i> {{ $firstUnread->title }}</span>',
+                        html: `<div class="p-3 text-start rounded-3" style="background-color: #fffbeb; border-left: 4px solid #f59e0b;">
+                                <div class="text-dark fw-bold mb-2" style="font-size: 0.95rem; line-height: 1.5;">
+                                    "{{ $firstUnread->message }}"
+                                </div>
+                                <div class="small text-muted">
+                                    <i class="bi bi-person-badge text-primary me-1"></i> Pengirim: <strong>{{ $firstUnread->sender ?? 'Vicky Koroh' }}</strong>
+                                </div>
+                               </div>`,
+                        icon: 'warning',
+                        confirmButtonText: '<i class="bi bi-check2-circle me-1"></i> Saya Mengerti',
+                        confirmButtonColor: '#0284c7',
+                        allowOutsideClick: false,
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            fetch("{{ route('notifications.read', $firstUnread->id) }}", {
+                                method: 'POST',
+                                headers: {
+                                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                                    'Accept': 'application/json'
+                                }
+                            });
+                        }
+                    });
+                });
+            </script>
+        @endif
+    @endauth
 
     <!-- FLOATING SCROLL TO TOP BUTTON -->
     <button type="button" id="btnScrollToTop" class="btn btn-primary rounded-circle shadow-lg d-none align-items-center justify-content-center"
