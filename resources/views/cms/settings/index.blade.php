@@ -83,6 +83,12 @@
                         <i class="bi bi-search me-1.5 text-success"></i> Search Console &amp; SEO
                     </button>
                 </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link text-start text-md-center rounded-3 py-2.5 px-3 {{ $activeTab === 'system' ? 'active shadow-sm' : '' }}" 
+                            id="tab-system" data-bs-toggle="tab" data-bs-target="#pane-system" type="button" role="tab">
+                        <i class="bi bi-gear-fill me-1.5 text-danger"></i> Sistem & Maintenance
+                    </button>
+                </li>
             </ul>
         </div>
     </div>
@@ -1082,6 +1088,48 @@
                         <div class="text-end">
                             <button type="submit" class="btn btn-primary rounded-pill px-4 py-2.5 fw-semibold shadow-sm w-100">
                                 <i class="bi bi-check-circle-fill me-1.5"></i> Simpan Pengaturan Search Console &amp; SEO
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- TAB 9: SISTEM & MAINTENANCE -->
+        <!-- ========================================== -->
+        <div class="tab-pane fade {{ $activeTab === 'system' ? 'show active' : '' }}" id="pane-system" role="tabpanel">
+            <form action="{{ route('cms.settings.update') }}" method="POST">
+                @csrf
+                <input type="hidden" name="active_tab" value="system">
+                
+                <div class="card border-0 shadow-sm mb-4">
+                    <div class="card-header bg-white border-bottom py-3 d-flex align-items-center gap-2">
+                        <i class="bi bi-gear-fill text-danger fs-5"></i>
+                        <h5 class="mb-0 fw-bold">Konfigurasi Sistem Utama</h5>
+                    </div>
+                    <div class="card-body p-4">
+                        <div class="alert alert-danger bg-opacity-10 border-danger border-opacity-25 d-flex align-items-start gap-3 mb-4">
+                            <i class="bi bi-exclamation-triangle-fill text-danger fs-4"></i>
+                            <div>
+                                <h6 class="fw-bold text-danger mb-1">Peringatan Mode Pemeliharaan!</h6>
+                                <p class="mb-0 small text-dark">
+                                    Mengaktifkan Mode Pemeliharaan akan memblokir akses ke seluruh aplikasi (termasuk Landing Page) bagi pengunjung dan guru. Hanya Anda (Superadmin) yang dapat mengakses aplikasi. Gunakan fitur ini saat sedang melakukan sinkronisasi database, perbaikan sistem, atau integrasi AI Master.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <div class="form-check form-switch fs-5 mb-2">
+                                <input class="form-check-input" type="checkbox" role="switch" id="maintenance_mode" name="maintenance_mode" value="1" {{ app_setting('maintenance_mode', '0') == '1' ? 'checked' : '' }}>
+                                <label class="form-check-label fw-bold text-dark" for="maintenance_mode">Aktifkan Maintenance Mode</label>
+                            </div>
+                            <div class="form-text small">Tampilan "Sistem Dalam Pengembangan" akan langsung muncul bagi user selain superadmin.</div>
+                        </div>
+
+                        <div class="text-end border-top pt-4">
+                            <button type="submit" class="btn btn-danger rounded-pill px-4 py-2.5 fw-semibold shadow-sm w-100">
+                                <i class="bi bi-check-circle-fill me-1.5"></i> Simpan Konfigurasi Sistem
                             </button>
                         </div>
                     </div>

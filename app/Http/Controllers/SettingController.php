@@ -194,6 +194,11 @@ class SettingController extends Controller
             Setting::set('adsense_enabled', $request->has('adsense_enabled') ? '1' : '0', 'adsense');
         }
 
+        // Khusus tab system: perbarui status switch maintenance
+        if ($request->input('active_tab') === 'system') {
+            Setting::set('maintenance_mode', $request->has('maintenance_mode') ? '1' : '0', 'system');
+        }
+
         foreach ($textFields as $field => $grp) {
             if ($request->has($field)) {
                 Setting::set($field, $request->input($field), $grp);
