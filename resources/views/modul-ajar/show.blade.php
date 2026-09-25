@@ -186,4 +186,37 @@
         </div>
     </div>
 </div>
+
+<!-- E. LAMPIRAN -->
+<div class="card border-0 shadow-sm mb-4">
+    <div class="card-header bg-white py-3 border-bottom">
+        <div class="fw-bold text-secondary text-dark">
+            <i class="bi bi-paperclip me-2"></i> E. Lampiran
+        </div>
+    </div>
+    <div class="card-body p-4">
+        <div class="mb-4">
+            <div class="fw-bold small text-dark border-bottom pb-2 mb-2">1. Ringkasan Materi Pembelajaran (Bahan Ajar)</div>
+            <div class="p-3 bg-light rounded-3 border small text-dark" style="line-height: 1.6; text-align: justify;">
+                {!! nl2br(e($modulAjar->bahan_ajar ?? 'Modul materi sedang disiapkan oleh Guru.')) !!}
+            </div>
+        </div>
+        <div class="row g-3">
+            <div class="col-md-6">
+                <div class="fw-bold small text-dark mb-1">2. Pengayaan & Remedial:</div>
+                <div class="p-3 bg-light rounded-3 border small text-secondary h-100">
+                    <strong>Pengayaan:</strong> {{ $modulAjar->pengayaan ?? '-' }}<br><br>
+                    <strong>Remedial:</strong> {{ $modulAjar->remedial ?? '-' }}
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="fw-bold small text-dark mb-1">3. Glosarium & Daftar Pustaka:</div>
+                <div class="p-3 bg-light rounded-3 border small text-secondary h-100">
+                    <strong>Glosarium:</strong> {{ $modulAjar->glosarium ?? '-' }}<br><br>
+                    <strong>Pustaka:</strong> {{ $modulAjar->daftar_pustaka ?? '-' }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection

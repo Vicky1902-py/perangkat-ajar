@@ -177,9 +177,17 @@
 
     <!-- E. LAMPIRAN -->
     <div class="section-header">E. LAMPIRAN</div>
+    
+    <div style="margin-bottom: 12px; page-break-inside: avoid;">
+        <div style="font-weight: bold; margin-bottom: 4px; border-bottom: 1px solid #cbd5e1; padding-bottom:2px;">1. Ringkasan Materi Pembelajaran (Bahan Ajar)</div>
+        <div style="padding: 5px 0; text-align: justify; line-height: 1.5;">
+            {!! nl2br(e($modulAjar->bahan_ajar ?? 'Modul materi sedang disiapkan oleh Guru.')) !!}
+        </div>
+    </div>
+
     <table class="meta-table">
         <tr>
-            <td width="28%"><strong>Pengayaan & Remedial</strong></td>
+            <td width="28%"><strong>2. Pengayaan & Remedial</strong></td>
             <td width="3%">:</td>
             <td width="69%">
                 <strong>Pengayaan:</strong> {{ $modulAjar->pengayaan ?? '-' }}<br>

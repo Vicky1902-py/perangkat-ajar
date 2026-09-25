@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
             TahunAjaranSeeder::class,
             SuperAdminSeeder::class,
             PreseededTeachingToolsSeeder::class,
+            KurikulumMateriSeeder::class,
         ]);
     }
 }

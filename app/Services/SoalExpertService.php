@@ -66,10 +66,10 @@ class SoalExpertService
             . "7. Periksa kembali pekerjaan Anda sebelum diserahkan kepada pengawas ujian.";
 
         // Elemen & Konteks Materi
-        $elemenNama = $tp?->elemen ?: ($modul?->kompetensi_awal ?: 'Kompetensi Kejuruan ' . $mapel->nama);
-        $topikUtama = $modul?->judul ?: ($tp?->deskripsi_tp ?: 'Penerapan Praktik Vokasi Standar Industri');
-        $cpDeskripsi = $cp?->deskripsi ?? 'Peserta didik menguasai kompetensi teknis, nalar kritis, dan etika kerja industri pada mata pelajaran ' . $mapel->nama;
-        $tpDeskripsi = $tp?->deskripsi_tp ?? 'Mampu memahami konsep, mempraktikkan keterampilan, dan memecahkan masalah kejuruan secara mandiri dan bertanggung jawab.';
+        $elemenNama = $tp?->elemen ?: ($modul?->kompetensi_awal ?: 'Kompetensi ' . $mapel->nama);
+        $topikUtama = $tp?->deskripsi_tp ?: ($modul?->judul ?: 'Penerapan Materi ' . $mapel->nama);
+        $cpDeskripsi = $cp?->deskripsi_cp ?? ('Peserta didik menguasai kompetensi esensial materi ' . $elemenNama . ' pada mata pelajaran ' . $mapel->nama);
+        $tpDeskripsi = $tp?->deskripsi_tp ?? 'Mampu memahami konsep dan menerapkan kompetensi secara mandiri dan bernalar kritis.';
 
         // Rumuskan Kisi-Kisi dan Butir Soal
         $kisiKisi = [];
@@ -82,8 +82,10 @@ class SoalExpertService
         if ($totalPg > 0 && ($bentukSoal === 'pg' || $bentukSoal === 'campuran')) {
             for ($i = 1; $i <= $totalPg; $i++) {
                 $level = $this->determineLevelKognitif($i, $totalPg);
-                $pgItem = $this->generatePgItem($i, $mapel, $fase, $elemenNama, $topikUtama, $level);
+                $pgItem = $this->generatePgItem($i, $mapel, $fase, $elemenNama, $topikUtama, $level, $cpDeskripsi);
                 $butirPg[] = $pgItem;
+
+                $subMateriKisi = \App\Services\CurriculumKnowledgeBase::resolveMateriName($mapel, $elemenNama, $i);
 
                 // Tambahkan ke Kisi-Kisi
                 $kisiKisi[] = [
@@ -92,7 +94,7 @@ class SoalExpertService
                     'elemen' => $elemenNama,
                     'cp' => Str::limit($cpDeskripsi, 120),
                     'tp' => Str::limit($tpDeskripsi, 100),
-                    'materi' => $this->resolveMateriName($topikUtama, $i),
+                    'materi' => $subMateriKisi,
                     'indikator' => $pgItem['indikator_kisi_kisi'],
                     'level_kognitif' => $level['label'],
                     'bentuk_soal' => 'Pilihan Ganda',
@@ -107,8 +109,10 @@ class SoalExpertService
             for ($j = 1; $j <= $totalIsian; $j++) {
                 $level = $this->determineLevelKognitifEssay($j, $totalIsian);
                 $nomorTampil = ($bentukSoal === 'campuran') ? ($totalPg + $j) : $j;
-                $isianItem = $this->generateIsianItem($nomorTampil, $j, $mapel, $fase, $elemenNama, $topikUtama, $level);
+                $isianItem = $this->generateIsianItem($nomorTampil, $j, $mapel, $fase, $elemenNama, $topikUtama, $level, $cpDeskripsi);
                 $butirIsian[] = $isianItem;
+
+                $subMateriKisiEssay = \App\Services\CurriculumKnowledgeBase::resolveMateriName($mapel, $elemenNama, $j + 2);
 
                 // Tambahkan ke Kisi-Kisi
                 $kisiKisi[] = [
@@ -117,7 +121,7 @@ class SoalExpertService
                     'elemen' => $elemenNama,
                     'cp' => Str::limit($cpDeskripsi, 120),
                     'tp' => Str::limit($tpDeskripsi, 100),
-                    'materi' => $this->resolveMateriName($topikUtama, $j + 3),
+                    'materi' => $subMateriKisiEssay,
                     'indikator' => $isianItem['indikator_kisi_kisi'],
                     'level_kognitif' => $level['label'],
                     'bentuk_soal' => 'Isian / Uraian',
@@ -229,195 +233,54 @@ class SoalExpertService
     /**
      * Menghasilkan 1 butir Soal Pilihan Ganda (PG) dengan 1 kunci dan 4 pengecoh homogen.
      */
-    private function generatePgItem(int $nomor, MataPelajaran $mapel, Fase $fase, string $elemen, string $topik, array $level): array
+    private function generatePgItem(int $nomor, MataPelajaran $mapel, Fase $fase, string $elemen, string $topik, array $level, ?string $cpDeskripsi = null): array
     {
-        $mapelNama = $mapel->nama;
         $keys = ['A', 'B', 'C', 'D', 'E'];
         $correctKey = $keys[($nomor - 1) % 5]; // Rotasi kunci jawaban seimbang A-E
 
-        $scenarios = [
-            1 => [
-                'stimulus' => "Dalam aktivitas praktik di bengkel/laboratorium kejuruan {$mapelNama}, seorang peserta didik mengamati terjadinya deviasi pada parameter operasional saat alat dijalankan sesuai instruksi awal.",
-                'pertanyaan' => "Tindakan pemeriksaan pertama yang paling tepat dan aman sesuai standar prosedur keselamatan kerja (K3) adalah...",
-                'options' => [
-                    'A' => "Memutuskan sumber arus/daya utama dan melakukan inspeksi visual terhadap seluruh komponen sambungan serta indikator tekanan.",
-                    'B' => "Menaikkan beban kerja peralatan secara bertahap untuk memastikan apakah deviasi parameter bersifat sementara.",
-                    'C' => "Mengganti komponen utama secara langsung tanpa melakukan pencatatan nilai ukur pada lembar kontrol.",
-                    'D' => "Melanjutkan proses kerja hingga batas waktu selesai lalu melaporkan kondisi alat pada instruktur.",
-                    'E' => "Mengatur ulang kalibrasi secara acak hingga jarum instrumen kembali menunjukkan angka referensi standar.",
-                ],
-                'correct' => 'A',
-                'pembahasan' => "Langkah isolasi sumber energi (memutuskan arus/daya) dan inspeksi visual merupakan protokol dasar K3LH dan SOP pemeliharaan industri untuk mencegah kecelakaan fatal sebelum dilakukan tindakan teknis lebih lanjut.",
-                'indikator' => "Disajikan narasi situasi deviasi parameter operasional alat pada {$mapelNama}, peserta didik dapat menentukan tindakan pemeriksaan awal berbasis SOP K3 dengan tepat.",
-            ],
-            2 => [
-                'stimulus' => "Sebuah industri mitra (DUDI) menetapkan spesifikasi toleransi yang sangat ketat dalam proses pengerjaan elemen {$elemen}. Setiap penyimpangan di atas 0,05 mm dikategorikan sebagai produk cacat (reject).",
-                'pertanyaan' => "Faktor teknis yang paling berpotensi menyebabkan penyimpangan dimensi di luar toleransi yang ditentukan pada proses tersebut adalah...",
-                'options' => [
-                    'A' => "Penggunaan alat ukur presisi yang baru selesai dikalibrasi oleh laboratorium terakreditasi.",
-                    'B' => "Adanya getaran berlebih (vibrasi mekanis) dan keausan pada mata pahat/komponen potong yang tidak terdeteksi tepat waktu.",
-                    'C' => "Penerapan pendinginan (coolant) secara konsisten dan stabil pada area bidang kontak pengerjaan.",
-                    'D' => "Pembersihan berkala terhadap serpihan/geram pada meja landasan kerja sebelum pemasangan benda kerja.",
-                    'E' => "Penetapan kecepatan potong (cutting speed) sesuai dengan tabel rekomendasi spesifikasi material pabrikan.",
-                ],
-                'correct' => 'B',
-                'pembahasan' => "Vibrasi mekanis dan keausan elemen pemotong langsung mengubah geometri kontak dan menghasilkan penyimpangan ukuran di luar toleransi toleransi yang diizinkan pada produk presisi industri.",
-                'indikator' => "Disajikan studi kasus standar toleransi presisi industri, peserta didik mampu menganalisis faktor teknis penyebab terjadinya cacat dimensi produk secara akurat.",
-            ],
-            3 => [
-                'stimulus' => "Pada saat teknisi melaksanakan pengujian fungsi pada sistem {$topik}, diperoleh data bahwa keluaran sistem tidak mencapai target daya efisiensi yang direncanakan meskipun tegangan pasokan normal.",
-                'pertanyaan' => "Berdasarkan prinsip alur kerja kelistrikan dan mekanik pada {$mapelNama}, hipotesis troubleshooting yang paling rasional untuk diperiksa lebih lanjut adalah...",
-                'options' => [
-                    'A' => "Terjadinya rugi-rugi gesekan internal atau resistansi kontak yang meningkat akibat sambungan kotor atau pelumasan yang terdegradasi.",
-                    'B' => "Penurunan temperatur lingkungan kerja di bawah titik beku yang meningkatkan efisiensi hantaran konduktor.",
-                    'C' => "Keberadaan sekring pengaman (fuse) yang berfungsi optimal dalam membatasi arus puncak sesaat.",
-                    'D' => "Kabel pentanahan (grounding) yang terpasang erat pada kerangka pelindung logam peralatan.",
-                    'E' => "Kesesuaian kapasitas beban kerja yang berada 20% di bawah kapasitas nominal rancangan alat.",
-                ],
-                'correct' => 'A',
-                'pembahasan' => "Peningkatan hambatan kontak atau resistansi sambungan serta keausan pelumas menyebabkan disipasi energi menjadi panas (losses), sehingga keluaran daya efektif turun drastis kendati tegangan sumber terpantau normal.",
-                'indikator' => "Disajikan data gejala penurunan efisiensi sistem {$mapelNama}, peserta didik mampu merumuskan hipotesis troubleshooting teknis yang paling rasional dan terukur.",
-            ],
-            4 => [
-                'stimulus' => "Dalam rangka mendukung prinsip ramah lingkungan (Green Skills & Circular Economy) pada bidang keahlian {$mapelNama}, unit produksi sekolah merencanakan pengelolaan limbah sisa bahan praktik.",
-                'pertanyaan' => "Metode penanganan limbah B3 (Bahan Berbahaya dan Beracun) seperti oli bekas, cairan kimia etsa, atau residu pelarut yang sesuai dengan regulasi lingkungan hidup adalah...",
-                'options' => [
-                    'A' => "Menampung limbah pada drum khusus bertutup berlabel B3 dan menyerahkannya kepada badan pengolah limbah berizin resmi.",
-                    'B' => "Mencampurkan limbah cair tersebut dengan air mengalir bertekanan tinggi langsung menuju saluran drainase umum.",
-                    'C' => "Mengubur limbah padat dan cair ke dalam tanah di area belakang bengkel dengan kedalaman minimal 1 meter.",
-                    'D' => "Membakar limbah sisa pelarut di tempat terbuka agar tidak mencemari sumber mata air bawah tanah.",
-                    'E' => "Menyimpan limbah di wadah terbuka di dekat pintu bengkel agar mudah terpantau oleh instruktur.",
-                ],
-                'correct' => 'A',
-                'pembahasan' => "Pengelolaan limbah B3 wajib mengikuti prinsip penampungan tertutup dengan simbol/label bahaya dan diserahkan kepada pihak pengumpul/pengolah limbah B3 yang memiliki manifest dan izin Kementerian LHK.",
-                'indikator' => "Disajikan konteks pengelolaan sisa bahan praktik vokasi, peserta didik dapat mengidentifikasi prosedur penanganan limbah B3 sesuai norma K3LH dan kelestarian lingkungan.",
-            ],
-            5 => [
-                'stimulus' => "Perhatikan tabel tahapan pemeliharaan preventif (preventive maintenance) berkala pada unit {$elemen}: Tahap 1: Inspeksi visual; Tahap 2: Pengukuran kelonggaran (clearance); Tahap 3: Pelumasan; Tahap 4: Uji fungsi dinamis.",
-                'pertanyaan' => "Tujuan utama ditetapkannya urutan pengukuran kelonggaran (clearance) SEBELUM dilakukan penambahan pelumas baru adalah...",
-                'options' => [
-                    'A' => "Mencegah lapisan film pelumas tebal mengaburkan pembacaan celah aktual antara dua bidang gesek komponen.",
-                    'B' => "Menghemat pemakaian pelumas agar komponen tidak terlalu licin saat dioperasikan pada beban tinggi.",
-                    'C' => "Mempercepat waktu pengerjaan pemeliharaan tanpa perlu membersihkan permukaan logam yang diukur.",
-                    'D' => "Memastikan suhu komponen meningkat terlebih dahulu sebelum diberikan pelumas dengan viskositas kental.",
-                    'E' => "Menghilangkan kotoran gram sisa gesekan secara mekanis tanpa memerlukan cairan pembersih khusus.",
-                ],
-                'correct' => 'A',
-                'pembahasan' => "Pengukuran clearance mekanis wajib dilakukan saat permukaan kontak bersih dan bebas lapisan minyak tebal agar instrumen ukur (seperti feeler gauge / dial indicator) mencatat celah logam sejati tanpa efek bantalan fluida.",
-                'indikator' => "Disajikan tabel prosedur pemeliharaan preventif berkala, peserta didik dapat menganalisis alasan teknis urutan tahapan pengukuran mekanis secara logis.",
-            ],
-        ];
+        // Ambil data butir soal spesifik dari Knowledge Base & Database
+        $kbSoal = \App\Services\CurriculumKnowledgeBase::getSoalPgData($mapel, $elemen, $nomor, $cpDeskripsi);
 
-        $scenarioIndex = (($nomor - 1) % 5) + 1;
-        $template = $scenarios[$scenarioIndex];
-
-        // Sesuaikan opsi agar kunci jawaban jatuh pada $correctKey
-        $options = $this->shuffleOptionsToKey($template['options'], $template['correct'], $correctKey);
+        // Pertukarkan opsi agar correctKey sesuai rotasi A-E (Shuffling logic)
+        $options = $kbSoal['options'];
+        $originalCorrect = $kbSoal['correct'] ?? 'A';
+        $originalCorrectText = $options[$originalCorrect] ?? array_values($options)[0];
+        $targetCorrectText = $options[$correctKey] ?? array_values($options)[0];
+        
+        $options[$originalCorrect] = $targetCorrectText;
+        $options[$correctKey] = $originalCorrectText;
 
         return [
             'nomor' => $nomor,
-            'stimulus' => $template['stimulus'],
-            'pertanyaan' => $template['pertanyaan'],
+            'stimulus' => $kbSoal['stimulus'],
+            'pertanyaan' => $kbSoal['pertanyaan'],
             'pilihan' => $options,
             'kunci_jawaban' => $correctKey,
-            'pembahasan' => $template['pembahasan'],
+            'pembahasan' => $kbSoal['pembahasan'],
             'level_kognitif' => $level['label'],
             'skor' => 1,
-            'indikator_kisi_kisi' => $template['indikator'],
+            'indikator_kisi_kisi' => $kbSoal['indikator'],
         ];
     }
 
     /**
      * Menghasilkan 1 butir Soal Isian / Uraian (Essay) dengan kata kunci dan rubrik penskoran analitik.
      */
-    private function generateIsianItem(int $nomorTampil, int $nomorUrut, MataPelajaran $mapel, Fase $fase, string $elemen, string $topik, array $level): array
+    private function generateIsianItem(int $nomorTampil, int $nomorUrut, MataPelajaran $mapel, Fase $fase, string $elemen, string $topik, array $level, ?string $cpDeskripsi = null): array
     {
-        $mapelNama = $mapel->nama;
-
-        $essayTemplates = [
-            1 => [
-                'stimulus' => "Dalam sebuah proyek perakitan dan uji kelaikan teknis pada elemen '{$elemen}', tim kerja Anda ditugaskan untuk menyusun alur kerja terstruktur guna mencegah terjadinya kesalahan operasional berulang yang kerap ditemui peserta didik pemula.",
-                'pertanyaan' => "Uraikan 4 langkah kerja berurutan (SOP) mulai dari persiapan alat/bahan, proses inti pengerjaan, verifikasi hasil ukur, hingga tahap pembersihan dan keselamatan kerja K3 pada kompetensi {$mapelNama}!",
-                'kata_kunci' => "1. Tahap Persiapan (APD, cek kelayakan alat, pembacaan gambar kerja); 2. Tahap Eksekusi (penerapan parameter sesuai standar, monitoring berkala); 3. Tahap Verifikasi (pengukuran presisi, pencatatan deviasi); 4. Tahap Akhir (housekeeping 5S/5R, pembuangan limbah, serah terima alat).",
-                'pedoman_penskoran' => "Rubrik Skor Maksimal 10:\n"
-                    . "• Skor 9 - 10: Menguraikan 4 tahapan secara runtut, logis, menyertakan standar K3 dan verifikasi presisi industri secara komprehensif.\n"
-                    . "• Skor 6 - 8: Menguraikan 3-4 tahapan dengan baik, namun penjelasan aspek verifikasi atau K3 kurang mendalam.\n"
-                    . "• Skor 3 - 5: Hanya menyebutkan 2 tahapan dasar tanpa rincian prosedur operasional yang jelas.\n"
-                    . "• Skor 1 - 2: Menjawab sangat singkat, prosedur tidak sistematis dan tidak mengacu pada kaidah vokasi.\n"
-                    . "• Skor 0: Tidak memberikan jawaban sama sekali.",
-                'skor_maksimal' => 10,
-                'indikator' => "Disajikan skenario penyusunan alur kerja proyek kejuruan, peserta didik dapat merumuskan 4 langkah SOP kerja terstruktur pada {$elemen} lengkap dengan aspek keselamatan kerja K3.",
-            ],
-            2 => [
-                'stimulus' => "Saat melakukan troubleshooting pada unit '{$topik}', teknisi mendeteksi suara dengung abnormal disertai peningkatan panas (overheating) yang signifikan setelah unit bekerja selama 15 menit.",
-                'pertanyaan' => "Lakukan analisis kritis mengenai:\n"
-                    . "a. Dua kemungkinan penyebab utama timbulnya panas berlebih dan suara abnormal tersebut.\n"
-                    . "b. Alat ukur/uji yang digunakan untuk memverifikasi gangguan tersebut.\n"
-                    . "c. Dua langkah perbaikan konkret untuk mengatasi masalah tersebut agar tidak terjadi kerusakan permanen.",
-                'kata_kunci' => "a. Penyebab: Beban lebih (overload), pelumasan kering, misalignment/ketidaksejajaran poros, atau korsleting parsial belitan; b. Alat uji: Termometer inframerah (thermal gun), vibration tester, multimeter/tang ampere; c. Solusi: Penyesuaian beban kerja, re-alignment komponen, penggantian pelumas standar, dan penggantian bearing/komponen aus.",
-                'pedoman_penskoran' => "Rubrik Skor Maksimal 10:\n"
-                    . "• Skor 9 - 10: Menjawab bagian (a), (b), dan (c) secara tepat, menyertakan nama alat ukur presisi dan analisis kausalitas yang mendalam.\n"
-                    . "• Skor 6 - 8: Menjawab 2 dari 3 bagian dengan benar atau analisis penyebab tepat namun langkah perbaikan bersifat umum.\n"
-                    . "• Skor 3 - 5: Menjawab sebagian kecil indikator (misal hanya menyebutkan nama alat tanpa langkah perbaikan).\n"
-                    . "• Skor 1 - 2: Jawaban spekulatif dan tidak didukung logika teknik kejuruan {$mapelNama}.\n"
-                    . "• Skor 0: Lembar jawaban kosong.",
-                'skor_maksimal' => 10,
-                'indikator' => "Disajikan studi kasus fenomena overheating dan suara abnormal pada unit {$mapelNama}, peserta didik mampu menganalisis penyebab, instrumen uji, dan langkah perbaikan teknis secara komprehensif.",
-            ],
-            3 => [
-                'stimulus' => "Di era industri modern, integrasi konsep Mindful, Meaningful, dan Joyful (Deep Learning) menuntut lulusan SMK memiliki kemandirian dalam melakukan evaluasi kualitas mandiri (Self-Quality Audit) terhadap produk atau jasa yang dihasilkan.",
-                'pertanyaan' => "Jika Anda bertindak sebagai Quality Control (QC) pada pengerjaan {$elemen}, jelaskan kriteria apa saja yang Anda gunakan untuk menyatakan bahwa hasil kerja peserta didik dinyatakan 'TUNTAS / KOMPETEN' sesuai tuntutan dunia usaha dan industri (DUDI)!",
-                'kata_kunci' => "Kriteria Mutu DUDI: 1. Presisi dan kesesuaian dimensi terhadap toleransi gambar kerja; 2. Fungsionalitas dan kinerja operasional sistem saat diuji beban; 3. Kerapian estetika (finishing, kebersihan tanpa goresan cacat); 4. Efisiensi durasi kerja terhadap waktu standar (Cycle Time); 5. Kepatuhan mutlak terhadap kaidah K3LH.",
-                'pedoman_penskoran' => "Rubrik Skor Maksimal 10:\n"
-                    . "• Skor 9 - 10: Menyebutkan dan menjelaskan minimal 4 kriteria mutu industri secara analitis (dimensi, fungsi, efisiensi waktu, K3).\n"
-                    . "• Skor 6 - 8: Menyebutkan 3 kriteria mutu dengan penjelasan yang cukup relevan dengan kebutuhan dunia kerja.\n"
-                    . "• Skor 3 - 5: Hanya menyebutkan 1-2 kriteria dasar secara umum (misal hanya 'alat berfungsi').\n"
-                    . "• Skor 1 - 2: Jawaban tidak mencerminkan standar mutu industri kejuruan.\n"
-                    . "• Skor 0: Tidak menjawab.",
-                'skor_maksimal' => 10,
-                'indikator' => "Disajikan peran sebagai Quality Control (QC), peserta didik mampu merumuskan kriteria keberhasilan produk/layanan tuntas berbasis standar DUDI.",
-            ],
-            4 => [
-                'stimulus' => "Perkembangan teknologi otomasi dan digitalisasi saat ini mendorong efisiensi tinggi pada pengerjaan bidang {$mapelNama}. Namun demikian, faktor kompetensi manusia (human factor) dan kebiasaan kerja tetap menjadi penentu utama keberhasilan produksi.",
-                'pertanyaan' => "Jelaskan mengapa penerapan prinsip 5S/5R (Ringkas, Rapi, Resik, Rawat, Rajin) di lingkungan kerja kejuruan berhubungan langsung dengan penurunan angka kecelakaan kerja (Zero Accident) dan peningkatan produktivitas bengkel!",
-                'kata_kunci' => "Hubungan 5S/5R dengan Zero Accident: 1. Ringkas menyingkirkan benda tidak perlu sehingga tidak menghalangi jalur evakuasi; 2. Rapi memastikan penempatan alat di tempatnya (tidak tersandung / salah ambil alat); 3. Resik menghilangkan tumpahan oli/pelumas yang menyebabkan terpeleset; 4. Rawat menjaga standar keselamatan tetap konsisten; 5. Rajin membentuk disiplin mental dan kesadaran K3 spontan.",
-                'pedoman_penskoran' => "Rubrik Skor Maksimal 10:\n"
-                    . "• Skor 9 - 10: Mengaitkan kelima pilar 5S/5R secara spesifik dengan mitigasi kecelakaan kerja dan efisiensi waktu kerja di bengkel {$mapelNama}.\n"
-                    . "• Skor 6 - 8: Menjelaskan 3-4 pilar dengan hubungan sebab-akibat yang cukup jelas.\n"
-                    . "• Skor 3 - 5: Menjelaskan definisi 5S saja tanpa menghubungkan secara jelas dengan keselamatan kerja.\n"
-                    . "• Skor 1 - 2: Jawaban sangat singkat dan kurang relevan.\n"
-                    . "• Skor 0: Tidak menjawab.",
-                'skor_maksimal' => 10,
-                'indikator' => "Disajikan konsep budaya kerja industri, peserta didik mampu menguraikan korelasi penerapan 5S/5R dengan keselamatan kerja Zero Accident dan efisiensi bengkel vokasi.",
-            ],
-            5 => [
-                'stimulus' => "Dalam pelaksanaan evaluasi berkala, ditemukan bahwa pemakaian bahan baku/material pada salah satu sesi praktik melebihi estimasi anggaran hingga 30% tanpa adanya penambahan jumlah unit produk jadi yang dihasilkan.",
-                'pertanyaan' => "Lakukan analisis investigatif untuk mengidentifikasi 3 titik kritis pemborosan (waste) yang mungkin terjadi di bengkel dan rumuskan rekomendasi sistematis untuk menghemat pemakaian bahan pada periode berikutnya!",
-                'kata_kunci' => "Titik Kritis Pemborosan: 1. Kesalahan pengukuran/pemotongan awal benda kerja (Scrap/Rework); 2. Prosedur penyimpanan material yang tidak tepat (korosi/rusak sebelum dipakai); 3. Kurangnya pengawasan kalibrasi alat potong. Rekomendasi: Pembuatan cutting plan terencana, uji verifikasi gambar sebelum eksekusi, dan pelatihan pra-praktik.",
-                'pedoman_penskoran' => "Rubrik Skor Maksimal 10:\n"
-                    . "• Skor 9 - 10: Mengidentifikasi 3 titik kritis pemborosan secara nyata dan memberikan 3 rekomendasi aplikatif berbasis efisiensi biaya produksi.\n"
-                    . "• Skor 6 - 8: Mengidentifikasi 2 titik kritis dan memberikan solusi yang cukup baik.\n"
-                    . "• Skor 3 - 5: Hanya menyebutkan pemborosan tanpa analisis akar masalah dan solusi yang terukur.\n"
-                    . "• Skor 1 - 2: Jawaban tidak berdasar pada konteks manajemen bengkel.\n"
-                    . "• Skor 0: Lembar kosong.",
-                'skor_maksimal' => 10,
-                'indikator' => "Disajikan persoalan pemborosan material bengkel vokasi, peserta didik mampu menganalisis 3 titik kritis pemborosan serta merumuskan rekomendasi mitigasi efisiensi biaya secara terukur.",
-            ],
-        ];
-
-        $templateIndex = (($nomorUrut - 1) % 5) + 1;
-        $template = $essayTemplates[$templateIndex];
+        // Ambil data soal Isian dari Knowledge Base & Database
+        $kbIsian = \App\Services\CurriculumKnowledgeBase::getSoalIsianData($mapel, $elemen, $nomorUrut, $cpDeskripsi);
 
         return [
             'nomor' => $nomorTampil,
             'nomor_urut' => $nomorUrut,
-            'stimulus' => $template['stimulus'],
-            'pertanyaan' => $template['pertanyaan'],
-            'kata_kunci' => $template['kata_kunci'],
-            'pedoman_penskoran' => $template['pedoman_penskoran'],
-            'skor_maksimal' => $template['skor_maksimal'],
+            'stimulus' => $kbIsian['stimulus'] ?? 'Perhatikan studi kasus atau fenomena berikut untuk menjawab pertanyaan di bawah ini dengan kritis.',
+            'pertanyaan' => $kbIsian['pertanyaan'],
+            'kata_kunci' => $kbIsian['kunci'],
+            'pedoman_penskoran' => $kbIsian['pedoman_penskoran'] ?? "Rubrik Skor Maksimal 10:\n• Skor 9 - 10: Menguraikan jawaban secara komprehensif, logis, dan runtut.\n• Skor 6 - 8: Menjawab dengan baik namun ada aspek minor yang terlewat.\n• Skor 3 - 5: Menjawab secara singkat tanpa rincian konsep.\n• Skor 1 - 2: Jawaban kurang relevan.\n• Skor 0: Lembar kosong.",
+            'skor_maksimal' => 10,
             'level_kognitif' => $level['label'],
-            'indikator_kisi_kisi' => $template['indikator'],
+            'indikator_kisi_kisi' => $kbIsian['indikator'] ?? "Peserta didik mampu menguraikan konsep materi {$elemen} secara analitis.",
         ];
     }
 
