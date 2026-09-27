@@ -1,170 +1,137 @@
 <!-- ============================================================ -->
-<!-- BOTTOM NAVIGATION BAR (KHUSUS SMARTPHONE / ANDROID VIEW)     -->
+<!-- BOTTOM NAVIGATION BAR (SUPERAPP GRAB/GOJEK FLOATING PILL DOCK) -->
 <!-- ============================================================ -->
-<nav class="mobile-bottom-nav d-block d-md-none" id="mobileBottomNav" aria-label="Navigasi Aplikasi">
-    <div class="mobile-nav-container">
-        <!-- TAB 1: BERANDA -->
-        <a href="{{ auth()->check() ? route('dashboard') : route('home') }}" 
-           class="mobile-nav-link {{ (request()->routeIs('dashboard') || request()->routeIs('home')) ? 'active' : '' }}">
-            <div class="nav-icon-wrap">
-                <i class="bi bi-house-door-fill"></i>
-            </div>
-            <span class="nav-label">Beranda</span>
+<nav class="mobile-bottom-nav d-block d-md-none" id="mobileBottomNav" aria-label="Navigasi Aplikasi Mobile">
+    <div class="mobile-pill-dock">
+        <!-- 1. Beranda -->
+        <a href="{{ auth()->check() ? route('dashboard') : route('generator.index') }}" 
+           class="dock-item {{ (request()->routeIs('dashboard') || request()->routeIs('home')) ? 'active' : '' }}">
+            <span class="material-symbols-outlined {{ (request()->routeIs('dashboard') || request()->routeIs('home')) ? 'fill-icon' : '' }}">dashboard</span>
+            <span class="dock-label">Beranda</span>
         </a>
 
-        <!-- TAB 2: SMART SOAL -->
+        <!-- 2. Generator -->
+        <a href="{{ route('generator.index') }}" 
+           class="dock-item {{ request()->routeIs('generator.*') ? 'active' : '' }}">
+            <div class="position-relative d-inline-flex">
+                <span class="material-symbols-outlined {{ request()->routeIs('generator.*') ? 'fill-icon' : '' }}">auto_awesome</span>
+                <span class="dock-dot bg-warning"></span>
+            </div>
+            <span class="dock-label">Generator</span>
+        </a>
+
+        <!-- 3. Smart Soal / Bank Soal -->
         <a href="{{ auth()->check() ? route('paket-soal.index') : route('generator.index') }}" 
-           class="mobile-nav-link {{ request()->routeIs('paket-soal.*') ? 'active' : '' }}">
-            <div class="nav-icon-wrap">
-                <i class="bi bi-patch-question-fill"></i>
-            </div>
-            <span class="nav-label">Smart Soal</span>
+           class="dock-item {{ request()->routeIs('paket-soal.*') ? 'active' : '' }}">
+            <span class="material-symbols-outlined {{ request()->routeIs('paket-soal.*') ? 'fill-icon' : '' }}">quiz</span>
+            <span class="dock-label">Bank Soal</span>
         </a>
 
-        <!-- TAB 3: GENERATOR 1-KLIK (FLOATING HERO BUTTON IN CENTER) -->
-        <a href="{{ route('generator.index') }}" class="mobile-nav-link center-action" title="Generator 1-Klik">
-            <div class="center-fab-btn">
-                <i class="bi bi-lightning-charge-fill"></i>
-            </div>
-            <span class="nav-label text-warning fw-bold">1-Klik</span>
+        <!-- 4. Vx Agent (Asisten Kurikulum) -->
+        <a href="javascript:void(0)" onclick="showVxAgentWelcomeModal(); return false;" 
+           class="dock-item {{ request()->routeIs('pakar-ai.*') ? 'active' : '' }}">
+            <span class="material-symbols-outlined {{ request()->routeIs('pakar-ai.*') ? 'fill-icon' : '' }}">forum</span>
+            <span class="dock-label">Vx Agent</span>
         </a>
 
-        <!-- TAB 4: DOKUMEN / ARSIP -->
-        <a href="{{ auth()->check() ? route('modul-ajar.index') : route('generator.index') }}" 
-           class="mobile-nav-link {{ (request()->routeIs('modul-ajar.*') || request()->routeIs('atp.*') || request()->routeIs('prota-promes.*') || request()->routeIs('lkpd.*') || request()->routeIs('asesmen.*')) ? 'active' : '' }}">
-            <div class="nav-icon-wrap">
-                <i class="bi bi-folder2-open"></i>
-            </div>
-            <span class="nav-label">Dokumen</span>
+        <!-- 5. Arsip / Dokumen -->
+        <a href="{{ auth()->check() ? route('modul-ajar.index') : route('login') }}" 
+           class="dock-item {{ (request()->routeIs('modul-ajar.*') || request()->routeIs('atp.*') || request()->routeIs('prota-promes.*') || request()->routeIs('lkpd.*') || request()->routeIs('asesmen.*') || request()->routeIs('tp.*')) ? 'active' : '' }}">
+            <span class="material-symbols-outlined {{ (request()->routeIs('modul-ajar.*') || request()->routeIs('atp.*') || request()->routeIs('prota-promes.*') || request()->routeIs('lkpd.*') || request()->routeIs('asesmen.*') || request()->routeIs('tp.*')) ? 'fill-icon' : '' }}">folder_open</span>
+            <span class="dock-label">Arsip</span>
         </a>
-
-        <!-- TAB 5: AKUN / PROFIL / MENU -->
-        @auth
-            <a href="{{ route('profile.setup') }}" 
-               class="mobile-nav-link {{ request()->routeIs('profile.*') ? 'active' : '' }}">
-                <div class="nav-icon-wrap">
-                    <i class="bi bi-person-circle"></i>
-                </div>
-                <span class="nav-label">Akun</span>
-            </a>
-        @else
-            <a href="{{ route('login') }}" 
-               class="mobile-nav-link {{ request()->routeIs('login') ? 'active' : '' }}">
-                <div class="nav-icon-wrap">
-                    <i class="bi bi-box-arrow-in-right"></i>
-                </div>
-                <span class="nav-label">Masuk</span>
-            </a>
-        @endauth
     </div>
 </nav>
 
 <style>
-    /* Mobile Bottom Navigation Bar Styling (Android/Gojek-like) */
+    /* SuperApp Floating Pill Bottom Navigation Dock (Stitch Android Design) */
     .mobile-bottom-nav {
         position: fixed;
-        bottom: 0;
+        bottom: 14px;
         left: 0;
         right: 0;
         z-index: 1045;
-        background: rgba(255, 255, 255, 0.96);
-        backdrop-filter: blur(16px);
-        -webkit-backdrop-filter: blur(16px);
-        border-top: 1px solid #e2e8f0;
-        box-shadow: 0 -4px 20px rgba(11, 59, 96, 0.08);
-        padding-bottom: env(safe-area-inset-bottom, 0px);
+        pointer-events: none;
+        padding: 0 16px;
     }
 
-    .mobile-nav-container {
+    .mobile-pill-dock {
+        pointer-events: auto;
         display: flex;
         align-items: center;
         justify-content: space-around;
-        height: 62px;
-        max-width: 540px;
+        max-width: 410px;
         margin: 0 auto;
-        padding: 0 8px;
+        padding: 5px 8px;
+        background: #111827;
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        border-radius: 9999px;
+        box-shadow: 0 12px 35px rgba(15, 23, 42, 0.42), 0 2px 6px rgba(0, 0, 0, 0.2);
     }
 
-    .mobile-nav-link {
+    .dock-item {
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        flex: 1;
         text-decoration: none;
-        color: #64748b;
-        font-size: 0.68rem;
-        font-weight: 600;
-        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-        position: relative;
-        padding: 6px 0 4px;
+        color: #94a3b8;
+        padding: 5px 12px;
+        border-radius: 9999px;
+        transition: all 0.18s cubic-bezier(0.4, 0, 0.2, 1);
         touch-action: manipulation;
+        min-width: 56px;
     }
 
-    .mobile-nav-link:hover {
-        color: #0284c7;
-    }
-
-    .mobile-nav-link.active {
-        color: #0284c7;
-    }
-
-    .mobile-nav-link.active .nav-icon-wrap {
-        transform: translateY(-2px);
-    }
-
-    .mobile-nav-link.active::after {
-        content: '';
-        position: absolute;
-        bottom: 2px;
-        width: 16px;
-        height: 3px;
-        background-color: #0284c7;
-        border-radius: 4px;
-    }
-
-    .mobile-nav-link .nav-icon-wrap {
-        font-size: 1.25rem;
+    .dock-item .material-symbols-outlined {
+        font-size: 20px;
         line-height: 1;
-        margin-bottom: 2px;
-        transition: transform 0.2s ease;
+        transition: transform 0.18s ease;
     }
 
-    .mobile-nav-link .nav-label {
+    .dock-label {
+        font-size: 10px;
+        font-weight: 600;
         line-height: 1.1;
+        margin-top: 2px;
         letter-spacing: -0.2px;
     }
 
-    /* Center Raised Action Button (1-Klik Generator) */
-    .mobile-nav-link.center-action {
-        position: relative;
-        top: -12px;
+    .dock-item:hover {
+        color: #e2e8f0;
     }
 
-    .center-fab-btn {
-        width: 48px;
-        height: 48px;
-        border-radius: 50%;
-        background: linear-gradient(135deg, #0b3b60 0%, #0284c7 60%, #38bdf8 100%);
-        color: #fbbf24;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 1.45rem;
-        box-shadow: 0 4px 14px rgba(2, 132, 199, 0.45);
-        border: 3px solid #ffffff;
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-
-    .mobile-nav-link.center-action:active .center-fab-btn {
+    .dock-item:active {
         transform: scale(0.92);
-        box-shadow: 0 2px 8px rgba(2, 132, 199, 0.3);
     }
 
-    /* Give bottom spacing on smartphone screens so content is not obscured by the bottom bar */
+    .dock-item.active {
+        background: #ffffff;
+        color: #0f172a;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+    }
+
+    .dock-item.active .dock-label {
+        font-weight: 800;
+        color: #0f172a;
+    }
+
+    .dock-dot {
+        position: absolute;
+        top: -1px;
+        right: -3px;
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        border: 1.5px solid #111827;
+    }
+
+    /* Bottom padding on mobile so content is never covered by the floating dock */
     @media (max-width: 767.98px) {
         body {
-            padding-bottom: 74px !important;
+            padding-bottom: 86px !important;
         }
     }
 </style>

@@ -118,3 +118,45 @@ if (!function_exists('app_theme_colors')) {
         return $active;
     }
 }
+
+if (!function_exists('is_android_device')) {
+    /**
+     * Deteksi apakah request berasal dari perangkat Android (atau query ?view=android).
+     */
+    function is_android_device(): bool
+    {
+        $view = request()->query('view') ?? session('view_mode');
+        if ($view === 'android') {
+            session(['view_mode' => 'android']);
+            return true;
+        }
+        if ($view === 'desktop') {
+            session(['view_mode' => 'desktop']);
+            return false;
+        }
+
+        $ua = request()->header('User-Agent', '');
+        return (bool) preg_match('/Android/i', $ua);
+    }
+}
+
+if (!function_exists('is_mobile_device')) {
+    /**
+     * Deteksi apakah request berasal dari perangkat mobile (Android, iOS, dll).
+     */
+    function is_mobile_device(): bool
+    {
+        $view = request()->query('view') ?? session('view_mode');
+        if ($view === 'android' || $view === 'mobile') {
+            session(['view_mode' => 'android']);
+            return true;
+        }
+        if ($view === 'desktop') {
+            session(['view_mode' => 'desktop']);
+            return false;
+        }
+
+        $ua = request()->header('User-Agent', '');
+        return (bool) preg_match('/(Android|iPhone|iPad|iPod|Mobile|webOS|BlackBerry|IEMobile|Opera Mini)/i', $ua);
+    }
+}

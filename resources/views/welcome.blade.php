@@ -8,7 +8,8 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
     
     <!-- Bootstrap 5 CSS & Bootstrap Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -427,8 +428,12 @@
         }
     </style>
 </head>
-<body>
+<body class="{{ is_android_device() ? 'p-0 bg-dark' : '' }}">
 
+@if(is_android_device())
+    {{-- STITCH ANDROID ONBOARDING EXPERIENCE (Active for Android smartphone access or ?view=android) --}}
+    @include('components.mobile-onboarding')
+@else
     <!-- Ambient Subtle Sky Blue Wash -->
     <div class="sky-wash sky-wash-1"></div>
     <div class="sky-wash sky-wash-2"></div>
@@ -1238,6 +1243,10 @@
                 <a href="{{ route('creator.profile') }}" class="footer-legal-link">Profil Pembuat</a>
                 <span class="text-white-50">&bull;</span>
                 <a href="{{ route('legal.disclaimer') }}" class="footer-legal-link">Pernyataan Penyangkalan (Disclaimer)</a>
+                <span class="text-white-50">&bull;</span>
+                <a href="{{ request()->fullUrlWithQuery(['view' => 'android']) }}" class="footer-legal-link text-warning fw-semibold">
+                    <i class="bi bi-phone me-1"></i>Tampilan Android (App Mode)
+                </a>
             </div>
         </div>
     </footer>
@@ -1271,5 +1280,6 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
     </script>
+@endif
 </body>
 </html>
