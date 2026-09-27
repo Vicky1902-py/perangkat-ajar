@@ -87,7 +87,23 @@ Aplikasi ini adalah platform pembuat (generator) perangkat pembelajaran otomatis
 
 ---
 
-### D. Mode Maintenance Khusus Superadmin
+### D. Fitur Obrolan "Vx Agent" & Auto-Complete Perangkat Ajar (Non-Destructive)
+1. **Notifikasi Obrolan Floating Vx Agent di Halaman Hasil (`result.blade.php`):**
+   - Muncul otomatis pasca-generate di sudut kanan bawah dengan sapaan interaktif ramah:  
+     *"Halo Bapak/Ibu Guru! Seluruh perangkat ajar telah tersusun... Jika ada materi yang ingin ditambahkan atau alur disesuaikan, Anda bisa langsung konsultasi dengan saya (Vx Agent) atau gunakan tombol Edit untuk melengkapi secara otomatis!"*
+   - Memiliki tombol **"Konsultasi & Minta Saran ke Vx Agent"** yang membuka dialog chat in-page tanpa harus meninggalkan halaman.
+2. **Tombol Edit Dokumen Langsung:**
+   - Tersedia tombol `✏️ Edit` langsung di baris Modul Ajar dan LKPD pada hasil generate.
+3. **Formulir Edit Lengkap dengan Asisten AI:**
+   - [`resources/views/modul-ajar/edit.blade.php`](file:///C:/xampp/htdocs/perangkat-ajar/resources/views/modul-ajar/edit.blade.php) & [`resources/views/lkpd/edit.blade.php`](file:///C:/xampp/htdocs/perangkat-ajar/resources/views/lkpd/edit.blade.php).
+   - Di samping kolom-kolom kunci (Bahan Ajar, Pertanyaan Pemantik, Langkah PEDATTI, Stimulus LKPD, dan Rubrik), tersedia tombol:  
+     `✨ Lengkapi via Vx Agent`.
+   - Guru cukup mengetik instruksi singkat (misal: *"tambahkan materi tentang AI dan keamanan data"*), lalu Vx Agent menyusun narasi pelengkap secara cerdas.
+   - Pilihan mode penyisipan yang aman: **"Sisipkan di Bawah (Append)"** atau **"Gantikan Teks (Replace)"**, menjamin format tabel, skema database, dan regulasi BSKAP 046/2025 **100% tidak rusak**.
+
+---
+
+### E. Mode Maintenance Khusus Superadmin
 - Pengaturan berada di menu Superadmin (`/superadmin/pengaturan` atau `/cms/settings`) via tabel `app_settings` (`key = maintenance_mode`).
 - Saat aktif:
   - Pengunjung umum, tamu, atau guru biasa akan diarahkan ke laman pemeliharaan eksklusif:  
@@ -96,7 +112,7 @@ Aplikasi ini adalah platform pembuat (generator) perangkat pembelajaran otomatis
 
 ---
 
-### E. Fitur Superadmin Hapus Semua Perangkat & Notifikasi Pengguna
+### F. Fitur Superadmin Hapus Semua Perangkat & Notifikasi Pengguna
 - Superadmin memiliki tombol pembersihan/reset seluruh perangkat ajar jika terdapat pembaruan regulasi CP/ATP.
 - Saat perangkat dihapus oleh Superadmin, pengguna mendapatkan notifikasi resmi di aplikasi:  
   *“Perangkat dihapus karena ada ketidaksesuaian dengan cp dan atp, mohon generate ulang, by. vicky koroh”*.
