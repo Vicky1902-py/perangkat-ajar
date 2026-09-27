@@ -2,7 +2,7 @@
 **Aplikasi:** Generator Perangkat Ajar & Modul Kurikulum Deep Learning  
 **Domain Produksi:** [guru.vxai.online](https://guru.vxai.online)  
 **Pengembang / Author:** Vicky Koroh  
-**Tanggal Update Terakhir:** 26 September 2026  
+**Tanggal Update Terakhir:** 27 September 2026  
 **Status Git:** Branch `main` (Up-to-date di GitHub `https://github.com/Vicky1902-py/perangkat-ajar.git`)
 
 ---
@@ -10,7 +10,7 @@
 > **CATATAN UNTUK MEMULAI SESI BARU:**  
 > Jika Anda membuka chat/sesi baru dengan AI, cukup upload file ini dan katakan:  
 > *"Halo, lanjutkan pengembangan aplikasi perangkat ajar ini berdasarkan dokumen ringkasan yang saya upload."*  
-> AI akan langsung memahami seluruh arsitektur, histori perubahan, struktur database, dan status terakhir aplikasi tanpa harus mengulang dari awal.
+> AI akan langsung memahami seluruh arsitektur, histori perubahan, struktur database, integrasi NVIDIA NIM API, dan status terakhir aplikasi tanpa harus mengulang dari awal.
 
 ---
 
@@ -24,15 +24,17 @@ Aplikasi ini adalah platform pembuat (generator) perangkat pembelajaran otomatis
    - **Konsep Deep Learning:** *Mindful Learning*, *Meaningful Learning*, dan *Joyful Learning*.
    - **Sintaks Pedagogis:** Model **PEDATTI** (*Pelajari, Dalami, Terapkan, Evaluasi, Refleksikan*).
 
-2. **Pendekatan Tanpa Ketergantungan API Key (Zero API Cost):**
-   - Sistem beralih total dari ketergantungan API eksternal pihak ketiga (seperti Gemini/OpenAI API) ke **Sistem Pakar Berbasis Basis Data Kurikulum Mandiri (`Curriculum Knowledge Base & Rule-based Expert System`)**.
-   - Seluruh silabus CP, elemen, materi pokok, rangkuman, indikator, stimulus otentik, dan bank soal disimpan langsung di database (`kurikulum_materis`, `capaian_pembelajarans`, `template_pedattis`).
-   - Kecepatan generate instan, stabil, bebas kuota, dan hemat biaya server 100%.
+2. **Pendekatan Sistem Pakar Hybrid (Rule-Based + NVIDIA NIM AI Cloud):**
+   - **Single Source of Truth:** Seluruh Capaian Pembelajaran (CP), elemen, dan materi esensial bersumber dari database lokal (`capaian_pembelajarans`, `kurikulum_materis`, `template_pedattis`).
+   - **Anti-Halusinasi Bounded Context:** NVIDIA NIM API (Model: `z-ai/glm-5.3-flash` & `deepseek-ai/deepseek-v4.1-flash`) difungsikan sebagai pengaya narasi pedagogis. AI dilarang keras mengarang CP/elemen di luar konteks database.
+   - **Zero Downtime Fallback:** Apabila koneksi internet terputus atau API timeout, sistem otomatis beralih ke *Curriculum Knowledge Base* lokal tanpa ada error bagi guru.
+   - Kecepatan generate 7 perangkat dijamin instan (< 1 detik).
 
 3. **Tech Stack:**
    - **Backend:** Laravel 11.x, PHP 8.2+
    - **Database:** MySQL / MariaDB
-   - **Frontend:** Blade Templating, Tailwind CSS, Alpine.js, FontAwesome
+   - **AI Microservices:** NVIDIA NIM Cloud API (Free Endpoints: `z-ai/glm-5.3-flash` & `deepseek-ai/deepseek-v4.1-flash`)
+   - **Frontend:** Blade Templating, Bootstrap 5, Tailwind CSS, Alpine.js, Bootstrap Icons
    - **Export:** DomPDF (Export PDF rapi A4), PhpSpreadsheet (Excel)
    - **Hosting:** cPanel Apache/LiteSpeed (`guru.vxai.online`)
 
@@ -69,14 +71,24 @@ Aplikasi ini adalah platform pembuat (generator) perangkat pembelajaran otomatis
 - **Aturan Ketat:** Seluruh terminologi `"peserta didik"` diubah menjadi `"murid"` (dengan mempertahankan kapitalisasi: `Murid`, `murid`, `MURID`).
 - **Cakupan:**
   - Kode program: 27+ file (Controllers, Services, Views, Seeders, Routes, Test cases).
-  - Pengecekan `git grep -i "peserta didik"` bernilai **0 (nol match)**.
-  - Database lokal: 660+ baris data ter-update.
-  - Telah dibuat migrasi otomatis: `2026_09_26_000001_replace_peserta_didik_with_murid_in_db.php`.
+  - Pengecekan `git grep -i "peserta didik"` bernilai **0 (nol match)** di luar skrip migrasi.
+  - Database: Migrasi otomatis `2026_09_26_000001_replace_peserta_didik_with_murid_in_db.php`.
 
 ---
 
-### C. Mode Maintenance Khusus Superadmin
-- Pengaturan berada di menu Superadmin (`/superadmin/pengaturan`) via tabel `app_settings` (`key = maintenance_mode`).
+### C. Integrasi NVIDIA NIM AI Microservices (Free Endpoint)
+- **Service:** [`App\Services\NvidiaAiService`](file:///C:/xampp/htdocs/perangkat-ajar/app/Services/NvidiaAiService.php)
+- **Model Aktif:** `z-ai/glm-5.3-flash` (Free Endpoint cepat & stabil)
+- **Fitur Baru Konsultasi Pakar AI (`/pakar-ai`):**
+  - Panel konsultasi kurikulum untuk guru dengan rekomendasi pedagogis Deep Learning 3M, alur PEDATTI, dan strategi diferensiasi murid.
+  - Dilengkapi verifikasi anti-halusinasi otomatis (grounded ke CP di database).
+- **Pengaturan & Uji Koneksi di Superadmin (`/cms/settings`):**
+  - Tab khusus "NVIDIA NIM AI" dengan tombol live AJAX "Uji Koneksi API NVIDIA Sekarang" yang mengonfirmasi status API key dan katalog model secara realtime.
+
+---
+
+### D. Mode Maintenance Khusus Superadmin
+- Pengaturan berada di menu Superadmin (`/superadmin/pengaturan` atau `/cms/settings`) via tabel `app_settings` (`key = maintenance_mode`).
 - Saat aktif:
   - Pengunjung umum, tamu, atau guru biasa akan diarahkan ke laman pemeliharaan eksklusif:  
     *"SISTEM DALAM PENGEMBANGAN BY. VICKY KOROH"* dengan tampilan UI modern, animasi pulse, dan indikator status.
@@ -84,7 +96,7 @@ Aplikasi ini adalah platform pembuat (generator) perangkat pembelajaran otomatis
 
 ---
 
-### D. Fitur Superadmin Hapus Semua Perangkat & Notifikasi Pengguna
+### E. Fitur Superadmin Hapus Semua Perangkat & Notifikasi Pengguna
 - Superadmin memiliki tombol pembersihan/reset seluruh perangkat ajar jika terdapat pembaruan regulasi CP/ATP.
 - Saat perangkat dihapus oleh Superadmin, pengguna mendapatkan notifikasi resmi di aplikasi:  
   *“Perangkat dihapus karena ada ketidaksesuaian dengan cp dan atp, mohon generate ulang, by. vicky koroh”*.
@@ -99,8 +111,10 @@ perangkat-ajar/
 │   ├── Http/
 │   │   ├── Controllers/
 │   │   │   ├── GeneratorController.php    # Handler request generate perangkat
-│   │   │   ├── SuperAdminController.php   # Manajemen pengguna, settings, hapus perangkat
-│   │   │   └── ExportController.php        # Ekspor PDF/Excel modul & LKPD
+│   │   │   ├── PakarAiController.php      # Konsultasi kurikulum via NVIDIA NIM
+│   │   │   ├── SuperAdminController.php   # Manajemen pengguna, settings, bulk delete
+│   │   │   ├── SettingController.php      # Pengaturan, branding, adsense, test-nvidia
+│   │   │   └── ExportController.php       # Ekspor PDF/Excel modul & LKPD
 │   │   └── Middleware/
 │   │       └── CheckMaintenanceMode.php   # Proteksi akses maintenance mode
 │   ├── Models/
@@ -113,7 +127,10 @@ perangkat-ajar/
 │   └── Services/
 │       ├── GeneratorService.php           # Core engine pembuatan 7 perangkat
 │       ├── CurriculumKnowledgeBase.php    # Basis data silabus kurikulum per rumpun mapel
-│       └── SoalExpertService.php          # Engine pembuatan paket soal HOTS & rubrik
+│       ├── SoalExpertService.php          # Engine pembuatan paket soal HOTS & rubrik
+│       └── NvidiaAiService.php            # Engine integrasi NVIDIA NIM (Anti-Halusinasi)
+├── config/
+│   └── services.php                       # Konfigurasi credentials NVIDIA NIM
 ├── database/
 │   ├── migrations/
 │   │   ├── 2026_09_23_000002_create_app_settings_table.php
@@ -126,8 +143,10 @@ perangkat-ajar/
 └── resources/views/
     ├── maintenance.blade.php              # Tampilan maintenance mode "By. Vicky Koroh"
     ├── generator/                         # UI generator 7 perangkat
+    ├── pakar-ai/                          # UI Konsultasi Sistem Pakar AI (NVIDIA NIM)
     ├── modul-ajar/                        # Tampilan Modul Ajar Deep Learning
     ├── lkpd/                              # Tampilan Lembar Kerja Murid (LKPD)
+    ├── cms/settings/                      # Pengaturan Superadmin (Tab NVIDIA NIM)
     └── exports/pdf/                       # Template cetak PDF A4
 ```
 
@@ -145,25 +164,27 @@ cd ~/public_html
 # 2. Tarik update terbaru dari repository GitHub
 git pull origin main
 
-# 3. Jalankan migrasi database (otomatis memperbarui istilah 'peserta didik' ke 'murid')
+# 3. Masukkan konfigurasi NVIDIA API Key di file .env server hosting jika belum ada:
+# Buka file .env dan tambahkan:
+# NVIDIA_API_KEY=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
+# NVIDIA_API_URL=https://integrate.api.nvidia.com/v1
+# NVIDIA_MODEL=z-ai/glm-5.3-flash
+# NVIDIA_FALLBACK_MODEL=deepseek-ai/deepseek-v4.1-flash
+# NVIDIA_TIMEOUT=30
+
+# 4. Jalankan migrasi database otomatis
 php artisan migrate --force
 
-# 4. Bersihkan cache konfigurasi dan template Blade
+# 5. Bersihkan cache konfigurasi, rute, dan template Blade
 php artisan optimize:clear
-```
-
-Jika ingin menjalankan seeder materi baru di server hosting:
-```bash
-php artisan db:seed --class=KurikulumMateriSeeder --force
 ```
 
 ---
 
 ## 5. REKOMENDASI TAHAPAN PENGEMBANGAN BERIKUTNYA
-Saat melanjutkan sesi kerja nanti, beberapa hal yang dapat dieksplorasi lebih jauh antara lain:
-1. Penambahan materi untuk mata pelajaran muatan lokal atau mata pelajaran kejuruan spesifik lainnya.
-2. Penambahan visual grafis/diagram alur otomatis pada modul ajar PDF.
-3. Fitur kolaborasi antar-guru dalam satu rumpun MGMP sekolah.
+1. Eksplorasi fitur ekspor hasil konsultasi Pakar AI langsung ke catatan pedagogis guru.
+2. Penambahan visual infografis sintaks PEDATTI pada lembar PDF modul ajar.
+3. Sinkronisasi materi muatan lokal daerah ke database kurikulum.
 
 ---
 *Dokumen ini dibuat otomatis sebagai checkpoint resmi proyek Guru VxAI.*

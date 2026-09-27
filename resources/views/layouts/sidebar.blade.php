@@ -121,6 +121,12 @@
                         <i class="bi bi-patch-question"></i> Smart Soal
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->routeIs('pakar-ai.*') ? 'active' : '' }} text-success" href="{{ route('pakar-ai.index') }}">
+                        <i class="bi bi-cpu-fill text-success"></i> Pakar AI Kurikulum
+                        <span class="badge rounded-pill ms-auto text-white" style="background-color: #76b900; font-size: 0.62rem; padding: 2px 6px;">NVIDIA</span>
+                    </a>
+                </li>
             </ul>
 
             <!-- CMS DATA MASTER (SUPERADMIN & ADMIN SEKOLAH) -->

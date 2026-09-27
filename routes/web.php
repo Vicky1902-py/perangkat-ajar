@@ -141,6 +141,10 @@ Route::middleware(['auth'])->group(function () {
         // GENERATOR SOAL (BANK SOAL & KISI-KISI SISTEM PAKAR)
         Route::resource('paket-soal', PaketSoalController::class);
 
+        // KONSULTASI SISTEM PAKAR AI KURIKULUM (NVIDIA NIM ENGINE)
+        Route::get('/pakar-ai', [\App\Http\Controllers\PakarAiController::class, 'index'])->name('pakar-ai.index');
+        Route::post('/pakar-ai/consult', [\App\Http\Controllers\PakarAiController::class, 'consult'])->name('pakar-ai.consult');
+
         // CMS MASTER DATA (SUPERADMIN & ADMIN SEKOLAH)
         Route::middleware(['role:superadmin,admin_sekolah'])->prefix('cms')->name('cms.')->group(function () {
             // Capaian Pembelajaran
@@ -212,6 +216,7 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/cms/settings/backup/download/{filename}', [SettingController::class, 'backupDownload'])->name('cms.settings.backup.download');
             Route::delete('/cms/settings/backup/{filename}', [SettingController::class, 'backupDelete'])->name('cms.settings.backup.delete');
             Route::post('/cms/settings/sync-regulation', [SettingController::class, 'syncRegulation'])->name('cms.settings.sync-regulation');
+            Route::post('/cms/settings/test-nvidia', [SettingController::class, 'testNvidia'])->name('cms.settings.test-nvidia');
         });
     });
 });

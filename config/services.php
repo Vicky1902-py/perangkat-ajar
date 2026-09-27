@@ -35,4 +35,19 @@ return [
         ],
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | NVIDIA NIM API — Sistem Pakar AI Hybrid
+    |--------------------------------------------------------------------------
+    | Digunakan untuk memperkaya narasi teks perangkat ajar secara otomatis
+    | dengan tetap menjaga data CP/TP sebagai sumber kebenaran (anti-halusinasi).
+    */
+    'nvidia' => [
+        'api_key'        => env('NVIDIA_API_KEY', ''),
+        'api_url'        => env('NVIDIA_API_URL', 'https://integrate.api.nvidia.com/v1'),
+        'model'          => env('NVIDIA_MODEL', 'z-ai/glm-5.3-flash'),
+        'fallback_model' => env('NVIDIA_FALLBACK_MODEL', 'deepseek-ai/deepseek-v4.1-flash'),
+        'timeout'        => env('NVIDIA_TIMEOUT', 30),
+    ],
+
 ];

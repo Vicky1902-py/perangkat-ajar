@@ -84,6 +84,12 @@
                     </button>
                 </li>
                 <li class="nav-item" role="presentation">
+                    <button class="nav-link text-start text-md-center rounded-3 py-2.5 px-3 {{ $activeTab === 'ai' ? 'active shadow-sm' : '' }}" 
+                            id="tab-ai" data-bs-toggle="tab" data-bs-target="#pane-ai" type="button" role="tab">
+                        <i class="bi bi-cpu-fill me-1.5 text-success"></i> NVIDIA NIM AI
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
                     <button class="nav-link text-start text-md-center rounded-3 py-2.5 px-3 {{ $activeTab === 'system' ? 'active shadow-sm' : '' }}" 
                             id="tab-system" data-bs-toggle="tab" data-bs-target="#pane-system" type="button" role="tab">
                         <i class="bi bi-gear-fill me-1.5 text-danger"></i> Sistem & Maintenance
@@ -1096,7 +1102,91 @@
         </div>
 
         <!-- ========================================== -->
-        <!-- TAB 9: SISTEM & MAINTENANCE -->
+        <!-- TAB 9: NVIDIA NIM AI HYBRID -->
+        <!-- ========================================== -->
+        <div class="tab-pane fade {{ $activeTab === 'ai' ? 'show active' : '' }}" id="pane-ai" role="tabpanel">
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-header bg-white border-bottom py-3 d-flex align-items-center justify-content-between flex-wrap gap-2">
+                    <div class="d-flex align-items-center gap-2">
+                        <span class="p-2 rounded-3 text-white d-inline-flex align-items-center justify-content-center shadow-sm" style="background-color: #76b900;">
+                            <i class="bi bi-cpu-fill fs-5"></i>
+                        </span>
+                        <div>
+                            <h5 class="mb-0 fw-bold">NVIDIA NIM Inference Microservices</h5>
+                            <small class="text-muted" style="font-size: 0.72rem;">Integrasi AI Hybrid Berbasis Cloud &amp; Local Fallback</small>
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-sm text-white rounded-pill px-3 shadow-sm d-flex align-items-center gap-1.5" id="btnTestNvidia" style="background-color: #76b900;">
+                        <i class="bi bi-broadcast"></i> Uji Koneksi API NVIDIA Sekarang
+                    </button>
+                </div>
+                <div class="card-body p-4">
+                    <!-- Status Box Hasil Uji -->
+                    <div id="nvidiaTestResult" style="display: none;" class="mb-4"></div>
+
+                    <div class="row g-3 mb-4">
+                        <div class="col-md-6">
+                            <div class="p-3 rounded-3 bg-light border">
+                                <small class="text-secondary fw-bold d-block mb-1">ENDPOINT BASE URL</small>
+                                <code class="text-dark fw-bold" style="font-size: 0.9rem;">{{ config('services.nvidia.api_url', 'https://integrate.api.nvidia.com/v1') }}</code>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="p-3 rounded-3 bg-light border">
+                                <small class="text-secondary fw-bold d-block mb-1">STATUS API KEY</small>
+                                @if(!empty(config('services.nvidia.api_key')))
+                                    <span class="badge bg-success bg-opacity-15 text-success border border-success border-opacity-25 px-2.5 py-1 rounded-pill">
+                                        <i class="bi bi-check-circle-fill me-1"></i> Terkonfigurasi ({{ substr(config('services.nvidia.api_key'), 0, 10) }}...{{ substr(config('services.nvidia.api_key'), -4) }})
+                                    </span>
+                                @else
+                                    <span class="badge bg-danger bg-opacity-15 text-danger border border-danger border-opacity-25 px-2.5 py-1 rounded-pill">
+                                        <i class="bi bi-x-circle-fill me-1"></i> Belum Dikonfigurasi
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="p-3 rounded-3 bg-light border">
+                                <small class="text-secondary fw-bold d-block mb-1">MODEL UTAMA (FREE ENDPOINT)</small>
+                                <span class="badge bg-primary px-2.5 py-1 rounded-pill fw-bold" style="font-size: 0.8rem;">
+                                    {{ config('services.nvidia.model', 'z-ai/glm-5.3-flash') }}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="p-3 rounded-3 bg-light border">
+                                <small class="text-secondary fw-bold d-block mb-1">MODEL CADANGAN (FALLBACK)</small>
+                                <span class="badge bg-secondary px-2.5 py-1 rounded-pill fw-bold" style="font-size: 0.8rem;">
+                                    {{ config('services.nvidia.fallback_model', 'deepseek-ai/deepseek-v4.1-flash') }}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- JAMINAN ANTI-HALUSINASI -->
+                    <div class="alert alert-success border-0 rounded-4 p-4 shadow-sm" style="background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);">
+                        <div class="d-flex align-items-start gap-3">
+                            <div class="rounded-circle p-2 bg-success text-white shadow-sm flex-shrink-0">
+                                <i class="bi bi-shield-check fs-4"></i>
+                            </div>
+                            <div>
+                                <h6 class="fw-bold text-success mb-1 fs-6">Jaminan Sistem Pakar Anti-Halusinasi &amp; Kepatuhan Regulasi</h6>
+                                <p class="small text-dark mb-2" style="line-height: 1.6;">
+                                    Arsitektur sistem menggunakan pola <strong>Bounded Context Injection</strong>: AI tidak diperkenankan menentukan Capaian Pembelajaran atau Elemen secara mandiri. Seluruh prompt AI diwajibkan mengambil data riil dari database kurikulum nasional lokal (Keputusan BSKAP No. 046/H/KR/2025).
+                                </p>
+                                <ul class="small text-dark mb-0 ps-3" style="line-height: 1.6;">
+                                    <li><strong>Zero Downtime Fallback:</strong> Apabila jaringan internet terputus atau API timeout (&gt;30 detik), sistem otomatis beralih ke <em>Curriculum Knowledge Base</em> lokal tanpa error bagi pengguna.</li>
+                                    <li><strong>Standarisasi Istilah Murid:</strong> Filter pembersih otomatis memastikan tidak ada istilah lama seperti "peserta didik" dalam teks yang dihasilkan.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- TAB 10: SISTEM & MAINTENANCE -->
         <!-- ========================================== -->
         <div class="tab-pane fade {{ $activeTab === 'system' ? 'show active' : '' }}" id="pane-system" role="tabpanel">
             <form action="{{ route('cms.settings.update') }}" method="POST">
@@ -1166,6 +1256,64 @@
             }, 2000);
         }).catch(err => {
             alert('URL Sitemap: ' + urlText);
+        });
+    }
+
+    const btnTestNvidia = document.getElementById('btnTestNvidia');
+    if (btnTestNvidia) {
+        btnTestNvidia.addEventListener('click', function() {
+            const resultBox = document.getElementById('nvidiaTestResult');
+            const originalHtml = btnTestNvidia.innerHTML;
+            btnTestNvidia.disabled = true;
+            btnTestNvidia.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span> Menguji...';
+            resultBox.style.display = 'none';
+
+            fetch("{{ route('cms.settings.test-nvidia') }}", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                    'Accept': 'application/json'
+                }
+            })
+            .then(res => res.json())
+            .then(data => {
+                btnTestNvidia.disabled = false;
+                btnTestNvidia.innerHTML = originalHtml;
+                resultBox.style.display = 'block';
+
+                if (data.status === 'success') {
+                    resultBox.innerHTML = `
+                        <div class="alert alert-success border-0 rounded-3 p-3 shadow-sm d-flex align-items-center gap-2">
+                            <i class="bi bi-check-circle-fill fs-4 text-success"></i>
+                            <div>
+                                <h6 class="fw-bold mb-0">${data.message}</h6>
+                                <small class="text-muted">Model: <strong>${data.model}</strong> &bull; Total ${data.total_model_tersedia} model tersedia di katalog cloud NVIDIA NIM.</small>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    resultBox.innerHTML = `
+                        <div class="alert alert-danger border-0 rounded-3 p-3 shadow-sm d-flex align-items-center gap-2">
+                            <i class="bi bi-exclamation-triangle-fill fs-4 text-danger"></i>
+                            <div>
+                                <h6 class="fw-bold mb-0">Uji Koneksi Gagal</h6>
+                                <small>${data.message || 'Tidak dapat terhubung ke endpoint NVIDIA.'}</small>
+                            </div>
+                        </div>
+                    `;
+                }
+            })
+            .catch(err => {
+                btnTestNvidia.disabled = false;
+                btnTestNvidia.innerHTML = originalHtml;
+                resultBox.style.display = 'block';
+                resultBox.innerHTML = `
+                    <div class="alert alert-danger border-0 rounded-3 p-3 shadow-sm">
+                        <i class="bi bi-x-circle-fill me-1"></i> Terjadi kesalahan jaringan saat menguji koneksi.
+                    </div>
+                `;
+            });
         });
     }
 </script>

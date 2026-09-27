@@ -334,4 +334,13 @@ class SettingController extends Controller
         return redirect()->route('cms.settings.index', ['tab' => 'regulation'])
             ->with('warning', 'Tidak ada tindakan regulasi yang dipilih.');
     }
+
+    /**
+     * Uji konektivitas NVIDIA NIM API dari panel admin.
+     */
+    public function testNvidia(\App\Services\NvidiaAiService $aiService)
+    {
+        $status = $aiService->testConnection();
+        return response()->json($status);
+    }
 }

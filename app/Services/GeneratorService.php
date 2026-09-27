@@ -23,6 +23,13 @@ use Illuminate\Support\Facades\DB;
 
 class GeneratorService
 {
+    private NvidiaAiService $ai;
+
+    public function __construct()
+    {
+        $this->ai = new NvidiaAiService();
+    }
+
     /**
      * Generate all teaching tools in one single click
      */
