@@ -6,6 +6,13 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title', 'Dashboard') - Perangkat Ajar Kurikulum Merdeka (Deep Learning)</title>
 
+    <!-- Preload Desktop Sidebar Mini State -->
+    <script>
+        if (window.innerWidth >= 992 && localStorage.getItem('sidebar_collapsed') === 'true') {
+            document.documentElement.classList.add('sidebar-mini-preload');
+        }
+    </script>
+
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -173,10 +180,77 @@
         /* Content Area */
         #main-wrapper {
             margin-left: 270px;
-            transition: all 0.3s;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
+        }
+
+        /* ==========================================================================
+           AUXILIARY PANE (MINI ICON-ONLY SIDEBAR MODE FOR DESKTOP)
+           ========================================================================== */
+        @media (min-width: 992px) {
+            body.sidebar-mini #sidebar,
+            html.sidebar-mini-preload #sidebar {
+                width: 72px !important;
+            }
+            body.sidebar-mini #main-wrapper,
+            html.sidebar-mini-preload #main-wrapper {
+                margin-left: 72px !important;
+            }
+            body.sidebar-mini #sidebar .brand-box,
+            html.sidebar-mini-preload #sidebar .brand-box {
+                padding: 16px 8px !important;
+                justify-content: center !important;
+            }
+            body.sidebar-mini #sidebar .brand-box .brand-text,
+            html.sidebar-mini-preload #sidebar .brand-box .brand-text {
+                display: none !important;
+            }
+            body.sidebar-mini #sidebar .user-snippet-full,
+            body.sidebar-mini #sidebar .guest-banner-full,
+            html.sidebar-mini-preload #sidebar .user-snippet-full,
+            html.sidebar-mini-preload #sidebar .guest-banner-full {
+                display: none !important;
+            }
+            body.sidebar-mini #sidebar .user-snippet-mini,
+            body.sidebar-mini #sidebar .guest-banner-mini,
+            html.sidebar-mini-preload #sidebar .user-snippet-mini,
+            html.sidebar-mini-preload #sidebar .guest-banner-mini {
+                display: flex !important;
+                justify-content: center;
+                margin: 10px auto;
+            }
+            body.sidebar-mini #sidebar .nav-header,
+            html.sidebar-mini-preload #sidebar .nav-header {
+                height: 1px !important;
+                padding: 0 !important;
+                margin: 12px 14px !important;
+                background: rgba(255, 255, 255, 0.08) !important;
+                overflow: hidden !important;
+                font-size: 0 !important;
+                color: transparent !important;
+            }
+            body.sidebar-mini #sidebar .nav-link,
+            html.sidebar-mini-preload #sidebar .nav-link {
+                padding: 10px 0 !important;
+                margin: 4px 10px !important;
+                justify-content: center !important;
+                text-align: center;
+                border-radius: 10px !important;
+            }
+            body.sidebar-mini #sidebar .nav-link i,
+            html.sidebar-mini-preload #sidebar .nav-link i {
+                margin-right: 0 !important;
+                font-size: 1.25rem !important;
+                width: auto !important;
+            }
+            body.sidebar-mini #sidebar .nav-link .sidebar-text,
+            body.sidebar-mini #sidebar .nav-link .sidebar-badge,
+            html.sidebar-mini-preload #sidebar .nav-link .sidebar-text,
+            html.sidebar-mini-preload #sidebar .nav-link .sidebar-badge {
+                display: none !important;
+            }
         }
 
         /* Top Navbar */
@@ -660,15 +734,32 @@
             $('body').removeClass('overflow-hidden-mobile');
         }
 
-        // Toggle Sidebar on mobile
+        // Toggle Sidebar on mobile & desktop auxiliary pane
         $('#sidebarToggle').on('click', function(e) {
             e.stopPropagation();
-            if ($('#sidebar').hasClass('active')) {
-                closeSidebar();
+            if ($(window).width() < 992) {
+                if ($('#sidebar').hasClass('active')) {
+                    closeSidebar();
+                } else {
+                    openSidebar();
+                }
             } else {
-                openSidebar();
+                $('body').toggleClass('sidebar-mini');
+                const isMini = $('body').hasClass('sidebar-mini');
+                localStorage.setItem('sidebar_collapsed', isMini ? 'true' : 'false');
+                if (isMini) {
+                    $('#sidebarToggleIcon').removeClass('bi-layout-sidebar-inset').addClass('bi-layout-sidebar');
+                } else {
+                    $('#sidebarToggleIcon').removeClass('bi-layout-sidebar').addClass('bi-layout-sidebar-inset');
+                }
             }
         });
+
+        // Restore desktop sidebar collapsed preference
+        if ($(window).width() >= 992 && localStorage.getItem('sidebar_collapsed') === 'true') {
+            $('body').addClass('sidebar-mini');
+            $('#sidebarToggleIcon').removeClass('bi-layout-sidebar-inset').addClass('bi-layout-sidebar');
+        }
 
         // Close sidebar button inside sidebar header
         $(document).on('click', '#sidebarCloseBtn', function() {

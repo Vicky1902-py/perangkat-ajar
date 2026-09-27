@@ -138,7 +138,7 @@ PROMPT;
             'generated_text' => $generated,
             'combined_text'  => $combinedText,
             'action_mode'    => $actionMode,
-            'model'          => config('services.nvidia.model', 'z-ai/glm-5.3-flash'),
+            'model'          => 'Vx Agent',
         ]);
     }
 
@@ -221,7 +221,11 @@ PERTANYAAN / KONSULTASI DARI GURU:
 Berikan jawaban konsultasi cerdas, rekomendasi praktis untuk kegiatan murid, atau pengayaan materi yang relevan sekarang!
 PROMPT;
 
-        $reply = $aiService->generate($userPrompt, $context, 750, 0.45);
+        try {
+            $reply = $aiService->generate($userPrompt, $context, 650, 0.45);
+        } catch (\Throwable $e) {
+            $reply = null;
+        }
 
         if (!$reply) {
             $reply = "Halo Bapak/Ibu Guru! Terkait **{$docTitle}** ({$mapelNama} Fase {$faseKode}), saya merekomendasikan untuk memperkuat aktivitas murid pada tahap **Terapkan** dan **Tularkan** dengan studi kasus kontekstual. Anda juga dapat mengklik tombol **Edit / Lengkapi via Vx Agent** pada dokumen ini untuk memperkaya materi secara otomatis.";
@@ -237,7 +241,7 @@ PROMPT;
             'doc_title' => $docTitle,
             'mapel'     => $mapelNama,
             'fase'      => $faseKode,
-            'model'     => config('services.nvidia.model', 'z-ai/glm-5.3-flash'),
+            'model'     => 'Vx Agent',
         ]);
     }
 }

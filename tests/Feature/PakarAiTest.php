@@ -23,8 +23,8 @@ class PakarAiTest extends TestCase
 
         $response = $this->actingAs($superadmin)->get(route('pakar-ai.index'));
         $response->assertStatus(200);
-        $response->assertSee('Konsultasi Sistem Pakar Kurikulum AI');
-        $response->assertSee('NVIDIA NIM');
+        $response->assertSee('Konsultasi Kurikulum');
+        $response->assertSee('Vx Agent');
     }
 
     public function test_pakar_ai_consult_returns_grounded_json(): void

@@ -1,8 +1,8 @@
 <header class="top-navbar d-flex align-items-center justify-content-between">
     <!-- Left: Mobile Toggle & Context Info -->
     <div class="d-flex align-items-center gap-2 gap-md-3 min-w-0">
-        <button class="btn btn-sm btn-light border shadow-sm d-lg-none" type="button" id="sidebarToggle" aria-label="Buka Menu">
-            <i class="bi bi-list fs-5"></i>
+        <button class="btn btn-sm btn-light border shadow-sm d-flex align-items-center justify-content-center" type="button" id="sidebarToggle" aria-label="Toggle Menu" title="Toggle Auxiliary Pane (Sidebar Kecil / Penuh)">
+            <i class="bi bi-layout-sidebar-inset fs-5 text-secondary" id="sidebarToggleIcon"></i>
         </button>
 
         <div class="d-md-none text-truncate fw-bold text-dark small" style="max-width: 150px;">

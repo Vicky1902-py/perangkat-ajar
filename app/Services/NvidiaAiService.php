@@ -91,11 +91,12 @@ INSTRUKSI:
 PROMPT;
 
         try {
+            $primaryTimeout = min($this->timeout, 12);
             $response = Http::withHeaders([
                 'Authorization' => 'Bearer ' . $this->apiKey,
                 'Content-Type' => 'application/json',
                 'Accept' => 'application/json',
-            ])->timeout($this->timeout)->post($this->apiUrl . '/chat/completions', [
+            ])->timeout($primaryTimeout)->post($this->apiUrl . '/chat/completions', [
                 'model' => $this->model,
                 'messages' => [
                     ['role' => 'system', 'content' => self::SYSTEM_IDENTITY],
@@ -126,11 +127,11 @@ PROMPT;
             return $this->generateWithFallback($boundedPrompt, $maxTokens, $temperature);
 
         } catch (\Exception $e) {
-            Log::warning('NvidiaAiService: API call failed, menggunakan fallback rule-based.', [
+            Log::warning('NvidiaAiService: API call failed, mencoba fallback.', [
                 'error' => $e->getMessage(),
                 'model' => $this->model,
             ]);
-            return null; // Kembalikan null → GeneratorService akan gunakan rule-based
+            return $this->generateWithFallback($boundedPrompt, $maxTokens, $temperature);
         }
     }
 
@@ -140,10 +141,11 @@ PROMPT;
     private function generateWithFallback(string $prompt, int $maxTokens, float $temperature): ?string
     {
         try {
+            $fallbackTimeout = min($this->timeout, 8);
             $response = Http::withHeaders([
                 'Authorization' => 'Bearer ' . $this->apiKey,
                 'Content-Type' => 'application/json',
-            ])->timeout($this->timeout)->post($this->apiUrl . '/chat/completions', [
+            ])->timeout($fallbackTimeout)->post($this->apiUrl . '/chat/completions', [
                 'model' => $this->fallbackModel,
                 'messages' => [
                     ['role' => 'system', 'content' => self::SYSTEM_IDENTITY],

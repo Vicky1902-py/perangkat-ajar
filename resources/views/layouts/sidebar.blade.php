@@ -5,11 +5,11 @@
             @if(app_logo_url())
                 <img src="{{ app_logo_url() }}" alt="{{ app_setting('app_name') }}" style="max-height: 36px; max-width: 38px; object-fit: contain;">
             @else
-                <div class="rounded-3 bg-primary bg-gradient text-white d-flex align-items-center justify-content-center shadow-sm" style="width: 38px; height: 38px;">
+                <div class="rounded-3 bg-primary bg-gradient text-white d-flex align-items-center justify-content-center shadow-sm flex-shrink-0" style="width: 38px; height: 38px;">
                     <i class="bi bi-journal-bookmark-fill fs-5"></i>
                 </div>
             @endif
-            <div class="overflow-hidden">
+            <div class="overflow-hidden brand-text">
                 <div class="fw-bold text-white lh-1 fs-6 text-truncate" style="max-width: 175px;">{{ app_setting('app_name', 'PerangkatAjar') }}</div>
                 <div class="text-xs text-info fw-semibold" style="font-size: 0.68rem;">Kurikulum Merdeka 2026</div>
             </div>
@@ -20,9 +20,9 @@
     </div>
 
     @auth
-        <!-- User Profile Snippet in Sidebar -->
-        <div class="px-3 py-3 mx-3 my-2 rounded-3 bg-dark bg-opacity-50 border border-secondary border-opacity-25 d-flex align-items-center gap-2">
-            <div class="rounded-circle bg-secondary bg-opacity-50 text-white d-flex align-items-center justify-content-center" style="width: 36px; height: 36px;">
+        <!-- User Profile Snippet Full -->
+        <div class="user-snippet-full px-3 py-3 mx-3 my-2 rounded-3 bg-dark bg-opacity-50 border border-secondary border-opacity-25 d-flex align-items-center gap-2">
+            <div class="rounded-circle bg-secondary bg-opacity-50 text-white d-flex align-items-center justify-content-center flex-shrink-0" style="width: 36px; height: 36px;">
                 <i class="bi bi-person-fill"></i>
             </div>
             <div class="overflow-hidden">
@@ -38,9 +38,16 @@
                 </div>
             </div>
         </div>
+
+        <!-- User Profile Snippet Mini (Auxiliary Pane Mode) -->
+        <div class="user-snippet-mini d-none text-center my-2" title="{{ auth()->user()->name }}">
+            <div class="rounded-circle bg-secondary bg-opacity-50 text-white d-inline-flex align-items-center justify-content-center" style="width: 38px; height: 38px;">
+                <i class="bi bi-person-fill"></i>
+            </div>
+        </div>
     @else
-        <!-- Guest Banner in Sidebar -->
-        <div class="px-3 py-3 mx-3 my-2 rounded-3 bg-dark bg-opacity-50 border border-warning border-opacity-50">
+        <!-- Guest Banner Full -->
+        <div class="guest-banner-full px-3 py-3 mx-3 my-2 rounded-3 bg-dark bg-opacity-50 border border-warning border-opacity-50">
             <div class="d-flex align-items-center gap-2 text-warning mb-1">
                 <i class="bi bi-gift-fill"></i>
                 <span class="fw-bold small">Akses Tamu (Publik)</span>
@@ -57,6 +64,13 @@
                 </a>
             </div>
         </div>
+
+        <!-- Guest Banner Mini (Auxiliary Pane Mode) -->
+        <div class="guest-banner-mini d-none text-center my-2" title="Mode Tamu (Klik untuk Login)">
+            <a href="{{ route('login') }}" class="rounded-circle bg-warning bg-opacity-25 text-warning d-inline-flex align-items-center justify-content-center p-2 text-decoration-none" style="width: 38px; height: 38px;">
+                <i class="bi bi-gift-fill"></i>
+            </a>
+        </div>
     @endauth
 
     <div class="py-2">
@@ -65,19 +79,40 @@
         <ul class="nav flex-column mb-2">
             @auth
                 <li class="nav-item">
-                    <a class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}" href="{{ route('dashboard') }}">
-                        <i class="bi bi-speedometer2"></i> Dashboard
+                    <a class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}" href="{{ route('dashboard') }}" 
+                       data-bs-toggle="tooltip" data-bs-placement="right" title="Dashboard">
+                        <i class="bi bi-speedometer2"></i>
+                        <span class="sidebar-text">Dashboard</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{ request()->routeIs('profile.setup') ? 'active' : '' }} text-info" href="{{ route('profile.setup') }}">
-                        <i class="bi bi-person-badge-fill text-info"></i> Profil & Kop
+                    <a class="nav-link {{ request()->routeIs('profile.setup') ? 'active' : '' }} text-info" href="{{ route('profile.setup') }}"
+                       data-bs-toggle="tooltip" data-bs-placement="right" title="Profil & Kop Sekolah">
+                        <i class="bi bi-person-badge-fill text-info"></i>
+                        <span class="sidebar-text">Profil & Kop</span>
                     </a>
                 </li>
             @endauth
             <li class="nav-item">
-                <a class="nav-link {{ request()->routeIs('generator.*') ? 'active' : '' }} text-warning fw-bold" href="{{ route('generator.index') }}">
-                    <i class="bi bi-lightning-charge-fill text-warning"></i> Generator 1-Klik
+                <a class="nav-link {{ request()->routeIs('generator.*') ? 'active' : '' }} text-warning fw-bold" href="{{ route('generator.index') }}"
+                   data-bs-toggle="tooltip" data-bs-placement="right" title="Generator 1-Klik">
+                    <i class="bi bi-lightning-charge-fill text-warning"></i>
+                    <span class="sidebar-text">Generator 1-Klik</span>
+                </a>
+            </li>
+            <!-- 🤖 VX AGENT TEPAT DI BAWAH GENERATOR 1-KLIK DENGAN POPUP PANDUAN KEREN -->
+            <li class="nav-item">
+                <a class="nav-link {{ request()->routeIs('pakar-ai.*') ? 'active' : '' }} text-primary fw-bold d-flex align-items-center justify-content-between" 
+                   href="javascript:void(0)" 
+                   onclick="showVxAgentWelcomeModal(); return false;"
+                   data-bs-toggle="tooltip" data-bs-placement="right" title="Vx Agent - Asisten Kurikulum, Tambah Materi & Konsultasi">
+                    <span class="d-inline-flex align-items-center">
+                        <i class="bi bi-robot text-primary fs-5"></i>
+                        <span class="sidebar-text ms-1">Vx Agent</span>
+                    </span>
+                    <span class="badge rounded-pill bg-primary text-white sidebar-badge" style="font-size: 0.65rem; padding: 2px 7px;">
+                        <i class="bi bi-stars"></i> Pintar
+                    </span>
                 </a>
             </li>
         </ul>
@@ -87,44 +122,52 @@
             <div class="nav-header">Perangkat Ajar</div>
             <ul class="nav flex-column mb-2">
                 <li class="nav-item">
-                    <a class="nav-link {{ request()->routeIs('tp.*') ? 'active' : '' }}" href="{{ route('tp.index') }}">
-                        <i class="bi bi-bullseye"></i> Tujuan Ajar (TP)
+                    <a class="nav-link {{ request()->routeIs('tp.*') ? 'active' : '' }}" href="{{ route('tp.index') }}"
+                       data-bs-toggle="tooltip" data-bs-placement="right" title="Tujuan Pembelajaran (TP)">
+                        <i class="bi bi-bullseye"></i>
+                        <span class="sidebar-text">Tujuan Ajar (TP)</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{ request()->routeIs('atp.*') ? 'active' : '' }}" href="{{ route('atp.index') }}">
-                        <i class="bi bi-diagram-3"></i> Alur TP (ATP)
+                    <a class="nav-link {{ request()->routeIs('atp.*') ? 'active' : '' }}" href="{{ route('atp.index') }}"
+                       data-bs-toggle="tooltip" data-bs-placement="right" title="Alur Tujuan Pembelajaran (ATP)">
+                        <i class="bi bi-diagram-3"></i>
+                        <span class="sidebar-text">Alur TP (ATP)</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{ request()->routeIs('modul-ajar.*') ? 'active' : '' }}" href="{{ route('modul-ajar.index') }}">
-                        <i class="bi bi-journal-richtext"></i> Modul Ajar
+                    <a class="nav-link {{ request()->routeIs('modul-ajar.*') ? 'active' : '' }}" href="{{ route('modul-ajar.index') }}"
+                       data-bs-toggle="tooltip" data-bs-placement="right" title="Modul Ajar Deep Learning">
+                        <i class="bi bi-journal-richtext"></i>
+                        <span class="sidebar-text">Modul Ajar</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{ request()->routeIs('lkpd.*') ? 'active' : '' }}" href="{{ route('lkpd.index') }}">
-                        <i class="bi bi-file-earmark-text"></i> Lembar LKPD
+                    <a class="nav-link {{ request()->routeIs('lkpd.*') ? 'active' : '' }}" href="{{ route('lkpd.index') }}"
+                       data-bs-toggle="tooltip" data-bs-placement="right" title="Lembar Kerja Murid (LKPD)">
+                        <i class="bi bi-file-earmark-text"></i>
+                        <span class="sidebar-text">Lembar LKPD</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{ request()->routeIs('prota-promes.*') ? 'active' : '' }}" href="{{ route('prota-promes.index') }}">
-                        <i class="bi bi-calendar-range"></i> Prota & Promes
+                    <a class="nav-link {{ request()->routeIs('prota-promes.*') ? 'active' : '' }}" href="{{ route('prota-promes.index') }}"
+                       data-bs-toggle="tooltip" data-bs-placement="right" title="Program Tahunan & Semester">
+                        <i class="bi bi-calendar-range"></i>
+                        <span class="sidebar-text">Prota & Promes</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{ request()->routeIs('asesmen.*') ? 'active' : '' }}" href="{{ route('asesmen.index') }}">
-                        <i class="bi bi-check2-square"></i> Asesmen
+                    <a class="nav-link {{ request()->routeIs('asesmen.*') ? 'active' : '' }}" href="{{ route('asesmen.index') }}"
+                       data-bs-toggle="tooltip" data-bs-placement="right" title="Instrumen Asesmen">
+                        <i class="bi bi-check2-square"></i>
+                        <span class="sidebar-text">Asesmen</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{ request()->routeIs('paket-soal.*') ? 'active' : '' }}" href="{{ route('paket-soal.index') }}">
-                        <i class="bi bi-patch-question"></i> Smart Soal
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link {{ request()->routeIs('pakar-ai.*') ? 'active' : '' }} text-success" href="{{ route('pakar-ai.index') }}">
-                        <i class="bi bi-cpu-fill text-success"></i> Pakar AI Kurikulum
-                        <span class="badge rounded-pill ms-auto text-white" style="background-color: #76b900; font-size: 0.62rem; padding: 2px 6px;">NVIDIA</span>
+                    <a class="nav-link {{ request()->routeIs('paket-soal.*') ? 'active' : '' }}" href="{{ route('paket-soal.index') }}"
+                       data-bs-toggle="tooltip" data-bs-placement="right" title="Smart Soal & Kisi-Kisi">
+                        <i class="bi bi-patch-question"></i>
+                        <span class="sidebar-text">Smart Soal</span>
                     </a>
                 </li>
             </ul>
@@ -134,39 +177,53 @@
                 <div class="nav-header">CMS Data Master</div>
                 <ul class="nav flex-column mb-2">
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('cms.cp.*') ? 'active' : '' }}" href="{{ route('cms.cp.index') }}">
-                            <i class="bi bi-award"></i> Capaian (CP)
+                        <a class="nav-link {{ request()->routeIs('cms.cp.*') ? 'active' : '' }}" href="{{ route('cms.cp.index') }}"
+                           data-bs-toggle="tooltip" data-bs-placement="right" title="Capaian Pembelajaran (CP)">
+                            <i class="bi bi-award"></i>
+                            <span class="sidebar-text">Capaian (CP)</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('cms.mapel.*') ? 'active' : '' }}" href="{{ route('cms.mapel.index') }}">
-                            <i class="bi bi-book"></i> Mata Pelajaran
+                        <a class="nav-link {{ request()->routeIs('cms.mapel.*') ? 'active' : '' }}" href="{{ route('cms.mapel.index') }}"
+                           data-bs-toggle="tooltip" data-bs-placement="right" title="Mata Pelajaran">
+                            <i class="bi bi-book"></i>
+                            <span class="sidebar-text">Mata Pelajaran</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('cms.kejuruan.*') ? 'active' : '' }}" href="{{ route('cms.kejuruan.index') }}">
-                            <i class="bi bi-gear-wide-connected"></i> Bidang Kejuruan
+                        <a class="nav-link {{ request()->routeIs('cms.kejuruan.*') ? 'active' : '' }}" href="{{ route('cms.kejuruan.index') }}"
+                           data-bs-toggle="tooltip" data-bs-placement="right" title="Bidang & Program Keahlian">
+                            <i class="bi bi-gear-wide-connected"></i>
+                            <span class="sidebar-text">Bidang Kejuruan</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('cms.profil-lulusan.*') ? 'active' : '' }}" href="{{ route('cms.profil-lulusan.index') }}">
-                            <i class="bi bi-stars"></i> Profil Lulusan
+                        <a class="nav-link {{ request()->routeIs('cms.profil-lulusan.*') ? 'active' : '' }}" href="{{ route('cms.profil-lulusan.index') }}"
+                           data-bs-toggle="tooltip" data-bs-placement="right" title="8 Dimensi Profil Lulusan">
+                            <i class="bi bi-stars"></i>
+                            <span class="sidebar-text">Profil Lulusan</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('cms.template-pedatti.*') ? 'active' : '' }}" href="{{ route('cms.template-pedatti.index') }}">
-                            <i class="bi bi-layout-text-window-reverse"></i> Alur PEDATTI
+                        <a class="nav-link {{ request()->routeIs('cms.template-pedatti.*') ? 'active' : '' }}" href="{{ route('cms.template-pedatti.index') }}"
+                           data-bs-toggle="tooltip" data-bs-placement="right" title="Template Alur PEDATTI">
+                            <i class="bi bi-layout-text-window-reverse"></i>
+                            <span class="sidebar-text">Alur PEDATTI</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('cms.tahun-ajaran.*') ? 'active' : '' }}" href="{{ route('cms.tahun-ajaran.index') }}">
-                            <i class="bi bi-calendar3"></i> Tahun Ajaran
+                        <a class="nav-link {{ request()->routeIs('cms.tahun-ajaran.*') ? 'active' : '' }}" href="{{ route('cms.tahun-ajaran.index') }}"
+                           data-bs-toggle="tooltip" data-bs-placement="right" title="Tahun Ajaran">
+                            <i class="bi bi-calendar3"></i>
+                            <span class="sidebar-text">Tahun Ajaran</span>
                         </a>
                     </li>
                     @if(auth()->user()->isSuperAdmin())
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('cms.sekolah.*') ? 'active' : '' }}" href="{{ route('cms.sekolah.index') }}">
-                            <i class="bi bi-building"></i> Satuan Pendidikan
+                        <a class="nav-link {{ request()->routeIs('cms.sekolah.*') ? 'active' : '' }}" href="{{ route('cms.sekolah.index') }}"
+                           data-bs-toggle="tooltip" data-bs-placement="right" title="Satuan Pendidikan">
+                            <i class="bi bi-building"></i>
+                            <span class="sidebar-text">Satuan Pendidikan</span>
                         </a>
                     </li>
                     @endif
@@ -178,39 +235,49 @@
                 <div class="nav-header">Kontrol Sistem</div>
                 <ul class="nav flex-column mb-3">
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('cms.traffic.*') ? 'active' : '' }} d-flex align-items-center justify-content-between" href="{{ route('cms.traffic.index') }}">
+                        <a class="nav-link {{ request()->routeIs('cms.traffic.*') ? 'active' : '' }} d-flex align-items-center justify-content-between" href="{{ route('cms.traffic.index') }}"
+                           data-bs-toggle="tooltip" data-bs-placement="right" title="Traffic Pengunjung Realtime">
                             <div>
-                                <i class="bi bi-activity text-danger"></i> Traffic Realtime
+                                <i class="bi bi-activity text-danger"></i>
+                                <span class="sidebar-text">Traffic Realtime</span>
                             </div>
-                            <span class="badge bg-danger rounded-pill px-2 py-0.5" style="font-size: 0.65rem; letter-spacing: 0.5px;">LIVE</span>
+                            <span class="badge bg-danger rounded-pill px-2 py-0.5 sidebar-badge" style="font-size: 0.65rem; letter-spacing: 0.5px;">LIVE</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('cms.perangkat.*') ? 'active' : '' }}" href="{{ route('cms.perangkat.index') }}">
-                            <i class="bi bi-hdd-stack-fill text-info"></i> Space Hosting
+                        <a class="nav-link {{ request()->routeIs('cms.perangkat.*') ? 'active' : '' }}" href="{{ route('cms.perangkat.index') }}"
+                           data-bs-toggle="tooltip" data-bs-placement="right" title="Manajemen Ruang & Pembersih Perangkat">
+                            <i class="bi bi-hdd-stack-fill text-info"></i>
+                            <span class="sidebar-text">Space Hosting</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('users.*') ? 'active' : '' }}" href="{{ route('users.index') }}">
-                            <i class="bi bi-people-fill"></i> Pengguna
+                        <a class="nav-link {{ request()->routeIs('users.*') ? 'active' : '' }}" href="{{ route('users.index') }}"
+                           data-bs-toggle="tooltip" data-bs-placement="right" title="Manajemen Pengguna">
+                            <i class="bi bi-people-fill"></i>
+                            <span class="sidebar-text">Pengguna</span>
                         </a>
                     </li>
                     <li class="nav-item">
                         @php
                             $newFeedbackCount = \App\Models\UserFeedback::where('status', 'baru')->count();
                         @endphp
-                        <a class="nav-link {{ request()->routeIs('cms.feedbacks.*') ? 'active' : '' }} d-flex align-items-center justify-content-between" href="{{ route('cms.feedbacks.index') }}">
+                        <a class="nav-link {{ request()->routeIs('cms.feedbacks.*') ? 'active' : '' }} d-flex align-items-center justify-content-between" href="{{ route('cms.feedbacks.index') }}"
+                           data-bs-toggle="tooltip" data-bs-placement="right" title="Kotak Usul & Saran Guru">
                             <div>
-                                <i class="bi bi-chat-quote-fill text-warning"></i> Usul & Saran
+                                <i class="bi bi-chat-quote-fill text-warning"></i>
+                                <span class="sidebar-text">Usul & Saran</span>
                             </div>
                             @if($newFeedbackCount > 0)
-                                <span class="badge bg-danger rounded-pill px-2 py-0.5" style="font-size: 0.65rem;">{{ $newFeedbackCount }} Baru</span>
+                                <span class="badge bg-danger rounded-pill px-2 py-0.5 sidebar-badge" style="font-size: 0.65rem;">{{ $newFeedbackCount }} Baru</span>
                             @endif
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('cms.settings.*') ? 'active' : '' }}" href="{{ route('cms.settings.index') }}">
-                            <i class="bi bi-sliders2 text-primary"></i> Pengaturan
+                        <a class="nav-link {{ request()->routeIs('cms.settings.*') ? 'active' : '' }}" href="{{ route('cms.settings.index') }}"
+                           data-bs-toggle="tooltip" data-bs-placement="right" title="Pengaturan Aplikasi & Regulasi">
+                            <i class="bi bi-sliders2 text-primary"></i>
+                            <span class="sidebar-text">Pengaturan</span>
                         </a>
                     </li>
                 </ul>

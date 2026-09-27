@@ -47,7 +47,7 @@ return [
         'api_url'        => env('NVIDIA_API_URL', 'https://integrate.api.nvidia.com/v1'),
         'model'          => env('NVIDIA_MODEL', 'z-ai/glm-5.3-flash'),
         'fallback_model' => env('NVIDIA_FALLBACK_MODEL', 'deepseek-ai/deepseek-v4.1-flash'),
-        'timeout'        => env('NVIDIA_TIMEOUT', 30),
+        'timeout'        => env('NVIDIA_TIMEOUT', 15),
     ],
 
 ];

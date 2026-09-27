@@ -92,8 +92,12 @@ Struktur jawaban:
 Gunakan bahasa formal, hangat, memotivasi, dan berwibawa khas pengawas/pakar kurikulum nasional.
 PROMPT;
 
-        // Eksekusi via NVIDIA AI Service
-        $answer = $aiService->generate($userPrompt, $context, 900, 0.45);
+        try {
+            // Eksekusi via AI Service dengan batas token optimal agar respons cepat
+            $answer = $aiService->generate($userPrompt, $context, 650, 0.45);
+        } catch (\Throwable $e) {
+            $answer = null;
+        }
 
         if (!$answer) {
             // Fallback cerdas jika AI lambat/offline
@@ -105,12 +109,15 @@ PROMPT;
                       "4. Lakukan asesmen formatif berkelanjutan untuk memastikan pemahaman bermakna tercapai.";
         }
 
+        // Sanitasi ketat
+        $answer = str_ireplace('peserta didik', 'murid', $answer);
+
         return response()->json([
             'success' => true,
             'mapel'   => $mapel->nama,
             'fase'    => $fase->kode,
             'answer'  => $answer,
-            'model'   => config('services.nvidia.model', 'z-ai/glm-5.3-flash'),
+            'model'   => 'Vx Agent',
         ]);
     }
 }

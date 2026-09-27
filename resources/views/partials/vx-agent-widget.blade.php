@@ -43,6 +43,113 @@
 </div>
 
 <!-- ===================================================================== -->
+<!-- POP-UP KEREN PANDUAN & PEMBERITAHUAN: VX AGENT (SISTEM PAKAR AI)     -->
+<!-- ===================================================================== -->
+<div class="modal fade" id="modalVxAgentWelcomeGuide" tabindex="-1" aria-labelledby="modalVxAgentWelcomeGuideLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content rounded-4 border-0 shadow-2xl overflow-hidden">
+            <!-- HEADER MODAL KEREN -->
+            <div class="modal-header border-0 py-3.5 px-4 text-white d-flex align-items-center justify-content-between" 
+                 style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);">
+                <div class="d-flex align-items-center gap-3">
+                    <div class="rounded-circle p-2 text-white shadow-sm d-flex align-items-center justify-content-center" 
+                         style="background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%); width: 48px; height: 48px; box-shadow: 0 0 20px rgba(2, 132, 199, 0.5) !important;">
+                        <i class="bi bi-robot fs-3"></i>
+                    </div>
+                    <div>
+                        <div class="d-flex align-items-center gap-2">
+                            <h5 class="modal-title fw-bold text-white mb-0" id="modalVxAgentWelcomeGuideLabel">Vx Agent</h5>
+                            <span class="badge rounded-pill bg-primary text-white px-2 py-0.5" style="font-size: 0.7rem;">
+                                <i class="bi bi-stars"></i> Asisten Pakar Kurikulum
+                            </span>
+                        </div>
+                        <div class="text-white text-opacity-75 small" style="font-size: 0.78rem;">
+                            Sistem Pendamping Cerdas Guru SMK & SMA &bull; BSKAP No. 046/H/KR/2025
+                        </div>
+                    </div>
+                </div>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body p-4" style="background-color: #f8fafc;">
+                <!-- NOTICE HERO BANNER -->
+                <div class="card border-0 rounded-4 shadow-sm mb-4 text-white overflow-hidden" 
+                     style="background: linear-gradient(135deg, #0284c7 0%, #0f172a 100%); border-left: 5px solid #38bdf8 !important;">
+                    <div class="card-body p-3.5 p-md-4">
+                        <div class="d-flex align-items-start gap-3">
+                            <div class="p-2 rounded-circle bg-white text-primary shadow-sm flex-shrink-0 mt-1">
+                                <i class="bi bi-info-circle-fill fs-4"></i>
+                            </div>
+                            <div>
+                                <h6 class="fw-bold mb-1 text-white fs-6">
+                                    Hasil Perangkat Kurang Sesuai atau Butuh Tambahan Materi? Gunakan Vx Agent!
+                                </h6>
+                                <p class="mb-0 text-white text-opacity-90 small" style="line-height: 1.55;">
+                                    Bapak/Ibu Guru, jika ada bagian dokumen (Modul Ajar, LKPD, ATP, dll.) yang dirasa kurang pas dengan kondisi nyata di sekolah, atau ingin menambahkan materi kejuruan baru, <strong>gunakan Vx Agent</strong> untuk berkonsultasi atau melengkapi teks dokumen secara otomatis tanpa merusak format baku Kurikulum Merdeka.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3 FITUR UTAMA KEREN -->
+                <div class="row g-3 mb-4">
+                    <div class="col-md-4">
+                        <div class="card h-100 border-0 shadow-sm rounded-4 p-3 bg-white">
+                            <div class="rounded-3 bg-primary bg-opacity-10 text-primary p-2.5 d-inline-flex align-items-center justify-content-center mb-2" style="width: 42px; height: 42px;">
+                                <i class="bi bi-chat-dots-fill fs-5"></i>
+                            </div>
+                            <h6 class="fw-bold text-dark mb-1" style="font-size: 0.9rem;">1. Konsultasi & Saran</h6>
+                            <p class="text-muted small mb-0" style="font-size: 0.78rem; line-height: 1.45;">
+                                Minta rekomendasi kegiatan pembelajaran Deep Learning (Mindful, Meaningful, Joyful), alur PEDATTI, atau diferensiasi murid.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card h-100 border-0 shadow-sm rounded-4 p-3 bg-white">
+                            <div class="rounded-3 bg-warning bg-opacity-15 text-warning p-2.5 d-inline-flex align-items-center justify-content-center mb-2" style="width: 42px; height: 42px;">
+                                <i class="bi bi-pencil-square fs-5"></i>
+                            </div>
+                            <h6 class="fw-bold text-dark mb-1" style="font-size: 0.9rem;">2. Edit Otomatis</h6>
+                            <p class="text-muted small mb-0" style="font-size: 0.78rem; line-height: 1.45;">
+                                Di formulir edit Modul & LKPD, klik tombol <em>"Lengkapi via Vx Agent"</em> untuk memperluas materi dan kegiatan secara aman tanpa merusak format tabel.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card h-100 border-0 shadow-sm rounded-4 p-3 bg-white">
+                            <div class="rounded-3 bg-success bg-opacity-10 text-success p-2.5 d-inline-flex align-items-center justify-content-center mb-2" style="width: 42px; height: 42px;">
+                                <i class="bi bi-shield-check fs-5"></i>
+                            </div>
+                            <h6 class="fw-bold text-dark mb-1" style="font-size: 0.9rem;">3. Terstandar Murid</h6>
+                            <p class="text-muted small mb-0" style="font-size: 0.78rem; line-height: 1.45;">
+                                Bebas halusinasi karena terikat 100% pada database Capaian Pembelajaran resmi dan wajib memakai terminologi resmi <strong>murid</strong>.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CALL TO ACTIONS -->
+                <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 pt-2 border-top">
+                    <div class="text-muted small" style="font-size: 0.75rem;">
+                        <i class="bi bi-lightbulb-fill text-warning me-1"></i> Tersedia juga tombol mengambang di pojok kanan bawah setiap halaman.
+                    </div>
+                    <div class="d-flex align-items-center gap-2">
+                        <a href="{{ route('pakar-ai.index') }}" class="btn btn-outline-primary btn-sm rounded-pill px-3 fw-semibold">
+                            <i class="bi bi-cpu me-1"></i> Studio Konsultasi
+                        </a>
+                        <button type="button" class="btn btn-primary btn-sm rounded-pill px-4 fw-bold shadow-sm" 
+                                onclick="const gModal = bootstrap.Modal.getInstance(document.getElementById('modalVxAgentWelcomeGuide')); if(gModal) gModal.hide(); openVxAgentModal();">
+                            <i class="bi bi-chat-dots-fill me-1"></i> Buka Obrolan Vx Agent
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ===================================================================== -->
 <!-- MODAL INTERAKTIF OBROLAN VX AGENT                                     -->
 <!-- ===================================================================== -->
 <div class="modal fade" id="modalVxAgentChat" tabindex="-1" aria-labelledby="modalVxAgentChatLabel" aria-hidden="true">
@@ -61,7 +168,7 @@
                         <div class="d-flex align-items-center gap-2">
                             <h6 class="modal-title fw-bold text-white mb-0" id="modalVxAgentChatLabel">Vx Agent</h6>
                             <span class="badge bg-success bg-opacity-25 text-success border border-success border-opacity-25 rounded-pill px-2 py-0.5" style="font-size: 0.68rem;">
-                                <i class="bi bi-record-fill text-success"></i> Online (NVIDIA NIM)
+                                <i class="bi bi-record-fill text-success"></i> Online (Vx Agent)
                             </span>
                         </div>
                         <div class="text-white text-opacity-75 small" style="font-size: 0.75rem;">
@@ -303,6 +410,17 @@
             callout.style.display = 'none';
         }
         openVxAgentModal();
+    };
+
+    window.showVxAgentWelcomeModal = function() {
+        dismissVxCalloutToast();
+        const modalEl = document.getElementById('modalVxAgentWelcomeGuide');
+        if (modalEl) {
+            const modal = bootstrap.Modal.getOrCreateInstance(modalEl);
+            modal.show();
+        } else {
+            window.location.href = "{{ route('pakar-ai.index') }}";
+        }
     };
 
     window.openVxAgentModal = function() {

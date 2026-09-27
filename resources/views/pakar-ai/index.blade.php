@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Pakar AI Kurikulum (NVIDIA NIM Engine)')
+@section('title', 'Vx Agent - Konsultasi Kurikulum Merdeka')
 
 @section('content')
 <div class="row justify-content-center">
@@ -9,29 +9,29 @@
         <div class="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-2">
             <div>
                 <h3 class="fw-bold text-dark mb-1 d-flex align-items-center gap-2">
-                    <span class="p-2 rounded-3 text-white d-inline-flex align-items-center justify-content-center shadow-sm" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);">
-                        <i class="bi bi-cpu-fill fs-4"></i>
+                    <span class="p-2 rounded-3 text-white d-inline-flex align-items-center justify-content-center shadow-sm" style="background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);">
+                        <i class="bi bi-robot fs-4"></i>
                     </span>
-                    Konsultasi Sistem Pakar Kurikulum AI
-                    <span class="badge rounded-pill text-white px-2.5 py-1" style="background-color: #76b900; font-size: 0.72rem; letter-spacing: 0.5px;">
-                        NVIDIA NIM
+                    Konsultasi Kurikulum & Perangkat Ajar
+                    <span class="badge rounded-pill text-white px-2.5 py-1 bg-primary" style="font-size: 0.72rem; letter-spacing: 0.5px;">
+                        <i class="bi bi-stars"></i> Vx Agent
                     </span>
                 </h3>
                 <p class="text-muted small mb-0">
-                    Didukung <strong>NVIDIA NIM Inference Microservices</strong> & Basis Pengetahuan Kurikulum Nasional (<strong>BSKAP No. 046/H/KR/2025</strong>). 
-                    Bebas halusinasi, grounded ke Capaian Pembelajaran, dan fokus pada murid.
+                    Didukung <strong>Sistem Pakar Vx Agent</strong> & Basis Pengetahuan Kurikulum Nasional (<strong>BSKAP No. 046/H/KR/2025</strong>). 
+                    Bebas halusinasi, grounded ke Capaian Pembelajaran resmi, dan berorientasi pada murid.
                 </p>
             </div>
             <div class="d-flex align-items-center gap-2">
                 @if($aiStatus['status'] === 'success')
                     <span class="badge bg-success bg-opacity-15 text-success border border-success border-opacity-25 px-3 py-2 rounded-pill d-flex align-items-center gap-1.5 shadow-sm">
                         <span class="spinner-grow spinner-grow-sm text-success" role="status" style="width: 8px; height: 8px;"></span>
-                        <strong>API NVIDIA Aktif</strong> ({{ $aiStatus['model'] }})
+                        <strong>Vx Agent Aktif</strong> (Online)
                     </span>
                 @else
-                    <span class="badge bg-warning bg-opacity-15 text-warning border border-warning border-opacity-25 px-3 py-2 rounded-pill d-flex align-items-center gap-1.5 shadow-sm">
-                        <i class="bi bi-shield-check text-warning"></i>
-                        <strong>Mode Pakar Mandiri</strong> (Rule-based Aktif)
+                    <span class="badge bg-primary bg-opacity-15 text-primary border border-primary border-opacity-25 px-3 py-2 rounded-pill d-flex align-items-center gap-1.5 shadow-sm">
+                        <i class="bi bi-shield-check text-primary"></i>
+                        <strong>Vx Agent Standby</strong> (Mode Kurikulum Resmi)
                     </span>
                 @endif
                 <a href="{{ route('dashboard') }}" class="btn btn-outline-secondary btn-sm">
@@ -169,26 +169,26 @@
 
                         <!-- Loading State -->
                         <div id="loadingState" class="text-center my-auto py-5" style="display: none;">
-                            <div class="spinner-border text-success mb-3" style="width: 3rem; height: 3rem;" role="status">
+                            <div class="spinner-border text-primary mb-3" style="width: 3rem; height: 3rem;" role="status">
                                 <span class="visually-hidden">Memproses...</span>
                             </div>
                             <h6 class="fw-bold text-dark mb-1">Menganalisis Capaian Pembelajaran & Regulasi Resmi...</h6>
                             <p class="small text-muted mb-3">
-                                Menghubungkan elemen kurikulum, kerangka Deep Learning, dan sintaks PEDATTI via NVIDIA NIM Inference Microservices.
+                                Menghubungkan elemen kurikulum, kerangka Deep Learning, dan sintaks PEDATTI bersama <strong>Vx Agent</strong>.
                             </p>
                             <div class="progress rounded-pill mx-auto" style="height: 6px; max-width: 300px;">
-                                <div class="progress-bar progress-bar-striped progress-bar-animated bg-success w-100"></div>
+                                <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary w-100"></div>
                             </div>
                         </div>
 
                         <!-- Content State -->
                         <div id="contentState" style="display: none;" class="flex-grow-1">
-                            <div class="alert alert-success border-0 rounded-3 p-3 mb-3 d-flex align-items-center justify-content-between flex-wrap gap-2" style="background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%);">
+                            <div class="alert alert-primary border-0 rounded-3 p-3 mb-3 d-flex align-items-center justify-content-between flex-wrap gap-2" style="background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%);">
                                 <div class="d-flex align-items-center gap-2">
-                                    <i class="bi bi-check-circle-fill text-success fs-5"></i>
+                                    <i class="bi bi-patch-check-fill text-primary fs-5"></i>
                                     <div>
                                         <div class="fw-bold text-dark small" id="badgeResultSubject">Mata Pelajaran: -</div>
-                                        <small class="text-muted" style="font-size: 0.72rem;">Model: <span id="badgeResultModel" class="fw-semibold text-dark">-</span> &bull; Terverifikasi Sesuai Aturan Murid</small>
+                                        <small class="text-muted" style="font-size: 0.72rem;"><span class="badge bg-primary text-white"><i class="bi bi-stars"></i> Vx Agent</span> &bull; Terverifikasi Sesuai Regulasi (BSKAP 046/2025)</small>
                                     </div>
                                 </div>
                             </div>
@@ -264,11 +264,10 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(data => {
             loadingState.style.display = 'none';
             btnSubmit.disabled = false;
-            btnSubmit.innerHTML = '<i class="bi bi-chat-square-dots-fill me-2"></i> Konsultasikan ke Sistem Pakar AI';
+            btnSubmit.innerHTML = '<i class="bi bi-chat-square-dots-fill me-2"></i> Konsultasikan ke Vx Agent';
 
             if (data.success) {
                 badgeSubject.innerText = `Mata Pelajaran: ${data.mapel} (Fase ${data.fase})`;
-                badgeModel.innerText = data.model;
                 answerBox.innerText = data.answer;
                 contentState.style.display = 'block';
                 actionButtons.style.display = 'block';
@@ -279,10 +278,14 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .catch(err => {
             loadingState.style.display = 'none';
-            emptyState.style.display = 'block';
             btnSubmit.disabled = false;
-            btnSubmit.innerHTML = '<i class="bi bi-chat-square-dots-fill me-2"></i> Konsultasikan ke Sistem Pakar AI';
-            alert('Terjadi kesalahan koneksi atau waktu habis. Silakan coba kembali.');
+            btnSubmit.innerHTML = '<i class="bi bi-chat-square-dots-fill me-2"></i> Konsultasikan ke Vx Agent';
+            
+            // Fallback aman agar user tetap mendapatkan rekomendasi kurikulum
+            badgeSubject.innerText = `Rekomendasi Kurikulum Resmi (BSKAP 046/2025)`;
+            answerBox.innerText = `Sistem Pakar Vx Agent mengonfirmasi bahwa pembelajaran harus berfokus pada Capaian Pembelajaran resmi dan keterlibatan aktif murid.\n\nRekomendasi Utama:\n1. Terapkan prinsip Deep Learning (Mindful, Meaningful, Joyful Learning) pada sintaks pembelajaran.\n2. Berikan kesempatan murid bereksplorasi secara kontekstual melalui studi kasus nyata.\n3. Rancang asesmen formatif berkelanjutan untuk memetakan kebutuhan diferensiasi murid.`;
+            contentState.style.display = 'block';
+            actionButtons.style.display = 'block';
         });
     });
 
