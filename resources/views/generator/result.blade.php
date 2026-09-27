@@ -102,6 +102,9 @@
                             <a href="{{ route('modul-ajar.show', $modulId) }}" class="btn btn-sm btn-outline-secondary">
                                 <i class="bi bi-eye"></i> Lihat
                             </a>
+                            <a href="{{ route('modul-ajar.edit', $modulId) }}" class="btn btn-sm btn-outline-warning text-dark fw-semibold">
+                                <i class="bi bi-pencil-square"></i> Edit
+                            </a>
                             <div class="btn-group btn-group-sm">
                                 <button type="button" class="btn btn-outline-danger dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                                     <i class="bi bi-file-earmark-pdf"></i> PDF
@@ -132,6 +135,9 @@
                         <div class="d-flex align-items-center flex-wrap gap-2">
                             <a href="{{ route('lkpd.show', $lkpdId) }}" class="btn btn-sm btn-outline-secondary">
                                 <i class="bi bi-eye"></i> Lihat
+                            </a>
+                            <a href="{{ route('lkpd.edit', $lkpdId) }}" class="btn btn-sm btn-outline-warning text-dark fw-semibold">
+                                <i class="bi bi-pencil-square"></i> Edit
                             </a>
                             <div class="btn-group btn-group-sm">
                                 <button type="button" class="btn btn-outline-danger dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
@@ -279,4 +285,269 @@
         </div>
     </div>
 </div>
+
+<!-- ============================================================== -->
+<!-- FLOATING NOTIFIKASI OBROLAN: VX AGENT CURRICULUM ASSISTANT -->
+<!-- ============================================================== -->
+<div id="vxAgentFloatingWidget" class="card border-0 shadow-lg rounded-4 position-fixed" 
+     style="bottom: 24px; right: 24px; width: 380px; max-width: calc(100vw - 32px); z-index: 1050; background: #ffffff; border: 1.5px solid #10b981 !important; box-shadow: 0 10px 30px rgba(16, 185, 129, 0.25) !important; animation: vxSlideUp 0.5s ease-out;">
+    
+    <!-- HEADER WIDGET -->
+    <div class="card-header border-0 py-2.5 px-3 rounded-top-4 d-flex align-items-center justify-content-between text-white" 
+         style="background: linear-gradient(135deg, #059669 0%, #10b981 100%);">
+        <div class="d-flex align-items-center gap-2">
+            <div class="rounded-circle bg-white text-success d-flex align-items-center justify-content-center shadow-sm" style="width: 32px; height: 32px;">
+                <i class="bi bi-robot fs-5"></i>
+            </div>
+            <div>
+                <h6 class="fw-bold mb-0 text-white" style="font-size: 0.88rem;">Vx Agent</h6>
+                <div class="d-flex align-items-center gap-1 text-white text-opacity-90" style="font-size: 0.68rem;">
+                    <span class="rounded-circle bg-white" style="width: 6px; height: 6px; display: inline-block;"></span>
+                    <span>Online &bull; Asisten Kurikulum Pintar</span>
+                </div>
+            </div>
+        </div>
+        <div class="d-flex align-items-center gap-1">
+            <button type="button" class="btn btn-sm btn-link text-white p-0 text-decoration-none" id="btnToggleVxBody" title="Perkecil">
+                <i class="bi bi-dash-lg fs-5"></i>
+            </button>
+            <button type="button" class="btn btn-sm btn-link text-white p-0 ms-1 text-decoration-none" id="btnCloseVxWidget" title="Tutup">
+                <i class="bi bi-x-lg fs-6"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- BODY WIDGET (BUBBLE NOTIFIKASI) -->
+    <div class="card-body p-3" id="vxWidgetBody">
+        <div class="d-flex align-items-start gap-2 mb-3">
+            <div class="p-2 rounded-3 bg-light border text-dark small" style="line-height: 1.55; font-size: 0.85rem;">
+                👋 <strong>Halo Bapak/Ibu Guru!</strong> Seluruh perangkat ajar telah tersusun berdasar standar <strong>BSKAP No. 046/H/KR/2025</strong>.<br><br>
+                Jika ada materi yang ingin ditambahkan, alur kegiatan disesuaikan, atau butuh saran pengayaan, <strong>Anda bisa langsung konsultasi dengan saya</strong> atau gunakan tombol <strong>Edit</strong> untuk melengkapi otomatis tanpa merusak format baku!
+            </div>
+        </div>
+
+        <div class="d-flex flex-column gap-2">
+            <button type="button" class="btn text-white rounded-pill py-2 px-3 fw-bold small shadow-sm d-flex align-items-center justify-content-center gap-2" id="btnOpenVxModal" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);">
+                <i class="bi bi-chat-dots-fill"></i>
+                <span>Konsultasi & Minta Saran ke Vx Agent</span>
+            </button>
+
+            <div class="d-flex gap-2">
+                @if(!empty($modulId))
+                    <a href="{{ route('modul-ajar.edit', $modulId) }}" class="btn btn-outline-warning text-dark btn-sm rounded-pill flex-grow-1 fw-semibold" style="font-size: 0.78rem;">
+                        <i class="bi bi-pencil-square me-1"></i> Edit Modul
+                    </a>
+                @endif
+                @if(!empty($lkpdId))
+                    <a href="{{ route('lkpd.edit', $lkpdId) }}" class="btn btn-outline-info text-dark btn-sm rounded-pill flex-grow-1 fw-semibold" style="font-size: 0.78rem;">
+                        <i class="bi bi-pencil-square me-1"></i> Edit LKPD
+                    </a>
+                @endif
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ============================================================== -->
+<!-- MODAL KONSULTASI CEPAT: VX AGENT (IN-PAGE DIALOG) -->
+<!-- ============================================================== -->
+<div class="modal fade" id="modalVxQuickConsult" tabindex="-1" aria-labelledby="modalVxQuickConsultLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content rounded-4 border-0 shadow-lg">
+            <div class="modal-header border-0 pb-0">
+                <div class="d-flex align-items-center gap-2">
+                    <div class="rounded-circle p-2 text-white shadow-sm" style="background-color: #76b900;">
+                        <i class="bi bi-robot fs-5"></i>
+                    </div>
+                    <div>
+                        <h6 class="modal-title fw-bold text-dark mb-0" id="modalVxQuickConsultLabel">Konsultasi dengan Vx Agent</h6>
+                        <small class="text-muted">
+                            Mata Pelajaran: <strong>{{ $mapel?->nama ?? 'Umum/Kejuruan' }}</strong> &bull; Fase {{ $fase?->kode ?? 'E/F' }}
+                        </small>
+                    </div>
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body py-3">
+                <!-- FORM PERTANYAAN -->
+                <div class="mb-3">
+                    <label class="form-label small fw-bold text-secondary">
+                        Apa yang ingin Anda tanyakan atau konsultasikan mengenai hasil perangkat ajar ini?
+                    </label>
+                    <textarea class="form-control rounded-3" id="quickConsultQuestion" rows="3" 
+                              placeholder="Contoh: Bagaimana cara membuat langkah kegiatan 'Terapkan' lebih aplikatif untuk murid yang minat belajarnya rendah?"></textarea>
+                </div>
+
+                <!-- PILIHAN INSPIRASI CEPAT -->
+                <div class="mb-3">
+                    <label class="form-label small fw-bold text-secondary d-block mb-1">Pertanyaan Cepat Rekomendasi:</label>
+                    <div class="d-flex flex-wrap gap-1.5" id="quickConsultPills">
+                        <button type="button" class="btn btn-xs btn-outline-success rounded-pill px-2.5 py-1 quick-c-pill" style="font-size: 0.75rem;">
+                            Bagaimana ide kegiatan Joyful untuk materi ini?
+                        </button>
+                        <button type="button" class="btn btn-xs btn-outline-success rounded-pill px-2.5 py-1 quick-c-pill" style="font-size: 0.75rem;">
+                            Saran pengayaan HOTS untuk murid berprestasi
+                        </button>
+                        <button type="button" class="btn btn-xs btn-outline-success rounded-pill px-2.5 py-1 quick-c-pill" style="font-size: 0.75rem;">
+                            Bagaimana strategi bimbingan bagi murid remedial?
+                        </button>
+                    </div>
+                </div>
+
+                <!-- TOMBOL KIRIM KONSULTASI -->
+                <div class="d-flex justify-content-end mb-3">
+                    <button type="button" class="btn text-white rounded-pill px-4 fw-bold shadow-sm d-flex align-items-center gap-2" id="btnSubmitQuickConsult" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);">
+                        <i class="bi bi-send-fill"></i>
+                        <span>Kirim Pertanyaan ke Vx Agent</span>
+                    </button>
+                </div>
+
+                <!-- LOADING SPINNER -->
+                <div id="quickConsultLoading" class="text-center py-4 my-2" style="display: none;">
+                    <div class="spinner-border text-success mb-2" role="status"></div>
+                    <div class="small fw-bold text-dark">Vx Agent sedang menganalisis kurikulum & regulasi BSKAP 046/2025...</div>
+                    <small class="text-muted">Grounded ke Capaian Pembelajaran resmi &bull; Fokus pada murid</small>
+                </div>
+
+                <!-- AREA JAWABAN DARI AGENT -->
+                <div id="quickConsultAnswerBox" style="display: none;">
+                    <div class="alert alert-success border-0 rounded-3 p-2.5 mb-2 d-flex align-items-center justify-content-between">
+                        <div class="small fw-bold text-success d-flex align-items-center gap-1.5">
+                            <i class="bi bi-patch-check-fill"></i> Saran Resmi dari Vx Agent:
+                        </div>
+                        <button type="button" class="btn btn-xs btn-outline-success rounded-pill px-2 py-0.5" id="btnCopyQuickAnswer" style="font-size: 0.72rem;">
+                            <i class="bi bi-clipboard"></i> Salin
+                        </button>
+                    </div>
+                    <div class="p-3 bg-light rounded-3 border text-dark" id="quickConsultAnswerText" style="font-size: 0.9rem; line-height: 1.65; white-space: pre-line; max-height: 300px; overflow-y: auto;">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer border-0 pt-0">
+                <button type="button" class="btn btn-light rounded-pill px-4" data-bs-dismiss="modal">Tutup</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+@keyframes vxSlideUp {
+    from {
+        transform: translateY(100px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+</style>
 @endsection
+
+@push('scripts')
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const floatingWidget = document.getElementById('vxAgentFloatingWidget');
+    const widgetBody = document.getElementById('vxWidgetBody');
+    const btnToggle = document.getElementById('btnToggleVxBody');
+    const btnClose = document.getElementById('btnCloseVxWidget');
+    const btnOpenModal = document.getElementById('btnOpenVxModal');
+
+    const quickModalElement = document.getElementById('modalVxQuickConsult');
+    const quickModal = new bootstrap.Modal(quickModalElement);
+    const questionInput = document.getElementById('quickConsultQuestion');
+    const btnSubmit = document.getElementById('btnSubmitQuickConsult');
+    const loadingBox = document.getElementById('quickConsultLoading');
+    const answerBox = document.getElementById('quickConsultAnswerBox');
+    const answerText = document.getElementById('quickConsultAnswerText');
+    const btnCopy = document.getElementById('btnCopyQuickAnswer');
+
+    // Minimalkan widget
+    let isMinimized = false;
+    btnToggle.addEventListener('click', function() {
+        isMinimized = !isMinimized;
+        widgetBody.style.display = isMinimized ? 'none' : 'block';
+        btnToggle.innerHTML = isMinimized ? '<i class="bi bi-plus-lg fs-5"></i>' : '<i class="bi bi-dash-lg fs-5"></i>';
+    });
+
+    // Tutup widget
+    btnClose.addEventListener('click', function() {
+        floatingWidget.style.display = 'none';
+    });
+
+    // Buka Modal Konsultasi Cepat
+    btnOpenModal.addEventListener('click', function() {
+        quickModal.show();
+    });
+
+    // Quick Pills Click
+    document.querySelectorAll('.quick-c-pill').forEach(btn => {
+        btn.addEventListener('click', function() {
+            questionInput.value = this.innerText.trim();
+        });
+    });
+
+    // Kirim Konsultasi
+    btnSubmit.addEventListener('click', function() {
+        const q = questionInput.value.trim();
+        if (!q) {
+            alert('Mohon ketikkan pertanyaan atau topik yang ingin dikonsultasikan.');
+            return;
+        }
+
+        const mapelId = "{{ $mapel?->id ?? '' }}";
+        const faseId = "{{ $fase?->id ?? '' }}";
+
+        loadingBox.style.display = 'block';
+        answerBox.style.display = 'none';
+        btnSubmit.disabled = true;
+        btnSubmit.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span> Menganalisis...';
+
+        fetch("{{ route('pakar-ai.consult') }}", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify({
+                mata_pelajaran_id: mapelId,
+                fase_id: faseId,
+                pertanyaan: q,
+                tipe_konsultasi: 'Konsultasi Pasca-Generate Perangkat'
+            })
+        })
+        .then(res => res.json())
+        .then(data => {
+            loadingBox.style.display = 'none';
+            btnSubmit.disabled = false;
+            btnSubmit.innerHTML = '<i class="bi bi-send-fill me-1"></i> Kirim Pertanyaan ke Vx Agent';
+
+            if (data.success) {
+                answerText.innerText = data.answer;
+                answerBox.style.display = 'block';
+            } else {
+                alert(data.message || 'Gagal memproses konsultasi.');
+            }
+        })
+        .catch(err => {
+            loadingBox.style.display = 'none';
+            btnSubmit.disabled = false;
+            btnSubmit.innerHTML = '<i class="bi bi-send-fill me-1"></i> Kirim Pertanyaan ke Vx Agent';
+            alert('Terjadi kesalahan jaringan atau waktu habis.');
+        });
+    });
+
+    // Salin Jawaban
+    btnCopy.addEventListener('click', function() {
+        navigator.clipboard.writeText(answerText.innerText).then(() => {
+            const old = btnCopy.innerHTML;
+            btnCopy.innerHTML = '<i class="bi bi-check2 text-success me-1"></i> Tersalin!';
+            setTimeout(() => {
+                btnCopy.innerHTML = old;
+            }, 2000);
+        });
+    });
+});
+</script>
+@endpush

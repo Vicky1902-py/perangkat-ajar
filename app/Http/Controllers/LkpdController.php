@@ -120,6 +120,18 @@ class LkpdController extends Controller
 
         $lkpd->update($validated);
 
+        if ($request->has('kegiatans')) {
+            foreach ($request->input('kegiatans') as $kegId => $kegData) {
+                $kegiatan = \App\Models\LkpdKegiatan::where('lkpd_id', $lkpd->id)->find($kegId);
+                if ($kegiatan) {
+                    $kegiatan->update([
+                        'instruksi' => $kegData['instruksi'] ?? $kegiatan->instruksi,
+                        'pertanyaan' => $kegData['pertanyaan'] ?? $kegiatan->pertanyaan,
+                    ]);
+                }
+            }
+        }
+
         return redirect()->route('lkpd.show', $lkpd->id)->with('success', 'LKPD berhasil diperbarui.');
     }
 

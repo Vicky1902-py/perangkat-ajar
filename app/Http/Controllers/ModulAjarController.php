@@ -175,6 +175,19 @@ class ModulAjarController extends Controller
             $modulAjar->profilLulusans()->sync($request->profil_lulusan_ids);
         }
 
+        // Simpan pembaruan 5 tahap kegiatan PEDATTI jika ada
+        if ($request->has('kegiatans')) {
+            foreach ($request->input('kegiatans') as $kegId => $kegData) {
+                $kegiatan = \App\Models\ModulAjarKegiatan::where('modul_ajar_id', $modulAjar->id)->find($kegId);
+                if ($kegiatan) {
+                    $kegiatan->update([
+                        'deskripsi_kegiatan' => $kegData['deskripsi'] ?? $kegiatan->deskripsi_kegiatan,
+                        'durasi_menit' => $kegData['durasi'] ?? $kegiatan->durasi_menit,
+                    ]);
+                }
+            }
+        }
+
         return redirect()->route('modul-ajar.show', $modulAjar->id)->with('success', 'Modul Ajar berhasil diperbarui.');
     }
 
