@@ -19,6 +19,9 @@
         </div>
     </div>
     <div class="d-flex flex-wrap gap-2">
+        <button type="button" class="btn btn-outline-primary btn-sm rounded-pill px-3 shadow-sm d-inline-flex align-items-center gap-1" onclick="openVxAgentWithDocContext('atp', '{{ $atp->id }}', '{{ addslashes($atp->judul) }}', '{{ addslashes($atp->mataPelajaran->nama ?? '') }}', '{{ $atp->fase->kode ?? '' }}')">
+            <i class="bi bi-robot text-primary me-1"></i> Konsultasi Vx Agent
+        </button>
         <div class="dropdown">
             <button class="btn btn-danger btn-sm rounded-pill px-3 shadow-sm dropdown-toggle d-inline-flex align-items-center gap-1" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                 <i class="bi bi-file-earmark-pdf"></i> <span>Unduh PDF</span>
@@ -35,6 +38,32 @@
         <a href="{{ route('export.atp.docx', $atp->id) }}" class="btn btn-primary btn-sm rounded-pill px-3 shadow-sm d-inline-flex align-items-center gap-1">
             <i class="bi bi-file-earmark-word"></i> <span>Unduh Word</span>
         </a>
+    </div>
+</div>
+
+<!-- BANNER KONSULTASI VX AGENT -->
+<div class="card border-0 shadow-sm mb-4" style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); color: #fff; border-radius: 14px;">
+    <div class="card-body p-3 p-md-4 d-flex align-items-center justify-content-between flex-wrap gap-3">
+        <div class="d-flex align-items-center gap-3">
+            <div class="p-3 rounded-circle bg-primary bg-opacity-25 text-info shadow-sm">
+                <i class="bi bi-robot fs-2"></i>
+            </div>
+            <div>
+                <div class="d-flex align-items-center gap-2 mb-1">
+                    <span class="badge bg-primary text-white fw-bold px-2 py-1"><i class="bi bi-stars"></i> Vx Agent</span>
+                    <span class="text-white text-opacity-75 small">Sistem Pakar Alur Tujuan Pembelajaran (BSKAP 046/2025)</span>
+                </div>
+                <h6 class="fw-bold mb-1 text-white">Butuh Review Keselarasan Alur & Alokasi JP?</h6>
+                <p class="mb-0 text-white text-opacity-75 small">
+                    Tanyakan telaah alur materi, urutan kompetensi murid, atau keterkaitan 8 Dimensi Profil Lulusan kepada <strong>Vx Agent</strong>.
+                </p>
+            </div>
+        </div>
+        <div>
+            <button type="button" class="btn btn-primary fw-bold rounded-pill px-4 shadow-sm d-inline-flex align-items-center gap-2" onclick="openVxAgentWithDocContext('atp', '{{ $atp->id }}', '{{ addslashes($atp->judul) }}', '{{ addslashes($atp->mataPelajaran->nama ?? '') }}', '{{ $atp->fase->kode ?? '' }}')">
+                <i class="bi bi-chat-dots-fill"></i> Konsultasi Alur TP
+            </button>
+        </div>
     </div>
 </div>
 

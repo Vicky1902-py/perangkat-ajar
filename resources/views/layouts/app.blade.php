@@ -764,6 +764,9 @@
         @endif
     @endauth
 
+    <!-- FLOATING VX AGENT COPILOT & CONSULTANT WIDGET -->
+    @include('partials.vx-agent-widget')
+
     <!-- FLOATING SCROLL TO TOP BUTTON -->
     <button type="button" id="btnScrollToTop" class="btn btn-primary rounded-circle shadow-lg d-none align-items-center justify-content-center"
             style="position: fixed; bottom: 25px; right: 25px; width: 44px; height: 44px; z-index: 1030; transition: all 0.3s ease; box-shadow: 0 8px 20px rgba(0,0,0,0.25) !important;"

@@ -11,7 +11,13 @@
         <h4 class="fw-bold text-dark mb-0">{{ $modulAjar->judul }}</h4>
     </div>
     <div class="d-flex flex-wrap gap-2">
-        <a href="{{ route('paket-soal.create', ['modul_id' => $modulAjar->id]) }}" class="btn btn-outline-primary btn-sm rounded-pill px-3 d-inline-flex align-items-center gap-1">
+        <button type="button" class="btn btn-outline-primary btn-sm rounded-pill px-3 shadow-sm d-inline-flex align-items-center gap-1" onclick="openVxAgentWithDocContext('modul_ajar', '{{ $modulAjar->id }}', '{{ addslashes($modulAjar->judul) }}', '{{ addslashes($modulAjar->mataPelajaran->nama ?? '') }}', '{{ $modulAjar->fase->kode ?? '' }}')">
+            <i class="bi bi-robot text-primary me-1"></i> Konsultasi Vx Agent
+        </button>
+        <a href="{{ route('modul-ajar.edit', $modulAjar->id) }}" class="btn btn-warning text-dark fw-bold btn-sm rounded-pill px-3 shadow-sm d-inline-flex align-items-center gap-1">
+            <i class="bi bi-pencil-square me-1"></i> Edit / Lengkapi via Vx Agent
+        </a>
+        <a href="{{ route('paket-soal.create', ['modul_id' => $modulAjar->id]) }}" class="btn btn-outline-secondary btn-sm rounded-pill px-3 d-inline-flex align-items-center gap-1">
             <i class="bi bi-patch-question me-1"></i> Buat Smart Soal
         </a>
         <div class="dropdown">
@@ -27,6 +33,35 @@
         <a href="{{ route('export.modul-ajar.docx', $modulAjar->id) }}" class="btn btn-primary btn-sm rounded-pill px-3">
             <i class="bi bi-file-earmark-word me-1"></i> Unduh Word (DOCX)
         </a>
+    </div>
+</div>
+
+<!-- BANNER KONSULTASI VX AGENT & EDIT OTOMATIS -->
+<div class="card border-0 shadow-sm mb-4" style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); color: #fff; border-radius: 14px;">
+    <div class="card-body p-3 p-md-4 d-flex align-items-center justify-content-between flex-wrap gap-3">
+        <div class="d-flex align-items-center gap-3">
+            <div class="p-3 rounded-circle bg-primary bg-opacity-25 text-info shadow-sm">
+                <i class="bi bi-robot fs-2"></i>
+            </div>
+            <div>
+                <div class="d-flex align-items-center gap-2 mb-1">
+                    <span class="badge bg-primary text-white fw-bold px-2 py-1"><i class="bi bi-stars"></i> Vx Agent</span>
+                    <span class="text-white text-opacity-75 small">Sistem Pakar Kurikulum Merdeka (BSKAP 046/2025)</span>
+                </div>
+                <h6 class="fw-bold mb-1 text-white">Hasil Modul Kurang Sesuai? Konsultasi atau Edit Otomatis!</h6>
+                <p class="mb-0 text-white text-opacity-75 small">
+                    Jika alur materi, kegiatan murid, atau asesmen perlu penyesuaian, Anda dapat meminta saran pada <strong>Vx Agent</strong> atau klik <strong>Edit</strong> untuk melengkapi teks secara otomatis tanpa merusak format.
+                </p>
+            </div>
+        </div>
+        <div class="d-flex align-items-center gap-2">
+            <button type="button" class="btn btn-primary fw-bold rounded-pill px-3 shadow-sm d-inline-flex align-items-center gap-2" onclick="openVxAgentWithDocContext('modul_ajar', '{{ $modulAjar->id }}', '{{ addslashes($modulAjar->judul) }}', '{{ addslashes($modulAjar->mataPelajaran->nama ?? '') }}', '{{ $modulAjar->fase->kode ?? '' }}')">
+                <i class="bi bi-chat-dots-fill"></i> Tanya Vx Agent
+            </button>
+            <a href="{{ route('modul-ajar.edit', $modulAjar->id) }}" class="btn btn-warning text-dark fw-bold rounded-pill px-3 shadow-sm d-inline-flex align-items-center gap-1">
+                <i class="bi bi-pencil-square"></i> Edit Modul
+            </a>
+        </div>
     </div>
 </div>
 

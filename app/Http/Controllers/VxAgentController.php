@@ -141,4 +141,104 @@ PROMPT;
             'model'          => config('services.nvidia.model', 'z-ai/glm-5.3-flash'),
         ]);
     }
+
+    /**
+     * Layanan obrolan interaktif langsung dengan Vx Agent mengenai telaah kurikulum,
+     * modul ajar, LKPD, saran pengayaan materi, dan pedagogi Deep Learning.
+     */
+    public function chat(Request $request, NvidiaAiService $aiService): JsonResponse
+    {
+        $request->validate([
+            'message'        => 'required|string|min:2|max:1500',
+            'document_type'  => 'nullable|string',
+            'document_id'    => 'nullable',
+            'document_title' => 'nullable|string',
+            'mata_pelajaran' => 'nullable|string',
+            'fase'           => 'nullable|string',
+        ]);
+
+        $message = trim($request->message);
+        $docType = $request->input('document_type', 'general');
+        $docTitle = $request->input('document_title', 'Perangkat Ajar Kurikulum Merdeka');
+        $mapelNama = $request->input('mata_pelajaran', 'Mata Pelajaran Umum/Kejuruan');
+        $faseKode = $request->input('fase', 'E/F');
+
+        // Cari CP jika mata pelajaran dan fase bisa diidentifikasi
+        $cpDeskripsi = 'Sesuai Keputusan Kepala BSKAP No. 046/H/KR/2025.';
+        $elemenList = [];
+
+        $mapelObj = MataPelajaran::where('nama', 'like', "%{$mapelNama}%")->first();
+        $faseObj = Fase::where('kode', 'like', "%{$faseKode}%")->first();
+
+        if ($mapelObj && $faseObj) {
+            $cp = CapaianPembelajaran::where('mata_pelajaran_id', $mapelObj->id)
+                ->where('fase_id', $faseObj->id)
+                ->first();
+
+            if ($cp) {
+                $cpDeskripsi = $cp->deskripsi_cp;
+                if (!empty($cp->elemen_cp)) {
+                    $decoded = json_decode($cp->elemen_cp, true);
+                    if (is_array($decoded)) {
+                        foreach ($decoded as $elm => $desk) {
+                            $elemenList[] = "{$elm}: {$desk}";
+                        }
+                    }
+                }
+            }
+        }
+
+        $elemenText = !empty($elemenList) ? implode("\n• ", $elemenList) : 'Elemen kompetensi esensial';
+
+        $context = <<<CTX
+PERAN ANDA: Vx Agent - Asisten Pakar Kurikulum Merdeka & Konsultan Deep Learning (Kemendikdasmen RI).
+DOKUMEN YANG SEDANG DITELAAH: {$docTitle} (Tipe Dokumen: {$docType})
+MATA PELAJARAN: {$mapelNama}
+FASE / KELAS: {$faseKode}
+REGULASI RESMI: Keputusan Kepala BSKAP No. 046/H/KR/2025, Permendikdasmen No. 10/2025 & No. 13/2025.
+
+CAPAIAN PEMBELAJARAN (CP) RESMI:
+{$cpDeskripsi}
+
+ELEMEN CP:
+• {$elemenText}
+
+PRINSIP PEDAGOGIS DEEP LEARNING:
+1. Mindful Learning (Sadar & Hadir Penuh), Meaningful Learning (Bermakna & Relevan ke Dunia Nyata/Industri), Joyful Learning (Menyenangkan & Menumbuhkan Minat).
+2. Sintaks Alur PEDATTI: Pelajari, Dalami, Terapkan, Tularkan, Inovasi.
+3. 8 Dimensi Profil Lulusan Permendikdasmen 10/2025.
+
+ATURAN SISTEM SANGAT KETAT:
+1. DILARANG menggunakan kata "peserta didik", WAJIB menggunakan kata "murid".
+2. Jawaban harus langsung to the point, bersahabat, profesional, dan memberikan saran praktis konkret yang bisa diaplikasikan guru.
+3. Jika guru menanyakan cara menambah atau melengkapi materi, ingatkan bahwa guru dapat menggunakan tombol "Edit / Lengkapi via Vx Agent" pada halaman dokumen untuk auto-complete aman tanpa merusak format.
+CTX;
+
+        $userPrompt = <<<PROMPT
+PERTANYAAN / KONSULTASI DARI GURU:
+"{$message}"
+
+Berikan jawaban konsultasi cerdas, rekomendasi praktis untuk kegiatan murid, atau pengayaan materi yang relevan sekarang!
+PROMPT;
+
+        $reply = $aiService->generate($userPrompt, $context, 750, 0.45);
+
+        if (!$reply) {
+            $reply = "Halo Bapak/Ibu Guru! Terkait **{$docTitle}** ({$mapelNama} Fase {$faseKode}), saya merekomendasikan untuk memperkuat aktivitas murid pada tahap **Terapkan** dan **Tularkan** dengan studi kasus kontekstual. Anda juga dapat mengklik tombol **Edit / Lengkapi via Vx Agent** pada dokumen ini untuk memperkaya materi secara otomatis.";
+        }
+
+        // Standardisasi istilah murid
+        $reply = str_ireplace('peserta didik', 'murid', $reply);
+
+        return response()->json([
+            'success'   => true,
+            'reply'     => $reply,
+            'doc_type'  => $docType,
+            'doc_title' => $docTitle,
+            'mapel'     => $mapelNama,
+            'fase'      => $faseKode,
+            'model'     => config('services.nvidia.model', 'z-ai/glm-5.3-flash'),
+        ]);
+    }
 }
+

@@ -25,6 +25,9 @@
         <a href="{{ route('asesmen.index') }}" class="btn btn-outline-secondary btn-sm">
             <i class="bi bi-arrow-left"></i> Kembali
         </a>
+        <button type="button" class="btn btn-outline-primary btn-sm rounded-pill px-3 shadow-sm d-inline-flex align-items-center gap-1" onclick="openVxAgentWithDocContext('asesmen', '{{ $asesmen->id }}', '{{ addslashes($asesmen->judul) }}', '{{ addslashes($asesmen->mataPelajaran->nama ?? '') }}', '{{ $asesmen->fase->kode ?? '' }}')">
+            <i class="bi bi-robot text-primary me-1"></i> Konsultasi Vx Agent
+        </button>
         <div class="dropdown">
             <button class="btn btn-danger btn-sm text-white dropdown-toggle d-inline-flex align-items-center gap-1" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                 <i class="bi bi-file-earmark-pdf-fill me-1"></i> Unduh PDF

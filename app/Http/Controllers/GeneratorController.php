@@ -205,6 +205,7 @@ class GeneratorController extends Controller
 
         $isGuest = !Auth::check();
         $guestCount = $isGuest ? $this->getGuestUsageCount($request) : 0;
+        $guestRemaining = $isGuest ? max(0, self::GUEST_MAX_COUNT - $guestCount) : null;
         $modul = $modulId ? \App\Models\ModulAjar::with(['mataPelajaran', 'fase'])->find($modulId) : null;
         $mapel = $modul?->mataPelajaran;
         $fase = $modul?->fase;

@@ -72,4 +72,66 @@ class VxAgentTest extends TestCase
             $response->assertSee('Vx Agent Ready');
         }
     }
+
+    public function test_vx_agent_chat_returns_valid_response(): void
+    {
+        $superadmin = User::where('role', 'superadmin')->first();
+        if (!$superadmin) {
+            $superadmin = User::factory()->create([
+                'role' => 'superadmin',
+                'is_profile_completed' => true,
+            ]);
+        }
+
+        $response = $this->actingAs($superadmin)->postJson(route('vx-agent.chat'), [
+            'message' => 'Bagaimana mengaitkan materi ini dengan konteks industri nyata untuk murid?',
+            'document_type' => 'modul_ajar',
+            'document_title' => 'Instalasi Motor Listrik',
+            'mata_pelajaran' => 'Teknik Instalasi Tenaga Listrik',
+            'fase' => 'F',
+        ]);
+
+        $response->assertStatus(200);
+        $response->assertJsonStructure([
+            'success',
+            'reply',
+            'doc_type',
+            'doc_title',
+            'mapel',
+            'fase',
+            'model',
+        ]);
+        $this->assertTrue($response->json('success'));
+        $this->assertNotEmpty($response->json('reply'));
+        $this->assertStringNotContainsStringIgnoringCase('peserta didik', $response->json('reply'));
+    }
+
+    public function test_modul_ajar_show_page_contains_vx_agent_actions(): void
+    {
+        $superadmin = User::where('role', 'superadmin')->first();
+        $modul = ModulAjar::first();
+
+        if ($superadmin && $modul) {
+            $response = $this->actingAs($superadmin)->get(route('modul-ajar.show', $modul->id));
+            $response->assertStatus(200);
+            $response->assertSee('Konsultasi Vx Agent');
+            $response->assertSee('Edit / Lengkapi via Vx Agent');
+            $response->assertSee('modalVxAgentChat');
+        }
+    }
+
+    public function test_lkpd_show_page_contains_vx_agent_actions(): void
+    {
+        $superadmin = User::where('role', 'superadmin')->first();
+        $lkpd = Lkpd::first();
+
+        if ($superadmin && $lkpd) {
+            $response = $this->actingAs($superadmin)->get(route('lkpd.show', $lkpd->id));
+            $response->assertStatus(200);
+            $response->assertSee('Konsultasi Vx Agent');
+            $response->assertSee('Edit / Lengkapi via Vx Agent');
+            $response->assertSee('modalVxAgentChat');
+        }
+    }
 }
+

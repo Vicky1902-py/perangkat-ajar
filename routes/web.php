@@ -71,7 +71,8 @@ Route::prefix('generator')->name('generator.')->group(function () {
     Route::get('/ajax-cp', [GeneratorController::class, 'getCpByMapelAndFase'])->name('ajax-cp');
 });
 
-// 🤖 VX AGENT AUTO-COMPLETE & FIELD ENRICHMENT (NVIDIA NIM ENGINE)
+// 🤖 VX AGENT AUTO-COMPLETE & CHAT CONSULTATION (NVIDIA NIM ENGINE)
+Route::post('/vx-agent/chat', [\App\Http\Controllers\VxAgentController::class, 'chat'])->name('vx-agent.chat');
 Route::post('/vx-agent/complete-field', [\App\Http\Controllers\VxAgentController::class, 'completeField'])->name('vx-agent.complete-field');
 
 // EXPORTS (PDF, EXCEL, DOCX - PUBLIC FOR GUEST RESULTS & PROTECTED FOR USER ARCHIVES)
