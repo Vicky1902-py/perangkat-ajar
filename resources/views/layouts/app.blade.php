@@ -630,8 +630,8 @@
 
     <!-- MAIN WRAPPER -->
     <div id="main-wrapper">
-        <!-- TOP NAVBAR (Disembunyikan di smartphone untuk halaman yang sudah memiliki TopAppBar khusus seperti Dashboard & Generator) -->
-        <div class="{{ (request()->routeIs('dashboard') || request()->routeIs('home') || request()->routeIs('generator.*')) ? 'd-none d-md-block' : '' }}">
+        <!-- TOP NAVBAR (Disembunyikan di smartphone untuk halaman yang sudah memiliki TopAppBar khusus seperti Dashboard, Generator, & Paket Soal) -->
+        <div class="{{ (request()->routeIs('dashboard') || request()->routeIs('home') || request()->routeIs('generator.*') || request()->routeIs('paket-soal.*')) ? 'd-none d-md-block' : '' }}">
             @include('layouts.navbar')
         </div>
 
