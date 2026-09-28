@@ -56,6 +56,13 @@
             --theme-indigo: {{ $themeColors['indigo'] }};
         }
 
+        html, body {
+            overflow-x: hidden !important;
+            width: 100%;
+            max-width: 100vw;
+            position: relative;
+        }
+
         body {
             font-family: var(--bs-font-sans-serif);
             background-color: #f8fafc;
@@ -64,17 +71,41 @@
         }
 
         .material-symbols-outlined {
+            font-family: 'Material Symbols Outlined' !important;
             font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
             display: inline-block;
             vertical-align: middle;
             line-height: 1;
+            letter-spacing: normal;
+            text-transform: none;
+            white-space: nowrap;
+            word-wrap: normal;
+            direction: ltr;
+            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
+            font-feature-settings: 'liga';
+            user-select: none;
+            overflow: hidden;
+            max-width: 1.5em;
         }
         .material-symbols-outlined.fill-icon,
         .material-symbols-fill {
+            font-family: 'Material Symbols Outlined' !important;
             font-variation-settings: 'FILL' 1, 'wght' 600, 'GRAD' 0, 'opsz' 24;
             display: inline-block;
             vertical-align: middle;
             line-height: 1;
+            letter-spacing: normal;
+            text-transform: none;
+            white-space: nowrap;
+            word-wrap: normal;
+            direction: ltr;
+            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
+            font-feature-settings: 'liga';
+            user-select: none;
+            overflow: hidden;
+            max-width: 1.5em;
         }
 
         /* Universal Compact Bootstrap 5 Pagination */
@@ -470,7 +501,9 @@
             #main-wrapper {
                 margin-left: 0 !important;
                 width: 100% !important;
+                max-width: 100vw !important;
                 min-width: 0 !important;
+                overflow-x: hidden !important;
             }
             .top-navbar {
                 padding: 10px 14px;
@@ -479,6 +512,7 @@
                 padding-left: 12px !important;
                 padding-right: 12px !important;
                 padding-top: 14px !important;
+                overflow-x: hidden !important;
             }
             body.overflow-hidden-mobile {
                 overflow: hidden !important;
@@ -495,74 +529,93 @@
                 padding-right: 10px !important;
                 padding-top: 8px !important;
                 padding-bottom: 24px !important;
+                overflow-x: hidden !important;
             }
-            h1, .h1 { font-size: 1.3rem !important; }
-            h2, .h2 { font-size: 1.15rem !important; }
-            h3, .h3 { font-size: 1.05rem !important; }
-            h4, .h4 { font-size: 0.95rem !important; }
-            h5, .h5 { font-size: 0.92rem !important; }
-            h6, .h6 { font-size: 0.85rem !important; }
 
-            /* Exclude SuperApp Shell from global mobile overrides */
-            .superapp-mobile-shell h1,
-            .superapp-mobile-shell h2,
-            .superapp-mobile-shell h3,
-            .superapp-mobile-shell h4,
-            .superapp-mobile-shell h5,
-            .superapp-mobile-shell h6 { font-size: unset !important; }
-            .superapp-mobile-shell .card-body { padding: unset !important; }
-            .superapp-mobile-shell .card-header { padding: unset !important; font-size: unset !important; }
-            .superapp-mobile-shell .btn { font-size: unset !important; padding: unset !important; }
-            .superapp-mobile-shell .badge { font-size: unset !important; padding: unset !important; }
-            .superapp-mobile-shell .alert { padding: unset !important; font-size: unset !important; }
+            /* Dedicated Mobile Shells Isolation */
+            .superapp-mobile-shell h1, .superapp-mobile-shell h2, .superapp-mobile-shell h3,
+            .superapp-mobile-shell h4, .superapp-mobile-shell h5, .superapp-mobile-shell h6,
+            .mobile-soal-shell h1, .mobile-soal-shell h2, .mobile-soal-shell h3,
+            .mobile-soal-shell h4, .mobile-soal-shell h5, .mobile-soal-shell h6,
+            .mobile-soal-create-shell h1, .mobile-soal-create-shell h2, .mobile-soal-create-shell h3,
+            .mobile-generator-shell h1, .mobile-generator-shell h2, .mobile-generator-shell h3,
+            .mobile-card-shell h1, .mobile-card-shell h2, .mobile-card-shell h3 {
+                font-size: unset !important;
+            }
+            .superapp-mobile-shell .card-body, .mobile-soal-shell .card-body, .mobile-generator-shell .card-body, .mobile-card-shell .card-body {
+                padding: unset !important;
+            }
+            .superapp-mobile-shell .card, .mobile-soal-shell .card, .mobile-generator-shell .card, .mobile-card-shell .card {
+                margin-bottom: unset !important;
+            }
+            .superapp-mobile-shell .btn, .mobile-soal-shell .btn, .mobile-generator-shell .btn,
+            .mobile-pill-dock .btn, .dock-item, .btn-stepper, .mobile-soal-nav-btn, .mobile-nav-btn,
+            .btn-mobile-phase-pill, .btn-mobile-filter-pill, .mobile-filter-chip, .mobile-subtab-chip,
+            .mobile-card-btn, .mobile-icon-action-btn, .btn-mobile-generate, .btn-mobile-soal-generate {
+                font-size: unset !important;
+                padding: unset !important;
+            }
+            .superapp-mobile-shell .badge, .mobile-soal-shell .badge, .mobile-generator-shell .badge, .mobile-card-shell .badge {
+                font-size: unset !important;
+                padding: unset !important;
+            }
 
-            /* Compact Cards & Sections */
-            .card {
-                border-radius: 12px !important;
+            /* General Desktop Content Sizing (when viewed on mobile) */
+            body:not(.has-mobile-shell) h1 { font-size: 1.25rem !important; }
+            body:not(.has-mobile-shell) h2 { font-size: 1.15rem !important; }
+            body:not(.has-mobile-shell) h3 { font-size: 1.05rem !important; }
+            body:not(.has-mobile-shell) h4 { font-size: 0.95rem !important; }
+
+            /* Compact Desktop Cards on Mobile */
+            .desktop-soal-shell .card,
+            .desktop-generator-shell .card,
+            body:not(.has-mobile-shell) .card {
+                border-radius: 12px;
                 margin-bottom: 12px;
             }
-            .card-body {
-                padding: 14px 12px !important;
-            }
-            .card-header {
-                padding: 10px 14px !important;
-                font-size: 0.88rem !important;
+            .desktop-soal-shell .card-body,
+            .desktop-generator-shell .card-body,
+            body:not(.has-mobile-shell) .card-body {
+                padding: 14px 12px;
             }
 
-            /* Responsive Buttons & Form Controls */
-            .btn {
-                font-size: 0.82rem !important;
-                padding: 7px 12px !important;
+            /* Mobile Tables & DataTables Responsiveness */
+            .table-responsive {
+                width: 100% !important;
+                max-width: 100% !important;
+                overflow-x: auto !important;
+                -webkit-overflow-scrolling: touch;
             }
-            .btn-sm {
-                font-size: 0.78rem !important;
-                padding: 4px 8px !important;
-            }
-            .btn-lg {
-                font-size: 0.9rem !important;
-                padding: 10px 14px !important;
-            }
-            .form-control, .form-select {
-                font-size: 0.85rem !important;
-                padding: 8px 10px !important;
-            }
-
-            /* Mobile Tables */
             .table {
                 font-size: 0.78rem !important;
             }
             .table th, .table td {
                 padding: 7px 8px !important;
+                white-space: nowrap;
+            }
+            .dataTables_wrapper .dataTables_length,
+            .dataTables_wrapper .dataTables_filter,
+            .dataTables_wrapper .dataTables_info,
+            .dataTables_wrapper .dataTables_paginate {
+                text-align: left !important;
+                margin-bottom: 6px;
+            }
+            .dataTables_wrapper .dataTables_filter input {
+                width: 100% !important;
+                margin-left: 0 !important;
+                display: block;
+                margin-top: 4px;
+            }
+            .dataTables_wrapper .dataTables_paginate .pagination {
+                justify-content: center !important;
+                flex-wrap: wrap;
+                gap: 2px;
             }
 
             /* Mobile Alerts & Badges */
             .alert {
-                padding: 10px 12px !important;
-                font-size: 0.82rem !important;
-            }
-            .badge {
-                font-size: 0.7rem !important;
-                padding: 3px 6px !important;
+                padding: 10px 12px;
+                font-size: 0.82rem;
             }
 
             /* Top Navbar on Phone */
@@ -594,6 +647,87 @@
                 bottom: 110px !important;
                 right: 18px !important;
             }
+        }
+
+        /* ============================================================ */
+        /* SHARED MOBILE NATIVE STITCH UTILITIES & CARDS                */
+        /* ============================================================ */
+        .mobile-card-shell {
+            max-width: 480px;
+            margin: 0 auto;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+        .mobile-nav-circle-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background-color: #ffffff;
+            border: 1px solid #e2e8f0;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+            flex-shrink: 0;
+            transition: all 0.15s ease;
+        }
+        .mobile-nav-circle-btn:active {
+            transform: scale(0.92);
+            background-color: #f1f5f9;
+        }
+        .mobile-section-h1 {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 15px;
+            font-weight: 700;
+            color: #0f172a;
+            line-height: 1.2;
+        }
+        .mobile-section-eyebrow {
+            font-size: 10px;
+            font-weight: 700;
+            color: #0284c7;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+        .mobile-item-card {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 1.1rem;
+            padding: 14px;
+            box-shadow: 0 2px 6px rgba(15, 23, 42, 0.03);
+            transition: all 0.2s ease;
+        }
+        .mobile-item-title {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 13.5px;
+            font-weight: 700;
+            color: #0f172a;
+            line-height: 1.35;
+        }
+        .mobile-card-btn {
+            font-size: 12px !important;
+            font-weight: 700 !important;
+            padding: 5px 12px !important;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .mobile-icon-action-btn {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: #475569;
+            transition: all 0.15s ease;
+            flex-shrink: 0;
+        }
+        .mobile-icon-action-btn:active {
+            transform: scale(0.92);
+            background: #e2e8f0;
         }
 
         @media (min-width: 992px) {

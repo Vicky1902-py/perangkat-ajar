@@ -78,7 +78,7 @@
                 1. Kisi-Kisi ({{ count($paketSoal->kisi_kisi_data ?? []) }})
             </button>
             <button type="button" class="mobile-subtab-chip" id="tabMobileSiswaBtn" onclick="switchMobileTab('siswa')">
-                <span class="material-symbols-outlined align-middle me-0.5" style="font-size: 14px;">person_lines_fill</span>
+                <span class="material-symbols-outlined align-middle me-0.5" style="font-size: 14px;">assignment</span>
                 2. Soal Siswa ({{ $paketSoal->total_soal }})
             </button>
             <button type="button" class="mobile-subtab-chip" id="tabMobileKunciBtn" onclick="switchMobileTab('kunci')">

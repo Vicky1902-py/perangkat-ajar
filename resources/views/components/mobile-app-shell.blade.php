@@ -414,7 +414,7 @@
                                 </p>
                             </div>
                             <div class="superapp-feed-icon-box bg-amber-subtle text-warning-custom flex-shrink-0">
-                                <span class="material-symbols-outlined fill-icon" style="font-size: 24px;">diagram_3</span>
+                                <span class="material-symbols-outlined fill-icon" style="font-size: 24px;">account_tree</span>
                             </div>
                         </div>
 
@@ -499,7 +499,7 @@
                     <div class="col-4">
                         <a href="{{ route('tp.index') }}" class="superapp-squircle-item text-decoration-none d-block">
                             <div class="superapp-squircle-box bg-blue-box mx-auto">
-                                <span class="material-symbols-outlined text-primary" style="font-size: 22px;">bullseye</span>
+                                <span class="material-symbols-outlined text-primary" style="font-size: 22px;">track_changes</span>
                             </div>
                             <span class="superapp-squircle-label">Tujuan (TP)</span>
                         </a>
@@ -507,7 +507,7 @@
                     <div class="col-4">
                         <a href="{{ route('atp.index') }}" class="superapp-squircle-item text-decoration-none d-block">
                             <div class="superapp-squircle-box bg-purple-box mx-auto">
-                                <span class="material-symbols-outlined text-purple" style="font-size: 22px;">diagram_3</span>
+                                <span class="material-symbols-outlined text-purple" style="font-size: 22px;">account_tree</span>
                             </div>
                             <span class="superapp-squircle-label">Alur (ATP)</span>
                         </a>

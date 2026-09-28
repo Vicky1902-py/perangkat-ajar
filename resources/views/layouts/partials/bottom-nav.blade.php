@@ -47,12 +47,12 @@
     /* SuperApp Floating Pill Bottom Navigation Dock (Stitch Android Design) */
     .mobile-bottom-nav {
         position: fixed;
-        bottom: 14px;
+        bottom: 10px;
         left: 0;
         right: 0;
         z-index: 1045;
         pointer-events: none;
-        padding: 0 16px;
+        padding: 0 8px;
     }
 
     .mobile-pill-dock {
@@ -60,9 +60,11 @@
         display: flex;
         align-items: center;
         justify-content: space-around;
-        max-width: 410px;
+        width: 100%;
+        max-width: 390px;
         margin: 0 auto;
-        padding: 5px 8px;
+        padding: 4px 6px;
+        box-sizing: border-box;
         background: #111827;
         backdrop-filter: blur(16px);
         -webkit-backdrop-filter: blur(16px);
@@ -78,7 +80,7 @@
         justify-content: center;
         text-decoration: none;
         color: #94a3b8;
-        padding: 5px 6px;
+        padding: 4px 2px;
         border-radius: 9999px;
         transition: all 0.18s cubic-bezier(0.4, 0, 0.2, 1);
         touch-action: manipulation;
@@ -88,13 +90,15 @@
     }
 
     .dock-item .material-symbols-outlined {
-        font-size: 20px;
+        font-size: 19px;
         line-height: 1;
+        max-width: 1.5em;
+        overflow: hidden;
         transition: transform 0.18s ease;
     }
 
     .dock-label {
-        font-size: 10px;
+        font-size: 9px;
         font-weight: 600;
         line-height: 1.1;
         margin-top: 2px;
@@ -102,6 +106,7 @@
         overflow: hidden;
         text-overflow: ellipsis;
         max-width: 100%;
+        text-align: center;
     }
 
     .dock-item:hover {
@@ -116,7 +121,7 @@
         background: #ffffff;
         color: #0f172a;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
-        padding: 5px 8px;
+        padding: 4px 6px;
     }
 
     .dock-item.active .dock-label {
@@ -134,26 +139,26 @@
         border: 1.5px solid #111827;
     }
 
-    /* Narrow Android Phone Adjustments (<= 380px) */
-    @media (max-width: 380px) {
+    /* Narrow Android Phone Adjustments (<= 360px) */
+    @media (max-width: 360px) {
         .mobile-bottom-nav {
-            padding: 0 8px;
-            bottom: 8px;
+            padding: 0 4px;
+            bottom: 6px;
         }
         .mobile-pill-dock {
-            padding: 4px 4px;
+            padding: 3px 3px;
         }
         .dock-item {
-            padding: 4px 2px;
+            padding: 3px 1px;
         }
         .dock-item.active {
-            padding: 4px 6px;
+            padding: 3px 4px;
         }
         .dock-item .material-symbols-outlined {
-            font-size: 18px;
+            font-size: 17px;
         }
         .dock-label {
-            font-size: 8.5px;
+            font-size: 8px;
         }
     }
 
