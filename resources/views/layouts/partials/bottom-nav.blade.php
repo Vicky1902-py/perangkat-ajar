@@ -78,11 +78,13 @@
         justify-content: center;
         text-decoration: none;
         color: #94a3b8;
-        padding: 5px 12px;
+        padding: 5px 6px;
         border-radius: 9999px;
         transition: all 0.18s cubic-bezier(0.4, 0, 0.2, 1);
         touch-action: manipulation;
-        min-width: 56px;
+        flex: 1 1 0;
+        min-width: 0;
+        white-space: nowrap;
     }
 
     .dock-item .material-symbols-outlined {
@@ -97,6 +99,9 @@
         line-height: 1.1;
         margin-top: 2px;
         letter-spacing: -0.2px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 100%;
     }
 
     .dock-item:hover {
@@ -111,6 +116,7 @@
         background: #ffffff;
         color: #0f172a;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+        padding: 5px 8px;
     }
 
     .dock-item.active .dock-label {
@@ -126,6 +132,29 @@
         height: 7px;
         border-radius: 50%;
         border: 1.5px solid #111827;
+    }
+
+    /* Narrow Android Phone Adjustments (<= 380px) */
+    @media (max-width: 380px) {
+        .mobile-bottom-nav {
+            padding: 0 8px;
+            bottom: 8px;
+        }
+        .mobile-pill-dock {
+            padding: 4px 4px;
+        }
+        .dock-item {
+            padding: 4px 2px;
+        }
+        .dock-item.active {
+            padding: 4px 6px;
+        }
+        .dock-item .material-symbols-outlined {
+            font-size: 18px;
+        }
+        .dock-label {
+            font-size: 8.5px;
+        }
     }
 
     /* Bottom padding on mobile so content is never covered by the floating dock */

@@ -16,7 +16,8 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
 
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -489,12 +490,31 @@
             body {
                 font-size: 0.86rem;
             }
-            h1, .h1 { font-size: 1.4rem !important; }
-            h2, .h2 { font-size: 1.22rem !important; }
-            h3, .h3 { font-size: 1.1rem !important; }
-            h4, .h4 { font-size: 1.0rem !important; }
+            main.container-fluid {
+                padding-left: 10px !important;
+                padding-right: 10px !important;
+                padding-top: 8px !important;
+                padding-bottom: 24px !important;
+            }
+            h1, .h1 { font-size: 1.3rem !important; }
+            h2, .h2 { font-size: 1.15rem !important; }
+            h3, .h3 { font-size: 1.05rem !important; }
+            h4, .h4 { font-size: 0.95rem !important; }
             h5, .h5 { font-size: 0.92rem !important; }
             h6, .h6 { font-size: 0.85rem !important; }
+
+            /* Exclude SuperApp Shell from global mobile overrides */
+            .superapp-mobile-shell h1,
+            .superapp-mobile-shell h2,
+            .superapp-mobile-shell h3,
+            .superapp-mobile-shell h4,
+            .superapp-mobile-shell h5,
+            .superapp-mobile-shell h6 { font-size: unset !important; }
+            .superapp-mobile-shell .card-body { padding: unset !important; }
+            .superapp-mobile-shell .card-header { padding: unset !important; font-size: unset !important; }
+            .superapp-mobile-shell .btn { font-size: unset !important; padding: unset !important; }
+            .superapp-mobile-shell .badge { font-size: unset !important; padding: unset !important; }
+            .superapp-mobile-shell .alert { padding: unset !important; font-size: unset !important; }
 
             /* Compact Cards & Sections */
             .card {
@@ -571,7 +591,7 @@
             }
 
             #btnScrollToTop {
-                bottom: 76px !important;
+                bottom: 110px !important;
                 right: 18px !important;
             }
         }
@@ -610,8 +630,10 @@
 
     <!-- MAIN WRAPPER -->
     <div id="main-wrapper">
-        <!-- TOP NAVBAR -->
-        @include('layouts.navbar')
+        <!-- TOP NAVBAR (Disembunyikan di smartphone untuk halaman yang sudah memiliki TopAppBar khusus seperti Dashboard & Generator) -->
+        <div class="{{ (request()->routeIs('dashboard') || request()->routeIs('home') || request()->routeIs('generator.*')) ? 'd-none d-md-block' : '' }}">
+            @include('layouts.navbar')
+        </div>
 
         <!-- MAIN CONTENT CONTAINER -->
         <main class="container-fluid px-4 py-4 flex-grow-1">
@@ -698,8 +720,8 @@
             @yield('content')
         </main>
 
-        <!-- FOOTER -->
-        <footer class="bg-white border-top py-3 px-4 text-muted small mt-auto">
+        <!-- FOOTER (Hanya Tampil di Desktop, Versi Mobile Menggunakan SuperApp Shell/Dock) -->
+        <footer class="bg-white border-top py-3 px-4 text-muted small mt-auto d-none d-md-block">
             <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-2">
                 <div>
                     <strong>{{ app_setting('app_name', 'Perangkat Ajar SMK') }}</strong> &copy; {{ app_setting('landing_copyright_year', '2026') }} — Kurikulum Merdeka (Pendekatan Pembelajaran Mendalam / Deep Learning).

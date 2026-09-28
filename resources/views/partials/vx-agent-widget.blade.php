@@ -42,6 +42,23 @@
     </button>
 </div>
 
+<!-- Mobile styling for Vx Agent widget: Hide floating round button (covered by dock), position callout toast above bottom dock -->
+<style>
+@media (max-width: 767.98px) {
+    #vxAgentFloatingContainer {
+        display: none !important;
+    }
+    #vxAgentCalloutToast {
+        bottom: 80px !important;
+        right: 12px !important;
+        left: 12px !important;
+        width: auto !important;
+        max-width: calc(100vw - 24px) !important;
+        box-shadow: 0 10px 30px rgba(15, 23, 42, 0.25) !important;
+    }
+}
+</style>
+
 <!-- ===================================================================== -->
 <!-- POP-UP KEREN PANDUAN & PEMBERITAHUAN: VX AGENT (SISTEM PAKAR AI)     -->
 <!-- ===================================================================== -->

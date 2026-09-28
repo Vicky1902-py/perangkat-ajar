@@ -5,8 +5,8 @@
 @section('content')
 <div class="row justify-content-center">
     <div class="col-lg-10">
-        <!-- HEADER TITLE -->
-        <div class="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-2">
+        <!-- HEADER TITLE (DESKTOP ONLY) -->
+        <div class="d-none d-md-flex align-items-center justify-content-between mb-4 flex-wrap gap-2">
             <div>
                 <h3 class="fw-bold text-dark mb-1 d-flex align-items-center gap-2">
                     <span class="p-2 rounded-3 bg-warning bg-opacity-25 text-warning d-inline-flex align-items-center justify-content-center">

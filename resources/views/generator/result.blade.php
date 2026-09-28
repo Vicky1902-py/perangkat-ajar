@@ -317,3 +317,17 @@
     </div>
 </div>
 @endsection
+
+@push('scripts')
+<script>
+    // Munculkan notifikasi obrolan Vx Agent otomatis di seluruh perangkat (Desktop & Mobile)
+    document.addEventListener('DOMContentLoaded', function() {
+        setTimeout(function() {
+            const callout = document.getElementById('vxAgentCalloutToast');
+            if (callout) {
+                callout.style.display = 'block';
+            }
+        }, 800);
+    });
+</script>
+@endpush

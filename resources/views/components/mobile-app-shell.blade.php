@@ -3,7 +3,7 @@
 <!-- Terinspirasi dari rancangan SuperApp Guru Vokasi 2026 ala Gojek/Grab -->
 <!-- Grounded on BSKAP 046/H/KR/2025 & Deep Learning Framework             -->
 <!-- ===================================================================== -->
-<div class="superapp-mobile-shell d-block d-md-none">
+<div class="superapp-mobile-shell mobile-app-shell d-block d-md-none">
 
     <!-- 1. TOP APP BAR (HEADER PENGGUNA RESMI) -->
     <header class="superapp-topbar d-flex justify-content-between align-items-center mb-3">
@@ -113,7 +113,7 @@
                 <div class="col-3">
                     <a href="{{ route('profile.setup') }}" class="superapp-wallet-btn text-decoration-none">
                         <div class="superapp-wallet-btn-circle">
-                            <span class="material-symbols-outlined" style="font-size: 20px;">drive_file_stream</span>
+                            <span class="material-symbols-outlined" style="font-size: 20px;">description</span>
                         </div>
                         <span class="superapp-wallet-btn-label">Kop Resmi</span>
                     </a>
@@ -121,7 +121,7 @@
                 <div class="col-3">
                     <a href="{{ route('generator.result') }}" class="superapp-wallet-btn text-decoration-none">
                         <div class="superapp-wallet-btn-circle">
-                            <span class="material-symbols-outlined" style="font-size: 20px;">drive_folder_upload</span>
+                            <span class="material-symbols-outlined" style="font-size: 20px;">upload_file</span>
                         </div>
                         <span class="superapp-wallet-btn-label">Batch Zip</span>
                     </a>
@@ -621,6 +621,10 @@
         font-weight: 700;
         color: #0f172a;
         line-height: 1.25;
+        max-width: 200px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
     }
 
     .superapp-icon-btn {

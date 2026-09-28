@@ -1147,17 +1147,17 @@
                         </div>
                         <div class="col-md-6">
                             <div class="p-3 rounded-3 bg-light border">
-                                <small class="text-secondary fw-bold d-block mb-1">MODEL UTAMA (FREE ENDPOINT)</small>
+                                <small class="text-secondary fw-bold d-block mb-1">ENGINE UTAMA (SISTEM PAKAR)</small>
                                 <span class="badge bg-primary px-2.5 py-1 rounded-pill fw-bold" style="font-size: 0.8rem;">
-                                    {{ config('services.nvidia.model', 'z-ai/glm-5.3-flash') }}
+                                    <i class="bi bi-robot me-1"></i> Vx Agent &bull; Kurikulum Merdeka 2026
                                 </span>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="p-3 rounded-3 bg-light border">
-                                <small class="text-secondary fw-bold d-block mb-1">MODEL CADANGAN (FALLBACK)</small>
-                                <span class="badge bg-secondary px-2.5 py-1 rounded-pill fw-bold" style="font-size: 0.8rem;">
-                                    {{ config('services.nvidia.fallback_model', 'deepseek-ai/deepseek-v4.1-flash') }}
+                                <small class="text-secondary fw-bold d-block mb-1">ENGINE CADANGAN (FAILOVER)</small>
+                                <span class="badge bg-dark px-2.5 py-1 rounded-pill fw-bold" style="font-size: 0.8rem;">
+                                    <i class="bi bi-shield-check me-1"></i> Vx Agent Fallback &bull; High Availability
                                 </span>
                             </div>
                         </div>
