@@ -149,7 +149,7 @@ class PaketSoalController extends Controller
     public function update(Request $request, PaketSoal $paketSoal)
     {
         $user = Auth::user();
-        if ($user && !$user->canAccessDeviceOf($paketSoal->user_id, $paketSoal->guest_session_id)) {
+        if (!$user || (!$user->canAccessDeviceOf($paketSoal->user_id, $paketSoal->guest_session_id) && !$user->isSuperAdmin())) {
             abort(403, 'Anda tidak berwenang memperbarui paket soal ini.');
         }
 
@@ -171,7 +171,7 @@ class PaketSoalController extends Controller
     public function destroy(PaketSoal $paketSoal)
     {
         $user = Auth::user();
-        if ($user && !$user->canAccessDeviceOf($paketSoal->user_id, $paketSoal->guest_session_id) && $user->role !== 'superadmin') {
+        if (!$user || (!$user->canAccessDeviceOf($paketSoal->user_id, $paketSoal->guest_session_id) && !$user->isSuperAdmin())) {
             abort(403, 'Anda tidak berwenang menghapus paket soal ini.');
         }
 

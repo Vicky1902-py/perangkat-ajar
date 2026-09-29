@@ -97,7 +97,7 @@
                 <a class="nav-link {{ request()->routeIs('generator.*') ? 'active' : '' }}" href="{{ route('generator.index') }}"
                    data-bs-toggle="tooltip" data-bs-placement="right" title="Generator 1-Klik">
                     <i class="bi bi-lightning-charge-fill text-warning"></i>
-                    <span class="sidebar-text fw-semibold text-light">Generator 1-Klik</span>
+                    <span class="sidebar-text fw-semibold">Generator 1-Klik</span>
                 </a>
             </li>
             <!-- 🤖 VX AGENT TEPAT DI BAWAH GENERATOR 1-KLIK DENGAN POPUP PANDUAN KEREN -->
@@ -108,7 +108,7 @@
                    data-bs-toggle="tooltip" data-bs-placement="right" title="Vx Agent - Asisten Kurikulum, Tambah Materi & Konsultasi">
                     <span class="d-inline-flex align-items-center">
                         <i class="bi bi-robot text-info fs-5"></i>
-                        <span class="sidebar-text ms-1 fw-semibold text-light">Vx Agent</span>
+                        <span class="sidebar-text ms-1 fw-semibold">Vx Agent</span>
                     </span>
                     <span class="badge rounded-pill bg-info bg-opacity-25 text-info border border-info border-opacity-50 sidebar-badge" style="font-size: 0.65rem; padding: 2px 7px;">
                         <i class="bi bi-stars"></i> Pintar
@@ -283,5 +283,12 @@
                 </ul>
             @endif
         @endauth
+    </div>
+
+    <!-- Mini Sidebar Expand Floating / Bottom Button (Visible in Desktop Mini Mode) -->
+    <div class="sidebar-mini-expand-container d-none px-2 py-3 text-center border-top border-secondary border-opacity-25 mt-auto">
+        <button type="button" class="btn btn-sm btn-outline-light rounded-circle sidebar-mini-expand-btn p-0 d-inline-flex align-items-center justify-content-center shadow-sm" style="width: 36px; height: 36px;" title="Perbesar Sidebar (Mode Penuh)">
+            <i class="bi bi-chevron-double-right"></i>
+        </button>
     </div>
 </nav>

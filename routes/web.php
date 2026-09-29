@@ -50,30 +50,30 @@ Route::get('/google{code}.html', [SeoController::class, 'googleHtmlVerification'
 // LANDING PROFIL PEMBUAT APLIKASI (PUBLIK)
 Route::get('/profil-pembuat', [CreatorProfileController::class, 'index'])->name('creator.profile');
 
-// FORMULIR USUL & SARAN (PUBLIK & GURU)
-Route::post('/feedback', [FeedbackController::class, 'store'])->name('feedback.store');
+// FORMULIR USUL & SARAN (PUBLIK & GURU - RATE LIMITED)
+Route::post('/feedback', [FeedbackController::class, 'store'])->name('feedback.store')->middleware('throttle:10,1');
 
 // AUTHENTICATION
 Route::middleware('guest')->group(function () {
     Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
     Route::post('/login', [AuthController::class, 'login'])->name('login.post');
     Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register');
-    Route::post('/register', [AuthController::class, 'register'])->name('register.post');
+    Route::post('/register', [AuthController::class, 'register'])->name('register.post')->middleware('throttle:10,1');
 });
 
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth');
 
-// ⚡ 1-CLICK GENERATOR (PUBLIC / GUEST SUPPORT WITH 2X TRIAL LIMIT)
+// ⚡ 1-CLICK GENERATOR (PUBLIC / GUEST SUPPORT WITH 2X TRIAL LIMIT & RATE LIMIT)
 Route::prefix('generator')->name('generator.')->group(function () {
     Route::get('/', [GeneratorController::class, 'index'])->name('index');
-    Route::post('/process', [GeneratorController::class, 'generate'])->name('process');
+    Route::post('/process', [GeneratorController::class, 'generate'])->name('process')->middleware('throttle:20,1');
     Route::get('/result', [GeneratorController::class, 'result'])->name('result');
     Route::get('/ajax-cp', [GeneratorController::class, 'getCpByMapelAndFase'])->name('ajax-cp');
 });
 
-// 🤖 VX AGENT AUTO-COMPLETE & CHAT CONSULTATION (NVIDIA NIM ENGINE)
-Route::post('/vx-agent/chat', [\App\Http\Controllers\VxAgentController::class, 'chat'])->name('vx-agent.chat');
-Route::post('/vx-agent/complete-field', [\App\Http\Controllers\VxAgentController::class, 'completeField'])->name('vx-agent.complete-field');
+// 🤖 VX AGENT AUTO-COMPLETE & CHAT CONSULTATION (NVIDIA NIM ENGINE - RATE LIMITED)
+Route::post('/vx-agent/chat', [\App\Http\Controllers\VxAgentController::class, 'chat'])->name('vx-agent.chat')->middleware('throttle:30,1');
+Route::post('/vx-agent/complete-field', [\App\Http\Controllers\VxAgentController::class, 'completeField'])->name('vx-agent.complete-field')->middleware('throttle:30,1');
 
 // EXPORTS (PDF, EXCEL, DOCX - PUBLIC FOR GUEST RESULTS & PROTECTED FOR USER ARCHIVES)
 Route::prefix('export')->name('export.')->group(function () {

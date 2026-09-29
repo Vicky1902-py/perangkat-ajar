@@ -9,7 +9,7 @@
     <!-- Preload Desktop Sidebar Mini State -->
     <script>
         try {
-            if (window.innerWidth >= 992 && localStorage.getItem('sidebar_collapsed') === 'true') {
+            if (window.matchMedia('(min-width: 992px)').matches && localStorage.getItem('sidebar_collapsed') === 'true') {
                 document.documentElement.classList.add('sidebar-mini');
             }
         } catch (e) {}
@@ -193,7 +193,7 @@
         }
 
         #sidebar .nav-link {
-            color: #94a3b8;
+            color: #cbd5e1;
             padding: 10px 18px;
             display: flex;
             align-items: center;
@@ -212,6 +212,8 @@
             margin-right: 12px;
             width: 24px;
             text-align: center;
+            color: #94a3b8;
+            transition: color 0.2s;
         }
 
         /* Hover State */
@@ -224,28 +226,33 @@
             color: #ffffff !important;
         }
         #sidebar .nav-link:hover i {
-            color: #ffffff !important;
+            color: #38bdf8 !important;
         }
 
-        /* Active State - Highlight Kontras Tinggi & Teks Bersih */
+        /* Active State - Highlight Solid Berkelas & Teks Kontras 100% Jelas */
         #sidebar .nav-link.active {
             color: #ffffff !important;
-            background: var(--sidebar-active) !important;
-            box-shadow: 0 4px 14px rgba(37, 99, 235, 0.4);
+            background: linear-gradient(135deg, #1d4ed8 0%, #2563eb 100%) !important;
+            box-shadow: 0 4px 14px rgba(37, 99, 235, 0.45);
         }
+        #sidebar .nav-link.active i,
+        #sidebar .nav-link.active span,
+        #sidebar .nav-link.active div,
         #sidebar .nav-link.active .sidebar-text,
-        #sidebar .nav-link.active span:not(.badge) {
+        #sidebar .nav-link.active .text-light,
+        #sidebar .nav-link.active .text-info,
+        #sidebar .nav-link.active .text-warning,
+        #sidebar .nav-link.active .text-danger {
             color: #ffffff !important;
-            font-weight: 600;
-        }
-        #sidebar .nav-link.active i {
-            color: #ffffff !important;
+            font-weight: 600 !important;
         }
         #sidebar .nav-link.active .badge,
         #sidebar .nav-link.active .sidebar-badge {
             background-color: rgba(255, 255, 255, 0.25) !important;
             color: #ffffff !important;
-            border: 1px solid rgba(255, 255, 255, 0.4) !important;
+            border: 1px solid rgba(255, 255, 255, 0.45) !important;
+            font-weight: 700 !important;
+            text-shadow: none !important;
         }
 
         /* Content Area */
@@ -313,17 +320,22 @@
             .sidebar-mini #sidebar .nav-link > span.d-inline-flex {
                 display: contents !important;
             }
+            .sidebar-mini #sidebar .sidebar-mini-expand-container {
+                display: block !important;
+            }
         }
 
         /* Top Navbar */
         .top-navbar {
-            background: #ffffff;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
             border-bottom: 1px solid #e2e8f0;
             padding: 12px 28px;
             position: sticky;
             top: 0;
             z-index: 1030;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+            box-shadow: 0 1px 4px rgba(15, 23, 42, 0.04);
         }
 
         /* Card Styles */
@@ -908,6 +920,10 @@
     <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
 
     <script>
+        function isDesktopViewport() {
+            return window.matchMedia('(min-width: 992px)').matches;
+        }
+
         function openSidebar() {
             $('#sidebar').addClass('active');
             $('#sidebarBackdrop').addClass('show');
@@ -932,37 +948,54 @@
 
         function setSidebarMini(mini) {
             if (mini) {
-                $('html, body').addClass('sidebar-mini');
+                document.documentElement.classList.add('sidebar-mini');
+                document.body.classList.add('sidebar-mini');
                 localStorage.setItem('sidebar_collapsed', 'true');
             } else {
-                $('html, body').removeClass('sidebar-mini');
+                document.documentElement.classList.remove('sidebar-mini');
+                document.body.classList.remove('sidebar-mini');
                 document.documentElement.classList.remove('sidebar-mini-preload'); // Clean up any stale preload class
                 localStorage.setItem('sidebar_collapsed', 'false');
             }
             updateSidebarToggleIcon(mini);
         }
 
-        // Toggle Sidebar on mobile & desktop auxiliary pane
-        $('#sidebarToggle').on('click', function(e) {
+        // Toggle Sidebar on mobile & desktop auxiliary pane (supports navbar button and mini expand button)
+        $(document).on('click', '#sidebarToggle, .sidebar-mini-expand-btn', function(e) {
             e.preventDefault();
             e.stopPropagation();
-            if ($(window).width() < 992) {
+            if (!isDesktopViewport()) {
                 if ($('#sidebar').hasClass('active')) {
                     closeSidebar();
                 } else {
                     openSidebar();
                 }
             } else {
-                const currentlyMini = $('html').hasClass('sidebar-mini') || $('body').hasClass('sidebar-mini');
+                const currentlyMini = document.documentElement.classList.contains('sidebar-mini') || document.body.classList.contains('sidebar-mini');
                 setSidebarMini(!currentlyMini);
             }
         });
 
         // Initialize desktop sidebar collapsed preference
         $(function() {
-            if ($(window).width() >= 992) {
+            if (isDesktopViewport()) {
                 const isMini = localStorage.getItem('sidebar_collapsed') === 'true';
                 setSidebarMini(isMini);
+            } else {
+                document.documentElement.classList.remove('sidebar-mini');
+                document.body.classList.remove('sidebar-mini');
+            }
+        });
+
+        // Sync state when window resizes
+        $(window).on('resize', function() {
+            if (isDesktopViewport()) {
+                closeSidebar();
+                const isMini = localStorage.getItem('sidebar_collapsed') === 'true';
+                setSidebarMini(isMini);
+            } else {
+                document.documentElement.classList.remove('sidebar-mini');
+                document.body.classList.remove('sidebar-mini');
             }
         });
 
@@ -978,7 +1011,7 @@
 
         // Close sidebar when clicking any menu link on mobile screens
         $(document).on('click', '#sidebar .nav-link', function() {
-            if ($(window).width() < 992) {
+            if (!isDesktopViewport()) {
                 closeSidebar();
             }
         });

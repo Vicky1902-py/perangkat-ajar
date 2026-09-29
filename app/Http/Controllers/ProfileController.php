@@ -57,7 +57,7 @@ class ProfileController extends Controller
             'kop_baris_3' => 'nullable|string|max:255',
             'kop_baris_4' => 'nullable|string|max:255',
             'ukuran_kertas_default' => 'nullable|in:A4,F4',
-            'logo' => 'nullable|image|mimes:jpeg,png,jpg,webp,svg|max:2048',
+            'logo' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
         ], [
             'name.required' => 'Nama lengkap guru wajib diisi.',
             'nama_sekolah.required' => 'Nama sekolah / satuan pendidikan wajib diisi.',
@@ -66,7 +66,7 @@ class ProfileController extends Controller
             'kepala_sekolah.required' => 'Nama Kepala Sekolah wajib diisi untuk form tanda tangan.',
             'nip_kepala_sekolah.required' => 'NIP Kepala Sekolah wajib diisi.',
             'logo.max' => 'Ukuran file logo maksimal 2MB.',
-            'logo.image' => 'File logo harus berupa format gambar yang valid (PNG, JPG, SVG).',
+            'logo.image' => 'File logo harus berupa format gambar yang valid (PNG, JPG, WEBP).',
         ]);
 
         // Simpan / Perbarui Satuan Pendidikan
