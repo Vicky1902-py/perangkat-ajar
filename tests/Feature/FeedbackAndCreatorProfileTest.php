@@ -172,7 +172,9 @@ class FeedbackAndCreatorProfileTest extends TestCase
 
     public function test_android_mobile_view_and_prominent_copyright_notice_rendered(): void
     {
-        $response = $this->actingAs($this->teacher)->get('/dashboard');
+        $response = $this->actingAs($this->teacher)
+            ->withHeaders(['User-Agent' => 'Mozilla/5.0 (Linux; Android 14; Mobile)'])
+            ->get('/dashboard');
         $response->assertStatus(200);
 
         // 1. Verifikasi Bottom Navigation Bar khas Android / Smartphone

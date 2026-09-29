@@ -14,6 +14,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->web(append: [
             \App\Http\Middleware\TrackVisitorActivity::class,
             \App\Http\Middleware\CheckMaintenanceMode::class,
+            \App\Http\Middleware\DetectMobileView::class,
         ]);
 
         $middleware->alias([

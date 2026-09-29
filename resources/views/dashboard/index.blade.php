@@ -5,11 +5,8 @@
 @section('content')
 <div class="container-fluid px-0">
 
-    <!-- TAMPILAN SMARTPHONE / ANDROID VIEW (APP-SHELL ALA GOJEK/GRAB) -->
-    @include('components.mobile-app-shell')
-
-    <!-- TAMPILAN DESKTOP / LAPTOP (DASHBOARD LENGKAP & SERVER TELEMETRI) -->
-    <div class="d-none d-md-block">
+    <!-- DESKTOP DASHBOARD CONTENT -->
+    <div class="desktop-dashboard-wrapper">
 
     @if(isset($superadminData) && auth()->user()->isSuperAdmin())
         <!-- ========================================== -->
@@ -577,7 +574,7 @@
             </div>
         </div>
     </div>
-    </div><!-- /.d-none.d-md-block (Desktop View Wrapper) -->
+    </div><!-- /.desktop-dashboard-wrapper -->
 </div>
 
 @push('styles')
