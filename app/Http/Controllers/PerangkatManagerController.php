@@ -609,8 +609,8 @@ class PerangkatManagerController extends Controller
 
     /**
      * Hapus SEMUA perangkat ajar di database (Superadmin Only),
-     * dan kirimkan notifikasi ke seluruh user pemilik perangkat yang terhapus:
-     * "Perangkat dihapus karena ada ketidaksesuaian dengan cp dan atp, mohon generate ulang, by. vicky koroh"
+     * dan kirimkan notifikasi ke seluruh user pemilik perangkat yang terhapus
+     * dengan pesan/alasan default atau kustom yang dapat diedit oleh Superadmin.
      */
     public function purgeAll(Request $request)
     {
@@ -621,7 +621,24 @@ class PerangkatManagerController extends Controller
         $deletedCount = 0;
         $affectedUsersCount = 0;
 
-        DB::transaction(function () use (&$deletedCount, &$affectedUsersCount) {
+        $notifTitle = trim((string) $request->input('notification_title', 'Pemberitahuan Sistem: Reset Perangkat Ajar'));
+        if (empty($notifTitle)) {
+            $notifTitle = 'Pemberitahuan Sistem: Reset Perangkat Ajar';
+        }
+
+        $defaultSender = Auth::user()->name ?? 'Vicky Koroh';
+        $notifSender = trim((string) $request->input('notification_sender', $defaultSender));
+        if (empty($notifSender)) {
+            $notifSender = $defaultSender;
+        }
+
+        $defaultMsg = 'Perangkat dihapus karena ada ketidaksesuaian dengan cp dan atp, mohon generate ulang, by. ' . $notifSender;
+        $notifMessage = trim((string) $request->input('notification_message', $defaultMsg));
+        if (empty($notifMessage)) {
+            $notifMessage = $defaultMsg;
+        }
+
+        DB::transaction(function () use (&$deletedCount, &$affectedUsersCount, $notifTitle, $notifMessage, $notifSender) {
             // 1. Identifikasi semua user_id terdampak (yang memiliki perangkat)
             $affectedUserIds = collect()
                 ->merge(ModulAjar::whereNotNull('user_id')->pluck('user_id'))
@@ -663,14 +680,13 @@ class PerangkatManagerController extends Controller
             TujuanPembelajaran::query()->delete();
 
             // 4. Kirim notifikasi ke semua user terdampak
-            $pesanNotif = 'Perangkat dihapus karena ada ketidaksesuaian dengan cp dan atp, mohon generate ulang, by. vicky koroh';
             foreach ($affectedUserIds as $uId) {
                 UserNotification::create([
                     'user_id' => $uId,
-                    'title' => 'Pemberitahuan Sistem: Reset Perangkat Ajar',
-                    'message' => $pesanNotif,
-                    'type' => 'warning',
-                    'sender' => 'Vicky Koroh',
+                    'title'   => $notifTitle,
+                    'message' => $notifMessage,
+                    'type'    => 'warning',
+                    'sender'  => $notifSender,
                     'is_read' => false,
                 ]);
             }
@@ -679,7 +695,7 @@ class PerangkatManagerController extends Controller
         });
 
         return redirect()->route('cms.perangkat.index')
-            ->with('success', "Seluruh perangkat ajar ({$deletedCount} dokumen) berhasil dihapus dari database. Notifikasi perbaikan telah dikirim ke {$affectedUsersCount} pengguna terdampak.");
+            ->with('success', "Seluruh perangkat ajar ({$deletedCount} dokumen) berhasil dihapus dari database. Notifikasi resmi telah dikirim ke {$affectedUsersCount} pengguna terdampak.");
     }
 }
 

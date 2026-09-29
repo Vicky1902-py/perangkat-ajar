@@ -114,4 +114,48 @@ class HostingSpaceManagerTest extends TestCase
         $response->assertDontSee('calon apresiasi');
         $response->assertDontSee('Calon Apresiasi');
     }
+
+    public function test_superadmin_can_purge_all_with_custom_notification(): void
+    {
+        $superadmin = User::where('role', 'superadmin')->first();
+        $this->assertNotNull($superadmin);
+
+        $guru = User::where('role', 'guru')->first();
+        $this->assertNotNull($guru);
+
+        $cp = \App\Models\CapaianPembelajaran::first();
+        $this->assertNotNull($cp);
+
+        // Buat dummy TP milik guru
+        $guruTp = TujuanPembelajaran::create([
+            'capaian_pembelajaran_id' => $cp->id,
+            'user_id' => $guru->id,
+            'kode_tp' => 'TP' . rand(1000, 9999),
+            'elemen' => 'Elemen Guru',
+            'deskripsi_tp' => 'Testing purge all with custom notification',
+            'urutan' => 111,
+        ]);
+
+        $customTitle = 'Pemberitahuan Sistem: Penyesuaian Regulasi Baru';
+        $customMsg = 'Perangkat dihapus untuk penyesuaian regulasi BSKAP 046/2025. Mohon buat ulang. by. Vicky Koroh';
+        $customSender = 'Vicky Koroh (Superadmin)';
+
+        $response = $this->actingAs($superadmin)->post(route('cms.perangkat.purge-all'), [
+            'notification_title' => $customTitle,
+            'notification_message' => $customMsg,
+            'notification_sender' => $customSender,
+        ]);
+
+        $response->assertRedirect(route('cms.perangkat.index'));
+        $response->assertSessionHas('success');
+        $this->assertDatabaseMissing('tujuan_pembelajarans', ['id' => $guruTp->id]);
+
+        // Verifikasi notifikasi terkirim dengan pesan kustom
+        $this->assertDatabaseHas('user_notifications', [
+            'user_id' => $guru->id,
+            'title' => $customTitle,
+            'message' => $customMsg,
+            'sender' => $customSender,
+        ]);
+    }
 }

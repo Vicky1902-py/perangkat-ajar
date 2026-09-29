@@ -483,7 +483,7 @@
 
 <!-- MODAL HAPUS SEMUA PERANGKAT (PURGE ALL) -->
 <div class="modal fade" id="modalPurgeAll" tabindex="-1" aria-labelledby="modalPurgeAllLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
         <div class="modal-content border-0 shadow-lg rounded-4">
             <div class="modal-header bg-danger text-white border-0 py-3">
                 <h5 class="modal-title fw-bold fs-6" id="modalPurgeAllLabel">
@@ -497,30 +497,101 @@
                         <i class="bi bi-exclamation-triangle-fill fs-1"></i>
                     </div>
                     <h5 class="fw-bold text-dark">Tindakan Sangat Kritis & Permanen!</h5>
-                    <p class="text-muted small">
-                        Anda akan menghapus seluruh data perangkat ajar yang ada di database sistem:
+                    <p class="text-muted small mb-0">
+                        Anda akan menghapus seluruh data perangkat ajar yang ada di database sistem.
                     </p>
                 </div>
 
                 <div class="alert alert-warning py-2 px-3 small border-0 rounded-3 mb-3">
                     <ul class="mb-0 ps-3">
                         <li><strong>{{ number_format($totalPerangkat) }} berkas perangkat ajar</strong> (Modul Ajar, ATP, TP, LKPD, Prota, Promes, Asesmen, Bank Soal) akan dihapus permanen.</li>
-                        <li>Sistem akan <strong>secara otomatis mengirimkan notifikasi resmi</strong> kepada seluruh guru/user yang perangkatnya terhapus:</li>
+                        <li>Sistem akan <strong>secara otomatis mengirimkan notifikasi resmi</strong> kepada seluruh guru/user yang perangkatnya terhapus dengan alasan & pesan yang Anda tentukan di bawah ini:</li>
                     </ul>
-                </div>
-
-                <div class="p-3 bg-light border border-warning rounded-3 mb-3">
-                    <div class="small fw-bold text-dark mb-1"><i class="bi bi-bell-fill text-warning me-1"></i> Pesan Notifikasi Otomatis ke User:</div>
-                    <div class="small text-danger fst-italic bg-white p-2 rounded border">
-                        "Perangkat dihapus karena ada ketidaksesuaian dengan cp dan atp, mohon generate ulang, by. vicky koroh"
-                    </div>
                 </div>
 
                 <form id="formPurgeAll" action="{{ route('cms.perangkat.purge-all') }}" method="POST">
                     @csrf
+
+                    <!-- KOTAK KONFIGURASI NOTIFIKASI KE USER -->
+                    <div class="p-3 bg-light border border-warning rounded-3 mb-3">
+                        <div class="d-flex align-items-center justify-content-between mb-2.5 pb-2 border-bottom">
+                            <div class="fw-bold text-dark small d-flex align-items-center gap-1.5">
+                                <i class="bi bi-bell-fill text-warning fs-6"></i>
+                                <span>Kustomisasi Notifikasi & Alasan Penghapusan ke Guru</span>
+                            </div>
+                            <span class="badge bg-warning bg-opacity-25 text-dark border border-warning" style="font-size: 0.68rem;">
+                                Preset & Pesan Fleksibel
+                            </span>
+                        </div>
+
+                        <!-- 1. Pilihan Template / Alasan Preset -->
+                        <div class="mb-2.5">
+                            <label for="purgeReasonPreset" class="form-label small fw-semibold text-dark mb-1">
+                                <i class="bi bi-list-check text-primary me-1"></i> Pilih Template Alasan Penghapusan:
+                            </label>
+                            <select id="purgeReasonPreset" class="form-select form-select-sm" onchange="onPurgeReasonPresetChange(this.value)">
+                                <option value="cp_atp">Default: Ketidaksesuaian dengan CP & ATP (Generate Ulang)</option>
+                                <option value="regulasi">Regulasi: Pembaruan BSKAP 046/2025 & Penyesuaian Tahun Ajaran Baru</option>
+                                <option value="server_maintenance">Pemeliharaan: Optimasi Ruang Hosting & Database Server</option>
+                                <option value="format_revisi">Format: Penyesuaian Standar Format Pembelajaran Mendalam (Deep Learning)</option>
+                                <option value="custom">Kustom: Tulis Alasan / Pesan Khusus Sendiri...</option>
+                            </select>
+                        </div>
+
+                        <!-- 2. Judul Notifikasi -->
+                        <div class="mb-2.5">
+                            <label for="purgeNotifTitle" class="form-label small fw-semibold text-secondary mb-1">
+                                Judul Notifikasi:
+                            </label>
+                            <input type="text" name="notification_title" id="purgeNotifTitle" class="form-control form-control-sm fw-semibold" value="Pemberitahuan Sistem: Reset Perangkat Ajar" required oninput="updatePurgeNotificationPreview()">
+                        </div>
+
+                        <!-- 3. Textarea Pesan Notifikasi (Bisa diedit secara bebas) -->
+                        <div class="mb-2.5">
+                            <label for="purgeNotifMessage" class="form-label small fw-semibold text-secondary mb-1 d-flex justify-content-between">
+                                <span>Isi Pesan Notifikasi (Dapat Diedit Bebas):</span>
+                                <span class="text-muted fw-normal" style="font-size: 0.72rem;">Pesan ini akan terbaca di dashboard guru</span>
+                            </label>
+                            <textarea name="notification_message" id="purgeNotifMessage" class="form-control form-control-sm font-monospace text-dark" rows="3" required oninput="updatePurgeNotificationPreview()">Perangkat dihapus karena ada ketidaksesuaian dengan cp dan atp, mohon generate ulang, by. {{ auth()->user()->name ?? 'vicky koroh' }}</textarea>
+                        </div>
+
+                        <!-- 4. Nama Pengirim / Penanggung Jawab -->
+                        <div class="mb-2.5">
+                            <label for="purgeNotifSender" class="form-label small fw-semibold text-secondary mb-1">
+                                Nama Pengirim / Penanggung Jawab:
+                            </label>
+                            <div class="input-group input-group-sm">
+                                <span class="input-group-text bg-white text-muted"><i class="bi bi-person-badge"></i></span>
+                                <input type="text" name="notification_sender" id="purgeNotifSender" class="form-control" value="{{ auth()->user()->name ?? 'Vicky Koroh' }}" required oninput="updatePurgeNotificationPreview()">
+                            </div>
+                        </div>
+
+                        <!-- 5. Pratinjau Tampilan Notifikasi di Dashboard Guru -->
+                        <div class="mt-3 pt-2 border-top">
+                            <div class="d-flex align-items-center justify-content-between mb-1">
+                                <span class="text-muted small fw-semibold" style="font-size: 0.72rem;">
+                                    <i class="bi bi-eye-fill text-primary me-1"></i> Pratinjau Tampilan pada Dashboard Guru:
+                                </span>
+                                <span class="badge bg-danger text-white rounded-pill px-2 py-0.5" style="font-size: 0.62rem;">PEMBERITAHUAN RESMI</span>
+                            </div>
+                            <div class="p-2.5 rounded-3 border border-warning bg-white shadow-sm" style="border-left: 4px solid #d97706 !important;">
+                                <div class="fw-bold text-dark small" id="previewNotifTitle">Pemberitahuan Sistem: Reset Perangkat Ajar</div>
+                                <div class="text-dark small my-1" id="previewNotifMessage" style="font-size: 0.8rem; line-height: 1.45;">
+                                    "Perangkat dihapus karena ada ketidaksesuaian dengan cp dan atp, mohon generate ulang, by. {{ auth()->user()->name ?? 'vicky koroh' }}"
+                                </div>
+                                <div class="text-muted" style="font-size: 0.7rem;">
+                                    <i class="bi bi-person-badge text-primary"></i> Pengirim: <strong id="previewNotifSender">{{ auth()->user()->name ?? 'Vicky Koroh' }}</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- KONFIRMASI KATA KUNCI -->
                     <div class="mb-3">
-                        <label class="form-label small text-muted fw-semibold">Ketik kata konfirmasi berikut untuk melanjutkan: <code class="text-danger fw-bold">HAPUS-SEMUA</code></label>
-                        <input type="text" id="purgeConfirmInput" class="form-control form-control-sm text-center fw-bold text-danger" placeholder="HAPUS-SEMUA" autocomplete="off" onkeyup="checkPurgeConfirmation()">
+                        <label class="form-label small text-muted fw-semibold">
+                            Ketik kata konfirmasi berikut untuk melanjutkan: <code class="text-danger fw-bold">HAPUS-SEMUA</code>
+                        </label>
+                        <input type="text" id="purgeConfirmInput" name="purge_confirmation" class="form-control form-control-sm text-center fw-bold text-danger" placeholder="HAPUS-SEMUA" autocomplete="off" onkeyup="checkPurgeConfirmation()">
                     </div>
 
                     <div class="d-flex justify-content-end gap-2 pt-2 border-top">
@@ -582,6 +653,67 @@
 
     function executeBulkDelete() {
         document.getElementById('formBulkDelete').submit();
+    }
+
+    const purgeTemplates = {
+        cp_atp: {
+            title: 'Pemberitahuan Sistem: Reset Perangkat Ajar',
+            message: 'Perangkat dihapus karena ada ketidaksesuaian dengan cp dan atp, mohon generate ulang, by. {SENDER}'
+        },
+        regulasi: {
+            title: 'Pemberitahuan Sistem: Penyesuaian Regulasi & Tahun Ajaran',
+            message: 'Perangkat ajar direset dalam rangka pembaruan regulasi Kurikulum Merdeka (BSKAP 046/2025) & penyesuaian Tahun Ajaran baru. Mohon lakukan generate ulang perangkat Anda, by. {SENDER}'
+        },
+        server_maintenance: {
+            title: 'Pemberitahuan Sistem: Pemeliharaan Server Hosting',
+            message: 'Pembersihan berkas dan optimasi database ruang hosting server telah dilakukan. Silakan buat kembali perangkat terbaru sesuai kebutuhan Anda, by. {SENDER}'
+        },
+        format_revisi: {
+            title: 'Pemberitahuan Sistem: Pembaruan Format Dokumen Pembelajaran',
+            message: 'Terdapat revisi format standar perangkat ajar (Deep Learning). Berkas lama telah dibersihkan, silakan generate kembali untuk mendapatkan format dokumen resmi terkini, by. {SENDER}'
+        },
+        custom: {
+            title: 'Pemberitahuan Sistem: Penghapusan Perangkat Ajar',
+            message: ''
+        }
+    };
+
+    function onPurgeReasonPresetChange(key) {
+        const senderEl = document.getElementById('purgeNotifSender');
+        const sender = (senderEl && senderEl.value.trim()) ? senderEl.value.trim() : 'Vicky Koroh';
+        const tpl = purgeTemplates[key] || purgeTemplates.cp_atp;
+        const titleInput = document.getElementById('purgeNotifTitle');
+        const messageInput = document.getElementById('purgeNotifMessage');
+
+        if (titleInput && messageInput) {
+            titleInput.value = tpl.title;
+            if (key !== 'custom') {
+                messageInput.value = tpl.message.replace('{SENDER}', sender);
+            } else {
+                messageInput.value = '';
+                messageInput.placeholder = 'Tuliskan alasan khusus penghapusan perangkat ajar kepada guru...';
+                messageInput.focus();
+            }
+        }
+        updatePurgeNotificationPreview();
+    }
+
+    function updatePurgeNotificationPreview() {
+        const titleEl = document.getElementById('purgeNotifTitle');
+        const messageEl = document.getElementById('purgeNotifMessage');
+        const senderEl = document.getElementById('purgeNotifSender');
+
+        const title = (titleEl && titleEl.value.trim()) ? titleEl.value.trim() : 'Pemberitahuan Sistem: Reset Perangkat Ajar';
+        const message = (messageEl && messageEl.value.trim()) ? messageEl.value.trim() : '(Pesan notifikasi kosong)';
+        const sender = (senderEl && senderEl.value.trim()) ? senderEl.value.trim() : 'Vicky Koroh';
+
+        const prevTitle = document.getElementById('previewNotifTitle');
+        const prevMsg = document.getElementById('previewNotifMessage');
+        const prevSender = document.getElementById('previewNotifSender');
+
+        if (prevTitle) prevTitle.textContent = title;
+        if (prevMsg) prevMsg.textContent = `"${message}"`;
+        if (prevSender) prevSender.textContent = sender;
     }
 
     function checkPurgeConfirmation() {
