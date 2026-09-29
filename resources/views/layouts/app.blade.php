@@ -8,9 +8,11 @@
 
     <!-- Preload Desktop Sidebar Mini State -->
     <script>
-        if (window.innerWidth >= 992 && localStorage.getItem('sidebar_collapsed') === 'true') {
-            document.documentElement.classList.add('sidebar-mini-preload');
-        }
+        try {
+            if (window.innerWidth >= 992 && localStorage.getItem('sidebar_collapsed') === 'true') {
+                document.documentElement.classList.add('sidebar-mini');
+            }
+        } catch (e) {}
     </script>
 
     <!-- Google Fonts -->
@@ -212,15 +214,38 @@
             text-align: center;
         }
 
+        /* Hover State */
         #sidebar .nav-link:hover {
-            color: #ffffff;
+            color: #ffffff !important;
             background-color: var(--sidebar-hover);
         }
+        #sidebar .nav-link:hover .sidebar-text,
+        #sidebar .nav-link:hover span {
+            color: #ffffff !important;
+        }
+        #sidebar .nav-link:hover i {
+            color: #ffffff !important;
+        }
 
+        /* Active State - Highlight Kontras Tinggi & Teks Bersih */
         #sidebar .nav-link.active {
-            color: #ffffff;
-            background: var(--sidebar-active);
-            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35);
+            color: #ffffff !important;
+            background: var(--sidebar-active) !important;
+            box-shadow: 0 4px 14px rgba(37, 99, 235, 0.4);
+        }
+        #sidebar .nav-link.active .sidebar-text,
+        #sidebar .nav-link.active span:not(.badge) {
+            color: #ffffff !important;
+            font-weight: 600;
+        }
+        #sidebar .nav-link.active i {
+            color: #ffffff !important;
+        }
+        #sidebar .nav-link.active .badge,
+        #sidebar .nav-link.active .sidebar-badge {
+            background-color: rgba(255, 255, 255, 0.25) !important;
+            color: #ffffff !important;
+            border: 1px solid rgba(255, 255, 255, 0.4) !important;
         }
 
         /* Content Area */
@@ -236,39 +261,30 @@
            AUXILIARY PANE (MINI ICON-ONLY SIDEBAR MODE FOR DESKTOP)
            ========================================================================== */
         @media (min-width: 992px) {
-            body.sidebar-mini #sidebar,
-            html.sidebar-mini-preload #sidebar {
+            .sidebar-mini #sidebar {
                 width: 72px !important;
             }
-            body.sidebar-mini #main-wrapper,
-            html.sidebar-mini-preload #main-wrapper {
+            .sidebar-mini #main-wrapper {
                 margin-left: 72px !important;
             }
-            body.sidebar-mini #sidebar .brand-box,
-            html.sidebar-mini-preload #sidebar .brand-box {
+            .sidebar-mini #sidebar .brand-box {
                 padding: 16px 8px !important;
                 justify-content: center !important;
             }
-            body.sidebar-mini #sidebar .brand-box .brand-text,
-            html.sidebar-mini-preload #sidebar .brand-box .brand-text {
+            .sidebar-mini #sidebar .brand-box .brand-text {
                 display: none !important;
             }
-            body.sidebar-mini #sidebar .user-snippet-full,
-            body.sidebar-mini #sidebar .guest-banner-full,
-            html.sidebar-mini-preload #sidebar .user-snippet-full,
-            html.sidebar-mini-preload #sidebar .guest-banner-full {
+            .sidebar-mini #sidebar .user-snippet-full,
+            .sidebar-mini #sidebar .guest-banner-full {
                 display: none !important;
             }
-            body.sidebar-mini #sidebar .user-snippet-mini,
-            body.sidebar-mini #sidebar .guest-banner-mini,
-            html.sidebar-mini-preload #sidebar .user-snippet-mini,
-            html.sidebar-mini-preload #sidebar .guest-banner-mini {
+            .sidebar-mini #sidebar .user-snippet-mini,
+            .sidebar-mini #sidebar .guest-banner-mini {
                 display: flex !important;
                 justify-content: center;
                 margin: 10px auto;
             }
-            body.sidebar-mini #sidebar .nav-header,
-            html.sidebar-mini-preload #sidebar .nav-header {
+            .sidebar-mini #sidebar .nav-header {
                 height: 1px !important;
                 padding: 0 !important;
                 margin: 12px 14px !important;
@@ -277,25 +293,25 @@
                 font-size: 0 !important;
                 color: transparent !important;
             }
-            body.sidebar-mini #sidebar .nav-link,
-            html.sidebar-mini-preload #sidebar .nav-link {
+            .sidebar-mini #sidebar .nav-link {
                 padding: 10px 0 !important;
                 margin: 4px 10px !important;
                 justify-content: center !important;
                 text-align: center;
                 border-radius: 10px !important;
             }
-            body.sidebar-mini #sidebar .nav-link i,
-            html.sidebar-mini-preload #sidebar .nav-link i {
+            .sidebar-mini #sidebar .nav-link i {
                 margin-right: 0 !important;
                 font-size: 1.25rem !important;
                 width: auto !important;
             }
-            body.sidebar-mini #sidebar .nav-link .sidebar-text,
-            body.sidebar-mini #sidebar .nav-link .sidebar-badge,
-            html.sidebar-mini-preload #sidebar .nav-link .sidebar-text,
-            html.sidebar-mini-preload #sidebar .nav-link .sidebar-badge {
+            .sidebar-mini #sidebar .nav-link .sidebar-text,
+            .sidebar-mini #sidebar .nav-link .sidebar-badge {
                 display: none !important;
+            }
+            .sidebar-mini #sidebar .nav-link > div,
+            .sidebar-mini #sidebar .nav-link > span.d-inline-flex {
+                display: contents !important;
             }
         }
 
@@ -904,8 +920,31 @@
             $('body').removeClass('overflow-hidden-mobile');
         }
 
+        function updateSidebarToggleIcon(isMini) {
+            if (isMini) {
+                $('#sidebarToggleIcon').removeClass('bi-layout-sidebar-inset').addClass('bi-layout-sidebar');
+                $('#sidebarToggle').attr('title', 'Perbesar Sidebar (Mode Penuh)');
+            } else {
+                $('#sidebarToggleIcon').removeClass('bi-layout-sidebar').addClass('bi-layout-sidebar-inset');
+                $('#sidebarToggle').attr('title', 'Kecilkan Sidebar (Mode Mini)');
+            }
+        }
+
+        function setSidebarMini(mini) {
+            if (mini) {
+                $('html, body').addClass('sidebar-mini');
+                localStorage.setItem('sidebar_collapsed', 'true');
+            } else {
+                $('html, body').removeClass('sidebar-mini');
+                document.documentElement.classList.remove('sidebar-mini-preload'); // Clean up any stale preload class
+                localStorage.setItem('sidebar_collapsed', 'false');
+            }
+            updateSidebarToggleIcon(mini);
+        }
+
         // Toggle Sidebar on mobile & desktop auxiliary pane
         $('#sidebarToggle').on('click', function(e) {
+            e.preventDefault();
             e.stopPropagation();
             if ($(window).width() < 992) {
                 if ($('#sidebar').hasClass('active')) {
@@ -914,22 +953,18 @@
                     openSidebar();
                 }
             } else {
-                $('body').toggleClass('sidebar-mini');
-                const isMini = $('body').hasClass('sidebar-mini');
-                localStorage.setItem('sidebar_collapsed', isMini ? 'true' : 'false');
-                if (isMini) {
-                    $('#sidebarToggleIcon').removeClass('bi-layout-sidebar-inset').addClass('bi-layout-sidebar');
-                } else {
-                    $('#sidebarToggleIcon').removeClass('bi-layout-sidebar').addClass('bi-layout-sidebar-inset');
-                }
+                const currentlyMini = $('html').hasClass('sidebar-mini') || $('body').hasClass('sidebar-mini');
+                setSidebarMini(!currentlyMini);
             }
         });
 
-        // Restore desktop sidebar collapsed preference
-        if ($(window).width() >= 992 && localStorage.getItem('sidebar_collapsed') === 'true') {
-            $('body').addClass('sidebar-mini');
-            $('#sidebarToggleIcon').removeClass('bi-layout-sidebar-inset').addClass('bi-layout-sidebar');
-        }
+        // Initialize desktop sidebar collapsed preference
+        $(function() {
+            if ($(window).width() >= 992) {
+                const isMini = localStorage.getItem('sidebar_collapsed') === 'true';
+                setSidebarMini(isMini);
+            }
+        });
 
         // Close sidebar button inside sidebar header
         $(document).on('click', '#sidebarCloseBtn', function() {

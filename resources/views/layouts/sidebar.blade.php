@@ -86,7 +86,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{ request()->routeIs('profile.setup') ? 'active' : '' }} text-info" href="{{ route('profile.setup') }}"
+                    <a class="nav-link {{ request()->routeIs('profile.setup') ? 'active' : '' }}" href="{{ route('profile.setup') }}"
                        data-bs-toggle="tooltip" data-bs-placement="right" title="Profil & Kop Sekolah">
                         <i class="bi bi-person-badge-fill text-info"></i>
                         <span class="sidebar-text">Profil & Kop</span>
@@ -94,23 +94,23 @@
                 </li>
             @endauth
             <li class="nav-item">
-                <a class="nav-link {{ request()->routeIs('generator.*') ? 'active' : '' }} text-warning fw-bold" href="{{ route('generator.index') }}"
+                <a class="nav-link {{ request()->routeIs('generator.*') ? 'active' : '' }}" href="{{ route('generator.index') }}"
                    data-bs-toggle="tooltip" data-bs-placement="right" title="Generator 1-Klik">
                     <i class="bi bi-lightning-charge-fill text-warning"></i>
-                    <span class="sidebar-text">Generator 1-Klik</span>
+                    <span class="sidebar-text fw-semibold text-light">Generator 1-Klik</span>
                 </a>
             </li>
             <!-- 🤖 VX AGENT TEPAT DI BAWAH GENERATOR 1-KLIK DENGAN POPUP PANDUAN KEREN -->
             <li class="nav-item">
-                <a class="nav-link {{ request()->routeIs('pakar-ai.*') ? 'active' : '' }} text-primary fw-bold d-flex align-items-center justify-content-between" 
+                <a class="nav-link {{ request()->routeIs('pakar-ai.*') ? 'active' : '' }} d-flex align-items-center justify-content-between" 
                    href="javascript:void(0)" 
                    onclick="showVxAgentWelcomeModal(); return false;"
                    data-bs-toggle="tooltip" data-bs-placement="right" title="Vx Agent - Asisten Kurikulum, Tambah Materi & Konsultasi">
                     <span class="d-inline-flex align-items-center">
-                        <i class="bi bi-robot text-primary fs-5"></i>
-                        <span class="sidebar-text ms-1">Vx Agent</span>
+                        <i class="bi bi-robot text-info fs-5"></i>
+                        <span class="sidebar-text ms-1 fw-semibold text-light">Vx Agent</span>
                     </span>
-                    <span class="badge rounded-pill bg-primary text-white sidebar-badge" style="font-size: 0.65rem; padding: 2px 7px;">
+                    <span class="badge rounded-pill bg-info bg-opacity-25 text-info border border-info border-opacity-50 sidebar-badge" style="font-size: 0.65rem; padding: 2px 7px;">
                         <i class="bi bi-stars"></i> Pintar
                     </span>
                 </a>
@@ -237,7 +237,7 @@
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('cms.traffic.*') ? 'active' : '' }} d-flex align-items-center justify-content-between" href="{{ route('cms.traffic.index') }}"
                            data-bs-toggle="tooltip" data-bs-placement="right" title="Traffic Pengunjung Realtime">
-                            <div>
+                            <div class="d-inline-flex align-items-center">
                                 <i class="bi bi-activity text-danger"></i>
                                 <span class="sidebar-text">Traffic Realtime</span>
                             </div>
@@ -264,7 +264,7 @@
                         @endphp
                         <a class="nav-link {{ request()->routeIs('cms.feedbacks.*') ? 'active' : '' }} d-flex align-items-center justify-content-between" href="{{ route('cms.feedbacks.index') }}"
                            data-bs-toggle="tooltip" data-bs-placement="right" title="Kotak Usul & Saran Guru">
-                            <div>
+                            <div class="d-inline-flex align-items-center">
                                 <i class="bi bi-chat-quote-fill text-warning"></i>
                                 <span class="sidebar-text">Usul & Saran</span>
                             </div>
@@ -276,7 +276,7 @@
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('cms.settings.*') ? 'active' : '' }}" href="{{ route('cms.settings.index') }}"
                            data-bs-toggle="tooltip" data-bs-placement="right" title="Pengaturan Aplikasi & Regulasi">
-                            <i class="bi bi-sliders2 text-primary"></i>
+                            <i class="bi bi-sliders2 text-info"></i>
                             <span class="sidebar-text">Pengaturan</span>
                         </a>
                     </li>
