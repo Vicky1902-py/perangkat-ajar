@@ -9,7 +9,7 @@
     <header class="superapp-topbar d-flex justify-content-between align-items-center mb-3">
         <div class="d-flex align-items-center gap-2.5 min-w-0">
             <!-- User Avatar with Verified Seal -->
-            <div class="position-relative flex-shrink-0">
+            <a href="{{ route('profile.setup') }}" class="position-relative flex-shrink-0 text-decoration-none" title="Pengaturan Profil & Akun">
                 <div class="superapp-avatar-ring">
                     @if(auth()->user()->profile_photo_url ?? false)
                         <img src="{{ auth()->user()->profile_photo_url }}" alt="{{ auth()->user()->name }}" class="w-100 h-100 rounded-circle object-fit-cover">
@@ -22,37 +22,43 @@
                 <span class="superapp-verified-badge" title="Guru Terverifikasi Kedinasan">
                     <span class="material-symbols-outlined fill-icon" style="font-size: 11px;">verified</span>
                 </span>
-            </div>
+            </a>
 
             <!-- User Info & School -->
             <div class="overflow-hidden">
                 <div class="d-flex align-items-center gap-1.5">
-                    <span class="superapp-eyebrow text-truncate" style="max-width: 170px;">
+                    <span class="superapp-eyebrow text-truncate" style="max-width: 155px;">
                         {{ strtoupper(auth()->user()->satuanPendidikan->nama ?? 'SMKN INDONESIA') }}
                     </span>
                     <span class="superapp-amber-dot"></span>
                 </div>
                 <h1 class="superapp-user-name text-truncate mb-0">
-                    {{ auth()->user()->name }}
+                    <a href="{{ route('profile.setup') }}" class="text-decoration-none text-dark">
+                        {{ auth()->user()->name }}
+                    </a>
                 </h1>
             </div>
         </div>
 
         <!-- Trailing Action Icons -->
-        <div class="d-flex align-items-center gap-2 flex-shrink-0">
+        <div class="d-flex align-items-center gap-1.5 flex-shrink-0">
             <!-- Support / Vx Agent Button -->
             <button type="button" class="superapp-icon-btn" onclick="showVxAgentWelcomeModal(); return false;" title="Konsultasi Vx Agent">
-                <span class="material-symbols-outlined text-primary" style="font-size: 20px;">support_agent</span>
+                <span class="material-symbols-outlined text-primary" style="font-size: 19px;">support_agent</span>
             </button>
             <!-- Notifications Bell -->
             <div class="position-relative">
                 <button type="button" class="superapp-icon-btn" onclick="openWelcomePopup()" title="Pusat Panduan & Notifikasi">
-                    <span class="material-symbols-outlined text-dark" style="font-size: 20px;">notifications</span>
+                    <span class="material-symbols-outlined text-dark" style="font-size: 19px;">notifications</span>
                     @if(isset($appUnreadNotifs) && $appUnreadNotifs->isNotEmpty())
                         <span class="superapp-notif-dot"></span>
                     @endif
                 </button>
             </div>
+            <!-- Logout Button -->
+            <button type="button" class="superapp-icon-btn text-danger border border-danger-subtle bg-danger-subtle" onclick="confirmMobileLogout(); return false;" title="Keluar dari Akun">
+                <span class="material-symbols-outlined text-danger" style="font-size: 19px;">logout</span>
+            </button>
         </div>
     </header>
 
@@ -543,7 +549,15 @@
                             </div>
                             <span class="superapp-squircle-label">Smart Soal</span>
                         </a>
-                    </div>
+                </div>
+                <!-- Akun & Logout -->
+                <div class="border-top pt-2.5 mt-3 d-flex align-items-center justify-content-between">
+                    <a href="{{ route('profile.setup') }}" class="btn btn-sm btn-light border rounded-pill px-3 text-secondary d-inline-flex align-items-center gap-1.5" style="font-size: 0.74rem;">
+                        <span class="material-symbols-outlined" style="font-size: 16px;">person</span> Profil Saya
+                    </a>
+                    <button type="button" class="btn btn-sm btn-outline-danger rounded-pill px-3 d-inline-flex align-items-center gap-1.5" onclick="confirmMobileLogout(); return false;" style="font-size: 0.74rem;">
+                        <span class="material-symbols-outlined" style="font-size: 16px;">logout</span> Keluar Akun
+                    </button>
                 </div>
             </div>
         </div>

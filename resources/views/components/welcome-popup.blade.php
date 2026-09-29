@@ -784,19 +784,47 @@
         100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(56, 189, 248, 0); }
     }
 
-    @media (max-width: 575.98px) {
+    @media (max-width: 767.98px) {
         .floating-guide-btn {
-            bottom: 16px;
-            right: 16px;
-            padding: 8px 14px;
+            bottom: 74px !important; /* Ditempatkan AMAN di atas Floating Pill Bottom Nav (10px + 52px + 12px) */
+            right: 14px !important;
+            padding: 7px 12px !important;
+            border-radius: 9999px !important;
+            box-shadow: 0 8px 24px rgba(11, 59, 96, 0.45) !important;
+            z-index: 1040 !important;
         }
         .floating-guide-btn .fab-text {
-            font-size: 0.8rem;
+            font-size: 0.72rem !important;
         }
         .creator-avatar-wrap {
             width: 100px;
             height: 100px;
         }
+    }
+
+    /* Pada layar smartphone kecil (< 400px), ubah menjadi lingkaran ikon kompak agar hemat ruang */
+    @media (max-width: 400px) {
+        .floating-guide-btn {
+            bottom: 74px !important;
+            right: 12px !important;
+            width: 40px !important;
+            height: 40px !important;
+            padding: 0 !important;
+            border-radius: 50% !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+        }
+        .floating-guide-btn .fab-text {
+            display: none !important;
+        }
+    }
+
+    /* Jangan tampilkan floating guide button pada layar generator atau naskah soal yang memiliki floating action dock tersendiri */
+    body:has(.mobile-soal-floating-dock) .floating-guide-btn,
+    body:has(.mobile-generator-floating-dock) .floating-guide-btn,
+    body:has(.mobile-action-dock) .floating-guide-btn {
+        display: none !important;
     }
 </style>
 

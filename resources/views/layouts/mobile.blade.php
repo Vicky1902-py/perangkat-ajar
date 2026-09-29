@@ -230,6 +230,13 @@
             transform: scale(0.92);
             background: #e2e8f0;
         }
+
+        /* Guarantee floating-guide-btn is safely elevated above the floating pill bottom nav */
+        .floating-guide-btn {
+            bottom: 74px !important;
+            right: 14px !important;
+            z-index: 1040 !important;
+        }
     </style>
 
     @stack('styles')
@@ -240,7 +247,7 @@
         <!-- MOBILE TOPBAR (CUSTOMIZABLE PER VIEW OR DEFAULT GLOBAL) -->
         @hasSection('header')
             @yield('header')
-        @else
+        @elseif(empty(trim($__env->yieldContent('no_global_header'))))
             <header class="stitch-mobile-header">
                 <a href="{{ auth()->check() ? route('dashboard') : route('generator.index') }}" class="stitch-brand-chip">
                     @if(app_logo_url())
@@ -264,6 +271,9 @@
                         <a href="{{ route('profile.setup') }}" class="btn btn-sm btn-light border rounded-circle p-1.5 d-flex align-items-center justify-content-center" title="Profil Pengguna" style="width: 34px; height: 34px;">
                             <span class="material-symbols-outlined text-secondary" style="font-size: 19px;">person</span>
                         </a>
+                        <button type="button" class="btn btn-sm btn-light border text-danger rounded-circle p-1.5 d-flex align-items-center justify-content-center" onclick="confirmMobileLogout(); return false;" title="Keluar / Logout" style="width: 34px; height: 34px;">
+                            <span class="material-symbols-outlined" style="font-size: 19px;">logout</span>
+                        </button>
                     @else
                         <a href="{{ route('login') }}" class="btn btn-sm btn-primary rounded-pill px-2.5 py-1 fw-bold" style="font-size: 0.72rem;">
                             Masuk
@@ -301,6 +311,13 @@
                 <i class="bi bi-display"></i>
                 <span>Beralih ke Tampilan Komputer (PC / Desktop)</span>
             </a>
+            @auth
+                <div class="mt-2.5">
+                    <button type="button" class="btn btn-sm btn-outline-danger rounded-pill px-3 py-1 font-monospace" onclick="confirmMobileLogout(); return false;" style="font-size: 0.72rem;">
+                        <span class="material-symbols-outlined align-middle" style="font-size: 14px;">logout</span> Keluar dari Akun (Logout)
+                    </button>
+                </div>
+            @endauth
             <div class="text-muted mt-2" style="font-size: 0.65rem;">
                 {{ app_setting('app_name', 'Perangkat Ajar SMK') }} &copy; {{ date('Y') }} &bull; Hak Cipta : Desain by. {{ app_setting('landing_creator_name', 'Vicky Koroh') }}
             </div>
@@ -313,6 +330,13 @@
     <!-- POPUP MODAL VX AGENT -->
     @include('components.welcome-popup')
 
+    @auth
+        <!-- HIDDEN LOGOUT FORM FOR MOBILE -->
+        <form id="mobileLogoutForm" action="{{ route('logout') }}" method="POST" class="d-none">
+            @csrf
+        </form>
+    @endauth
+
     <!-- SCRIPTS -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
@@ -324,6 +348,35 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
+
+        function confirmMobileLogout() {
+            if (typeof Swal !== 'undefined') {
+                Swal.fire({
+                    title: 'Keluar dari Akun?',
+                    text: 'Sesi Anda di perangkat ini akan diakhiri.',
+                    icon: 'question',
+                    showCancelButton: true,
+                    confirmButtonColor: '#ef4444',
+                    cancelButtonColor: '#64748b',
+                    confirmButtonText: 'Ya, Keluar',
+                    cancelButtonText: 'Batal',
+                    reverseButtons: true,
+                    customClass: {
+                        popup: 'rounded-4 border-0 shadow-lg'
+                    }
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        const form = document.getElementById('mobileLogoutForm');
+                        if (form) form.submit();
+                    }
+                });
+            } else {
+                if (confirm('Apakah Anda yakin ingin keluar dari akun?')) {
+                    const form = document.getElementById('mobileLogoutForm');
+                    if (form) form.submit();
+                }
+            }
+        }
     </script>
 
     @stack('scripts')
