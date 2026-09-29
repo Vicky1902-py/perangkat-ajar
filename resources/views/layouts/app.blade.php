@@ -496,6 +496,140 @@
             color: white;
         }
 
+        /* ==========================================================================
+           DESKTOP POLISH: TABLES, FORMS, BUTTONS & TYPOGRAPHY
+           ========================================================================== */
+        @media (min-width: 992px) {
+            main.container-fluid {
+                padding: 24px 32px 48px !important;
+            }
+        }
+
+        /* Modern Desktop Tables */
+        .table {
+            color: #334155;
+            vertical-align: middle;
+            border-color: #f1f5f9;
+        }
+        .table > thead {
+            background-color: #f8fafc;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        .table > thead th {
+            font-size: 0.76rem;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            font-weight: 700;
+            color: #64748b;
+            padding: 12px 16px;
+            border-top: none;
+            white-space: nowrap;
+        }
+        .table > tbody td {
+            padding: 14px 16px;
+            border-bottom: 1px solid #f1f5f9;
+            font-size: 0.88rem;
+        }
+        .table-hover > tbody > tr:hover {
+            background-color: rgba(241, 245, 249, 0.65);
+            transition: background-color 0.15s ease-in-out;
+        }
+
+        /* Modern Desktop Form Controls */
+        .form-control, .form-select {
+            border: 1px solid #cbd5e1;
+            border-radius: 10px;
+            padding: 9px 14px;
+            font-size: 0.88rem;
+            color: #1e293b;
+            background-color: #ffffff;
+            transition: all 0.2s ease-in-out;
+        }
+        .form-control:focus, .form-select:focus {
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+            outline: 0;
+        }
+        .form-label {
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: #475569;
+            margin-bottom: 6px;
+        }
+
+        /* Modern Desktop DataTables */
+        div.dataTables_wrapper div.dataTables_filter {
+            text-align: right;
+            margin-bottom: 14px;
+        }
+        div.dataTables_wrapper div.dataTables_filter label {
+            font-weight: 600;
+            font-size: 0.84rem;
+            color: #475569;
+            display: inline-flex;
+            align-items: center;
+        }
+        div.dataTables_wrapper div.dataTables_filter input {
+            border: 1px solid #cbd5e1;
+            border-radius: 20px;
+            padding: 6px 14px;
+            font-size: 0.84rem;
+            margin-left: 8px;
+            transition: all 0.2s;
+        }
+        div.dataTables_wrapper div.dataTables_filter input:focus {
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+            outline: none;
+        }
+        div.dataTables_wrapper div.dataTables_length label {
+            font-weight: 500;
+            font-size: 0.84rem;
+            color: #64748b;
+        }
+        div.dataTables_wrapper div.dataTables_length select {
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            padding: 4px 28px 4px 10px;
+            font-size: 0.84rem;
+        }
+        div.dataTables_wrapper div.dataTables_info {
+            font-size: 0.82rem;
+            color: #64748b;
+            padding-top: 12px;
+        }
+        div.dataTables_wrapper div.dataTables_paginate {
+            padding-top: 10px;
+        }
+
+        /* Desktop Table Action Buttons */
+        .btn-group-sm > .btn, .btn-sm {
+            padding: 5px 10px;
+            font-size: 0.82rem;
+            border-radius: 6px;
+        }
+        .btn-group-sm > .btn i {
+            font-size: 0.88rem;
+        }
+
+        /* Desktop Custom Scrollbar */
+        @media (min-width: 992px) {
+            ::-webkit-scrollbar {
+                width: 8px;
+                height: 8px;
+            }
+            ::-webkit-scrollbar-track {
+                background: #f1f5f9;
+            }
+            ::-webkit-scrollbar-thumb {
+                background: #cbd5e1;
+                border-radius: 4px;
+            }
+            ::-webkit-scrollbar-thumb:hover {
+                background: #94a3b8;
+            }
+        }
+
         /* Sidebar Backdrop for Mobile/Tablet */
         .sidebar-backdrop {
             position: fixed;
@@ -1041,6 +1175,25 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     document.getElementById(formId).submit();
+                }
+            });
+        }
+
+        // SweetAlert helper for desktop logout confirmation
+        function confirmLogout() {
+            Swal.fire({
+                title: 'Konfirmasi Keluar',
+                text: 'Apakah Anda yakin ingin keluar dari sistem Perangkat Ajar?',
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#dc2626',
+                cancelButtonColor: '#64748b',
+                confirmButtonText: '<i class="bi bi-box-arrow-right me-1"></i> Ya, Keluar',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    const form = document.getElementById('logoutForm');
+                    if (form) form.submit();
                 }
             });
         }

@@ -129,7 +129,7 @@
                     <li>
                         <form method="POST" action="{{ route('logout') }}" id="logoutForm">
                             @csrf
-                            <button type="submit" class="dropdown-item py-2 small text-danger d-flex align-items-center gap-2">
+                            <button type="button" class="dropdown-item py-2 small text-danger d-flex align-items-center gap-2" onclick="confirmLogout()">
                                 <i class="bi bi-box-arrow-right"></i> Keluar (Logout)
                             </button>
                         </form>
